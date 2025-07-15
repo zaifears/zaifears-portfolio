@@ -1,36 +1,68 @@
-import Link from 'next/link'
-import { formatDate, getBlogPosts } from 'app/blog/utils'
+import Image from 'next/image';
+// ✅ STEP 1: Import the FontAwesomeIcon component and the necessary icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faLinkedin, faYoutube } from '@fortawesome/free-brands-svg-icons';
+// Import the new email icon from the 'solid' package
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
-export function BlogPosts() {
-  let allBlogs = getBlogPosts()
-
+export default function Page() {
   return (
-    <div>
-      {allBlogs
-        .sort((a, b) => {
-          if (
-            new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
-          ) {
-            return -1
-          }
-          return 1
-        })
-        .map((post) => (
-          <Link
-            key={post.slug}
-            className="flex flex-col space-y-1 mb-4"
-            href={`/blog/${post.slug}`}
-          >
-            <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
-              <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums">
-                {formatDate(post.metadata.publishedAt, false)}
-              </p>
-              <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
-                {post.metadata.title}
-              </p>
-            </div>
-          </Link>
-        ))}
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-xl font-semibold mb-4 text-pink-600">Who is Shahoriar?</h2>
+
+      {/* Hero Section: Profile picture and introduction */}
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
+        <div className="w-48 h-48 flex-shrink-0">
+          <Image
+            src="/my-profile.jpg"
+            alt="MD AL SHAHORIAR HOSSAIN"
+            width={193}
+            height={193}
+            className="rounded-lg shadow-md object-cover w-full h-full"
+          />
+        </div>
+
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl font-bold tracking-tight mb-2">MD AL SHAHORIAR HOSSAIN</h1>
+          <p className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
+            Hello everyone! This is Shahoriar Hossain, aka Zaifears Republic. Thank you for showing interest in
+            my life. This website is basically a portfolio and life log. Enjoy!
+          </p>
+        </div>
+      </div>
+
+      {/* About Me Section */}
+      <div className="border-t pt-8 mt-8">
+        <h2 className="text-2xl font-semibold mb-4">About me:</h2>
+        <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+          Tech enthusiast with a passion for stock market analysis and active investment. Occasionally
+          writes about economy and finance-related issues. Recognized for trustworthiness and enthusiasm in
+          expanding knowledge and learning new things. Feel free to reach out!
+        </p>
+      </div>
+
+      {/* Social Links Section */}
+      <div className="border-t pt-8 mt-8">
+        <h2 className="text-2xl font-semibold mb-4">Social Links</h2>
+        <div className="flex justify-start gap-6 items-center">
+          {/* Facebook Link */}
+          <a href="https://facebook.com/alshahoriar.hossain" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-3xl">
+            <FontAwesomeIcon icon={faFacebook} />
+          </a>
+          {/* LinkedIn Link */}
+          <a href="https://www.linkedin.com/in/shahoriarhossain/" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:text-blue-900 text-3xl">
+            <FontAwesomeIcon icon={faLinkedin} />
+          </a>
+          {/* YouTube Link */}
+          <a href="https://www.youtube.com/@takatunes" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-800 text-3xl">
+            <FontAwesomeIcon icon={faYoutube} />
+          </a>
+          {/* ✅ STEP 2: Add the new email icon link */}
+          <a href="mailto:alshahoriar.hossain@gmail.com" className="text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white text-3xl">
+            <FontAwesomeIcon icon={faEnvelope} />
+          </a>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
