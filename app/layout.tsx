@@ -1,5 +1,4 @@
 import './global.css'
-// ✅ ADDED: This is the crucial configuration for Font Awesome in Next.js
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
@@ -13,18 +12,24 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
 
+// ✅ THIS IS THE SECTION TO EDIT
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Next.js Portfolio Starter',
-    template: '%s | Next.js Portfolio Starter',
+    default: 'Shahoriar Hossain', // The default title for your site
+    template: '%s | Shahoriar Hossain', // Used for other pages like blog posts
   },
-  description: 'This is my portfolio.',
+  description: "Shahoriar Hossain's personal portfolio and life log.",
+  // ✅ ADDED: This section tells the browser what icon to use for the tab.
+  // You must add a file named 'favicon.ico' to your 'public' folder for this to work.
+  icons: {
+    icon: '/favicon.ico',
+  },
   openGraph: {
-    title: 'My Portfolio',
-    description: 'This is my portfolio.',
+    title: 'Shahoriar Hossain',
+    description: "Shahoriar Hossain's personal portfolio and life log.",
     url: baseUrl,
-    siteName: 'My Portfolio',
+    siteName: 'Shahoriar Hossain',
     locale: 'en_US',
     type: 'website',
   },
@@ -57,7 +62,6 @@ export default function RootLayout({
         GeistMono.variable
       )}
     >
-      {/* ❌ NOTE: The old <script> tag for Font Awesome has been removed. */}
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
           <Navbar />
