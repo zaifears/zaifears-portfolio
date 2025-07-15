@@ -1,9 +1,9 @@
 import Image from 'next/image';
-// ✅ STEP 1: Import the FontAwesomeIcon component and the necessary icons
+// We still need these for the other icons that are working correctly.
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faYoutube } from '@fortawesome/free-brands-svg-icons';
-// Import the new email icon from the 'solid' package
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+
+// We no longer need to import the faEnvelope icon.
 
 export default function Page() {
   return (
@@ -57,10 +57,20 @@ export default function Page() {
           <a href="https://www.youtube.com/@takatunes" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-800 text-3xl">
             <FontAwesomeIcon icon={faYoutube} />
           </a>
-          {/* ✅ STEP 2: Add the new email icon link */}
-          <a href="mailto:alshahoriar.hossain@gmail.com" className="text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white text-3xl">
-            <FontAwesomeIcon icon={faEnvelope} />
-          </a>
+          
+          {/* ✅ UPDATED: Email link now uses an inline SVG for reliability */}
+          <a
+  href="mailto:alshahoriar.hossain@gmail.com"
+  className="text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+>
+  <svg
+    className="w-8 h-8 fill-current"
+    viewBox="0 0 512 512"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+  </svg>
+</a>
         </div>
       </div>
     </div>

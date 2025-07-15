@@ -1,7 +1,9 @@
 import Image from 'next/image';
-// Imports the FontAwesomeIcon component and the specific icons you need
+// We import the FontAwesomeIcon component and the brand icons that are working.
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faYoutube } from '@fortawesome/free-brands-svg-icons';
+
+// We do NOT need to import the email icon because we will render it directly.
 
 export default function Page() {
   return (
@@ -42,16 +44,30 @@ export default function Page() {
       {/* Social Links Section */}
       <div className="border-t pt-8 mt-8">
         <h2 className="text-2xl font-semibold mb-4">Social Links</h2>
-        <div className="flex justify-start gap-6">
-          {/* Replaced <i> tags with the FontAwesomeIcon component for reliability */}
+        <div className="flex justify-start gap-6 items-center">
+          {/* Facebook Link */}
           <a href="https://facebook.com/alshahoriar.hossain" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-3xl">
             <FontAwesomeIcon icon={faFacebook} />
           </a>
+          {/* LinkedIn Link */}
           <a href="https://www.linkedin.com/in/shahoriarhossain/" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:text-blue-900 text-3xl">
             <FontAwesomeIcon icon={faLinkedin} />
           </a>
+          {/* YouTube Link */}
           <a href="https://www.youtube.com/@takatunes" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-800 text-3xl">
             <FontAwesomeIcon icon={faYoutube} />
+          </a>
+          
+          {/* ✅ Email link using a reliable inline SVG */}
+          <a href="mailto:alshahoriar.hossain@gmail.com" className="text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white text-3xl">
+            <svg
+              className="w-8 h-8" // Control the size here
+              fill="currentColor"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+            </svg>
           </a>
         </div>
       </div>
