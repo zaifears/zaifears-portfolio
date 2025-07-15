@@ -35,7 +35,7 @@ export default function Page() {
       <div className="border-t pt-8 mt-8">
         <h2 className="text-2xl font-semibold mb-4">About me:</h2>
         <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
-          Tech enthusiast with a passion for stock market analysis and active investment. Occasionally
+          Born in Mymensingh, 23rd of June. Tech enthusiast with a passion for stock market analysis and active investment. Occasionally
           writes about economy and finance-related issues. Recognized for trustworthiness and enthusiasm in
           expanding knowledge and learning new things. Feel free to reach out!
         </p>

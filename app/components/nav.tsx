@@ -7,9 +7,12 @@ const navItems = {
   '/education': {
     name: 'Education',
   },
-  // ✅ ADDED: The new 'skill' link.
   '/skills': {
     name: 'Skills',
+  },
+  // The path for Blog can be a placeholder like '#' since it's not a real link now.
+  '/blog': {
+    name: 'Blog',
   },
 }
 
@@ -22,6 +25,19 @@ export function Navbar() {
       >
         <div className="flex flex-row space-x-0 pr-10">
           {Object.entries(navItems).map(([path, { name }]) => {
+            // ✅ If the item is 'Blog', render it as a disabled-looking span.
+            if (name === 'Blog') {
+              return (
+                <span
+                  key={path}
+                  className="text-neutral-500 dark:text-neutral-600 flex align-middle relative py-1 px-2 cursor-not-allowed"
+                  title="Under Maintenance"
+                >
+                  {name}
+                </span>
+              );
+            }
+            // Otherwise, render it as a normal link.
             return (
               <Link
                 key={path}
