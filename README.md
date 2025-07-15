@@ -2,7 +2,10 @@
 
 Welcome! This is the source code for my personal portfolio website.
 
-You can view the live site here: zaifears.vercel.app
+You can view the live site here: 
+```bash
+zaifears.vercel.app
+```
 
 This project was originally based on a Vercel template and has been customized to showcase my profile, education, and skills. Thank you for visiting and checking out my work!
 
