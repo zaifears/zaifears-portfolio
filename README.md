@@ -1,23 +1,28 @@
-# Portfolio Blog Starter
+# Shahoriar Hossain's Portfolio
 
-This is a porfolio site template complete with a blog. Includes:
+Welcome! This is the source code for my personal portfolio website.
 
-- MDX and Markdown support
-- Optimized for SEO (sitemap, robots, JSON-LD schema)
-- RSS Feed
-- Dynamic OG images
-- Syntax highlighting
-- Tailwind v4
-- Vercel Speed Insights / Web Analytics
-- Geist font
+You can view the live site here: 
+```bash
+zaifears.vercel.app
+```
 
-## Demo
+This project was originally based on a Vercel template and has been customized to showcase my profile, education, and skills. Thank you for visiting and checking out my work!
 
-https://portfolio-blog-starter.vercel.app
+# Core Technologies
 
-## How to Use
+This site is built with modern web technologies, including:
 
-You can choose from one of the following two methods to use this repository:
+- Next.js (React Framework)
+
+- Tailwind CSS (CSS Framework)
+
+- Vercel Speed Insights & Web Analytics
+
+- Deployed on Vercel
+
+# Use This as a Template
+If you like the structure of this portfolio, you can easily create your own version.
 
 ### One-Click Deploy
 
