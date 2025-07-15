@@ -1,17 +1,16 @@
-import { getBlogPosts } from 'app/blog/utils'
+// This file tells search engines what pages are on your site.
 
-export const baseUrl = 'https://portfolio-blog-starter.vercel.app'
+// ✅ UPDATED: Set the baseUrl to your actual website URL.
+export const baseUrl = 'https://zaifears.vercel.app';
 
 export default async function sitemap() {
-  let blogs = getBlogPosts().map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.metadata.publishedAt,
-  }))
+  // ✅ REMOVED: The logic that tried to get blog posts has been deleted.
 
-  let routes = ['', '/blog'].map((route) => ({
+  // This creates a list of your current pages (Home and Education).
+  const routes = ['', '/education'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
-  }))
+  }));
 
-  return [...routes, ...blogs]
+  return routes;
 }
