@@ -1,14 +1,13 @@
 import Link from 'next/link'
 
+// The navItems object now holds the direct links.
+// I've changed the key for "contact me" to be the actual mailto link.
 const navItems = {
   '/': {
-    name: 'home',
+    name: 'Home',
   },
-  '/blog': {
-    name: 'blog',
-  },
-  'https://vercel.com/templates/next.js/portfolio-starter-kit': {
-    name: 'deploy',
+  'mailto:alshahoriar.hossain@gmail.com': {
+    name: 'Contact Me',
   },
 }
 
@@ -21,12 +20,13 @@ export function Navbar() {
           id="nav"
         >
           <div className="flex flex-row space-x-0 pr-10">
+            {/* The rest of the code works as before. It reads the key as the link destination (href). */}
             {Object.entries(navItems).map(([path, { name }]) => {
               return (
                 <Link
                   key={path}
                   href={path}
-                  className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
+                  className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2"
                 >
                   {name}
                 </Link>
