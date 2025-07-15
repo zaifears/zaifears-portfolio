@@ -41,16 +41,18 @@ export default function BlogPage() {
         <div className="mb-8 md:mb-16">
           <Link href={`/blog/${heroPost.slug}`} className="group">
             <article>
-              {/* Image for the hero post */}
-              <div className="mb-4">
-                <Image
-                  src={heroPost.image}
-                  alt={`Cover image for ${heroPost.title}`}
-                  width={1200}
-                  height={630}
-                  className="rounded-lg object-cover shadow-md"
-                />
-              </div>
+              {/* ✅ FIXED: Conditionally render the image only if heroPost.image exists */}
+              {heroPost.image && (
+                <div className="mb-4">
+                  <Image
+                    src={heroPost.image}
+                    alt={`Cover image for ${heroPost.title}`}
+                    width={1200}
+                    height={630}
+                    className="rounded-lg object-cover shadow-md"
+                  />
+                </div>
+              )}
               <h2 className="text-2xl md:text-3xl font-bold mb-2 group-hover:underline">
                 {heroPost.title}
               </h2>
