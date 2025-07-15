@@ -1,9 +1,9 @@
 import Image from 'next/image';
-// We import the FontAwesomeIcon component and the brand icons that are working.
+// We still need these for the social media icons.
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
-// We do NOT need to import the email icon because we will render it directly.
+// ✅ The problematic 'import { BlogPosts } from ...' line has been removed.
 
 export default function Page() {
   return (
@@ -58,10 +58,10 @@ export default function Page() {
             <FontAwesomeIcon icon={faYoutube} />
           </a>
           
-          {/* ✅ Email link using a reliable inline SVG */}
+          {/* Email link using a reliable inline SVG */}
           <a href="mailto:alshahoriar.hossain@gmail.com" className="text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white text-3xl">
             <svg
-              className="w-8 h-8" // Control the size here
+              className="w-8 h-8"
               fill="currentColor"
               viewBox="0 0 512 512"
               xmlns="http://www.w3.org/2000/svg"
