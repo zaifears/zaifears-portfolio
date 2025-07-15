@@ -4,9 +4,12 @@ const navItems = {
   '/': {
     name: 'Home',
   },
-  // ✅ UPDATED: Changed 'contact me' to 'education' and linked it to a new page.
   '/education': {
     name: 'Education',
+  },
+  // ✅ ADDED: The new 'skill' link.
+  '/skills': {
+    name: 'Skills',
   },
 }
 
