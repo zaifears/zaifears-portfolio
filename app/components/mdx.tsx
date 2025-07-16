@@ -1,20 +1,28 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { MDXRemote } from 'next-mdx-remote/rsc'
-import { highlight } from 'sugar-high'
-import React from 'react'
+import Link from 'next/link';
+import Image from 'next/image';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { highlight } from 'sugar-high';
+import React from 'react';
 
-function Table({ data }) {
+// Define the interface for the 'data' prop of the Table component
+interface TableData {
+  headers: string[];
+  rows: string[][];
+}
+
+// Update the Table component to use the defined interface for its 'data' prop
+function Table({ data }: { data: TableData }) {
   let headers = data.headers.map((header, index) => (
     <th key={index}>{header}</th>
-  ))
+  ));
+
   let rows = data.rows.map((row, index) => (
     <tr key={index}>
       {row.map((cell, cellIndex) => (
         <td key={cellIndex}>{cell}</td>
       ))}
     </tr>
-  ))
+  ));
 
   return (
     <table>
@@ -23,50 +31,58 @@ function Table({ data }) {
       </thead>
       <tbody>{rows}</tbody>
     </table>
-  )
+  );
 }
 
-function CustomLink(props) {
-  let href = props.href
+// Fix for Link href type
+// We'll define a more specific type for CustomLink props
+interface CustomLinkProps extends React.ComponentProps<'a'> {
+  href: string; // Make href explicitly required as a string for MDX links
+}
+
+function CustomLink(props: CustomLinkProps) { // Use the new specific type
+  let href = props.href;
 
   if (href.startsWith('/')) {
     return (
-      <Link href={href} {...props}>
+      // When using Link, ensure href is always a string.
+      // We can omit href from the spread props to explicitly pass it.
+      <Link href={href} {...(props as Omit<CustomLinkProps, 'href'>)}>
         {props.children}
       </Link>
-    )
+    );
   }
 
   if (href.startsWith('#')) {
-    return <a {...props} />
+    return <a {...props} />;
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...props} />
+  return <a target="_blank" rel="noopener noreferrer" {...props} />;
 }
 
-function RoundedImage(props) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />
+function RoundedImage(props: React.ComponentProps<typeof Image>) {
+  return <Image className="rounded-lg" {...props} />;
 }
 
-function Code({ children, ...props }) {
-  let codeHTML = highlight(children)
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+function Code({ children, ...props }: { children: string } & React.ComponentProps<'code'>) {
+  let codeHTML = highlight(children);
+  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
-function slugify(str) {
+function slugify(str: string): string {
   return str
     .toString()
     .toLowerCase()
-    .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/&/g, '-and-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-');
 }
 
-function createHeading(level) {
-  const Heading = ({ children }) => {
-    let slug = slugify(children)
+function createHeading(level: number) {
+  const Heading = ({ children }: { children: string | React.ReactNode }) => {
+    let slug = slugify(typeof children === 'string' ? children : '');
     return React.createElement(
       `h${level}`,
       { id: slug },
@@ -78,15 +94,15 @@ function createHeading(level) {
         }),
       ],
       children
-    )
-  }
+    );
+  };
 
-  Heading.displayName = `Heading${level}`
+  Heading.displayName = `Heading${level}`;
 
-  return Heading
+  return Heading;
 }
 
-let components = {
+export const components = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
@@ -96,14 +112,14 @@ let components = {
   Image: RoundedImage,
   a: CustomLink,
   code: Code,
-  Table,
-}
+  table: Table,
+};
 
-export function CustomMDX(props) {
+export function CustomMDX(props: React.ComponentProps<typeof MDXRemote>) {
   return (
     <MDXRemote
       {...props}
       components={{ ...components, ...(props.components || {}) }}
     />
-  )
+  );
 }
