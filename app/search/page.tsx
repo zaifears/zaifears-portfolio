@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'; // Import useSearchParams to get query from URL
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react'; // Import Suspense
 
 // Define a type for your search results
 interface SearchResult {
@@ -13,8 +13,6 @@ interface SearchResult {
 }
 
 // Mock data representing content from your pages.
-// In a real application, this might come from a local JSON file,
-// or a pre-indexed search data generated at build time.
 const searchableContent: SearchResult[] = [
   {
     title: "Welcome to My Portfolio",
@@ -34,12 +32,12 @@ const searchableContent: SearchResult[] = [
     path: "/skills",
     content: "My technical skills include JavaScript, TypeScript, React, Next.js, Node.js, Python, and database management. I also possess strong problem-solving, communication, and teamwork skills, honed through various projects."
   },
-  // Add more mock data for other pages/sections if you have them
 ];
 
-export default function SearchPage() {
+// This is the actual component that uses useSearchParams
+function SearchResultsContent() {
   const searchParams = useSearchParams();
-  const searchQuery = searchParams.get('q') || ''; // Get the 'q' parameter from the URL
+  const searchQuery = searchParams.get('q') || '';
   const [results, setResults] = useState<SearchResult[]>([]);
 
   useEffect(() => {
@@ -48,16 +46,16 @@ export default function SearchPage() {
       const filteredResults = searchableContent.filter(item =>
         item.title.toLowerCase().includes(lowerCaseQuery) ||
         item.description.toLowerCase().includes(lowerCaseQuery) ||
-        item.content.toLowerCase().includes(lowerCaseQuery) // Search within the content
+        item.content.toLowerCase().includes(lowerCaseQuery)
       );
       setResults(filteredResults);
     } else {
-      setResults([]); // Clear results if no query
+      setResults([]);
     }
-  }, [searchQuery]); // Re-run effect when searchQuery changes
+  }, [searchQuery]);
 
   return (
-    <div className="max-w-3xl mx-auto py-8 px-4">
+    <>
       <h1 className="font-bold text-4xl md:text-5xl tracking-tight leading-tight mb-8">
         Search Results for "{searchQuery}"
       </h1>
@@ -82,6 +80,18 @@ export default function SearchPage() {
           ))}
         </div>
       )}
+    </>
+  );
+}
+
+// The main SearchPage component that wraps SearchResultsContent in Suspense
+export default function SearchPage() {
+  return (
+    <div className="max-w-3xl mx-auto py-8 px-4">
+      {/* Wrap the content that uses useSearchParams in a Suspense boundary */}
+      <Suspense fallback={<div className="text-neutral-600 dark:text-neutral-400">Loading search results...</div>}>
+        <SearchResultsContent />
+      </Suspense>
     </div>
   );
 }
