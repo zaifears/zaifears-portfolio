@@ -1,7 +1,15 @@
-import { createClient, Entry, EntrySkeletonType, Asset, OrderFilterPaths } from 'contentful';
+import {
+  createClient,
+  Entry,
+  EntrySkeletonType,
+  Asset,
+  EntrySys,
+  OrderFilterPaths,
+  EntriesQueries,
+} from 'contentful';
 import type { Document } from '@contentful/rich-text-types';
 
-// Asset fields interface (no need to constrain to ChainModifiers)
+// Asset fields interface (do NOT constrain to ChainModifiers)
 interface ContentfulAssetFields {
   title?: string;
   description?: string;
@@ -16,7 +24,7 @@ interface ContentfulAssetFields {
   };
 }
 
-// Blog post fields only
+// Define fields for your blog post
 export interface BlogPostFields {
   title: string;
   slug: string;
@@ -25,12 +33,14 @@ export interface BlogPostFields {
   content: Document;
 }
 
-// BlogPostSkeleton type extending EntrySkeletonType (required for typings)
+// This is critical: define the EntrySkeletonType *correctly* by
+// including the contentTypeId and fields as expected
 export interface BlogPostSkeleton extends EntrySkeletonType {
-  contentTypeId: 'zaifearsBlogPost';  // your content type id
+  contentTypeId: 'zaifearsBlogPost';
   fields: BlogPostFields;
 }
 
+// Define the type for the entry itself, referencing BlogPostFields and contentTypeId
 export type BlogPost = Entry<BlogPostFields, 'zaifearsBlogPost'>;
 
 const client = createClient({
@@ -38,8 +48,8 @@ const client = createClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || '',
 });
 
-// Cast order string array to satisfy typing
-const orderDate = ['fields.date'] as unknown as OrderFilterPaths<any, 'sys'>[];
+// This is the correct way to type the order property to accept 'fields.date'
+const orderDate = ['fields.date'] as (OrderFilterPaths<EntrySys, 'sys'> | `fields.${string}`)[];
 
 // Fetch all blog posts ordered by date
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
@@ -50,12 +60,13 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
   return entries.items as BlogPost[];
 }
 
-// Fetch single blog post by slug with casting
+// Fetch single blog post by slug - notice use of `EntriesQueries` to allow 'fields.slug'
 export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   const entries = await client.getEntries<BlogPostSkeleton>({
     content_type: 'zaifearsBlogPost',
-    // Here, types may not allow dynamic keys easily; cast as any
-    'fields.slug': slug as any,
+    query: {
+      'fields.slug': slug,
+    } as unknown as EntriesQueries<BlogPostSkeleton, undefined>, // workaround for typings
     limit: 1,
   });
   return entries.items.length > 0 ? (entries.items[0] as BlogPost) : null;
