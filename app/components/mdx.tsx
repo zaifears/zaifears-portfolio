@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { MDXRemote, MDXComponents } from 'next-mdx-remote/rsc'; // Import MDXComponents
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import type { MDXComponents } from 'next-mdx-remote'; // Corrected import source for MDXComponents
 import { highlight } from 'sugar-high';
 import React from 'react';
 
@@ -22,7 +23,7 @@ function Table({ data }: { data: TableData }) {
         <td key={cellIndex}>{cell}</td>
       ))}
     </tr>
-  )); // Added missing parenthesis here
+  ));
 
   return (
     <table>
