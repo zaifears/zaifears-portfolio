@@ -1,12 +1,11 @@
-import { baseUrl } from 'app/sitemap'
-
-export default function robots() {
+import { MetadataRoute } from 'next'
+ 
+export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: '*',
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    rules: {
+      userAgent: '*',
+      allow: '/',
+    },
+    sitemap: 'https://zaifears.vercel.app/sitemap.xml',
   }
 }
