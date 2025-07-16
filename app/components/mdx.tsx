@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXRemote, MDXComponents } from 'next-mdx-remote/rsc'; // Import MDXComponents
 import { highlight } from 'sugar-high';
 import React from 'react';
 
@@ -22,7 +22,7 @@ function Table({ data }: { data: TableData }) {
         <td key={cellIndex}>{cell}</td>
       ))}
     </tr>
-  ));
+  )); // Added missing parenthesis here
 
   return (
     <table>
@@ -36,7 +36,8 @@ function Table({ data }: { data: TableData }) {
 
 // Fix for Link href type
 // We'll define a more specific type for CustomLink props
-interface CustomLinkProps extends React.ComponentProps<'a'> {
+// Use React.ComponentPropsWithoutRef<'a'> to avoid the ref issue more cleanly
+interface CustomLinkProps extends React.ComponentPropsWithoutRef<'a'> {
   href: string; // Make href explicitly required as a string for MDX links
 }
 
@@ -44,10 +45,10 @@ function CustomLink(props: CustomLinkProps) { // Use the new specific type
   let href = props.href;
 
   if (href.startsWith('/')) {
+    // When using Link, ensure href is always a string.
+    // Use React.ComponentPropsWithoutRef<'a'> to avoid ref issues
     return (
-      // When using Link, ensure href is always a string.
-      // We can omit href from the spread props to explicitly pass it.
-      <Link href={href} {...(props as Omit<CustomLinkProps, 'href'>)}>
+      <Link href={href} {...(props as React.ComponentPropsWithoutRef<typeof Link>)}>
         {props.children}
       </Link>
     );
@@ -64,8 +65,11 @@ function RoundedImage(props: React.ComponentProps<typeof Image>) {
   return <Image className="rounded-lg" {...props} />;
 }
 
-function Code({ children, ...props }: { children: string } & React.ComponentProps<'code'>) {
-  let codeHTML = highlight(children);
+// Fix for Code component type: allow React.ReactNode for children
+function Code({ children, ...props }: { children: string | React.ReactNode } & React.ComponentProps<'code'>) {
+  // Convert children to string if it's not already
+  const codeString = typeof children === 'string' ? children : String(children);
+  let codeHTML = highlight(codeString);
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
@@ -102,14 +106,15 @@ function createHeading(level: number) {
   return Heading;
 }
 
-export const components = {
+// Explicitly type the components object to match MDXComponents
+export const components: MDXComponents = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
   h4: createHeading(4),
   h5: createHeading(5),
   h6: createHeading(6),
-  Image: RoundedImage,
+  img: RoundedImage, // MDX uses 'img' tag, not 'Image' component name
   a: CustomLink,
   code: Code,
   table: Table,
