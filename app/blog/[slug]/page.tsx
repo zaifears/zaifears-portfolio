@@ -6,28 +6,23 @@ import type { Document } from '@contentful/rich-text-types';
 
 // Define the props for the dynamic page component
 interface ImmichPostPageProps {
-  params: Promise<{ // params is now expected to be a Promise
+  params: {
     slug: string; // The slug will be passed from the URL
-  }>;
+  };
 }
 
 export default async function ImmichPostPage({ params }: ImmichPostPageProps) {
-  // Await the params object before destructuring it
-  const { slug } = await params; // <--- CRUCIAL CHANGE HERE
+  const { slug } = params;
 
-  // Fetch the specific post using the slug from the URL
   const post = (await fetchBlogPostBySlug(slug)) as BlogPost | null;
 
-  // --- Debugging Console Log ---
-  console.log('Full fetched post object:', JSON.stringify(post, null, 2));
-  // --- END ADDITION ---
-
-  // If Contentful doesn't find the post, show a 404 page
   if (!post) {
     notFound();
   }
 
-  // Safely access fields using optional chaining and nullish coalescing
+  // Debug: Log post fields to verify data shape
+  console.log('Post fields:', post.fields);
+
   const title = post.fields.title || 'Untitled Post';
   const date = post.fields.date;
   const coverImageUrl = post.fields.coverImage?.fields?.file?.url;
@@ -35,12 +30,12 @@ export default async function ImmichPostPage({ params }: ImmichPostPageProps) {
 
   return (
     <article className="prose dark:prose-invert max-w-none">
-      <h1 className="text-3xl font-bold mb-4">
-        {title}
-      </h1>
+      <h1 className="text-3xl font-bold mb-4">{title}</h1>
+
       {date && typeof date === 'string' && (
         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-8">
-          Posted on {new Date(date).toLocaleDateString('en-US', {
+          Posted on{' '}
+          {new Date(date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -53,16 +48,14 @@ export default async function ImmichPostPage({ params }: ImmichPostPageProps) {
           <Image
             src={`https:${coverImageUrl}`}
             alt={`Cover image for ${title}`}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: 'cover' }}
             className="rounded-lg"
           />
         </div>
       )}
 
-      <div>
-        {content && documentToReactComponents(content)}
-      </div>
+      <div>{content && documentToReactComponents(content)}</div>
     </article>
   );
 }
