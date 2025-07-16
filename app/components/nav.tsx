@@ -4,7 +4,15 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import useRouter for navigation
 
-const navItems = {
+// Define a type for a single navigation item
+interface NavItem {
+  name: string;
+  disabled?: boolean; // Make disabled optional
+  tooltip?: string;   // Make tooltip optional
+}
+
+// Define the type for the navItems object
+const navItems: { [key: string]: NavItem } = {
   '/': {
     name: 'Home',
   },
@@ -13,6 +21,11 @@ const navItems = {
   },
   '/skills': {
     name: 'Skills',
+  },
+  '/blog': { // Added Blog entry
+    name: 'Blog',
+    disabled: true, // Mark as disabled
+    tooltip: 'Under maintenance', // Tooltip text for hover
   },
 };
 
@@ -23,8 +36,11 @@ export function Navbar() {
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && searchQuery.trim() !== '') {
-      // Navigate to the search results page with the query
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      // TODO: Implement actual website-wide search logic here.
+      // For now, it just logs the query. You might navigate to a /search page
+      // or filter content dynamically.
+      console.log('Performing website-wide search for:', searchQuery);
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`); // Navigate to search page
       setIsSearchOpen(false); // Close search bar after navigation
       setSearchQuery(''); // Clear search query
     }
@@ -39,14 +55,24 @@ export function Navbar() {
         {/* Navigation Links */}
         {!isSearchOpen && (
           <div className="flex flex-row space-x-0 pr-10">
-            {Object.entries(navItems).map(([path, { name }]) => (
-              <Link
-                key={path}
-                href={path}
-                className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2"
-              >
-                {name}
-              </Link>
+            {Object.entries(navItems).map(([path, { name, disabled, tooltip }]) => (
+              disabled ? (
+                <span
+                  key={path}
+                  className="transition-all text-neutral-500 dark:text-neutral-500 flex align-middle relative py-1 px-2 cursor-not-allowed"
+                  title={tooltip} // Show tooltip on hover
+                >
+                  {name}
+                </span>
+              ) : (
+                <Link
+                  key={path}
+                  href={path}
+                  className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2"
+                >
+                  {name}
+                </Link>
+              )
             ))}
           </div>
         )}
