@@ -1,15 +1,7 @@
-import {
-  createClient,
-  Entry,
-  EntrySkeletonType,
-  Asset,
-  EntrySys,
-  OrderFilterPaths,
-  EntriesQueries,
-} from 'contentful';
+import { createClient, Entry, Asset, EntrySkeletonType, EntryFields } from 'contentful';
 import type { Document } from '@contentful/rich-text-types';
 
-// Asset fields interface (do NOT constrain to ChainModifiers)
+// Define the shape of asset fields
 interface ContentfulAssetFields {
   title?: string;
   description?: string;
@@ -24,7 +16,7 @@ interface ContentfulAssetFields {
   };
 }
 
-// Define fields for your blog post
+// Define the fields for a blog post
 export interface BlogPostFields {
   title: string;
   slug: string;
@@ -33,41 +25,37 @@ export interface BlogPostFields {
   content: Document;
 }
 
-// This is critical: define the EntrySkeletonType *correctly* by
-// including the contentTypeId and fields as expected
+// Entry skeleton for Contentful typings
 export interface BlogPostSkeleton extends EntrySkeletonType {
-  contentTypeId: 'zaifearsBlogPost';
+  contentTypeId: 'zaifearsBlogPost'; // This must match your Contentful content type ID exactly
   fields: BlogPostFields;
 }
 
-// Define the type for the entry itself, referencing BlogPostFields and contentTypeId
-export type BlogPost = Entry<BlogPostFields, 'zaifearsBlogPost'>;
+// Type for a blog post entry
+export type BlogPost = Entry<BlogPostSkeleton>;
 
+// Initialize Contentful client
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID || '',
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || '',
 });
 
-// This is the correct way to type the order property to accept 'fields.date'
-const orderDate = ['fields.date'] as (OrderFilterPaths<EntrySys, 'sys'> | `fields.${string}`)[];
-
-// Fetch all blog posts ordered by date
+// Fetch all blog posts sorted by date
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
   const entries = await client.getEntries<BlogPostSkeleton>({
     content_type: 'zaifearsBlogPost',
-    order: orderDate,
+    order: '-fields.date',
   });
   return entries.items as BlogPost[];
 }
 
-// Fetch single blog post by slug - notice use of `EntriesQueries` to allow 'fields.slug'
+// Fetch a single blog post by slug
 export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   const entries = await client.getEntries<BlogPostSkeleton>({
     content_type: 'zaifearsBlogPost',
-    query: {
-      'fields.slug': slug,
-    } as unknown as EntriesQueries<BlogPostSkeleton, undefined>, // workaround for typings
+    'fields.slug': slug,
     limit: 1,
-  });
+  } as any); // use `as any` only if TypeScript complains
+
   return entries.items.length > 0 ? (entries.items[0] as BlogPost) : null;
 }
