@@ -12,18 +12,19 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
 
-// ✅ THIS IS THE SECTION TO EDIT
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Shahoriar Hossain', // The default title for your site
-    template: '%s | Shahoriar Hossain', // Used for other pages like blog posts
+    default: 'Shahoriar Hossain',
+    template: '%s | Shahoriar Hossain',
   },
   description: "Shahoriar Hossain's personal portfolio and life log.",
-  // ✅ ADDED: This section tells the browser what icon to use for the tab.
-  // You must add a file named 'favicon.ico' to your 'public' folder for this to work.
   icons: {
     icon: '/favicon.ico',
+  },
+  // ✅ ADDED: This section adds your Google verification key.
+  verification: {
+    google: 'pT4MHjovbY0MXYCrgAPN3LQHyTuLLq_iTtmWyx3GSgc',
   },
   openGraph: {
     title: 'Shahoriar Hossain',
