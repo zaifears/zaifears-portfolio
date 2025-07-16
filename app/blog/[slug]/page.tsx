@@ -4,13 +4,11 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { notFound } from 'next/navigation';
 import type { Document } from '@contentful/rich-text-types';
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default async function BlogPostPage({ params }: PageProps) {
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = params;
 
   const post = await fetchBlogPostBySlug(slug);
@@ -30,7 +28,8 @@ export default async function BlogPostPage({ params }: PageProps) {
 
       {date && (
         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-8">
-          Posted on {new Date(date).toLocaleDateString('en-US', {
+          Posted on{' '}
+          {new Date(date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
