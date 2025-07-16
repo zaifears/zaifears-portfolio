@@ -1,39 +1,36 @@
 import Image from 'next/image';
-import { fetchBlogPostBySlug, BlogPost } from '@/lib/contentful';
+import { fetchBlogPostBySlug } from '@/lib/contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { notFound } from 'next/navigation';
 import type { Document } from '@contentful/rich-text-types';
 
-interface ImmichPostPageProps {
+interface PageProps {
   params: {
     slug: string;
   };
 }
 
-export default async function ImmichPostPage({ params }: ImmichPostPageProps) {
+export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = params;
 
-  const post = (await fetchBlogPostBySlug(slug)) as BlogPost | null;
+  const post = await fetchBlogPostBySlug(slug);
+
+  console.log('Fetched blog post:', JSON.stringify(post, null, 2));
 
   if (!post) {
     notFound();
   }
 
-  console.log('Post fields:', post.fields);
-
-  const title = post.fields.title || 'Untitled Post';
-  const date = post.fields.date;
-  const coverImageUrl = post.fields.coverImage?.fields?.file?.url;
-  const content = post.fields.content as Document;
+  const { title, date, coverImage, content } = post.fields;
+  const coverImageUrl = coverImage?.fields?.file?.url;
 
   return (
     <article className="prose dark:prose-invert max-w-none">
       <h1 className="text-3xl font-bold mb-4">{title}</h1>
 
-      {date && typeof date === 'string' && (
+      {date && (
         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-8">
-          Posted on{' '}
-          {new Date(date).toLocaleDateString('en-US', {
+          Posted on {new Date(date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -46,14 +43,14 @@ export default async function ImmichPostPage({ params }: ImmichPostPageProps) {
           <Image
             src={`https:${coverImageUrl}`}
             alt={`Cover image for ${title}`}
-            fill
-            style={{ objectFit: 'cover' }}
+            layout="fill"
+            objectFit="cover"
             className="rounded-lg"
           />
         </div>
       )}
 
-      <div>{content && documentToReactComponents(content)}</div>
+      <div>{content && documentToReactComponents(content as Document)}</div>
     </article>
   );
 }
