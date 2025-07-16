@@ -4,10 +4,9 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { notFound } from 'next/navigation';
 import type { Document } from '@contentful/rich-text-types';
 
-// Define the props for the dynamic page component
 interface ImmichPostPageProps {
   params: {
-    slug: string; // The slug will be passed from the URL
+    slug: string;
   };
 }
 
@@ -20,7 +19,6 @@ export default async function ImmichPostPage({ params }: ImmichPostPageProps) {
     notFound();
   }
 
-  // Debug: Log post fields to verify data shape
   console.log('Post fields:', post.fields);
 
   const title = post.fields.title || 'Untitled Post';
