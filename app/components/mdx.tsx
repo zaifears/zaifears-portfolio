@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import type { MDXComponents } from 'next-mdx-remote'; // Corrected import source for MDXComponents
+// Removed: import type { MDXComponents } from 'next-mdx-remote';
 import { highlight } from 'sugar-high';
 import React from 'react';
 
@@ -107,8 +107,8 @@ function createHeading(level: number) {
   return Heading;
 }
 
-// Explicitly type the components object to match MDXComponents
-export const components: MDXComponents = {
+// Explicitly type the components object by inferring from MDXRemote's props
+export const components: React.ComponentProps<typeof MDXRemote>['components'] = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
