@@ -1,140 +1,105 @@
-"use client"; // This is required to use hooks like useState and useRouter
+"use client";
 
 import Link from 'next/link';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Import useRouter for navigation
+import { usePathname } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faHome, 
+  faUserGraduate,
+  faCogs,
+  faNewspaper,
+  faEnvelope // Icon for the new Contact Me link
+} from '@fortawesome/free-solid-svg-icons';
 
-// Define a type for a single navigation item
-interface NavItem {
-  name: string;
-  disabled?: boolean; // Make disabled optional
-  tooltip?: string;   // Make tooltip optional
-}
-
-// Define the type for the navItems object
-const navItems: { [key: string]: NavItem } = {
-  '/': {
-    name: 'Home',
-  },
-  '/education': {
-    name: 'Education',
-  },
-  '/skills': {
-    name: 'Skills',
-  },
-  '/blog': { // Added Blog entry
-    name: 'Blog',
-    disabled: true, // Mark as disabled
-    tooltip: 'Under maintenance', // Tooltip text for hover
-  },
-};
+const navItems = [
+  { href: '/', name: 'Home', icon: faHome },
+  { href: '/education', name: 'Education', icon: faUserGraduate },
+  { href: '/skills', name: 'Skills', icon: faCogs },
+  { href: '/blog', name: 'Blog', icon: faNewspaper },
+  // ✅ ADDED: The new 'Contact Me' link
+  { href: '/contact', name: 'Contact Me', icon: faEnvelope },
+];
 
 export function Navbar() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const router = useRouter(); // Initialize the router
-
-  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && searchQuery.trim() !== '') {
-      // TODO: Implement actual website-wide search logic here.
-      // For now, it just logs the query. You might navigate to a /search page
-      // or filter content dynamically.
-      console.log('Performing website-wide search for:', searchQuery);
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`); // Navigate to search page
-      setIsSearchOpen(false); // Close search bar after navigation
-      setSearchQuery(''); // Clear search query
-    }
-  };
+  const pathname = usePathname();
 
   return (
-    <aside className="sticky top-0 z-50 bg-white dark:bg-black -ml-[8px] mb-16 tracking-tight py-4 border-b border-neutral-200 dark:border-neutral-800">
-      <nav
-        className="flex flex-row items-center justify-between relative px-0 pb-0 fade md:overflow-auto scroll-pr-6"
-        id="nav"
-      >
-        {/* Navigation Links */}
-        {!isSearchOpen && (
-          <div className="flex flex-row space-x-0 pr-10">
-            {Object.entries(navItems).map(([path, { name, disabled, tooltip }]) => (
-              disabled ? (
-                <span
-                  key={path}
-                  className="transition-all text-neutral-500 dark:text-neutral-500 flex align-middle relative py-1 px-2 cursor-not-allowed"
-                  title={tooltip} // Show tooltip on hover
-                >
-                  {name}
-                </span>
-              ) : (
-                <Link
-                  key={path}
-                  href={path}
-                  className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2"
-                >
-                  {name}
-                </Link>
-              )
-            ))}
-          </div>
-        )}
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex flex-col w-64 h-screen p-6 bg-black text-gray-400 font-mono justify-center sticky top-0">
+        <nav>
+          <ul>
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
 
-        {/* Search Input Field */}
-        {isSearchOpen && (
-          <div className="w-full">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleSearch}
-              placeholder="Search website..."
-              className="w-full bg-transparent focus:outline-none focus:ring-0 text-lg"
-              autoFocus
-            />
-          </div>
-        )}
+              if (item.name === 'Blog') {
+                return (
+                  <li key={item.name} className="mb-4">
+                    <span
+                      className="flex items-center p-2 rounded-md text-gray-600 cursor-not-allowed"
+                      title="Under Maintenance"
+                    >
+                      <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
+                      <span>{item.name}</span>
+                    </span>
+                  </li>
+                );
+              }
 
-        {/* Search Toggle Button (Always visible now) */}
-        <div className="flex items-center ml-auto">
-          <button
-            onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 p-2"
-            aria-label="Toggle search"
-          >
-            {isSearchOpen ? (
-              // Close Icon (X)
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+              return (
+                <li key={item.name} className="mb-4">
+                  <Link
+                    href={item.href}
+                    className={`flex items-center p-2 rounded-md transition-all duration-300 ${
+                      isActive
+                        ? 'text-blue-400 bg-gray-800 scale-95 translate-x-2'
+                        : 'hover:text-blue-400 hover:bg-gray-900'
+                    }`}
+                  >
+                    <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </aside>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-gray-800 z-50">
+        <nav className="flex justify-around items-center p-2">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+
+            if (item.name === 'Blog') {
+              return (
+                <div 
+                  key={item.name}
+                  className="flex flex-col items-center text-center text-gray-600 p-2 cursor-not-allowed"
+                  title="Under Maintenance"
+                >
+                  <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mb-1" />
+                  <span className="text-xs">{item.name}</span>
+                </div>
+              );
+            }
+
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`flex flex-col items-center text-center p-2 transition-colors duration-200 ${
+                  isActive ? 'text-blue-400' : 'text-gray-400 hover:text-blue-400'
+                }`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              // Search Icon
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-      </nav>
-    </aside>
+                <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mb-1" />
+                <span className="text-xs">{item.name}</span>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+    </>
   );
 }
