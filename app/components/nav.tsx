@@ -7,17 +7,25 @@ import {
   faHome, 
   faUserGraduate,
   faCogs,
-  faNewspaper,
-  faEnvelope // Icon for the new Contact Me link
+  faEnvelope, // Icon for the new Contact Me link
+  faFlag // Icon for the new Life link
 } from '@fortawesome/free-solid-svg-icons';
 
-const navItems = [
+// Define a type for a single navigation item
+interface NavItem {
+  href: string;
+  name: string;
+  icon: any; // FontAwesomeIconType
+  disabled?: boolean; // Optional: to make an item non-clickable
+  tooltip?: string;   // Optional: for hover text when disabled
+}
+
+const navItems: NavItem[] = [
   { href: '/', name: 'Home', icon: faHome },
   { href: '/education', name: 'Education', icon: faUserGraduate },
   { href: '/skills', name: 'Skills', icon: faCogs },
-  { href: '/blog', name: 'Blog', icon: faNewspaper },
-  // ✅ ADDED: The new 'Contact Me' link
-  { href: '/contact', name: 'Contact Me', icon: faEnvelope },
+  { href: '/contact', name: 'Contact', icon: faEnvelope },
+  { href: '/life', name: 'Life', icon: faFlag, disabled: true, tooltip: 'Under maintenance' }, // Life is now disabled
 ];
 
 export function Navbar() {
@@ -32,12 +40,13 @@ export function Navbar() {
             {navItems.map((item) => {
               const isActive = pathname === item.href;
 
-              if (item.name === 'Blog') {
+              // Conditionally render Link or Span based on 'disabled' prop
+              if (item.disabled) {
                 return (
                   <li key={item.name} className="mb-4">
                     <span
                       className="flex items-center p-2 rounded-md text-gray-600 cursor-not-allowed"
-                      title="Under Maintenance"
+                      title={item.tooltip} // Show tooltip on hover
                     >
                       <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
                       <span>{item.name}</span>
@@ -72,12 +81,13 @@ export function Navbar() {
           {navItems.map((item) => {
             const isActive = pathname === item.href;
 
-            if (item.name === 'Blog') {
+            // Conditionally render Link or Div for mobile based on 'disabled' prop
+            if (item.disabled) {
               return (
                 <div 
                   key={item.name}
                   className="flex flex-col items-center text-center text-gray-600 p-2 cursor-not-allowed"
-                  title="Under Maintenance"
+                  title={item.tooltip} // Show tooltip on hover
                 >
                   <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mb-1" />
                   <span className="text-xs">{item.name}</span>
