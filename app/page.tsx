@@ -73,10 +73,12 @@ export default function Page() {
                 Born in Mymensingh, 23rd of June. Tech enthusiast with a passion for stock market analysis and active investment. Occasionally writes about economy and finance-related issues. Recognized for trustworthiness and enthusiasm in expanding knowledge and learning new things. Feel free to reach out!
              </p>
           </div>
-        </div>
 
-        {/* ✅ REMOVED: The social media icons section has been deleted. */}
-        
+          {/* New Footer-like Text */}
+          <p className="text-sm text-neutral-500 dark:text-neutral-500 mt-8">
+            Coded in Visual Studio Code by yours truly. Built with Next.js and Tailwind CSS, deployed with Vercel, followed Gemini.
+          </p>
+        </div>
       </div>
     </>
   );

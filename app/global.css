@@ -1,3 +1,5 @@
+/* app/globals.css */
+
 @import 'tailwindcss';
 
 ::selection {
@@ -31,8 +33,57 @@
 
 html {
   min-width: 360px;
-  scroll-behavior: smooth; /* ADDED THIS LINE */
+  scroll-behavior: smooth;
 }
+
+/* Custom Scrollbar Styling (applied only to elements with these classes) */
+/* For Webkit browsers (Chrome, Safari, Edge) */
+.custom-scrollbar::-webkit-scrollbar,
+.right-column-dots-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 8px; /* Height for horizontal scrollbars */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track,
+.right-column-dots-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Transparent track */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.5); /* Blue shade (e.g., Tailwind blue-500 with 50% opacity) */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.7); /* Slightly darker blue on hover */
+}
+
+/* Specific styling for the "dot dot dot" effect on the right column */
+.right-column-dots-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.1); /* Very subtle blue for dots */
+  border-radius: 50%; /* Make it circular */
+  border: 2px solid transparent; /* Create space between dots */
+  background-clip: padding-box; /* Ensure border doesn't fill the space */
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.3); /* Inner shadow for dot effect */
+}
+
+.right-column-dots-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.3); /* Slightly more visible on hover */
+}
+
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: rgba(59, 130, 246, 0.5) transparent; /* thumb color track color */
+}
+
+.right-column-dots-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.1) transparent; /* Very subtle blue for Firefox dots */
+}
+
 
 .prose .anchor {
   @apply absolute invisible no-underline;
