@@ -8,6 +8,42 @@ export default function EducationPage() {
     <section>
       <h1 className="font-bold text-3xl mb-8">Education</h1>
 
+      {/* --- Chartered Accountancy Entry --- */}
+      <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
+        {/* Text Content Column */}
+        <div className="w-full md:w-2/3">
+          <Link href="https://www.icab.org.bd/" target="_blank" rel="noopener noreferrer">
+            <h2 className="text-2xl font-bold hover:underline">CHARTERED ACCOUNTANCY (CA) - CERTIFICATE LEVEL PASSED</h2>
+          </Link>
+          <p className="text-neutral-600 dark:text-neutral-400 mt-1">
+            Institute of Chartered Accountants of Bangladesh (January 2025 - June 2025)
+          </p>
+          <p className="mt-4 text-neutral-700 dark:text-neutral-300">
+            By successfully completing the Certificate Level of Chartered Accountancy, I have gained a robust understanding of financial reporting, auditing principles, and domestic tax laws. This qualification directly supplements my academic studies, equipping me with the practical expertise needed to effectively manage accounts and ensure regulatory compliance. My background provides a comprehensive view of business operations, from strategic planning to detailed financial oversight.
+          </p>
+          <p className="mt-4">
+            <a href="https://www.icab.org.bd/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+              Website: https://www.icab.org.bd
+            </a>
+          </p>
+        </div>
+        {/* Image Column */}
+        <div className="w-full md:w-1/3 flex-shrink-0">
+          <Link href="https://www.icab.org.bd/" target="_blank" rel="noopener noreferrer">
+            <Image
+              src="/icab.png" // Make sure 'icab.png' is in your 'public' folder
+              alt="Institute of Chartered Accountants of Bangladesh"
+              width={500}
+              height={300}
+              className="rounded-lg object-cover shadow-md transition-opacity hover:opacity-80"
+            />
+          </Link>
+        </div>
+      </div>
+
+      {/* Separator Line */}
+      <hr className="my-12 border-neutral-200 dark:border-neutral-800" />
+
       {/* --- BUP Entry (Image on Left) --- */}
       <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
         {/* Image Column */}
