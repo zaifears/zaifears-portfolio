@@ -8,8 +8,20 @@ export default function EducationPage() {
     <section>
       <h1 className="font-bold text-3xl mb-8">Education</h1>
 
-      {/* --- Chartered Accountancy Entry --- */}
+      {/* --- Chartered Accountancy Entry (Image on Left) --- */}
       <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
+        {/* Image Column */}
+        <div className="w-full md:w-1/3 flex-shrink-0">
+          <Link href="https://www.icab.org.bd/" target="_blank" rel="noopener noreferrer">
+            <Image
+              src="/icab.png" // Make sure 'icab.png' is in your 'public' folder
+              alt="Institute of Chartered Accountants of Bangladesh"
+              width={500}
+              height={300}
+              className="rounded-lg object-cover shadow-md transition-opacity hover:opacity-80"
+            />
+          </Link>
+        </div>
         {/* Text Content Column */}
         <div className="w-full md:w-2/3">
           <Link href="https://www.icab.org.bd/" target="_blank" rel="noopener noreferrer">
@@ -27,38 +39,13 @@ export default function EducationPage() {
             </a>
           </p>
         </div>
-        {/* Image Column */}
-        <div className="w-full md:w-1/3 flex-shrink-0">
-          <Link href="https://www.icab.org.bd/" target="_blank" rel="noopener noreferrer">
-            <Image
-              src="/icab.png" // Make sure 'icab.png' is in your 'public' folder
-              alt="Institute of Chartered Accountants of Bangladesh"
-              width={500}
-              height={300}
-              className="rounded-lg object-cover shadow-md transition-opacity hover:opacity-80"
-            />
-          </Link>
-        </div>
       </div>
 
       {/* Separator Line */}
       <hr className="my-12 border-neutral-200 dark:border-neutral-800" />
 
-      {/* --- BUP Entry (Image on Left) --- */}
+      {/* --- BUP Entry (Image on Right) --- */}
       <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
-        {/* Image Column */}
-        <div className="w-full md:w-1/3 flex-shrink-0">
-          {/* ✅ Image is now a clickable link */}
-          <Link href="https://en.wikipedia.org/wiki/Bangladesh_University_of_Professionals" target="_blank" rel="noopener noreferrer">
-            <Image
-              src="/university.png" // Make sure 'university.png' is in your 'public' folder
-              alt="Bangladesh University of Professionals"
-              width={500}
-              height={300}
-              className="rounded-lg object-cover shadow-md transition-opacity hover:opacity-80"
-            />
-          </Link>
-        </div>
         {/* Text Content Column */}
         <div className="w-full md:w-2/3">
           {/* ✅ Title is now a clickable link */}
@@ -78,13 +65,39 @@ export default function EducationPage() {
             </a>
           </p>
         </div>
+        {/* Image Column */}
+        <div className="w-full md:w-1/3 flex-shrink-0">
+          {/* ✅ Image is now a clickable link */}
+          <Link href="https://en.wikipedia.org/wiki/Bangladesh_University_of_Professionals" target="_blank" rel="noopener noreferrer">
+            <Image
+              src="/university.png" // Make sure 'university.png' is in your 'public' folder
+              alt="Bangladesh University of Professionals"
+              width={500}
+              height={300}
+              className="rounded-lg object-cover shadow-md transition-opacity hover:opacity-80"
+            />
+          </Link>
+        </div>
       </div>
 
       {/* Separator Line */}
       <hr className="my-12 border-neutral-200 dark:border-neutral-800" />
 
-      {/* --- Notre Dame College Entry (Image on Right) --- */}
+      {/* --- Notre Dame College Entry (Image on Left) --- */}
       <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
+        {/* Image Column */}
+        <div className="w-full md:w-1/3 flex-shrink-0">
+           {/* ✅ Image is now a clickable link */}
+          <Link href="https://en.wikipedia.org/wiki/Notre_Dame_College,_Dhaka" target="_blank" rel="noopener noreferrer">
+            <Image
+              src="/college.png" // Make sure 'college.png' is in your 'public' folder
+              alt="Notre Dame College"
+              width={500}
+              height={300}
+              className="rounded-lg object-cover shadow-md transition-opacity hover:opacity-80"
+            />
+          </Link>
+        </div>
         {/* Text Content Column */}
         <div className="w-full md:w-2/3">
            {/* ✅ Title is now a clickable link */}
@@ -104,39 +117,13 @@ export default function EducationPage() {
             </a>
           </p>
         </div>
-        {/* Image Column */}
-        <div className="w-full md:w-1/3 flex-shrink-0">
-           {/* ✅ Image is now a clickable link */}
-          <Link href="https://en.wikipedia.org/wiki/Notre_Dame_College,_Dhaka" target="_blank" rel="noopener noreferrer">
-            <Image
-              src="/college.png" // Make sure 'college.png' is in your 'public' folder
-              alt="Notre Dame College"
-              width={500}
-              height={300}
-              className="rounded-lg object-cover shadow-md transition-opacity hover:opacity-80"
-            />
-          </Link>
-        </div>
       </div>
 
       {/* Separator Line */}
       <hr className="my-12 border-neutral-200 dark:border-neutral-800" />
 
-      {/* --- Ideal School & College Entry (Image on Left) --- */}
+      {/* --- Ideal School & College Entry (Image on Right) --- */}
       <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
-        {/* Image Column */}
-        <div className="w-full md:w-1/3 flex-shrink-0">
-           {/* ✅ Image is now a clickable link */}
-          <Link href="https://en.wikipedia.org/wiki/Ideal_School_and_College" target="_blank" rel="noopener noreferrer">
-            <Image
-              src="/school.png" // Make sure 'school.png' is in your 'public' folder
-              alt="Ideal School & College"
-              width={500}
-              height={300}
-              className="rounded-lg object-cover shadow-md transition-opacity hover:opacity-80"
-            />
-          </Link>
-        </div>
         {/* Text Content Column */}
         <div className="w-full md:w-2/3">
            {/* ✅ Title is now a clickable link */}
@@ -155,6 +142,19 @@ export default function EducationPage() {
               Website: https://iscm.edu.bd/
             </a>
           </p>
+        </div>
+        {/* Image Column */}
+        <div className="w-full md:w-1/3 flex-shrink-0">
+           {/* ✅ Image is now a clickable link */}
+          <Link href="https://en.wikipedia.org/wiki/Ideal_School_and_College" target="_blank" rel="noopener noreferrer">
+            <Image
+              src="/school.png" // Make sure 'school.png' is in your 'public' folder
+              alt="Ideal School & College"
+              width={500}
+              height={300}
+              className="rounded-lg object-cover shadow-md transition-opacity hover:opacity-80"
+            />
+          </Link>
         </div>
       </div>
 
