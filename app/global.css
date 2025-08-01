@@ -204,6 +204,6 @@ table {
 /* Custom style to move the Typebot bubble up on mobile */
 @media (max-width: 768px) {
   typebot-bubble::part(button) {
-    bottom: 60px;
+    bottom: 45px;
   }
 }
