@@ -23,10 +23,10 @@ const TechSkillItem = ({ title, logos, names }: { title: string; logos: { src: s
         <h3 className="text-xl font-bold mb-4">{title}</h3>
         <div className="flex justify-center items-center gap-4 mb-2 flex-grow">
             {logos.map(logo => (
-                <a 
-                    key={logo.src} 
-                    href={logo.href} 
-                    target="_blank" 
+                <a
+                    key={logo.src}
+                    href={logo.href}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="transition-opacity hover:opacity-75"
                 >
@@ -63,40 +63,49 @@ export default function SkillsPage() {
       <div className="mb-16">
         <h2 className="text-2xl font-bold text-center mb-8">Technical Skills</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <TechSkillItem 
+            <TechSkillItem
                 title="Design"
                 logos={[
-                    {src: 'canva.png', alt: 'Canva', href: 'https://www.canva.com'}, 
+                    {src: 'canva.png', alt: 'Canva', href: 'https://www.canva.com'},
                     {src: 'figma.png', alt: 'Figma', href: 'https://www.figma.com'}
                 ]}
                 names="Canva, Figma"
             />
-            <TechSkillItem 
+            <TechSkillItem
                 title="Office & Productivity"
                 logos={[
-                    {src: 'office.png', alt: 'Microsoft Office', href: 'https://www.office.com'}, 
+                    {src: 'office.png', alt: 'Microsoft Office', href: 'https://www.office.com'},
                     {src: 'google.png', alt: 'Google Workspace', href: 'https://workspace.google.com'}
                 ]}
                 names="Microsoft Office Suite, Google Workplace"
             />
-            <TechSkillItem 
+            <TechSkillItem
                 title="Web Development"
                 logos={[
-                    {src: 'wordpress.png', alt: 'Wordpress', href: 'https://wordpress.org'}, 
+                    {src: 'wordpress.png', alt: 'Wordpress', href: 'https://wordpress.org'},
                     {src: 'nextjs.png', alt: 'Next.js', href: 'https://nextjs.org'}
                 ]}
                 names="Wordpress, Next.js"
             />
-            <TechSkillItem 
+            <TechSkillItem
                 title="Data Analysis"
                 logos={[
-                    {src: 'stata.png', alt: 'Stata', href: 'https://en.wikipedia.org/wiki/Stata'}, 
+                    {src: 'stata.png', alt: 'Stata', href: 'https://en.wikipedia.org/wiki/Stata'},
                     {src: 'spss.png', alt: 'SPSS', href: 'https://en.wikipedia.org/wiki/SPSS'}
                 ]}
                 names="Stata, SPSS"
             />
             <div className="md:col-span-2">
-                 <TechSkillItem 
+                <TechSkillItem
+                    title="Data Visualization"
+                    logos={[
+                        {src: 'powerbi.png', alt: 'Power BI', href: 'https://www.microsoft.com/en-us/power-platform/products/power-bi'}
+                    ]}
+                    names="Power BI"
+                />
+            </div>
+            <div className="md:col-span-2">
+                 <TechSkillItem
                     title="IT Support"
                     logos={[{src: 'computer.png', alt: 'Computer Hardware', href: '#'}]}
                     // ✅ UPDATED: The description for IT Support is now more detailed.
