@@ -10,6 +10,7 @@ import { Navbar } from './components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
+import { TypebotBubble } from './components/typebot' // <-- 1. Import your new component
 
 export const metadata: Metadata = {
   title: {
@@ -42,8 +43,8 @@ export default function RootLayout({
       )}
     >
       <body className="antialiased text-white flex">
+        <TypebotBubble /> {/* <-- 2. Use your new component here */}
         <Navbar />
-        {/* This adds padding-bottom (pb-20) for mobile to avoid overlap with the nav bar */}
         <main className="flex-1 p-4 md:p-8 pb-20 md:pb-8">
           {children}
           <Analytics />
