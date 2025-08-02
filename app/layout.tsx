@@ -10,7 +10,8 @@ import { Navbar } from './components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
-import { TypebotBubble } from './components/typebot' // <-- 1. Import your new component
+import { TypebotBubble } from './components/typebot'
+import Script from 'next/script' // <-- 1. Import the Script component
 
 export const metadata: Metadata = {
   title: {
@@ -42,8 +43,23 @@ export default function RootLayout({
         GeistMono.variable
       )}
     >
+      <head>
+        {/* 2. Add the Google Tag scripts here */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-F0NPB44JWC"
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-F0NPB44JWC');
+          `}
+        </Script>
+      </head>
       <body className="antialiased text-white flex">
-        <TypebotBubble /> {/* <-- 2. Use your new component here */}
+        <TypebotBubble />
         <Navbar />
         <main className="flex-1 p-4 md:p-8 pb-20 md:pb-8">
           {children}
