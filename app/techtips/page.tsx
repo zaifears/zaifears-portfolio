@@ -19,7 +19,6 @@ const apps = [
   { name: 'Zoom', description: 'A popular video conferencing software that allows you to host and join online meetings, webinars, and more.', link: 'https://zoom.us/download' },
   { name: 'OpenCut', description: 'Still in development, Open source version of Capcut.', link: 'https://opencut.app/' },
   { name: 'AYA', description: 'A desktop application for easily controlling android devices, which can be considered as a GUI wrapper for ADB.', link: 'https://aya.liriliri.io/' },
-  { name: 'Pricepoka', description: 'PricePoka compares prices across top Bangladeshi retailers so you never overpay again.', link: 'https://www.pricepoka.com/' },
   { name: 'OpenBangla Keyboard', description: 'Alternative of Avro in Linux.', link: 'https://github.com/OpenBangla/OpenBangla-Keyboard' },
   { name: 'OpenRGB', description: 'Control all your RGB devices from a single app.', link: 'https://openrgb.org/' },
 ];
@@ -45,9 +44,11 @@ const browserExtensions = [
     { name: 'uBlock Origin', description: 'A must-have. An efficient, wide-spectrum content blocker that is easy on CPU and memory.', link: 'https://github.com/gorhill/uBlock#ublock-origin' },
 ];
 
-const interestingTools = [
-    { name: 'Repomix', description: 'A powerful tool that packs your entire repository into a single, AI-friendly file for analysis with LLMs.', link: 'https://repomix.com/' },
+const interestingWebsites = [
+    { name: 'Repomix', description: 'A powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools.', link: 'https://repomix.com/' },
     { name: 'Humanize AI Text', description: 'A simple one-click tool to make AI-generated text sound more human.', link: 'https://humanize-ai.click/' },
+    { name: 'Pricepoka', description: 'PricePoka compares prices across top Bangladeshi retailers so you never overpay again.', link: 'https://www.pricepoka.com/' },
+    { name: 'iLovePDF', description: 'A free and easy to use online tool to merge, split, compress, and convert PDF files.', link: 'https://www.ilovepdf.com/' },
 ];
 
 const uBlockRules = `no-csp-reports: * true
@@ -65,10 +66,15 @@ const CommandBlock = ({ content, isCodeBlock = false }: { content: string, isCod
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(content).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    const textArea = document.createElement('textarea');
+    textArea.value = content;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -106,8 +112,8 @@ export default function TechTipsPage() {
         <button onClick={() => setActiveTab('browserExtensions')} className={`px-5 py-2 text-sm font-semibold rounded-full transition-colors duration-300 ${activeTab === 'browserExtensions' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
           Browser Extensions
         </button>
-        <button onClick={() => setActiveTab('interestingTools')} className={`px-5 py-2 text-sm font-semibold rounded-full transition-colors duration-300 ${activeTab === 'interestingTools' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
-          Interesting Tools
+        <button onClick={() => setActiveTab('interestingWebsites')} className={`px-5 py-2 text-sm font-semibold rounded-full transition-colors duration-300 ${activeTab === 'interestingWebsites' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}>
+          Interesting Websites
         </button>
       </div>
 
@@ -162,9 +168,9 @@ export default function TechTipsPage() {
           </div>
         )}
 
-        {activeTab === 'interestingTools' && (
+        {activeTab === 'interestingWebsites' && (
           <div className="space-y-6">
-            {interestingTools.map((tool) => (
+            {interestingWebsites.map((tool) => (
               <div key={tool.name} className="bg-neutral-900 p-6 rounded-lg border border-neutral-800">
                 <h2 className="text-xl font-bold mb-2">{tool.name}</h2>
                 <p className="text-neutral-400 mb-4">{tool.description}</p>
