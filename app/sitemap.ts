@@ -1,6 +1,6 @@
 // This file tells search engines what pages are on your site.
 
-export const baseUrl = 'https://zaifears.vercel.app';
+export const baseUrl = 'https://shahoriar.me'; // <-- Change this line
 
 export default async function sitemap() {
   // ✅ UPDATED: Added '/skills' and '/blog' to the list of routes.
