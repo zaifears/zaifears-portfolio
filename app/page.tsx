@@ -2,13 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faLinkedin, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 export default function Page() {
   return (
     <>
-      {/* ✅ UPDATED: This style block creates the new "circling" outline effect */}
+      {/* Circling outline effect styles */}
       <style jsx global>{`
         @keyframes spin-gradient {
           from {
@@ -21,16 +19,16 @@ export default function Page() {
         .outline-container::before {
           content: '';
           position: absolute;
-          inset: -3px; /* Controls the thickness of the outline */
+          inset: -3px;
           background: conic-gradient(from 180deg at 50% 50%, #3b82f6, #000, #000, #3b82f6);
           clip-path: url(#blob-shape);
           animation: spin-gradient 4s linear infinite;
-          z-index: -1; /* Places the rotating gradient behind the image */
+          z-index: -1;
         }
       `}</style>
 
       <div className="flex flex-col items-center justify-center min-h-screen text-center p-4">
-        
+
         <div className="relative w-64 h-64 md:w-80 md:h-80 mb-8">
           <svg width="0" height="0">
             <defs>
@@ -39,10 +37,8 @@ export default function Page() {
               </clipPath>
             </defs>
           </svg>
-          
-          {/* This container holds both the outline and the image */}
+
           <div className="outline-container relative w-full h-full">
-            {/* The image itself, which does not animate */}
             <div
               className="absolute inset-0"
               style={{ clipPath: 'url(#blob-shape)' }}
@@ -74,7 +70,20 @@ export default function Page() {
              </p>
           </div>
 
-          {/* New Footer-like Text */}
+          {/* New Tech Tips Button */}
+          <div className="mt-12">
+            <Link href="/techtips" className="block w-full max-w-xs mx-auto bg-white rounded-lg overflow-hidden transition-transform transform hover:scale-105">
+                <Image
+                    src="/techtips.png" // Make sure this image is in your /public folder
+                    alt="Tech Tips"
+                    width={400}
+                    height={150}
+                    className="object-cover"
+                />
+            </Link>
+          </div>
+
+          {/* Footer-like Text */}
           <p className="text-sm text-neutral-500 dark:text-neutral-500 mt-8">
             Coded in Visual Studio Code by yours truly. Built with Next.js and Tailwind CSS, deployed with Vercel, followed Gemini.
           </p>

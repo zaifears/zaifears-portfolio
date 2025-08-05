@@ -7,8 +7,9 @@ import {
   faHome, 
   faUserGraduate,
   faCogs,
-  faEnvelope, // Icon for the new Contact Me link
-  faFlag // Icon for the new Life link
+  faEnvelope,
+  faFlag,
+  faLightbulb // Icon for the new Tech Tips link
 } from '@fortawesome/free-solid-svg-icons';
 
 // Define a type for a single navigation item
@@ -24,6 +25,7 @@ const navItems: NavItem[] = [
   { href: '/', name: 'Home', icon: faHome },
   { href: '/education', name: 'Education', icon: faUserGraduate },
   { href: '/skills', name: 'Skills', icon: faCogs },
+  { href: '/techtips', name: 'Tech Tips', icon: faLightbulb },
   { href: '/contact', name: 'Contact', icon: faEnvelope },
   { href: '/life', name: 'Life', icon: faFlag, disabled: true, tooltip: 'Under maintenance' }, // Life is now disabled
 ];
