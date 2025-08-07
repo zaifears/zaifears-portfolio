@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSatelliteDish } from '@fortawesome/free-solid-svg-icons';
 
 export default function Page() {
   return (
@@ -28,7 +30,7 @@ export default function Page() {
       `}</style>
 
       <div className="flex flex-col items-center justify-center min-h-screen text-center p-4">
-
+        
         <div className="relative w-64 h-64 md:w-80 md:h-80 mb-8">
           <svg width="0" height="0">
             <defs>
@@ -37,7 +39,7 @@ export default function Page() {
               </clipPath>
             </defs>
           </svg>
-
+          
           <div className="outline-container relative w-full h-full">
             <div
               className="absolute inset-0"
@@ -70,16 +72,20 @@ export default function Page() {
              </p>
           </div>
 
-          {/* New Tech Tips Button */}
-          <div className="mt-12">
+          {/* Buttons Section */}
+          <div className="mt-12 space-y-4">
             <Link href="/techtips" className="block w-full max-w-xs mx-auto bg-white rounded-lg overflow-hidden transition-transform transform hover:scale-105">
                 <Image
-                    src="/techtips.png" // Make sure this image is in your /public folder
+                    src="/techtips.png"
                     alt="Tech Tips"
                     width={400}
                     height={150}
                     className="object-cover"
                 />
+            </Link>
+            <Link href="/live-text" className="inline-flex items-center justify-center gap-3 w-full max-w-xs mx-auto bg-neutral-800 text-white font-semibold py-3 px-6 rounded-lg border border-neutral-700 transition-transform transform hover:scale-105 hover:bg-neutral-700">
+                <FontAwesomeIcon icon={faSatelliteDish} className="w-5 h-5" />
+                <span>Live Text</span>
             </Link>
           </div>
 
