@@ -3,30 +3,29 @@
 import { useState, useEffect } from 'react';
 import Pusher from 'pusher-js';
 
-// This is the final, interactive component for your Live Text page.
 export default function LiveTextPage() {
   const [message, setMessage] = useState("> Waiting for new message from Telegram...");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    // Initialize Pusher with your PUBLIC keys
+    // Initialize Pusher with your PUBLIC keys from Vercel
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
     });
 
-    // Subscribe to the channel
+    // Subscribe to the same channel as the backend
     const channel = pusher.subscribe('live-text-channel');
 
-    // Bind to the event and update the message state
+    // Listen for the 'new-message' event and update the state
     channel.bind('new-message', function(data: { message: string }) {
       setMessage(data.message);
     });
 
-    // Unsubscribe when the component is unmounted to prevent memory leaks
+    // Unsubscribe when the component unmounts to prevent memory leaks
     return () => {
       pusher.unsubscribe('live-text-channel');
     };
-  }, []); // The empty array ensures this effect runs only once on mount
+  }, []); // The empty array ensures this effect runs only once
 
   const handleCopy = () => {
     const textToCopy = message.startsWith('>') ? '' : message;
