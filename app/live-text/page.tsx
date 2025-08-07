@@ -1,15 +1,34 @@
-"use client"; // This component needs to be a client component to manage state
+"use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Pusher from 'pusher-js';
 
-// This is the new, interactive component for your Live Text page.
+// This is the final, interactive component for your Live Text page.
 export default function LiveTextPage() {
-  // State to hold the message. We'll update this in a later step.
   const [message, setMessage] = useState("> Waiting for new message from Telegram...");
   const [copied, setCopied] = useState(false);
 
+  useEffect(() => {
+    // Initialize Pusher with your PUBLIC keys
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+    });
+
+    // Subscribe to the channel
+    const channel = pusher.subscribe('live-text-channel');
+
+    // Bind to the event and update the message state
+    channel.bind('new-message', function(data: { message: string }) {
+      setMessage(data.message);
+    });
+
+    // Unsubscribe when the component is unmounted to prevent memory leaks
+    return () => {
+      pusher.unsubscribe('live-text-channel');
+    };
+  }, []); // The empty array ensures this effect runs only once on mount
+
   const handleCopy = () => {
-    // We only copy the actual message, not the "> Waiting..." placeholder
     const textToCopy = message.startsWith('>') ? '' : message;
     if (textToCopy) {
       navigator.clipboard.writeText(textToCopy).then(() => {
@@ -23,7 +42,6 @@ export default function LiveTextPage() {
     <section>
       <h1 className="font-bold text-3xl md:text-4xl mb-8">Live Text</h1>
       
-      {/* This is the terminal-like display area */}
       <div className="bg-black border border-neutral-800 rounded-lg p-6 font-mono text-green-400 min-h-[200px] relative">
         <p className={message.startsWith('>') ? "text-neutral-500" : ""}>
           {message}

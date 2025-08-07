@@ -1,16 +1,29 @@
 import { NextResponse } from 'next/server';
+import Pusher from 'pusher';
+
+// Initialize Pusher with your server-side credentials
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID!,
+  key: process.env.NEXT_PUBLIC_PUSHER_KEY!,
+  secret: process.env.PUSHER_SECRET!,
+  cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+  useTLS: true
+});
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    // Log the message content from Telegram to your Vercel logs
     if (body.message) {
       const messageText = body.message.text;
-      console.log("Received message from Telegram:", messageText);
+      console.log("Received from Telegram, sending to Pusher:", messageText);
+
+      // Trigger an event on Pusher
+      await pusher.trigger('live-text-channel', 'new-message', {
+        message: messageText
+      });
     }
 
-    // Respond to Telegram to confirm receipt
     return NextResponse.json({ status: 'ok' });
   } catch (error) {
     console.error('Error processing request:', error);
