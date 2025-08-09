@@ -10,7 +10,7 @@ import {
   faEnvelope,
   faFlag,
   faLightbulb,
-  faCalendarAlt // <-- New icon for scheduling
+  faCalendarAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 // Define a type for a single navigation item
@@ -20,22 +20,23 @@ interface NavItem {
   icon: any;
   disabled?: boolean;
   tooltip?: string;
-  desktopOnly?: boolean; // <-- New property to control visibility
+  desktopOnly?: boolean;
 }
 
+// --- The navigation items are now in your desired order ---
 const navItems: NavItem[] = [
   { href: '/', name: 'Home', icon: faHome },
   { href: '/education', name: 'Education', icon: faUserGraduate },
   { href: '/skills', name: 'Skills', icon: faCogs },
   { href: '/techtips', name: 'Tech Tips', icon: faLightbulb },
   { href: '/contact', name: 'Contact', icon: faEnvelope },
+  { href: '/life', name: 'Life', icon: faFlag },
   { 
     href: 'https://cal.com/zaifears', 
     name: 'Schedule a Meeting', 
     icon: faCalendarAlt, 
-    desktopOnly: true // <-- This item will only appear on desktop
+    desktopOnly: true 
   },
-  { href: '/life', name: 'Life', icon: faFlag, disabled: true, tooltip: 'Under maintenance' },
 ];
 
 export function Navbar() {
@@ -66,14 +67,27 @@ export function Navbar() {
 
               // Use a regular 'a' tag for external links
               const isExternal = item.href.startsWith('http');
-              const Component = isExternal ? 'a' : Link;
+
+              if (isExternal) {
+                return (
+                  <li key={item.name} className="mb-4">
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex items-center p-2 rounded-md transition-all duration-300 hover:text-blue-400 hover:bg-gray-900`}
+                    >
+                      <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
+                      <span>{item.name}</span>
+                    </a>
+                  </li>
+                );
+              }
 
               return (
                 <li key={item.name} className="mb-4">
-                  <Component
+                  <Link
                     href={item.href}
-                    target={isExternal ? '_blank' : undefined}
-                    rel={isExternal ? 'noopener noreferrer' : undefined}
                     className={`flex items-center p-2 rounded-md transition-all duration-300 ${
                       isActive
                         ? 'text-blue-400 bg-gray-800 scale-95 translate-x-2'
@@ -82,7 +96,7 @@ export function Navbar() {
                   >
                     <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
                     <span>{item.name}</span>
-                  </Component>
+                  </Link>
                 </li>
               );
             })}
@@ -94,7 +108,7 @@ export function Navbar() {
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-gray-800 z-50">
         <nav className="flex justify-around items-center p-2">
           {navItems
-            .filter(item => !item.desktopOnly) // <-- Filter out desktop-only items
+            .filter(item => !item.desktopOnly)
             .map((item) => {
               const isActive = pathname === item.href;
 
