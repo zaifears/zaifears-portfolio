@@ -8,24 +8,34 @@ export default function LiveTextPage() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    // Initialize Pusher with your PUBLIC keys from Vercel
+    console.log('CLIENT Pusher env:', process.env.NEXT_PUBLIC_PUSHER_KEY, process.env.NEXT_PUBLIC_PUSHER_CLUSTER);
+
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+      forceTLS: true
     });
 
-    // Subscribe to the same channel as the backend
+    pusher.connection.bind('connected', () => {
+      console.log('Pusher connected, socket id:', pusher.connection.socket_id);
+    });
+
+    pusher.connection.bind('error', (err: any) => {
+      console.error('Pusher connection error:', err);
+    });
+
     const channel = pusher.subscribe('live-text-channel');
 
-    // Listen for the 'new-message' event and update the state
-    channel.bind('new-message', function(data: { message: string }) {
+    channel.bind('new-message', function (data: { message: string }) {
+      console.log('Received new-message event:', data);
       setMessage(data.message);
     });
 
-    // Unsubscribe when the component unmounts to prevent memory leaks
     return () => {
+      channel.unbind_all && channel.unbind_all();
       pusher.unsubscribe('live-text-channel');
+      pusher.disconnect();
     };
-  }, []); // The empty array ensures this effect runs only once
+  }, []);
 
   const handleCopy = () => {
     const textToCopy = message.startsWith('>') ? '' : message;
@@ -40,7 +50,7 @@ export default function LiveTextPage() {
   return (
     <section>
       <h1 className="font-bold text-3xl md:text-4xl mb-8">Live Text</h1>
-      
+
       <div className="bg-black border border-neutral-800 rounded-lg p-6 font-mono text-green-400 min-h-[200px] relative">
         <p className={message.startsWith('>') ? "text-neutral-500" : ""}>
           {message}
