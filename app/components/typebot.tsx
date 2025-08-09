@@ -27,21 +27,19 @@ export function TypebotBubble() {
   }
 
   return (
-    <div className="md:hidden">
+    <div 
+      className="md:hidden fixed z-50"
+      style={{
+        left: "20px",
+        bottom: "100px", // Position above mobile navigation
+      }}
+    >
       <Bubble
         typebot="cmdr248uk000bju049mwjv96l"
         theme={{
           button: {
             backgroundColor: "#0042DA",
           },
-          chatContainer: {
-            backgroundColor: "#000000",
-          },
-        }}
-        style={{
-          left: "20px",
-          right: "auto",
-          bottom: "100px", // Position above mobile navigation
         }}
       />
     </div>
