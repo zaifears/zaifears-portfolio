@@ -9,16 +9,18 @@ import {
   faCogs,
   faEnvelope,
   faFlag,
-  faLightbulb // Icon for the new Tech Tips link
+  faLightbulb,
+  faCalendarAlt // <-- New icon for scheduling
 } from '@fortawesome/free-solid-svg-icons';
 
 // Define a type for a single navigation item
 interface NavItem {
   href: string;
   name: string;
-  icon: any; // FontAwesomeIconType
-  disabled?: boolean; // Optional: to make an item non-clickable
-  tooltip?: string;   // Optional: for hover text when disabled
+  icon: any;
+  disabled?: boolean;
+  tooltip?: string;
+  desktopOnly?: boolean; // <-- New property to control visibility
 }
 
 const navItems: NavItem[] = [
@@ -27,7 +29,13 @@ const navItems: NavItem[] = [
   { href: '/skills', name: 'Skills', icon: faCogs },
   { href: '/techtips', name: 'Tech Tips', icon: faLightbulb },
   { href: '/contact', name: 'Contact', icon: faEnvelope },
-  { href: '/life', name: 'Life', icon: faFlag, disabled: true, tooltip: 'Under maintenance' }, // Life is now disabled
+  { 
+    href: 'https://cal.com/zaifears', 
+    name: 'Schedule a Meeting', 
+    icon: faCalendarAlt, 
+    desktopOnly: true // <-- This item will only appear on desktop
+  },
+  { href: '/life', name: 'Life', icon: faFlag, disabled: true, tooltip: 'Under maintenance' },
 ];
 
 export function Navbar() {
@@ -42,13 +50,12 @@ export function Navbar() {
             {navItems.map((item) => {
               const isActive = pathname === item.href;
 
-              // Conditionally render Link or Span based on 'disabled' prop
               if (item.disabled) {
                 return (
                   <li key={item.name} className="mb-4">
                     <span
                       className="flex items-center p-2 rounded-md text-gray-600 cursor-not-allowed"
-                      title={item.tooltip} // Show tooltip on hover
+                      title={item.tooltip}
                     >
                       <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
                       <span>{item.name}</span>
@@ -57,10 +64,16 @@ export function Navbar() {
                 );
               }
 
+              // Use a regular 'a' tag for external links
+              const isExternal = item.href.startsWith('http');
+              const Component = isExternal ? 'a' : Link;
+
               return (
                 <li key={item.name} className="mb-4">
-                  <Link
+                  <Component
                     href={item.href}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={isExternal ? 'noopener noreferrer' : undefined}
                     className={`flex items-center p-2 rounded-md transition-all duration-300 ${
                       isActive
                         ? 'text-blue-400 bg-gray-800 scale-95 translate-x-2'
@@ -69,7 +82,7 @@ export function Navbar() {
                   >
                     <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
                     <span>{item.name}</span>
-                  </Link>
+                  </Component>
                 </li>
               );
             })}
@@ -80,35 +93,36 @@ export function Navbar() {
       {/* Mobile Bottom Navigation Bar */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-gray-800 z-50">
         <nav className="flex justify-around items-center p-2">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
+          {navItems
+            .filter(item => !item.desktopOnly) // <-- Filter out desktop-only items
+            .map((item) => {
+              const isActive = pathname === item.href;
 
-            // Conditionally render Link or Div for mobile based on 'disabled' prop
-            if (item.disabled) {
+              if (item.disabled) {
+                return (
+                  <div 
+                    key={item.name}
+                    className="flex flex-col items-center text-center text-gray-600 p-2 cursor-not-allowed"
+                    title={item.tooltip}
+                  >
+                    <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mb-1" />
+                    <span className="text-xs">{item.name}</span>
+                  </div>
+                );
+              }
+
               return (
-                <div 
+                <Link
                   key={item.name}
-                  className="flex flex-col items-center text-center text-gray-600 p-2 cursor-not-allowed"
-                  title={item.tooltip} // Show tooltip on hover
+                  href={item.href}
+                  className={`flex flex-col items-center text-center p-2 transition-colors duration-200 ${
+                    isActive ? 'text-blue-400' : 'text-gray-400 hover:text-blue-400'
+                  }`}
                 >
                   <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mb-1" />
                   <span className="text-xs">{item.name}</span>
-                </div>
+                </Link>
               );
-            }
-
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`flex flex-col items-center text-center p-2 transition-colors duration-200 ${
-                  isActive ? 'text-blue-400' : 'text-gray-400 hover:text-blue-400'
-                }`}
-              >
-                <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mb-1" />
-                <span className="text-xs">{item.name}</span>
-              </Link>
-            );
           })}
         </nav>
       </div>

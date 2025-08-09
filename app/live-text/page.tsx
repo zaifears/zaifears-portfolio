@@ -13,9 +13,17 @@ export default function LiveTextPage() {
       try {
         const response = await fetch('/api/telegram-webhook');
         const history = await response.json();
-        setMessages(history);
+        
+        // Make sure history is an array before setting it
+        if (Array.isArray(history)) {
+          setMessages(history);
+        } else {
+          console.log('History is not an array:', history);
+          setMessages([]); // Set to empty array if not an array
+        }
       } catch (error) {
         console.error('Failed to fetch history:', error);
+        setMessages([]); // Set to empty array on error
       }
     };
 
@@ -31,7 +39,9 @@ export default function LiveTextPage() {
     // Listen for new messages and update the list
     channel.bind('new-message', function (data: { message: string }) {
       setMessages(prevMessages => {
-        const newMessages = [data.message, ...prevMessages];
+        // Make sure prevMessages is an array
+        const currentMessages = Array.isArray(prevMessages) ? prevMessages : [];
+        const newMessages = [data.message, ...currentMessages];
         // Keep only the last 3 messages
         return newMessages.slice(0, 3);
       });

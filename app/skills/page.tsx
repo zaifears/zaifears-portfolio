@@ -1,6 +1,7 @@
 // This is the new page for your skills section, based on your visual design.
 // The file should be located at: app/skills/page.tsx
 import Image from 'next/image';
+import Link from 'next/link'; // Import Link for the new button
 
 // Helper component for a single skill item to keep the code clean
 const SkillItem = ({ icon, name }: { icon: string; name: string }) => (
@@ -108,37 +109,21 @@ export default function SkillsPage() {
                  <TechSkillItem
                     title="IT Support"
                     logos={[{src: 'computer.png', alt: 'Computer Hardware', href: '#'}]}
-                    // ✅ UPDATED: The description for IT Support is now more detailed.
                     names="Proficient in building computers from scratch and disassembling hardware components. Skilled at diagnosing and resolving both hardware and software issues, providing comprehensive IT support from physical assembly to troubleshooting"
                 />
             </div>
         </div>
       </div>
 
-      {/* --- Contact Me Section --- */}
-      <div className="mt-16 p-8 border border-neutral-200 dark:border-neutral-800 rounded-lg text-center bg-neutral-100 dark:bg-neutral-900">
-        <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">Got some work? Feel free to reach</h2>
-        <div className="flex justify-center gap-8 mt-6">
-          {/* Phone Link */}
-          <a href="tel:+8801865333143" className="text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors">
-            <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></svg>
-          </a>
-          {/* Email Link */}
-          <a href="mailto:alshahoriar.hossain@gmail.com" className="text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors">
-            <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"></path></svg>
-          </a>
-          {/* WhatsApp Link */}
-          <a href="https://wa.me/8801865333143" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-75">
-            <div className="relative w-10 h-10">
-                <Image
-                  src="/whatsapp.png"
-                  alt="WhatsApp"
-                  layout="fill"
-                  objectFit="contain"
-                />
-            </div>
-          </a>
-        </div>
+      {/* --- Contact Me Button Section --- */}
+      <div className="text-center mt-16">
+        <Link
+          href="/contact"
+          className="inline-block px-8 py-4 bg-blue-600 text-white font-semibold rounded-full text-lg
+                     transition-all duration-300 hover:bg-blue-700 hover:scale-105 shadow-lg"
+        >
+          Contact Me
+        </Link>
       </div>
 
       {/* --- Icon Attribution --- */}
