@@ -23,11 +23,11 @@ interface LifeEvent {
   };
 }
 
-// --- FIX: Define a more specific type for the page props ---
+// Updated PageProps interface for Next.js 15
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 // Function to fetch a single life event by its slug
@@ -53,8 +53,10 @@ function getYouTubeVideoId(url: string) {
   }
 }
 
-export default async function LifePostPage({ params }: PageProps) { // <-- Use the new PageProps type
-  const event = await getLifeEvent(params.slug);
+export default async function LifePostPage({ params }: PageProps) {
+  // Await the params since it's now a Promise in Next.js 15
+  const { slug } = await params;
+  const event = await getLifeEvent(slug);
 
   if (!event) {
     return (
