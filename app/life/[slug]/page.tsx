@@ -23,6 +23,13 @@ interface LifeEvent {
   };
 }
 
+// --- FIX: Define a more specific type for the page props ---
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
 // Function to fetch a single life event by its slug
 async function getLifeEvent(slug: string) {
   const response = await contentfulClient.getEntries({
@@ -46,7 +53,7 @@ function getYouTubeVideoId(url: string) {
   }
 }
 
-export default async function LifePostPage({ params }: { params: { slug: string } }) {
+export default async function LifePostPage({ params }: PageProps) { // <-- Use the new PageProps type
   const event = await getLifeEvent(params.slug);
 
   if (!event) {
@@ -61,20 +68,11 @@ export default async function LifePostPage({ params }: { params: { slug: string 
     );
   }
 
-  // Options object to render our embedded video component
   const renderOptions = {
     renderNode: {
       [BLOCKS.EMBEDDED_ENTRY]: (node: any) => {
         const { sys, fields } = node.data.target;
-        
-        // --- DEBUGGING LOG ---
-        // This will show in your terminal when the page loads
-        console.log('Found embedded entry with ID:', sys.contentType.sys.id);
-        console.log('Available fields:', Object.keys(fields));
-        // ---------------------
-
         if (sys.contentType.sys.id === 'video') {
-          // --- FIX: Changed youTubeUrl to youtubeUrl (lowercase 't') ---
           const videoId = getYouTubeVideoId(fields.youtubeUrl);
           if (!videoId) return <p>Could not load YouTube video.</p>;
           
