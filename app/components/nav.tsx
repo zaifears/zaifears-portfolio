@@ -39,6 +39,16 @@ const navItems: NavItem[] = [
   },
 ];
 
+// Helper function to determine if a nav item is active
+const isNavItemActive = (itemHref: string, pathname: string): boolean => {
+  if (itemHref === '/') {
+    // For home page, only match exact path
+    return pathname === '/';
+  }
+  // For other pages, match if pathname starts with the item href
+  return pathname.startsWith(itemHref);
+};
+
 export function Navbar() {
   const pathname = usePathname();
 
@@ -49,7 +59,7 @@ export function Navbar() {
         <nav>
           <ul>
             {navItems.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive = isNavItemActive(item.href, pathname);
 
               if (item.disabled) {
                 return (
@@ -110,7 +120,7 @@ export function Navbar() {
           {navItems
             .filter(item => !item.desktopOnly)
             .map((item) => {
-              const isActive = pathname === item.href;
+              const isActive = isNavItemActive(item.href, pathname);
 
               if (item.disabled) {
                 return (
