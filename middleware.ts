@@ -11,11 +11,13 @@ export function middleware(request: NextRequest) {
       return NextResponse.next();
     }
     
-    const isAuthenticated = request.cookies.has(PASSWORD_COOKIE_NAME);
+    const authCookie = request.cookies.get(PASSWORD_COOKIE_NAME);
+    const isAuthenticated = authCookie && authCookie.value === 'true';
 
     // If not authenticated, redirect to the password page
     if (!isAuthenticated) {
-      return NextResponse.redirect(new URL('/live-text/password', request.url));
+      const redirectUrl = new URL('/live-text/password', request.url);
+      return NextResponse.redirect(redirectUrl);
     }
   }
 
