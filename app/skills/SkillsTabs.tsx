@@ -54,7 +54,7 @@ const TechSkillItem = ({ title, logos, names }: { title: string; logos: { src: s
     </div>
 );
 
-// --- FIX: Added explicit types for the props ---
+// Reusable Tab Buttons Component
 const TabButtons = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) => (
   <div className="flex justify-center mb-12 bg-neutral-900 rounded-full p-1 max-w-max mx-auto">
     <button 
@@ -98,6 +98,22 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
                 </div>
                 <div className="mb-16">
                     <h2 className="text-2xl font-bold text-center mb-8">Technical Skills</h2>
+                    
+                    {/* --- NEW AI SECTION --- */}
+                    <div className="grid grid-cols-1 gap-8 max-w-4xl mx-auto mb-8">
+                        <TechSkillItem
+                            title="Proficient Use of AI"
+                            logos={[
+                                {src: 'chatgpt.png', alt: 'ChatGPT Logo', href: 'https://openai.com/chatgpt'},
+                                {src: 'claude.png', alt: 'Claude AI Logo', href: 'https://www.claude.ai/'},
+                                {src: 'gemini.png', alt: 'Google Gemini Logo', href: 'https://gemini.google.com/'},
+                                {src: 'grok.png', alt: 'Grok AI Logo', href: 'https://grok.x.ai/'},
+                            ]}
+                            names="I leverage various AI tools to accelerate my development workflow, from code generation to research and analysis."
+                        />
+                    </div>
+
+                    {/* --- EXISTING TECHNICAL SKILLS --- */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                         <TechSkillItem
                             title="Design"

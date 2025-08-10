@@ -1,14 +1,11 @@
 // app/skills/page.tsx
 import Link from 'next/link';
 import { contentfulClient } from '@/lib/contentfulClient';
-import SkillsTabs from './SkillsTabs'; // Import the new client component
+import SkillsTabs from './SkillsTabs'; // Assumes SkillsTabs.tsx is in the same folder
 
-// More aggressive cache control
-export const revalidate = 0; // Disable ISR caching
-export const dynamic = 'force-dynamic'; // Force dynamic rendering
-export const fetchCache = 'force-no-store'; // Don't cache fetch requests
+export const revalidate = 60;
 
-// --- CERTIFICATE DATA STRUCTURE ---
+// Certificate data structure
 interface Certificate {
   fields: {
     title: string;
@@ -25,16 +22,12 @@ interface Certificate {
   };
 }
 
-// --- FUNCTION TO FETCH CERTIFICATES ---
+// Function to fetch certificates
 async function getCertificates(): Promise<Certificate[]> {
   try {
-    // Add cache-busting timestamp
     const response = await contentfulClient.getEntries({
       content_type: 'certificate',
       order: ['-fields.date'],
-      // Add timestamp to bypass cache
-      limit: 1000,
-      include: 2,
     });
     return response.items as unknown as Certificate[];
   } catch (error) {
@@ -43,7 +36,7 @@ async function getCertificates(): Promise<Certificate[]> {
   }
 }
 
-// --- MAIN PAGE COMPONENT (SERVER) ---
+// Main page component (Server)
 export default async function SkillsPage() {
   const certificates = await getCertificates();
 
@@ -51,7 +44,6 @@ export default async function SkillsPage() {
     <section>
       <h1 className="font-bold text-3xl text-center mb-12">Skills & Certifications</h1>
       
-      {/* Pass the fetched data to the client component */}
       <SkillsTabs certificates={certificates} />
 
       {/* Contact Me Button */}
