@@ -52,8 +52,15 @@ function getYouTubeVideoId(url: string) {
   }
 }
 
-export default async function LifePostPage({ params }: { params: { slug: string } }) {
-  const event = await getLifeEvent(params.slug);
+// Fixed for Next.js 15 - params is now a Promise
+export default async function LifePostPage({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
+  // Await the params since it's now a Promise in Next.js 15
+  const { slug } = await params;
+  const event = await getLifeEvent(slug);
 
   if (!event) {
     return (
