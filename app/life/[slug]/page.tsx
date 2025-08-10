@@ -4,6 +4,8 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import Image from 'next/image';
 import Link from 'next/link';
 
+export const revalidate = 60; // Revalidate this page every 60 seconds
+
 // Define the type for a single Life Event
 interface LifeEvent {
   fields: {
@@ -21,13 +23,6 @@ interface LifeEvent {
       };
     };
   };
-}
-
-// Updated PageProps interface for Next.js 15
-interface PageProps {
-  params: Promise<{
-    slug: string;
-  }>;
 }
 
 // Function to fetch a single life event by its slug
@@ -53,10 +48,8 @@ function getYouTubeVideoId(url: string) {
   }
 }
 
-export default async function LifePostPage({ params }: PageProps) {
-  // Await the params since it's now a Promise in Next.js 15
-  const { slug } = await params;
-  const event = await getLifeEvent(slug);
+export default async function LifePostPage({ params }: { params: { slug: string } }) {
+  const event = await getLifeEvent(params.slug);
 
   if (!event) {
     return (

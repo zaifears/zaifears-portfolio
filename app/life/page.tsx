@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 
+export const revalidate = 60; // Revalidate this page every 60 seconds
+
 // Define a type for our Life Event entries for better code safety
 interface LifeEvent {
   fields: {
@@ -43,15 +45,13 @@ export default async function LifePage() {
       {latestEvent && (
         <div className="mb-12">
           <Link href={`/life/${latestEvent.fields.slug}`} className="block group">
-            {/* --- FIX: Added a more robust check for the image --- */}
             {latestEvent.fields.coverImage?.fields?.file?.url && (
               <div className="relative h-64 md:h-96 mb-6 overflow-hidden rounded-lg">
                 <Image
                   src={`https:${latestEvent.fields.coverImage.fields.file.url}`}
                   alt={latestEvent.fields.coverImage.fields.title || 'Cover Image'}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg transform group-hover:scale-105 transition-transform duration-300"
+                  fill
+                  className="object-cover rounded-lg transform group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
             )}
@@ -76,15 +76,13 @@ export default async function LifePage() {
 
               return (
                 <Link href={`/life/${event.fields.slug}`} key={index} className="block bg-neutral-900 p-6 rounded-lg border border-neutral-800 hover:border-blue-500 transition-colors">
-                  {/* --- FIX: Added a more robust check for the image --- */}
                   {event.fields.coverImage?.fields?.file?.url && (
                     <div className="relative h-48 mb-4">
                       <Image
                         src={`https:${event.fields.coverImage.fields.file.url}`}
                         alt={event.fields.coverImage.fields.title || 'Cover Image'}
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded-md"
+                        fill
+                        className="object-cover rounded-md"
                       />
                     </div>
                   )}
@@ -104,4 +102,3 @@ export default async function LifePage() {
     </section>
   );
 }
-
