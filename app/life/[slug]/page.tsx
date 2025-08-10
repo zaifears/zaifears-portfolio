@@ -4,7 +4,10 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const revalidate = 60; // Revalidate this page every 60 seconds
+// More aggressive cache control
+export const revalidate = 0; // Disable ISR caching
+export const dynamic = 'force-dynamic'; // Force dynamic rendering
+export const fetchCache = 'force-no-store'; // Don't cache fetch requests
 
 // Define the type for a single Life Event
 interface LifeEvent {
@@ -31,6 +34,7 @@ async function getLifeEvent(slug: string) {
     content_type: 'zaifearsBlogPost',
     'fields.slug': slug,
     limit: 1,
+    include: 2,
   });
   return response.items.length > 0 ? response.items[0] as unknown as LifeEvent : null;
 }

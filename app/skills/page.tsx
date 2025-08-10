@@ -3,7 +3,10 @@ import Link from 'next/link';
 import { contentfulClient } from '@/lib/contentfulClient';
 import SkillsTabs from './SkillsTabs'; // Import the new client component
 
-export const revalidate = 60; // Revalidate this page every 60 seconds
+// More aggressive cache control
+export const revalidate = 0; // Disable ISR caching
+export const dynamic = 'force-dynamic'; // Force dynamic rendering
+export const fetchCache = 'force-no-store'; // Don't cache fetch requests
 
 // --- CERTIFICATE DATA STRUCTURE ---
 interface Certificate {
@@ -25,9 +28,13 @@ interface Certificate {
 // --- FUNCTION TO FETCH CERTIFICATES ---
 async function getCertificates(): Promise<Certificate[]> {
   try {
+    // Add cache-busting timestamp
     const response = await contentfulClient.getEntries({
       content_type: 'certificate',
       order: ['-fields.date'],
+      // Add timestamp to bypass cache
+      limit: 1000,
+      include: 2,
     });
     return response.items as unknown as Certificate[];
   } catch (error) {

@@ -13,3 +13,17 @@ export const contentfulClient = createClient({
   space: spaceId,
   accessToken: accessToken,
 });
+
+// Helper function to fetch with cache control
+export const getContentfulEntries = async (query: any, bypassCache = false) => {
+  if (bypassCache) {
+    // Add a timestamp to bypass cache
+    const timestamp = Date.now();
+    return contentfulClient.getEntries({
+      ...query,
+      'sys.updatedAt[gte]': new Date(0).toISOString(), // Force fresh fetch
+      _cacheBuster: timestamp
+    });
+  }
+  return contentfulClient.getEntries(query);
+};

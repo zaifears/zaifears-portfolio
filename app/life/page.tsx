@@ -3,7 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 
-export const revalidate = 60; // Revalidate this page every 60 seconds
+// More aggressive cache control
+export const revalidate = 0; // Disable ISR caching
+export const dynamic = 'force-dynamic'; // Force dynamic rendering
+export const fetchCache = 'force-no-store'; // Don't cache fetch requests
 
 // Define a type for our Life Event entries for better code safety
 interface LifeEvent {
@@ -26,6 +29,8 @@ async function getLifeEvents() {
   const response = await contentfulClient.getEntries({
     content_type: 'zaifearsBlogPost',
     order: ['-fields.date'],   // Order by date, newest first
+    limit: 1000,
+    include: 2,
   });
   return response.items as unknown as LifeEvent[];
 }
