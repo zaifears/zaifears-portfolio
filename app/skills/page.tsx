@@ -1,14 +1,46 @@
-// This is the new page for your skills section, based on your visual design.
-// The file should be located at: app/skills/page.tsx
+// app/skills/page.tsx
 import Image from 'next/image';
-import Link from 'next/link'; // Import Link for the new button
+import Link from 'next/link';
+import { contentfulClient } from '@/lib/contentfulClient';
 
-// Helper component for a single skill item to keep the code clean
+// --- UPDATED CERTIFICATE DATA STRUCTURE ---
+interface Certificate {
+  fields: {
+    title: string;
+    issuingBody: string;
+    date: string;
+    description?: string; // Added the optional description field
+    credentialUrl?: string;
+    certificateImage?: {
+      fields: {
+        file: { url: string };
+        title: string;
+      };
+    };
+  };
+}
+
+// --- FUNCTION TO FETCH CERTIFICATES ---
+async function getCertificates() {
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: 'certificate',
+      order: ['-fields.date'],
+    });
+    return response.items as unknown as Certificate[];
+  } catch (error) {
+    console.error("Error fetching certificates:", error);
+    return [];
+  }
+}
+
+
+// --- EXISTING SKILL COMPONENTS (NO CHANGES) ---
 const SkillItem = ({ icon, name }: { icon: string; name: string }) => (
   <div className="flex flex-col items-center text-center">
     <div className="relative w-20 h-20 mb-2">
       <Image
-        src={`/${icon}`} // e.g., /problem.png
+        src={`/${icon}`}
         alt={`${name} icon`}
         width={80}
         height={80}
@@ -32,7 +64,7 @@ const TechSkillItem = ({ title, logos, names }: { title: string; logos: { src: s
                     className="transition-opacity hover:opacity-75"
                 >
                     <div className="relative h-12 w-12">
-                         <Image src={`/${logo.src}`} alt={logo.alt} layout="fill" objectFit="contain" />
+                         <Image src={`/${logo.src}`} alt={logo.alt} fill objectFit="contain" />
                     </div>
                 </a>
             ))}
@@ -42,12 +74,15 @@ const TechSkillItem = ({ title, logos, names }: { title: string; logos: { src: s
 );
 
 
-export default function SkillsPage() {
+// --- MAIN PAGE COMPONENT ---
+export default async function SkillsPage() {
+  const certificates = await getCertificates();
+
   return (
     <section>
       <h1 className="font-bold text-3xl text-center mb-12">Skills</h1>
 
-      {/* --- Core Competencies Section --- */}
+      {/* --- Core Competencies Section (Existing) --- */}
       <div className="mb-16">
         <h2 className="text-2xl font-bold text-center mb-8">Core Competencies</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-6 max-w-4xl mx-auto">
@@ -60,11 +95,11 @@ export default function SkillsPage() {
         </div>
       </div>
 
-      {/* --- Technical Skills Section --- */}
+      {/* --- Technical Skills Section (Existing) --- */}
       <div className="mb-16">
         <h2 className="text-2xl font-bold text-center mb-8">Technical Skills</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <TechSkillItem
+             <TechSkillItem
                 title="Design"
                 logos={[
                     {src: 'canva.png', alt: 'Canva', href: 'https://www.canva.com'},
@@ -115,7 +150,42 @@ export default function SkillsPage() {
         </div>
       </div>
 
-      {/* --- Contact Me Button Section --- */}
+      {/* --- UPDATED CERTIFICATIONS SECTION --- */}
+      <div className="mb-16">
+        <h2 className="text-2xl font-bold text-center mb-8">Certifications</h2>
+        <div className="space-y-8 max-w-4xl mx-auto">
+          {certificates.map((cert, index) => (
+            <div key={index} className="bg-neutral-900 p-6 rounded-lg border border-neutral-800 flex flex-col sm:flex-row items-start gap-6">
+              {cert.fields.certificateImage && (
+                <div className="flex-shrink-0 w-full sm:w-24">
+                  <Image
+                    src={`https:${cert.fields.certificateImage.fields.file.url}`}
+                    alt={cert.fields.certificateImage.fields.title}
+                    width={96}
+                    height={96}
+                    className="rounded-md object-contain mx-auto"
+                  />
+                </div>
+              )}
+              <div className="flex-grow">
+                <h3 className="font-bold text-xl">{cert.fields.title}</h3>
+                <p className="text-neutral-400">{cert.fields.issuingBody}</p>
+                {/* --- Display the new description field --- */}
+                {cert.fields.description && (
+                  <p className="text-neutral-300 mt-2 text-sm">{cert.fields.description}</p>
+                )}
+                {cert.fields.credentialUrl && (
+                  <a href={cert.fields.credentialUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm mt-3 inline-block">
+                    View Credential &rarr;
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* --- Contact Me Button (Existing) --- */}
       <div className="text-center mt-16">
         <Link
           href="/contact"
@@ -126,7 +196,7 @@ export default function SkillsPage() {
         </Link>
       </div>
 
-      {/* --- Icon Attribution --- */}
+      {/* --- Icon Attribution (Existing) --- */}
       <div className="text-center mt-12">
         <p className="text-xs text-neutral-400 dark:text-neutral-600">
           Icons and logos sourced from <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-500">Flaticon</a>.
