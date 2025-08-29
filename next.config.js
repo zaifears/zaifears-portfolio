@@ -1,3 +1,5 @@
+// Path: next.config.js
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -6,6 +8,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.ctfassets.net',
       },
+      // --- ADD THIS NEW SECTION ---
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+      },
+      // --------------------------
     ],
   },
   // Add cache control headers to reduce caching issues
