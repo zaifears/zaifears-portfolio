@@ -14,7 +14,7 @@ export default function Page() {
 
   return (
     <>
-      {/* Optimized CSS with reduced animation frequency */}
+      {/* Circling outline effect styles from the old version */}
       <style jsx global>{`
         @keyframes spin-gradient {
           from { transform: rotate(0deg); }
@@ -35,88 +35,104 @@ export default function Page() {
         }
       `}</style>
 
-      <div className="flex flex-col items-center justify-center min-h-screen text-center p-4">
-        
-        {/* Profile Image Section */}
-        <div className="relative w-64 h-64 md:w-80 md:h-80 mb-8">
-          <svg width="0" height="0" aria-hidden="true">
-            <defs>
-              <clipPath id="blob-shape" clipPathUnits="objectBoundingBox">
-                <path d={blobPath} />
-              </clipPath>
-            </defs>
-          </svg>
+      <div className="min-h-screen bg-black text-white">
+        <div className="max-w-6xl mx-auto px-4 py-12">
           
-          <div className="outline-container relative w-full h-full">
-            <div
-              className="absolute inset-0"
-              style={{ clipPath: 'url(#blob-shape)' }}
-            >
-              <Image
-                src="/my-profile.jpg"
-                alt="MD AL SHAHORIAR HOSSAIN - Finance Professional"
-                width={320}
-                height={320}
-                className="w-full h-full object-cover"
-                style={{ clipPath: 'url(#blob-shape)' }}
-                priority
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-              />
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            
+            {/* Profile Image with Circling Animation */}
+            <div className="relative w-48 h-48 mx-auto mb-8">
+              <svg width="0" height="0" aria-hidden="true">
+                <defs>
+                  <clipPath id="blob-shape" clipPathUnits="objectBoundingBox">
+                    <path d={blobPath} />
+                  </clipPath>
+                </defs>
+              </svg>
+              
+              <div className="outline-container relative w-full h-full">
+                <div
+                  className="absolute inset-0"
+                  style={{ clipPath: 'url(#blob-shape)' }}
+                >
+                  <Image
+                    src="/my-profile.jpg"
+                    alt="MD AL SHAHORIAR HOSSAIN - Finance Professional"
+                    width={192}
+                    height={192}
+                    className="w-full h-full object-cover"
+                    style={{ clipPath: 'url(#blob-shape)' }}
+                    priority
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Main Content */}
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold font-mono tracking-tight mb-4">
-            MD AL SHAHORIAR HOSSAIN
-          </h1>
-          
-          <p className="text-lg text-gray-400 mb-6 leading-relaxed">
-            Hello everyone! This is Shahoriar Hossain, aka Zaifears Republic. Thank you for showing interest in my life. This website is basically a portfolio and life log. Enjoy!
-          </p>
-          
-          <div className="border-t border-gray-700 pt-6">
-            <h2 className="text-xl font-semibold mb-4 text-blue-400">About me</h2>
-            <p className="text-gray-400 leading-relaxed text-left max-w-2xl mx-auto">
-              I am a Finance major with strong focus in financial analysis, Islamic finance, and data-driven decision-making. I have excelled in national business case and idea competitions, showcasing analytical and problem-solving skills under pressure. Proficient in Power BI, Excel, and statistical tools like Stata and SPSS, I specialize in financial modeling, data visualization, and forecasting. My goal is to apply my technical and analytical abilities to solve real-world financial challenges and contribute to growth in finance and technology-driven fields.
+            <h1 className="text-4xl md:text-6xl font-bold font-mono tracking-tight mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+              MD AL SHAHORIAR HOSSAIN
+            </h1>
+            
+            <p className="text-xl text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto">
+              Hello everyone! This is Shahoriar Hossain, aka Zaifears Republic. Thank you for showing interest in my life. This website is basically a portfolio and life log. Enjoy!
             </p>
           </div>
 
-          {/* Action Buttons */}
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link 
-              href="/techtips" 
-              className="block w-full max-w-xs bg-white rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black"
-              aria-label="Visit Tech Tips section"
-            >
-              <Image
-                src="/techtips.png"
-                alt="Tech Tips - Technology insights and tutorials"
-                width={400}
-                height={150}
-                className="object-cover w-full"
-                loading="lazy"
-              />
-            </Link>
-            
-            <Link 
-              href="/live-text" 
-              className="inline-flex items-center justify-center gap-3 w-full max-w-xs bg-neutral-800 text-white font-semibold py-3 px-6 rounded-lg border border-neutral-700 transition-all duration-300 transform hover:scale-105 hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black"
-              aria-label="Access Live Text feature"
-            >
-              <FontAwesomeIcon icon={faSatelliteDish} className="w-5 h-5" aria-hidden="true" />
-              <span>Live Text</span>
-            </Link>
+          {/* About Section */}
+          <div className="mb-16">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-8 max-w-4xl mx-auto">
+              <h2 className="text-2xl font-bold mb-6 text-center text-blue-400">About Me</h2>
+              <p className="text-gray-300 leading-relaxed text-center">
+                I am a Finance major with a strong focus in financial analysis, Islamic finance, and data-driven decision-making. I have excelled in national business case and idea competitions, showcasing analytical and problem-solving skills under pressure. Proficient in Power BI, Excel, and statistical tools like Stata and SPSS, I specialize in financial modeling, data visualization, and forecasting. My goal is to apply my technical and analytical abilities to solve real-world financial challenges and contribute to growth in finance and technology-driven fields.
+              </p>
+            </div>
+          </div>
+
+          {/* Featured Actions */}
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-center mb-8">Get Started</h2>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
+              
+              {/* Tech Tips Button (Image Only) */}
+              <Link 
+                href="/techtips" 
+                className="group w-full sm:w-1/2 bg-white rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-600/20"
+                aria-label="Visit Tech Tips section"
+              >
+                <Image
+                  src="/techtips.png"
+                  alt="Tech Tips - Technology insights and tutorials"
+                  width={400}
+                  height={150}
+                  className="object-cover w-full transition-transform duration-300 group-hover:scale-110"
+                />
+              </Link>
+              
+              {/* Live Text Button */}
+              <Link 
+                href="/live-text" 
+                className="group w-full sm:w-1/2 h-[150px] bg-gradient-to-br from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-blue-500/30 rounded-lg p-6 hover:border-blue-400/50 hover:bg-gradient-to-br hover:from-blue-600/30 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex flex-col items-center justify-center"
+                aria-label="Access Live Text feature"
+              >
+                <div className="w-16 h-16 bg-blue-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600/30 transition-colors duration-300">
+                  <FontAwesomeIcon icon={faSatelliteDish} className="w-8 h-8 text-blue-400 transition-transform duration-300 group-hover:scale-110" />
+                </div>
+                <h3 className="text-lg font-bold group-hover:text-blue-400 transition-colors duration-300">Live Text</h3>
+              </Link>
+            </div>
           </div>
 
           {/* Footer */}
-          <footer className="text-sm text-neutral-500 mt-12 leading-relaxed">
-            <p>Coded in Visual Studio Code by yours truly. Built with Next.js and Tailwind CSS, deployed with Vercel.</p>
-          </footer>
+          <div className="text-center mt-16">
+            <div className="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 max-w-2xl mx-auto">
+              <p className="text-sm text-gray-400 leading-relaxed">
+                Coded in Visual Studio Code by yours truly. Built with Next.js and Tailwind CSS, deployed with Vercel.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </>
   );
 }
+
