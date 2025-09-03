@@ -61,7 +61,7 @@ behind-the-scene * 3p-script noop
 behind-the-scene * image noop
 behind-the-scene * inline-script noop`;
 
-// Reusable component for the copyable command block
+// --- UPDATED: Reusable component for the copyable command block ---
 const CommandBlock = ({ content, isCodeBlock = false }: { content: string, isCodeBlock?: boolean }) => {
   const [copied, setCopied] = useState(false);
 
@@ -77,7 +77,12 @@ const CommandBlock = ({ content, isCodeBlock = false }: { content: string, isCod
       {isCodeBlock ? (
         <pre className="whitespace-pre-wrap break-words">{content}</pre>
       ) : (
-        <span><span className="text-green-400">powershell -c &quot;</span>{content}<span className="text-green-400">&quot;</span></span>
+        // This div allows the text to wrap correctly on mobile
+        <div className="pr-16 break-words">
+          <span className="text-green-400">powershell -c &quot;</span>
+          <span>{content}</span>
+          <span className="text-green-400">&quot;</span>
+        </div>
       )}
       <button
         onClick={handleCopy}
@@ -88,6 +93,7 @@ const CommandBlock = ({ content, isCodeBlock = false }: { content: string, isCod
     </div>
   );
 };
+
 
 export default function TechTipsPage() {
   const [activeTab, setActiveTab] = useState('apps');

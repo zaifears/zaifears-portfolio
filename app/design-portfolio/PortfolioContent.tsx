@@ -2,9 +2,10 @@
 
 import Image from 'next/image';
 
-// --- Your 9 Portfolio Projects ---
+// --- Your 14 Portfolio Projects ---
 // The code will use these to build the grid.
 const projects = [
+  // --- Existing Top Projects ---
   {
     title: 'Video Editing',
     imageUrl: '/idea.png',
@@ -25,6 +26,35 @@ const projects = [
     imageUrl: '/buppost.png',
     link: 'https://www.canva.com/design/DAGiWcVvsjA/yj6gZQz2dHkrV8pOqGP0MA/view?utm_content=DAGiWcVvsjA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hfefb050eec',
   },
+
+  // --- Newly Added Projects ---
+  {
+    title: 'Minimalistic Slide',
+    imageUrl: '/ipm.png',
+    link: 'https://www.canva.com/design/DAGrtMyznBM/bcuydRyvr_xym1zqtNjgCw/view?utm_content=DAGrtMyznBM&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h09098b2e3b',
+  },
+  {
+    title: 'Seminar Paper Design',
+    imageUrl: '/paper.png',
+    link: 'https://www.canva.com/design/DAGoDKwOafs/Me_rrdr8fFluhOzBGizhoA/view?utm_content=DAGoDKwOafs&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h0fd5653e66',
+  },
+  {
+    title: 'Product Demostration Slide',
+    imageUrl: '/square.png',
+    link: 'https://www.canva.com/design/DAGqbut5kmc/-cvnPo1R91QywMVtTl_h_A/view?utm_content=DAGqbut5kmc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hf6258046dd',
+  },
+  {
+    title: 'Strong Color Themed',
+    imageUrl: '/yamaha.png',
+    link: 'https://www.canva.com/design/DAGx7_YlrZQ/nBVBzOWKvdoBHmEDMTZ5PA/view?utm_content=DAGx7_YlrZQ&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h3022e3ea0e',
+  },
+  {
+    title: 'Corporate Green Theme',
+    imageUrl: '/corpo.png',
+    link: 'https://www.canva.com/design/DAGvIuft0D4/yxs68y8whP0yOts5YUQu0g/view?utm_content=DAGvIuft0D4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4c5f027527',
+  },
+
+  // --- Existing Bottom Projects ---
   {
     title: 'Academic Slide Design',
     imageUrl: '/academic.png',
