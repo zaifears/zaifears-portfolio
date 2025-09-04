@@ -15,7 +15,7 @@ interface LifeEvent {
 
 export default async function sitemap() {
   // 1. Start with your static pages
-  const routes = ['', '/education', '/skills', '/techtips', '/contact', '/life'].map((route) => ({
+  const routes = ['', '/education', '/skills', '/techtips', '/contact', '/life', '/design-portfolio'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }));
