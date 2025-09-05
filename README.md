@@ -1,47 +1,32 @@
 # Shahoriar Hossain's Portfolio
 
-Welcome! This is the source code for my personal portfolio website.
+Welcome! This is the source code for my personal portfolio website, a project I built to showcase my profile, education, and skills.
 
-You can view the live site here: 
-```bash
-zaifears.vercel.app
-```
+This site was built in Visual Studio Code through a collaboration with AI. It's based on a Vercel Next.js template and has been heavily customized.
 
-This project was originally based on a Vercel template and has been customized to showcase my profile, education, and skills. Thank you for visiting and checking out my work!
+---
 
-# Core Technologies
+## 🚀 Live Site
 
-This site is built with modern web technologies, including:
+You can view the live website at:
 
-- Next.js (React Framework)
+- **Primary Domain:** [shahoriar.me](https://shahoriar.me)
+- **Vercel URL:** [shahoriar.vercel.app](https://shahoriar.vercel.app)
 
-- Tailwind CSS (CSS Framework)
+---
 
-- Vercel Speed Insights & Web Analytics
+## ✨ Core Technologies
 
-- Deployed on Vercel
+This site is built with a modern, serverless stack:
 
-# Use This as a Template
-If you like the structure of this portfolio, you can easily create your own version.
+- **Framework:** [Next.js](https://nextjs.org/) (React)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **CMS (Content Management):** [Contentful](https://www.contentful.com/) for the "Life Journey" blog and "Certifications" sections.
+- **Real-time Functionality:** [Pusher](https://pusher.com/) and [Vercel KV Storage](https://vercel.com/storage/kv) for the "Live Text" feature.
+- **Deployment & Hosting:** [Vercel](https://vercel.com/), utilizing Serverless Functions, Web Analytics, and Speed Insights.
 
-### One-Click Deploy
+---
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+## 💬 Get in Touch
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/solutions/blog&project-name=blog&repository-name=blog)
-
-### Clone and Deploy
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
-
-```bash
-pnpm create next-app --example https://github.com/vercel/examples/tree/main/solutions/blog blog
-```
-
-Then, run Next.js in development mode:
-
-```bash
-pnpm dev
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/templates) ([Documentation](https://nextjs.org/docs/app/building-your-application/deploying)).
+If you'd like to connect or discuss a project, feel free to reach out via the [contact page on my website](https://shahoriar.me/contact).
