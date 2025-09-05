@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSatelliteDish, faMapPin, faCopy, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { useMemo, useState, useEffect } from 'react';
+import { faMapPin, faCopy, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useMemo, useState } from 'react';
 
 export default function Page() {
   // Memoize the blob clip path to avoid recalculation
@@ -16,13 +16,7 @@ export default function Page() {
   const [showEmailNotification, setShowEmailNotification] = useState(true);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    // Check if the user has dismissed the notification before
-    const dismissed = localStorage.getItem('dismissedEmailNotification');
-    if (dismissed) {
-      setShowEmailNotification(false);
-    }
-  }, []);
+  // NOTE: The useEffect hook that checked localStorage has been removed.
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('contact@shahoriar.me');
@@ -34,7 +28,7 @@ export default function Page() {
 
   const handleDismissNotification = () => {
     setShowEmailNotification(false);
-    localStorage.setItem('dismissedEmailNotification', 'true'); // Remember dismissal
+    // NOTE: The line that set localStorage has been removed.
   };
   // ---------------------------
 
@@ -63,7 +57,7 @@ export default function Page() {
 
       <div className="min-h-screen bg-black text-white">
         
-        {/* --- NEW: Pinned Email Notification --- */}
+        {/* --- Pinned Email Notification --- */}
         {showEmailNotification && (
           <div className="bg-blue-600/20 border-b border-blue-500 text-gray-200 py-3 px-4 flex items-center justify-center gap-3 sticky top-0 z-50 animate-fade-in-down">
             <FontAwesomeIcon icon={faMapPin} className="text-blue-400 text-lg" />
@@ -88,15 +82,11 @@ export default function Page() {
             </button>
           </div>
         )}
-        {/* --------------------------------------- */}
-
 
         <div className="max-w-6xl mx-auto px-4 py-12">
           
           {/* Hero Section */}
           <div className="text-center mb-16">
-            
-            {/* Profile Image with Circling Animation */}
             <div className="relative w-48 h-48 mx-auto mb-8">
               <svg width="0" height="0" aria-hidden="true">
                 <defs>
@@ -105,7 +95,6 @@ export default function Page() {
                   </clipPath>
                 </defs>
               </svg>
-              
               <div className="outline-container relative w-full h-full">
                 <div
                   className="absolute inset-0"
@@ -123,11 +112,9 @@ export default function Page() {
                 </div>
               </div>
             </div>
-
             <h1 className="text-4xl md:text-6xl font-bold font-mono tracking-tight mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
               MD AL SHAHORIAR HOSSAIN
             </h1>
-            
             <p className="text-xl text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto">
               Hello everyone! This is Shahoriar Hossain, aka Zaifears Republic. Thank you for showing interest in my life. This website is basically a portfolio and life log. Enjoy!
             </p>
@@ -143,37 +130,53 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Featured Actions */}
+          {/* --- UPDATED Featured Actions Section --- */}
           <div className="text-center">
             <h2 className="text-3xl font-bold text-center mb-8">Get Started</h2>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               
-              {/* Tech Tips Button (Image Only) */}
-              <Link 
-                href="/techtips" 
-                className="group w-full sm:w-1/2 bg-white rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-600/20"
+              {/* Tech Tips Button */}
+              <Link
+                href="/techtips"
+                className="group relative block h-40 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-600/20 bg-white"
                 aria-label="Visit Tech Tips section"
               >
                 <Image
                   src="/techtips.png"
-                  alt="Tech Tips - Technology insights and tutorials"
-                  width={400}
-                  height={150}
-                  className="object-cover w-full transition-transform duration-300 group-hover:scale-110"
+                  alt="Tech Tips"
+                  fill
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+                />
+              </Link>
+
+              {/* Design Portfolio Button */}
+              <Link
+                href="/design-portfolio"
+                className="group relative block h-40 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-600/20"
+                aria-label="Visit Design Portfolio"
+              >
+                <Image
+                  src="/designbox.png"
+                  alt="Design Portfolio"
+                  fill
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
                 />
               </Link>
               
               {/* Live Text Button */}
-              <Link 
-                href="/live-text" 
-                className="group w-full sm:w-1/2 h-[150px] bg-gradient-to-br from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-blue-500/30 rounded-lg p-6 hover:border-blue-400/50 hover:bg-gradient-to-br hover:from-blue-600/30 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex flex-col items-center justify-center"
+              <Link
+                href="/live-text"
+                className="group relative block h-40 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-teal-600/20"
                 aria-label="Access Live Text feature"
               >
-                <div className="w-16 h-16 bg-blue-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600/30 transition-colors duration-300">
-                  <FontAwesomeIcon icon={faSatelliteDish} className="w-8 h-8 text-blue-400 transition-transform duration-300 group-hover:scale-110" />
-                </div>
-                <h3 className="text-lg font-bold group-hover:text-blue-400 transition-colors duration-300">Live Text</h3>
+                <Image
+                  src="/livetexttelegram.png"
+                  alt="Live Text from Telegram"
+                  fill
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+                />
               </Link>
+
             </div>
           </div>
 
@@ -190,3 +193,4 @@ export default function Page() {
     </>
   );
 }
+
