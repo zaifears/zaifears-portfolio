@@ -3,14 +3,14 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faHome, 
+import {
+  faHome,
   faUserGraduate,
   faCogs,
   faEnvelope,
   faFlag,
-  faLightbulb,
-  faCalendarAlt
+  faCalendarAlt,
+  faMicrochip // The updated icon
 } from '@fortawesome/free-solid-svg-icons';
 
 // Define a type for a single navigation item
@@ -18,34 +18,30 @@ interface NavItem {
   href: string;
   name: string;
   icon: any;
-  disabled?: boolean;
-  tooltip?: string;
   desktopOnly?: boolean;
 }
 
-// --- The navigation items are now in your desired order ---
+// The navigation items list
 const navItems: NavItem[] = [
   { href: '/', name: 'Home', icon: faHome },
   { href: '/education', name: 'Education', icon: faUserGraduate },
   { href: '/skills', name: 'Skills', icon: faCogs },
-  { href: '/techtips', name: 'Tech Tips', icon: faLightbulb },
+  { href: '/techtips', name: 'Tech Tips', icon: faMicrochip },
   { href: '/contact', name: 'Contact', icon: faEnvelope },
   { href: '/life', name: 'Life', icon: faFlag },
-  { 
-    href: 'https://cal.com/zaifears', 
-    name: 'Schedule a Meeting', 
-    icon: faCalendarAlt, 
-    desktopOnly: true 
+  {
+    href: 'https://cal.com/zaifears',
+    name: 'Schedule a Meeting',
+    icon: faCalendarAlt,
+    desktopOnly: true
   },
 ];
 
 // Helper function to determine if a nav item is active
 const isNavItemActive = (itemHref: string, pathname: string): boolean => {
   if (itemHref === '/') {
-    // For home page, only match exact path
     return pathname === '/';
   }
-  // For other pages, match if pathname starts with the item href
   return pathname.startsWith(itemHref);
 };
 
@@ -60,22 +56,6 @@ export function Navbar() {
           <ul>
             {navItems.map((item) => {
               const isActive = isNavItemActive(item.href, pathname);
-
-              if (item.disabled) {
-                return (
-                  <li key={item.name} className="mb-4">
-                    <span
-                      className="flex items-center p-2 rounded-md text-gray-600 cursor-not-allowed"
-                      title={item.tooltip}
-                    >
-                      <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
-                      <span>{item.name}</span>
-                    </span>
-                  </li>
-                );
-              }
-
-              // Use a regular 'a' tag for external links
               const isExternal = item.href.startsWith('http');
 
               if (isExternal) {
@@ -116,38 +96,28 @@ export function Navbar() {
 
       {/* Mobile Bottom Navigation Bar */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-gray-800 z-50">
-        <nav className="flex justify-around items-center p-2">
+        <nav className="flex justify-around items-center py-3">
           {navItems
             .filter(item => !item.desktopOnly)
             .map((item) => {
               const isActive = isNavItemActive(item.href, pathname);
 
-              if (item.disabled) {
-                return (
-                  <div 
-                    key={item.name}
-                    className="flex flex-col items-center text-center text-gray-600 p-2 cursor-not-allowed"
-                    title={item.tooltip}
-                  >
-                    <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mb-1" />
-                    <span className="text-xs">{item.name}</span>
-                  </div>
-                );
-              }
-
               return (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`flex flex-col items-center text-center p-2 transition-colors duration-200 ${
-                    isActive ? 'text-blue-400' : 'text-gray-400 hover:text-blue-400'
+                  className={`relative flex flex-col items-center text-center p-2 rounded-lg transition-all duration-200 w-16 ${
+                    isActive
+                      ? 'text-blue-400 scale-110'
+                      : 'text-gray-400 hover:text-blue-400'
                   }`}
                 >
+                  {isActive && <span className="absolute -top-1 h-1 w-8 bg-blue-400 rounded-full"></span>}
                   <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mb-1" />
-                  <span className="text-xs">{item.name}</span>
+                  <span className="text-xs font-semibold">{item.name}</span>
                 </Link>
               );
-          })}
+            })}
         </nav>
       </div>
     </>
