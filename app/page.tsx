@@ -3,14 +3,40 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSatelliteDish } from '@fortawesome/free-solid-svg-icons';
-import { useMemo } from 'react';
+import { faSatelliteDish, faMapPin, faCopy, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useMemo, useState, useEffect } from 'react';
 
 export default function Page() {
   // Memoize the blob clip path to avoid recalculation
-  const blobPath = useMemo(() => 
+  const blobPath = useMemo(() =>
     "M0.764,0.887 C0.711,0.992,0.57,1,0.5,1 C0.43,1,0.289,0.992,0.236,0.887 C0.158,0.729,0.01,0.627,0.001,0.5 C0.01,0.373,0.158,0.271,0.236,0.113 C0.289,0.008,0.43,0,0.5,0 C0.57,0,0.711,0.008,0.764,0.113 C0.842,0.271,0.99,0.373,0.999,0.5 C0.99,0.627,0.842,0.729,0.764,0.887"
   , []);
+
+  // --- Notification State ---
+  const [showEmailNotification, setShowEmailNotification] = useState(true);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    // Check if the user has dismissed the notification before
+    const dismissed = localStorage.getItem('dismissedEmailNotification');
+    if (dismissed) {
+      setShowEmailNotification(false);
+    }
+  }, []);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('contact@shahoriar.me');
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000); // Reset after 2 seconds
+  };
+
+  const handleDismissNotification = () => {
+    setShowEmailNotification(false);
+    localStorage.setItem('dismissedEmailNotification', 'true'); // Remember dismissal
+  };
+  // ---------------------------
 
   return (
     <>
@@ -36,6 +62,35 @@ export default function Page() {
       `}</style>
 
       <div className="min-h-screen bg-black text-white">
+        
+        {/* --- NEW: Pinned Email Notification --- */}
+        {showEmailNotification && (
+          <div className="bg-blue-600/20 border-b border-blue-500 text-gray-200 py-3 px-4 flex items-center justify-center gap-3 sticky top-0 z-50 animate-fade-in-down">
+            <FontAwesomeIcon icon={faMapPin} className="text-blue-400 text-lg" />
+            <span className="font-semibold text-sm sm:text-base">New Professional Email:</span>
+            <a href="mailto:contact@shahoriar.me" className="text-sm sm:text-base font-mono underline hover:text-white transition-colors">
+              contact@shahoriar.me
+            </a>
+            <button
+              onClick={handleCopyEmail}
+              className="ml-2 bg-blue-700 hover:bg-blue-800 text-white text-xs sm:text-sm font-semibold py-1 px-3 rounded-md transition-all duration-200 flex items-center gap-1 disabled:bg-green-600 disabled:cursor-default"
+              disabled={copied}
+            >
+              <FontAwesomeIcon icon={faCopy} className="w-3 h-3" />
+              {copied ? 'Copied!' : 'Copy'}
+            </button>
+            <button
+              onClick={handleDismissNotification}
+              className="ml-4 text-gray-400 hover:text-white transition-colors"
+              aria-label="Dismiss notification"
+            >
+              <FontAwesomeIcon icon={faTimes} className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+        {/* --------------------------------------- */}
+
+
         <div className="max-w-6xl mx-auto px-4 py-12">
           
           {/* Hero Section */}
@@ -135,4 +190,3 @@ export default function Page() {
     </>
   );
 }
-
