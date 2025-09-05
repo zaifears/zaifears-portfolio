@@ -35,7 +35,7 @@ async function getCertificates(): Promise<Certificate[]> {
   }
 }
 
-// Main page component (Server)
+// Main page component
 export default async function SkillsPage() {
   const certificates = await getCertificates();
 
