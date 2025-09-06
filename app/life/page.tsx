@@ -51,7 +51,7 @@ export default async function LifePage() {
         <div className="mb-12">
           <Link href={`/life/${latestEvent.fields.slug}`} className="block group">
             {latestEvent.fields.coverImage?.fields?.file?.url && (
-              <div className="relative h-64 md:h-96 mb-6 overflow-hidden rounded-lg">
+              <div className="relative h-64 md:h-96 mb-6 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
                 <Image
                   src={`https:${latestEvent.fields.coverImage.fields.file.url}`}
                   alt={latestEvent.fields.coverImage.fields.title || 'Cover Image'}
@@ -60,11 +60,11 @@ export default async function LifePage() {
                 />
               </div>
             )}
-            <h2 className="text-3xl font-bold mb-3 group-hover:text-blue-400 transition-colors">{latestEvent.fields.title}</h2>
-            <p className="text-sm text-neutral-400 mb-4">
+            <h2 className="text-3xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{latestEvent.fields.title}</h2>
+            <p className="text-sm text-gray-600 dark:text-neutral-400 mb-4">
               {new Date(latestEvent.fields.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
-            <p className="text-neutral-300">
+            <p className="text-gray-700 dark:text-neutral-300">
               {documentToPlainTextString(latestEvent.fields.content).substring(0, 200) + '...'}
             </p>
           </Link>
@@ -74,13 +74,13 @@ export default async function LifePage() {
       {/* --- Grid of Older Posts --- */}
       {olderEvents.length > 0 && (
         <>
-          <hr className="my-12 border-neutral-800" />
+          <hr className="my-12 border-gray-200 dark:border-neutral-800" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {olderEvents.map((event, index) => {
               const previewText = documentToPlainTextString(event.fields.content).substring(0, 150) + '...';
 
               return (
-                <Link href={`/life/${event.fields.slug}`} key={index} className="block bg-neutral-900 p-6 rounded-lg border border-neutral-800 hover:border-blue-500 transition-colors">
+                <Link href={`/life/${event.fields.slug}`} key={index} className="block bg-white dark:bg-neutral-900 p-6 rounded-lg border border-gray-200 dark:border-neutral-800 hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-lg">
                   {event.fields.coverImage?.fields?.file?.url && (
                     <div className="relative h-48 mb-4">
                       <Image
@@ -92,10 +92,10 @@ export default async function LifePage() {
                     </div>
                   )}
                   <h2 className="text-xl font-bold mb-2">{event.fields.title}</h2>
-                  <p className="text-sm text-neutral-400 mb-4">
+                  <p className="text-sm text-gray-600 dark:text-neutral-400 mb-4">
                     {new Date(event.fields.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
                   </p>
-                  <p className="text-neutral-300 text-sm">
+                  <p className="text-gray-700 dark:text-neutral-300 text-sm">
                     {previewText}
                   </p>
                 </Link>

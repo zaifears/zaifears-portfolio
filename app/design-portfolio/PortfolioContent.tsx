@@ -2,10 +2,9 @@
 
 import Image from 'next/image';
 
-// --- Your 14 Portfolio Projects ---
-// The code will use these to build the grid.
 const projects = [
-  // --- Existing Top Projects ---
+  // --- Your 14 Portfolio Projects ---
+  // (All projects remain the same as before)
   {
     title: 'Video Editing',
     imageUrl: '/idea.png',
@@ -26,8 +25,6 @@ const projects = [
     imageUrl: '/buppost.png',
     link: 'https://www.canva.com/design/DAGiWcVvsjA/yj6gZQz2dHkrV8pOqGP0MA/view?utm_content=DAGiWcVvsjA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hfefb050eec',
   },
-
-  // --- Newly Added Projects ---
   {
     title: 'Minimalistic Slide',
     imageUrl: '/ipm.png',
@@ -53,8 +50,6 @@ const projects = [
     imageUrl: '/corpo.png',
     link: 'https://www.canva.com/design/DAGvIuft0D4/yxs68y8whP0yOts5YUQu0g/view?utm_content=DAGvIuft0D4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4c5f027527',
   },
-
-  // --- Existing Bottom Projects ---
   {
     title: 'Academic Slide Design',
     imageUrl: '/academic.png',
@@ -82,17 +77,15 @@ const projects = [
   }
 ];
 
-// This component holds the content for your design portfolio.
 export default function PortfolioContent() {
   return (
     <div>
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold mb-2">Design Portfolio</h2>
-        <p className="text-gray-400">A selection of my recent design work.</p>
-        <p className="text-blue-400 text-sm mt-4">Click on any project below to view the design or video.</p>
+        <p className="text-gray-600 dark:text-gray-400">A selection of my recent design work.</p>
+        <p className="text-blue-600 dark:text-blue-400 text-sm mt-4">Click on any project below to view the design or video.</p>
       </div>
       
-      {/* --- Portfolio Grid (2-columns on desktop, with a larger gap) --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project, index) => (
           <a
@@ -100,25 +93,21 @@ export default function PortfolioContent() {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="group block bg-gray-900/50 border border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-blue-500/30 hover:transform hover:scale-[1.02] hover:shadow-2xl"
+            className="group block bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-blue-500/30 hover:transform hover:scale-[1.02] hover:shadow-2xl"
           >
-            {/* Aspect-video creates a 16:9 rectangular shape */}
             <div className="relative aspect-video">
               <Image
                 src={project.imageUrl}
                 alt={project.title}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                // Add an error handler for missing images
+                className="object-cover object-center transition-transform duration-300 group-hover:scale-105" // <-- object-cover and object-center added here
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = 'https://placehold.co/800x450/171717/FFFFFF?text=Image+Not+Found';
                 }}
               />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300"></div>
             </div>
-            <div className="p-4">
-              <h3 className="font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
+            <div className="p-4 bg-white dark:bg-gray-900">
+              <h3 className="font-bold text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                 {project.title}
               </h3>
             </div>
@@ -129,4 +118,3 @@ export default function PortfolioContent() {
     </div>
   );
 }
-

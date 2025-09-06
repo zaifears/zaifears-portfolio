@@ -40,12 +40,12 @@ export default async function SkillsPage() {
   const certificates = await getCertificates();
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* --- EDITED: Reduced top section size --- */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Skills & Certifications</h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
             A showcase of my core competencies, technical abilities, and professional qualifications.
           </p>
         </div>
@@ -54,9 +54,9 @@ export default async function SkillsPage() {
 
         {/* --- Restyled Call to Action --- */}
         <div className="text-center mt-20">
-          <div className="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-8 max-w-2xl mx-auto">
+          <div className="bg-gray-100 dark:bg-gray-900/30 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">Have a Project in Mind?</h3>
-            <p className="text-gray-400 mb-6 leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
               Let's connect and discuss how my skills can help bring your ideas to life.
             </p>
             <Link
@@ -71,4 +71,3 @@ export default async function SkillsPage() {
     </div>
   );
 }
-

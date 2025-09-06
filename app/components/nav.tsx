@@ -10,10 +10,9 @@ import {
   faEnvelope,
   faFlag,
   faCalendarAlt,
-  faMicrochip // The updated icon
+  faMicrochip
 } from '@fortawesome/free-solid-svg-icons';
 
-// Define a type for a single navigation item
 interface NavItem {
   href: string;
   name: string;
@@ -21,7 +20,6 @@ interface NavItem {
   desktopOnly?: boolean;
 }
 
-// The navigation items list
 const navItems: NavItem[] = [
   { href: '/', name: 'Home', icon: faHome },
   { href: '/education', name: 'Education', icon: faUserGraduate },
@@ -37,7 +35,6 @@ const navItems: NavItem[] = [
   },
 ];
 
-// Helper function to determine if a nav item is active
 const isNavItemActive = (itemHref: string, pathname: string): boolean => {
   if (itemHref === '/') {
     return pathname === '/';
@@ -51,7 +48,7 @@ export function Navbar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 h-screen p-6 bg-black text-gray-400 font-mono justify-center sticky top-0">
+      <aside className="hidden md:flex flex-col w-64 h-screen p-6 bg-gray-100 dark:bg-black text-gray-600 dark:text-gray-400 font-mono justify-center sticky top-0">
         <nav>
           <ul>
             {navItems.map((item) => {
@@ -65,7 +62,7 @@ export function Navbar() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center p-2 rounded-md transition-all duration-300 hover:text-blue-400 hover:bg-gray-900`}
+                      className={`flex items-center p-2 rounded-md transition-all duration-300 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-900`}
                     >
                       <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
                       <span>{item.name}</span>
@@ -80,8 +77,8 @@ export function Navbar() {
                     href={item.href}
                     className={`flex items-center p-2 rounded-md transition-all duration-300 ${
                       isActive
-                        ? 'text-blue-400 bg-gray-800 scale-95 translate-x-2'
-                        : 'hover:text-blue-400 hover:bg-gray-900'
+                        ? 'text-blue-600 bg-gray-200 dark:text-blue-400 dark:bg-gray-800 scale-95 translate-x-2'
+                        : 'hover:text-blue-500 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-900'
                     }`}
                   >
                     <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
@@ -95,7 +92,7 @@ export function Navbar() {
       </aside>
 
       {/* Mobile Bottom Navigation Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-gray-800 z-50">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 z-50">
         <nav className="flex justify-around items-center py-3">
           {navItems
             .filter(item => !item.desktopOnly)
@@ -108,11 +105,11 @@ export function Navbar() {
                   href={item.href}
                   className={`relative flex flex-col items-center text-center p-2 rounded-lg transition-all duration-200 w-16 ${
                     isActive
-                      ? 'text-blue-400 scale-110'
-                      : 'text-gray-400 hover:text-blue-400'
+                      ? 'text-blue-600 dark:text-blue-400 scale-110'
+                      : 'text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400'
                   }`}
                 >
-                  {isActive && <span className="absolute -top-1 h-1 w-8 bg-blue-400 rounded-full"></span>}
+                  {isActive && <span className="absolute -top-1 h-1 w-8 bg-blue-500 dark:bg-blue-400 rounded-full"></span>}
                   <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mb-1" />
                   <span className="text-xs font-semibold">{item.name}</span>
                 </Link>

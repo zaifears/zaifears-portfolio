@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-// Data for the apps and commands, now including a logo property
 const apps = [
   { name: 'Audacity', logo: 'audacity.png', description: 'A free, open-source, and cross-platform audio software for multi-track recording and editing.', link: 'https://www.audacityteam.org/download/windows/' },
   { name: 'Everything', logo: 'everything.png', description: 'A fast file search tool for Windows that can instantly locate files and folders by name.', link: 'https://www.voidtools.com/downloads/' },
@@ -61,7 +60,6 @@ behind-the-scene * 3p-script noop
 behind-the-scene * image noop
 behind-the-scene * inline-script noop`;
 
-// --- UPDATED: Reusable component for the copyable command block ---
 const CommandBlock = ({ content, isCodeBlock = false }: { content: string, isCodeBlock?: boolean }) => {
   const [copied, setCopied] = useState(false);
 
@@ -73,20 +71,19 @@ const CommandBlock = ({ content, isCodeBlock = false }: { content: string, isCod
   };
 
   return (
-    <div className="bg-gray-900 rounded-lg p-4 font-mono text-sm text-gray-300 relative">
+    <div className="bg-gray-800 dark:bg-gray-900 rounded-lg p-4 font-mono text-sm text-gray-300 dark:text-gray-300 relative">
       {isCodeBlock ? (
         <pre className="whitespace-pre-wrap break-words">{content}</pre>
       ) : (
-        // This div allows the text to wrap correctly on mobile
         <div className="pr-16 break-words">
-          <span className="text-green-400">powershell -c &quot;</span>
+          <span className="text-green-400 dark:text-green-400">powershell -c &quot;</span>
           <span>{content}</span>
-          <span className="text-green-400">&quot;</span>
+          <span className="text-green-400 dark:text-green-400">&quot;</span>
         </div>
       )}
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-white text-xs font-bold py-1 px-2 rounded transition-colors"
+        className="absolute top-2 right-2 bg-gray-600 hover:bg-gray-500 dark:bg-gray-700 dark:hover:bg-gray-600 text-white text-xs font-bold py-1 px-2 rounded transition-colors"
       >
         {copied ? 'Copied!' : 'Copy'}
       </button>
@@ -94,27 +91,24 @@ const CommandBlock = ({ content, isCodeBlock = false }: { content: string, isCod
   );
 };
 
-
 export default function TechTipsPage() {
   const [activeTab, setActiveTab] = useState('apps');
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Tech Tips & Utilities</h1>
-          <p className="text-gray-400 text-lg">A curated list of my favorite apps, scripts, and tools to enhance your digital experience.</p>
+          <p className="text-gray-600 dark:text-gray-400 text-lg">A curated list of my favorite apps, scripts, and tools to enhance your digital experience.</p>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center mb-12 bg-gray-900/50 backdrop-blur-sm rounded-2xl p-2 max-w-fit mx-auto border border-gray-800">
+        <div className="flex flex-wrap justify-center mb-12 bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm rounded-2xl p-2 max-w-fit mx-auto border border-gray-200 dark:border-gray-800">
           <button 
             onClick={() => setActiveTab('apps')} 
             className={`flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
               activeTab === 'apps' 
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' 
-                : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
             }`}
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -127,10 +121,10 @@ export default function TechTipsPage() {
             className={`flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
               activeTab === 'powershell' 
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' 
-                : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
             }`}
           >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 3a1 1 0 000 2h6a1 1 0 100-2H5zm0 4a1 1 0 100 2h3a1 1 0 100-2H5z" clipRule="evenodd"/>
             </svg>
             Powershell
@@ -140,7 +134,7 @@ export default function TechTipsPage() {
             className={`flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
               activeTab === 'browserExtensions' 
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' 
-                : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
             }`}
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -153,7 +147,7 @@ export default function TechTipsPage() {
             className={`flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
               activeTab === 'websites' 
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' 
-                : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
             }`}
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -163,13 +157,12 @@ export default function TechTipsPage() {
           </button>
         </div>
 
-        {/* Content Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {activeTab === 'apps' && apps.map((app) => (
-            <div key={app.name} className="group bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 hover:bg-gray-800/50 hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl">
+            <div key={app.name} className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gray-800 rounded-xl p-2 group-hover:bg-gray-700 transition-colors duration-300">
+                  <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-xl p-2 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors duration-300">
                     <Image 
                       src={`/techtips/${app.logo}`} 
                       alt={`${app.name} logo`} 
@@ -180,13 +173,13 @@ export default function TechTipsPage() {
                   </div>
                 </div>
                 <div className="flex-grow">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors duration-300">{app.name}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-4">{app.description}</p>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{app.name}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{app.description}</p>
                   <a 
                     href={app.link} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-semibold transition-colors duration-300"
+                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-semibold transition-colors duration-300"
                   >
                     Visit Link
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,38 +193,36 @@ export default function TechTipsPage() {
 
           {activeTab === 'powershell' && (
             <>
-              {/* Instructions for PowerShell */}
-              <div className="col-span-full bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 mb-6">
-                <h2 className="text-2xl font-bold mb-4 text-blue-400">How to Use PowerShell Commands</h2>
-                <p className="text-gray-400 mb-4">
+              <div className="col-span-full bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 mb-6">
+                <h2 className="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">How to Use PowerShell Commands</h2>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
                   To execute these commands, follow these simple steps:
                 </p>
-                <ol className="list-decimal list-inside text-gray-300 space-y-2">
-                  <li>Press the <code className="bg-gray-800 px-1 rounded">Windows key</code> or click the <code className="bg-gray-800 px-1 rounded">Start</code> button.</li>
-                  <li>Type <code className="bg-gray-800 px-1 rounded">powershell</code> in the search bar.</li>
-                  <li>Right-click on <code className="bg-gray-800 px-1 rounded">Windows PowerShell</code> and select <code className="bg-gray-800 px-1 rounded">Run as administrator</code>.</li>
-                  <li>In the PowerShell window, copy the command you want to run from below and paste it by right-clicking or pressing <code className="bg-gray-800 px-1 rounded">Ctrl + V</code>.</li>
-                  <li>Press <code className="bg-gray-800 px-1 rounded">Enter</code> to execute the command.</li>
+                <ol className="list-decimal list-inside text-gray-700 dark:text-gray-300 space-y-2">
+                  <li>Press the <code className="bg-gray-200 dark:bg-gray-800 px-1 rounded">Windows key</code> or click the <code className="bg-gray-200 dark:bg-gray-800 px-1 rounded">Start</code> button.</li>
+                  <li>Type <code className="bg-gray-200 dark:bg-gray-800 px-1 rounded">powershell</code> in the search bar.</li>
+                  <li>Right-click on <code className="bg-gray-200 dark:bg-gray-800 px-1 rounded">Windows PowerShell</code> and select <code className="bg-gray-200 dark:bg-gray-800 px-1 rounded">Run as administrator</code>.</li>
+                  <li>In the PowerShell window, copy the command you want to run from below and paste it by right-clicking or pressing <code className="bg-gray-200 dark:bg-gray-800 px-1 rounded">Ctrl + V</code>.</li>
+                  <li>Press <code className="bg-gray-200 dark:bg-gray-800 px-1 rounded">Enter</code> to execute the command.</li>
                 </ol>
-                <p className="text-yellow-400 mt-4 text-sm">
+                <p className="text-yellow-700 dark:text-yellow-400 mt-4 text-sm">
                   <strong className="font-bold">Important:</strong> Always understand what a command does before running it, especially when running as an administrator.
                 </p>
               </div>
 
-              {/* Existing PowerShell Commands */}
               {powershellCommands.map((item) => (
-                <div key={item.name} className="group bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 hover:bg-gray-800/50 hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl col-span-full">
+                <div key={item.name} className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg col-span-full">
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0">
-                      <div className="w-16 h-16 bg-blue-600/20 rounded-xl flex items-center justify-center group-hover:bg-blue-600/30 transition-colors duration-300">
-                        <svg className="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                      <div className="w-16 h-16 bg-blue-100 dark:bg-blue-600/20 rounded-xl flex items-center justify-center group-hover:bg-blue-200 dark:group-hover:bg-blue-600/30 transition-colors duration-300">
+                        <svg className="w-8 h-8 text-blue-500 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 3a1 1 0 000 2h6a1 1 0 100-2H5zm0 4a1 1 0 100 2h3a1 1 0 100-2H5z" clipRule="evenodd"/>
                         </svg>
                       </div>
                     </div>
                     <div className="flex-grow">
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors duration-300">{item.name}</h3>
-                      <p className="text-gray-400 text-sm leading-relaxed mb-4">{item.description}</p>
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{item.name}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{item.description}</p>
                       <CommandBlock content={item.command} />
                     </div>
                   </div>
@@ -241,10 +232,10 @@ export default function TechTipsPage() {
           )}
 
           {activeTab === 'browserExtensions' && browserExtensions.map((ext) => (
-            <div key={ext.name} className="group bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 hover:bg-gray-800/50 hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl">
+            <div key={ext.name} className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gray-800 rounded-xl p-2 group-hover:bg-gray-700 transition-colors duration-300">
+                  <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-xl p-2 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors duration-300">
                     <Image 
                       src={`/techtips/${ext.logo}`} 
                       alt={`${ext.name} logo`} 
@@ -255,14 +246,14 @@ export default function TechTipsPage() {
                   </div>
                 </div>
                 <div className="flex-grow">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors duration-300">{ext.name}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-4">{ext.description}</p>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{ext.name}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{ext.description}</p>
                   <div className="flex flex-wrap gap-2">
                     <a 
                       href={ext.link} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-semibold transition-colors duration-300"
+                      className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-semibold transition-colors duration-300"
                     >
                       Visit Link
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -274,7 +265,7 @@ export default function TechTipsPage() {
                         href={ext.linkChrome} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 text-sm font-semibold transition-colors duration-300"
+                        className="inline-flex items-center gap-2 text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 text-sm font-semibold transition-colors duration-300"
                       >
                         Chrome
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,19 +275,19 @@ export default function TechTipsPage() {
                     )}
                   </div>
                   {ext.name === 'uBlock Origin' && (
-                    <div className="mt-6 pt-4 border-t border-gray-800">
-                      <h4 className="text-lg font-bold mb-2 text-yellow-400">My Filter List</h4>
+                    <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-800">
+                      <h4 className="text-lg font-bold mb-2 text-yellow-600 dark:text-yellow-400">My Filter List</h4>
                       <a 
                         href="/uBlock origin Filters.txt" 
                         download="uBlock origin Filters.txt" 
-                        className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-semibold mb-4 transition-colors duration-300"
+                        className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-semibold mb-4 transition-colors duration-300"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                         Download Filter List
                       </a>
-                      <h4 className="text-lg font-bold mb-2 text-yellow-400">My Rules</h4>
+                      <h4 className="text-lg font-bold mb-2 text-yellow-600 dark:text-yellow-400">My Rules</h4>
                       <CommandBlock content={uBlockRules} isCodeBlock={true} />
                     </div>
                   )}
@@ -306,10 +297,10 @@ export default function TechTipsPage() {
           ))}
 
           {activeTab === 'websites' && interestingWebsites.map((tool) => (
-            <div key={tool.name} className="group bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 hover:bg-gray-800/50 hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl">
+            <div key={tool.name} className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gray-800 rounded-xl p-2 group-hover:bg-gray-700 transition-colors duration-300">
+                  <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-xl p-2 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors duration-300">
                     <Image 
                       src={`/techtips/${tool.logo}`} 
                       alt={`${tool.name} logo`} 
@@ -320,13 +311,13 @@ export default function TechTipsPage() {
                   </div>
                 </div>
                 <div className="flex-grow">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors duration-300">{tool.name}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-4">{tool.description}</p>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{tool.name}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{tool.description}</p>
                   <a 
                     href={tool.link} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-semibold transition-colors duration-300"
+                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-semibold transition-colors duration-300"
                   >
                     Visit Link
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

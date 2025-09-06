@@ -27,19 +27,19 @@ interface SkillsTabsProps {
 }
 
 const SkillItem = ({ icon, name }: { icon: string; name: string }) => (
-  <div className="group bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 text-center hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl">
-    <div className="w-16 h-16 bg-gray-800/50 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:bg-gray-700/50 transition-colors duration-300">
+  <div className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 text-center hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg">
+    <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800/50 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-300">
       <div className="relative w-10 h-10">
         <Image src={`/${icon}`} alt={`${name} icon`} fill className="object-contain transition-transform duration-300 group-hover:scale-110" />
       </div>
     </div>
-    <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors duration-300">{name}</h3>
+    <h3 className="text-lg font-bold text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{name}</h3>
   </div>
 );
 
 const TechSkillItem = ({ title, logos, names }: { title: string; logos: { src: string, alt: string, href: string }[]; names: string }) => (
-  <div className="group bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 text-center h-full flex flex-col hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl">
-    <h3 className="text-xl font-bold mb-4 group-hover:text-blue-400 transition-colors duration-300">{title}</h3>
+  <div className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 text-center h-full flex flex-col hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg">
+    <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{title}</h3>
     <div className="flex justify-center items-center gap-4 my-auto flex-grow">
       {logos.map(logo => (
         <a key={logo.src} href={logo.href} target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-75">
@@ -49,27 +49,27 @@ const TechSkillItem = ({ title, logos, names }: { title: string; logos: { src: s
         </a>
       ))}
     </div>
-    <p className="text-gray-400 text-sm mt-4">{names}</p>
+    <p className="text-gray-600 dark:text-gray-400 text-sm mt-4">{names}</p>
   </div>
 );
 
 const TabButtons = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) => (
-  <div className="flex flex-wrap justify-center mb-12 bg-gray-900/50 backdrop-blur-sm rounded-2xl p-2 max-w-fit mx-auto border border-gray-800">
+  <div className="flex flex-wrap justify-center mb-12 bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm rounded-2xl p-2 max-w-fit mx-auto border border-gray-200 dark:border-gray-800">
     <button
       onClick={() => setActiveTab('skills')}
-      className={`px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${activeTab === 'skills' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' : 'text-gray-400 hover:text-white hover:bg-gray-800/50'}`}
+      className={`px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${activeTab === 'skills' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'}`}
     >
       Skills
     </button>
     <button
       onClick={() => setActiveTab('certificates')}
-      className={`px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${activeTab === 'certificates' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' : 'text-gray-400 hover:text-white hover:bg-gray-800/50'}`}
+      className={`px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${activeTab === 'certificates' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'}`}
     >
       Certifications
     </button>
     <button
       onClick={() => setActiveTab('designPortfolio')}
-      className={`px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${activeTab === 'designPortfolio' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' : 'text-gray-400 hover:text-white hover:bg-gray-800/50'}`}
+      className={`px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${activeTab === 'designPortfolio' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'}`}
     >
       Design Portfolio
     </button>
@@ -124,9 +124,9 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
         {activeTab === 'certificates' && (
           <div className="space-y-6 max-w-6xl mx-auto">
             {certificates.map((cert: Certificate, index: number) => (
-              <div key={index} className="group bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 flex flex-col sm:flex-row items-start gap-6 hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300">
+              <div key={index} className="group bg-white dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 flex flex-col sm:flex-row items-start gap-6 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300">
                 {cert.fields.certificateImage && (
-                  <div className="flex-shrink-0 w-full sm:w-24 sm:h-24 bg-gray-800 rounded-xl p-2 flex items-center justify-center group-hover:bg-gray-700/50 transition-colors duration-300">
+                  <div className="flex-shrink-0 w-full sm:w-24 sm:h-24 bg-gray-100 dark:bg-gray-800 rounded-xl p-2 flex items-center justify-center group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-300">
                     <Image
                       src={`https:${cert.fields.certificateImage.fields.file.url}`}
                       alt={cert.fields.certificateImage.fields.title}
@@ -137,15 +137,15 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
                   </div>
                 )}
                 <div className="flex-grow">
-                  <h3 className="font-bold text-xl mb-1 group-hover:text-blue-400 transition-colors duration-300">{cert.fields.title}</h3>
-                  <p className="text-gray-400">{cert.fields.issuingBody}</p>
+                  <h3 className="font-bold text-xl mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{cert.fields.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400">{cert.fields.issuingBody}</p>
                   {cert.fields.description && (
-                    <div className="prose prose-sm prose-invert text-gray-300 mt-2">
+                    <div className="prose prose-sm prose-invert text-gray-700 dark:text-gray-300 mt-2">
                       {documentToReactComponents(cert.fields.description)}
                     </div>
                   )}
                   {cert.fields.credentialUrl && (
-                    <a href={cert.fields.credentialUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors duration-300 mt-4 text-sm">
+                    <a href={cert.fields.credentialUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold transition-colors duration-300 mt-4 text-sm">
                       View Credential
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                     </a>
@@ -156,11 +156,9 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
           </div>
         )}
         {activeTab === 'designPortfolio' && (
-          // This now renders the shared component
           <PortfolioContent />
         )}
       </div>
     </>
   );
 }
-

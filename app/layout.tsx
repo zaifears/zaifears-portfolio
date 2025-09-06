@@ -9,8 +9,8 @@ import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import Footer from './components/footer'
-import Script from 'next/script' 
+import Script from 'next/script'
+// The ThemeProvider import has been removed
 
 export const metadata: Metadata = {
   title: {
@@ -37,10 +37,10 @@ export default function RootLayout({
     <html
       lang="en"
       className={cx(
-        'text-black bg-black',
         GeistSans.variable,
         GeistMono.variable
       )}
+      // suppressHydrationWarning is no longer needed
     >
       <head>
         <Script
@@ -56,13 +56,17 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="antialiased text-white flex">
-        <Navbar />
-        <main className="flex-1 p-4 md:p-8 pb-20 md:pb-8">
-          {children}
-          <Analytics />
-          <SpeedInsights />
-        </main>
+      {/* The body classes remain, as they are used by Tailwind's media strategy */}
+      <body className="antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
+          {/* The ThemeProvider wrapper has been removed */}
+          <div className="flex min-h-screen">
+            <Navbar />
+            <main className="flex-1 p-4 md:p-8 pb-20 md:pb-8">
+              {children}
+              <Analytics />
+              <SpeedInsights />
+            </main>
+          </div>
       </body>
     </html>
   )

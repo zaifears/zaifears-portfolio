@@ -28,7 +28,6 @@ export default function LiveTextPage() {
           
         const history = await response.json();  
           
-        // Always ensure we have an array  
         if (Array.isArray(history)) {  
           setMessages(history);  
         } else {  
@@ -38,7 +37,7 @@ export default function LiveTextPage() {
       } catch (error) {  
         console.error('Failed to fetch history:', error);  
         setError('Failed to load messages. Using live updates only.');  
-        setMessages([]); // Start with empty array, will get updates via Pusher  
+        setMessages([]); 
       } finally {  
         setIsLoading(false);  
       }  
@@ -46,7 +45,6 @@ export default function LiveTextPage() {
   
     fetchHistory();  
   
-    // Initialize Pusher  
     let pusher: Pusher | null = null;  
     let channel: any = null;  
   
@@ -58,13 +56,10 @@ export default function LiveTextPage() {
   
       channel = pusher.subscribe('live-text-channel');  
   
-      // Listen for new messages and update the list  
       channel.bind('new-message', function (data: { message: string }) {  
         setMessages(prevMessages => {  
-          // Make sure prevMessages is an array  
           const currentMessages = Array.isArray(prevMessages) ? prevMessages : [];  
           const newMessages = [data.message, ...currentMessages];  
-          // Keep only the last 3 messages  
           return newMessages.slice(0, 3);  
         });  
       });  
@@ -93,7 +88,6 @@ export default function LiveTextPage() {
         }, 2000);  
       } catch (err) {  
         console.error('Failed to copy text:', err);  
-        // Fallback for older browsers  
         const textArea = document.createElement('textarea');  
         textArea.value = message;  
         document.body.appendChild(textArea);  
@@ -118,7 +112,7 @@ export default function LiveTextPage() {
         <h1 className="font-bold text-3xl md:text-4xl mb-8">Live Text</h1>  
         <div className="flex flex-col items-center justify-center min-h-[200px] text-center">  
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>  
-          <p className="text-neutral-600 dark:text-neutral-400">Loading messages...</p>  
+          <p className="text-gray-600 dark:text-neutral-400">Loading messages...</p>  
         </div>  
       </section>  
     );  
@@ -129,16 +123,16 @@ export default function LiveTextPage() {
       <h1 className="font-bold text-3xl md:text-4xl mb-8">Live Text</h1>  
   
       {error && (  
-        <div className="bg-yellow-900/20 border border-yellow-800 rounded-lg p-4 mb-6">  
-          <p className="text-yellow-400 text-sm">⚠️ {error}</p>  
+        <div className="bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-800 rounded-lg p-4 mb-6">  
+          <p className="text-yellow-800 dark:text-yellow-400 text-sm">⚠️ {error}</p>  
         </div>  
       )}  
   
-      <div className="bg-black border border-neutral-800 rounded-lg p-6 font-mono text-green-400 min-h-[200px] space-y-4">  
+      <div className="bg-gray-900 dark:bg-black border border-gray-700 dark:border-neutral-800 rounded-lg p-6 font-mono text-green-400 min-h-[200px] space-y-4">  
         {messages.length > 0 ? (  
           messages.map((msg, index) => (  
             <div key={index} className="relative flex justify-between items-start">  
-              <p className={msg.startsWith('>') ? "text-neutral-500" : ""}>  
+              <p className={msg.startsWith('>') ? "text-gray-500" : ""}>  
                 {msg}  
               </p>  
               <button  
@@ -151,13 +145,13 @@ export default function LiveTextPage() {
             </div>  
           ))  
         ) : (  
-          <p className="text-neutral-500">{"> Waiting for new message from Telegram..."}</p>  
+          <p className="text-gray-500">{"> Waiting for new message from Telegram..."}</p>  
         )}  
       </div>  
   
-      <p className="text-sm text-neutral-500 mt-4">  
+      <p className="text-sm text-gray-600 dark:text-neutral-500 mt-4">  
         This page will automatically update with the latest message I send via a private Telegram bot. It now remembers the last 3 messages.  
       </p>  
     </section>  
   );  
-}  
+}

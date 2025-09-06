@@ -56,14 +56,14 @@ export default function PasswordPage() {
     <section className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] text-center">  
       <div className="text-6xl mb-6">🔒</div>  
       <h1 className="font-bold text-3xl md:text-4xl mb-4">Enter Password</h1>  
-      <p className="text-neutral-400 mb-8">This page is password protected.</p>  
+      <p className="text-gray-600 dark:text-neutral-400 mb-8">This page is password protected.</p>  
         
       <form onSubmit={handleSubmit} className="w-full max-w-sm">  
         <input  
           type="password"  
           value={password}  
           onChange={(e) => setPassword(e.target.value)}  
-          className="w-full px-4 py-2 mb-4 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"  
+          className="w-full px-4 py-2 mb-4 bg-gray-100 dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 rounded-lg text-black dark:text-white placeholder-gray-500 dark:placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"  
           placeholder="Password"  
           disabled={isLoading}  
           autoFocus  
@@ -83,11 +83,11 @@ export default function PasswordPage() {
           )}  
         </button>  
         {error && (  
-          <div className="mt-4 p-3 bg-red-900/20 border border-red-800 rounded-lg">  
-            <p className="text-red-400 text-sm">{error}</p>  
+          <div className="mt-4 p-3 bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-800 rounded-lg">  
+            <p className="text-red-700 dark:text-red-400 text-sm">{error}</p>  
           </div>  
         )}  
       </form>  
     </section>  
   );  
-}  
+}

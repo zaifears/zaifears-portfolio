@@ -3,6 +3,8 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS } from '@contentful/rich-text-types';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 // More aggressive cache control
 export const revalidate = 0; // Disable ISR caching
@@ -66,8 +68,8 @@ export default async function LifePostPage({
     return (
       <section>
         <h1 className="font-bold text-3xl md:text-4xl mb-8">Post not found</h1>
-        <p className="text-neutral-400">Sorry, we couldn't find the post you were looking for.</p>
-        <Link href="/life" className="text-blue-400 hover:underline mt-4 inline-block">
+        <p className="text-gray-600 dark:text-neutral-400">Sorry, we couldn't find the post you were looking for.</p>
+        <Link href="/life" className="text-blue-600 dark:text-blue-400 hover:underline mt-4 inline-block">
           &larr; Back to Life Journey
         </Link>
       </section>
@@ -102,30 +104,35 @@ export default async function LifePostPage({
 
   return (
     <section>
-      <Link href="/life" className="text-blue-400 hover:underline mb-8 inline-block">
-        &larr; Back to Life Journey
+      {/* --- NEW, BETTER LOOKING BACK BUTTON --- */}
+      <Link 
+        href="/life" 
+        className="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-lg text-gray-700 dark:text-gray-300 transition-colors"
+      >
+        <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
+        Back to Life Journey
       </Link>
 
       <h1 className="font-bold text-4xl md:text-5xl mb-4">{event.fields.title}</h1>
-      <p className="text-neutral-400 mb-8">
+      <p className="text-gray-600 dark:text-neutral-400 mb-8">
         {new Date(event.fields.date).toLocaleDateString('en-US', {
           year: 'numeric', month: 'long', day: 'numeric',
         })}
       </p>
 
       {event.fields.coverImage?.fields?.file?.url && (
-        <div className="mb-8">
+        <div className="mb-8 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
           <Image
             src={`https:${event.fields.coverImage.fields.file.url}`}
             alt={event.fields.coverImage.fields.title || 'Cover Image'}
             width={event.fields.coverImage.fields.file.details.image.width}
             height={event.fields.coverImage.fields.file.details.image.height}
-            className="rounded-lg object-cover shadow-md w-full"
+            className="object-cover w-full"
           />
         </div>
       )}
 
-      <div className="prose prose-invert max-w-none text-neutral-300">
+      <div className="prose prose-invert max-w-none text-gray-800 dark:text-neutral-300">
         {documentToReactComponents(event.fields.content, renderOptions)}
       </div>
     </section>

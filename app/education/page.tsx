@@ -13,8 +13,6 @@ const educationEntries = [
     imageAlt: 'Institute of Chartered Accountants of Bangladesh',
     link: 'https://www.icab.org.bd/',
     imagePosition: 'left',
-    gradientFrom: 'from-blue-500/20',
-    gradientTo: 'to-cyan-500/20',
     borderColor: 'hover:border-blue-500/50'
   },
   {
@@ -28,8 +26,6 @@ const educationEntries = [
     imageAlt: 'Bangladesh University of Professionals',
     link: 'https://en.wikipedia.org/wiki/Bangladesh_University_of_Professionals',
     imagePosition: 'right',
-    gradientFrom: 'from-green-500/20',
-    gradientTo: 'to-emerald-500/20',
     borderColor: 'hover:border-green-500/50'
   },
   {
@@ -43,8 +39,6 @@ const educationEntries = [
     imageAlt: 'Notre Dame College',
     link: 'https://en.wikipedia.org/wiki/Notre_Dame_College,_Dhaka',
     imagePosition: 'left',
-    gradientFrom: 'from-purple-500/20',
-    gradientTo: 'to-pink-500/20',
     borderColor: 'hover:border-purple-500/50'
   },
   {
@@ -58,26 +52,24 @@ const educationEntries = [
     imageAlt: 'Ideal School & College',
     link: 'https://en.wikipedia.org/wiki/Ideal_School_and_College',
     imagePosition: 'right',
-    gradientFrom: 'from-orange-500/20',
-    gradientTo: 'to-red-500/20',
     borderColor: 'hover:border-orange-500/50'
   }
 ];
 
 export default function EducationPage() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Education</h1>
-          <p className="text-gray-400 text-lg">My academic journey and qualifications</p>
+          <p className="text-gray-600 dark:text-gray-400 text-lg">My academic journey and qualifications</p>
         </div>
 
         {/* Education Entries */}
         <div className="space-y-12">
           {educationEntries.map((entry) => (
-            <div key={entry.id} className={`group bg-neutral-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 md:p-8 ${entry.borderColor} transition-all duration-300 hover:shadow-2xl`}>
+            <div key={entry.id} className={`group bg-white dark:bg-neutral-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8 ${entry.borderColor} transition-all duration-300 hover:shadow-2xl`}>
                <div className={`flex flex-col md:flex-row items-center gap-8 ${entry.imagePosition === 'right' ? 'md:flex-row-reverse' : ''}`}>
                 
                 {/* Image Section */}
@@ -91,7 +83,7 @@ export default function EducationPage() {
                         height={250}
                         className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
+                      <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 dark:bg-black/20 dark:group-hover:bg-black/10 transition-colors duration-300"></div>
                     </div>
                   </Link>
                 </div>
@@ -99,20 +91,20 @@ export default function EducationPage() {
                 {/* Content Section */}
                 <div className="flex-grow">
                   <Link href={entry.link} target="_blank" rel="noopener noreferrer">
-                    <h2 className="text-2xl font-bold mb-1 group-hover:text-blue-400 transition-colors duration-300 hover:underline">
+                    <h2 className="text-2xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 hover:underline">
                       {entry.title}
                     </h2>
                   </Link>
-                  <p className="text-blue-400 font-semibold mb-2">{entry.institution}</p>
-                  <p className="text-gray-400 text-sm mb-4">{entry.period}</p>
-                  <p className="text-gray-300 leading-relaxed mb-6">
+                  <p className="text-blue-600 dark:text-blue-400 font-semibold mb-2">{entry.institution}</p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{entry.period}</p>
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                     {entry.description}
                   </p>
                   <a 
                     href={entry.website} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors duration-300"
+                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold transition-colors duration-300"
                   >
                     Visit Website
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,9 +119,9 @@ export default function EducationPage() {
 
         {/* Call to Action */}
         <div className="text-center mt-20">
-          <div className="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-8 max-w-2xl mx-auto">
+          <div className="bg-gray-100 dark:bg-gray-900/30 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">Want to Learn More?</h3>
-            <p className="text-gray-400 mb-6 leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
               Explore my skills, certifications, and technical expertise to see how my educational background translates into practical capabilities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -144,7 +136,7 @@ export default function EducationPage() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white font-semibold rounded-xl border border-gray-700 hover:border-gray-600 transition-all duration-300 hover:transform hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white font-semibold rounded-xl border border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600 transition-all duration-300 hover:transform hover:scale-105"
               >
                 Get in Touch
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
