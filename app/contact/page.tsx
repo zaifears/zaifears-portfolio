@@ -21,17 +21,17 @@ export default function ContactPage() {
           </p>
         </div>
 
-        {/* Schedule Meeting Card - Featured */}
+        {/* Schedule Meeting Card - Featured (Gradient Removed) */}
         <div className="mb-12 max-w-4xl mx-auto">
           <a
             href="https://cal.com/zaifears"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block bg-gray-50 dark:bg-gradient-to-r dark:from-blue-600/20 dark:to-purple-600/20 dark:backdrop-blur-sm border border-gray-200 dark:border-blue-500/30 rounded-2xl p-8 hover:border-blue-400/50 dark:hover:bg-gradient-to-r dark:hover:from-blue-600/30 dark:hover:to-purple-600/30 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-600/10"
+            className="group block bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 hover:border-blue-500/50 dark:hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-600/10"
           >
             <div className="flex items-center justify-center gap-6">
               <div className="flex-shrink-0">
-                <div className="w-20 h-20 bg-gray-100 dark:bg-blue-600/20 rounded-2xl flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-600/30 transition-colors duration-300">
+                <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-800 transition-colors duration-300">
                   <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-blue-500 dark:text-blue-400" />
                 </div>
               </div>
