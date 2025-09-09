@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapPin, faCopy, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useMemo, useState } from 'react';
+import { FaPython } from 'react-icons/fa'; // <-- ADD THIS LINE
+
 
 export default function Page() {
   const blobPath = useMemo(() =>
@@ -178,6 +180,18 @@ export default function Page() {
             </div>
           </div>
           
+<div className="mt-8">
+  <Link href="/ide" className="group block">
+    <button
+      type="button"
+      className="flex items-center justify-center w-full max-w-2xl mx-auto px-6 py-3 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-500 text-white rounded-xl font-semibold text-lg shadow-lg gap-3 transition duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none active:scale-100 active:shadow group-hover:shadow-blue-500/30"
+      style={{ minHeight: "44px" }}
+    >
+      <FaPython className="text-2xl" />
+      <span className="tracking-wide">Code in Python</span>
+    </button>
+  </Link>
+</div>
           <div className="text-center mt-12 sm:mt-16">
             <div className="bg-gray-100 dark:bg-gray-900/30 backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 max-w-2xl mx-auto">
               <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
