@@ -270,7 +270,7 @@ export default function Page() {
             </div>
           </div>
           
-          <div className="text-center mt-16">
+          <div className="mt-8 text-center">
             <div className="max-w-xl mx-auto">
                 <Link href="/ide" className="group inline-block w-full">
                 <button

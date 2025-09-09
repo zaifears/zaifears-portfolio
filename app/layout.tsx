@@ -10,7 +10,6 @@ import { Navbar } from './components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Script from 'next/script'
-// The ThemeProvider import has been removed
 
 export const metadata: Metadata = {
   title: {
@@ -23,6 +22,12 @@ export const metadata: Metadata = {
   },
   verification: {
     google: 'pT4MHjovbY0MXYCrgAPN3LQHyTuLLq_iTtmWyx3GSgc',
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
   },
 }
 
@@ -40,7 +45,6 @@ export default function RootLayout({
         GeistSans.variable,
         GeistMono.variable
       )}
-      // suppressHydrationWarning is no longer needed
     >
       <head>
         <Script
@@ -56,9 +60,8 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      {/* The body classes remain, as they are used by Tailwind's media strategy */}
+      {/* --- overflow-x-hidden has been removed --- */}
       <body className="antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
-          {/* The ThemeProvider wrapper has been removed */}
           <div className="flex min-h-screen">
             <Navbar />
             <main className="flex-1 p-4 md:p-8 pb-20 md:pb-8">
@@ -71,3 +74,4 @@ export default function RootLayout({
     </html>
   )
 }
+
