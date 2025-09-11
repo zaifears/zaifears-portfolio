@@ -3,7 +3,7 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next' // Import Viewport type
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
@@ -23,12 +23,14 @@ export const metadata: Metadata = {
   verification: {
     google: 'pT4MHjovbY0MXYCrgAPN3LQHyTuLLq_iTtmWyx3GSgc',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
+}
+
+// --- VIEWPORT MOVED HERE ---
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 const cx = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(' ')
@@ -60,7 +62,6 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      {/* --- overflow-x-hidden has been removed --- */}
       <body className="antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
           <div className="flex min-h-screen">
             <Navbar />
@@ -74,4 +75,3 @@ export default function RootLayout({
     </html>
   )
 }
-
