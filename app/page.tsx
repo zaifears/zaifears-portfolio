@@ -255,6 +255,58 @@ export default function Page() {
             </div>
           </div>
 
+          {/* NEW PROJECTS SECTION */}
+          <div className="mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Projects</h2>
+            <div className="bg-gray-100 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-xl sm:rounded-2xl p-4 sm:p-8 max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
+                {/* Left side - Image */}
+                <div className="order-2 md:order-1">
+                  <Link 
+                    href="https://skilldash.live" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group block rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                  >
+                    <Image
+                      src="/skilldash-banner.jpg"
+                      alt="SkillDash - Career Discovery Platform"
+                      width={600}
+                      height={300}
+                      className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"
+                      priority
+                    />
+                  </Link>
+                </div>
+
+                {/* Right side - Content */}
+                <div className="order-1 md:order-2 space-y-4">
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                      SkillDash
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">
+                      Transforming Career Discovery for Bangladesh's Youth
+                    </p>
+                  </div>
+                  
+                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Witnessing countless talented graduates struggle with career direction inspired me to build SkillDash. Despite academic excellence, many face unemployment simply due to lack of clarity about their strengths and market opportunities. Visit{' '}
+                    <Link 
+                      href="https://skilldash.live" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline transition-colors"
+                    >
+                      skilldash.live
+                    </Link>
+                    {' '}and experience AI-powered career discovery designed specifically for Bangladesh's job market.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Get Started</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
@@ -300,4 +352,3 @@ export default function Page() {
     </>
   );
 }
-
