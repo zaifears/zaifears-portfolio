@@ -258,7 +258,9 @@ export default function Page() {
           {/* NEW PROJECTS SECTION */}
           <div className="mb-12 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Projects</h2>
-            <div className="bg-gray-100 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-xl sm:rounded-2xl p-4 sm:p-8 max-w-5xl mx-auto">
+            
+            {/* SkillDash Project */}
+            <div className="bg-gray-100 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-xl sm:rounded-2xl p-4 sm:p-8 max-w-5xl mx-auto mb-6 sm:mb-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                 {/* Left side - Image */}
                 <div className="order-2 md:order-1">
@@ -302,6 +304,44 @@ export default function Page() {
                     </Link>
                     {' '}and experience AI-powered career discovery designed specifically for Bangladesh's job market.
                   </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Business Competition Projects */}
+            <div className="bg-gray-100 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-xl sm:rounded-2xl p-4 sm:p-8 max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
+                {/* Left side - Content */}
+                <div className="order-1 md:order-1 space-y-4">
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                      Business Competition Projects
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">
+                      Strategic Solutions & Market Analysis
+                    </p>
+                  </div>
+                  
+                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Check out what Shahoriar is up to for his business competition lore. From national case competitions to innovative market solutions, explore the strategic thinking and analytical prowess that drives winning business proposals and financial models.
+                  </p>
+                </div>
+
+                {/* Right side - Image */}
+                <div className="order-2 md:order-2">
+                  <Link 
+                    href="/bizcomp" 
+                    className="group block rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                  >
+                    <Image
+                      src="/bizcomp.png"
+                      alt="Business Competition Projects"
+                      width={600}
+                      height={300}
+                      className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"
+                      priority
+                    />
+                  </Link>
                 </div>
               </div>
             </div>
