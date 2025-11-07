@@ -43,6 +43,7 @@ interface Asset {
     value: number;
     color: string;
     returnRate: number;
+    amount: number;
 }
 
 interface Portfolio {
@@ -53,6 +54,7 @@ interface Portfolio {
     expectedReturn: string;
     allocation: Asset[];
     target: number;
+    additionalInfo?: string;
 }
 
 const initialPortfolioData: Record<string, Portfolio> = {
@@ -68,50 +70,55 @@ const initialPortfolioData: Record<string, Portfolio> = {
     "Emergency Fund": {
         goal: "BDT 500,000",
         timeframe: "Ongoing",
-        justification: "This fund prioritizes immediate liquidity and capital preservation with a weighted return of 8.29%. BRAC Triple Benefit (20%) offers daily liquidity at 4%, BRAC FDR (60%) provides 9.75% with flexible encashment, and EDGE Income Fund (20%) targets 10.17% with 3-5 day processing.",
+        justification: "This fund prioritizes immediate liquidity and capital preservation with a weighted return of 8.68%. BRAC Triple Benefit (20%) offers daily liquidity at 4%, BRAC FDR (60%) provides 9.75% with flexible encashment, and EDGE Income Fund (20%) targets 10.17% with 3-5 day processing.",
         initialInvestment: "500000",
-        expectedReturn: "8.29",
+        expectedReturn: "8.68",
         allocation: [
-            { name: "BRAC Triple Benefit", value: 20, color: "#2563EB", returnRate: 4.0 },
-            { name: "BRAC General FDR", value: 60, color: "#059669", returnRate: 9.75 },
-            { name: "EDGE Income Fund", value: 20, color: "#D97706", returnRate: 10.17 }
+            { name: "BRAC Triple Benefit", value: 20, color: "#2563EB", returnRate: 4.0, amount: 100000 },
+            { name: "BRAC General FDR", value: 60, color: "#059669", returnRate: 9.75, amount: 300000 },
+            { name: "EDGE Income Fund", value: 20, color: "#D97706", returnRate: 10.17, amount: 100000 }
         ],
-        target: 500000
+        target: 500000,
+        additionalInfo: "Portfolio Return: 8.68%"
     },
     "Car Fund": {
         goal: "BDT 3,450,000",
         timeframe: "5 Years",
-        justification: "60% of total available funds (BDT 1,740,000) allocated at Year 0 with diversified high-growth instruments. Portfolio includes P2P lending (Biniyog.io 16%, WeGro 22%), agriculture financing (iFarmer 19%), fixed income (One Bank 13.1%, Sanchaypatra 10.75%), mutual funds (EDGE 10%), and liquid reserves (Goldkinun 5%).",
-        initialInvestment: "1740000",
-        expectedReturn: "14.23",
+        justification: "25% of total available funds (BDT 725,000) allocated at Year 0 with diversified high-growth instruments achieving 18.42% portfolio return. The remaining funds will be generated through systematic annual savings invested in BRAC Monthly DPS.",
+        initialInvestment: "725000",
+        expectedReturn: "18.42",
         allocation: [
-            { name: "Biniyog.io", value: 11, color: "#2563EB", returnRate: 16.0 },
-            { name: "WeGro Global", value: 14, color: "#059669", returnRate: 22.0 },
-            { name: "iFarmer", value: 12, color: "#D97706", returnRate: 19.0 },
-            { name: "Goldkinun", value: 6, color: "#DB2777", returnRate: 5.0 },
-            { name: "One Bank Double", value: 21, color: "#8B5CF6", returnRate: 13.1 },
-            { name: "EDGE Growth Fund", value: 17, color: "#EC4899", returnRate: 10.0 },
-            { name: "Sanchaypatra", value: 17, color: "#F59E0B", returnRate: 10.75 }
+            { name: "UCB Income Plus MF", value: 18, color: "#10B981", returnRate: 20.0, amount: 130000 },
+            { name: "WeGro Global", value: 14, color: "#F59E0B", returnRate: 22.0, amount: 105000 },
+            { name: "iFarmer", value: 15, color: "#F59E0B", returnRate: 19.0, amount: 108000 },
+            { name: "VIPB Fixed Income", value: 28, color: "#8B5CF6", returnRate: 22.0, amount: 200000 },
+            { name: "Sanchaypatra (5yr)", value: 25, color: "#10B981", returnRate: 9.5, amount: 180000 }
         ],
-        target: 3450000
+        target: 3450000,
+        additionalInfo: "Portfolio A Return: 18.42% | Total Available at Year 5: 5,463,309.51৳"
     },
     "Home Fund": {
-        goal: "BDT 15,000,000",
-        timeframe: "12 Years",
-        justification: "This long-term portfolio maximizes growth. It takes on higher risk via stocks and alternative investments to achieve the apartment down payment goal.",
-        initialInvestment: "4000000",
-        expectedReturn: "12.5",
+        goal: "BDT 7,940,490",
+        timeframe: "8 Years (Down Payment)",
+        justification: "Long-term aggressive portfolio starting with BDT 2,175,000 at Year 0, plus 1M after 6 months, and remaining 2,013,309.51 from Car Fund at Year 5. Portfolio B achieves 17.93% return through diversified high-growth instruments including P2P lending, agriculture financing, equity funds, and fixed income.",
+        initialInvestment: "2175000",
+        expectedReturn: "17.93",
         allocation: [
-            { name: "Stocks", value: 50, color: "#2563EB", returnRate: 15.0 },
-            { name: "Agri-Fintech", value: 20, color: "#059669", returnRate: 12.0 },
-            { name: "SME Funding", value: 10, color: "#D97706", returnRate: 10.0 },
-            { name: "Digital Gold", value: 20, color: "#DB2777", returnRate: 8.0 }
+            { name: "Biniyog.io", value: 6, color: "#F59E0B", returnRate: 16.0, amount: 175000 },
+            { name: "WeGro Global", value: 14, color: "#F59E0B", returnRate: 22.0, amount: 400000 },
+            { name: "iFarmer", value: 12, color: "#F59E0B", returnRate: 19.0, amount: 300000 },
+            { name: "Gold Kinun", value: 2, color: "#EF4444", returnRate: 5.0, amount: 0 },
+            { name: "One Bank Double", value: 10, color: "#10B981", returnRate: 13.1, amount: 500000 },
+            { name: "UCB Income Plus MF", value: 15, color: "#10B981", returnRate: 20.0, amount: 200000 },
+            { name: "EDGE Growth Fund", value: 11, color: "#10B981", returnRate: 20.0, amount: 200000 },
+            { name: "VIPB Fixed Income", value: 17, color: "#8B5CF6", returnRate: 22.0, amount: 300000 },
+            { name: "Sanchaypatra (5yr)", value: 14, color: "#10B981", returnRate: 9.5, amount: 300000 }
         ],
-        target: 15000000
+        target: 7940490,
+        additionalInfo: "Portfolio B Return: 17.93% | Total at Year 8: 17,830,895.10৳ | Required Down Payment: 7,940,490.60৳"
     }
 };
 
-// Custom Tooltip Components for Recharts
 const CustomBarTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
         return (
@@ -157,14 +164,14 @@ export default function FinancialDashboard() {
         const rate = parseFloat(calculatedWeightedReturn) || 0;
         
         const projection = [];
-        for (let year = 0; year <= 12; year++) {
+        const years = activePortfolioKey === "Car Fund" ? 5 : activePortfolioKey === "Home Fund" ? 8 : 12;
+        for (let year = 0; year <= years; year++) {
             const value = initial * Math.pow(1 + rate / 100, year);
             projection.push([year, Math.round(value)]);
         }
         return projection;
-    }, [activePortfolio.initialInvestment, calculatedWeightedReturn]);
+    }, [activePortfolio.initialInvestment, calculatedWeightedReturn, activePortfolioKey]);
 
-    // Recharts data
     const incomeExpenseData = [
         { name: 'Income', value: 90000, fill: '#10B981' },
         { name: 'Expense', value: 68000, fill: '#EF4444' },
@@ -290,55 +297,52 @@ export default function FinancialDashboard() {
         }));
     };
 
-    const handleAllocationChange = (sliderIndex: number, newValue: number) => {
+    const handleAllocationChange = (sliderIndex: number, field: 'value' | 'returnRate' | 'amount', newValue: number) => {
         setPortfolios(prev => {
             const newAllocations = [...prev[activePortfolioKey].allocation];
-            newAllocations[sliderIndex] = {
-                ...newAllocations[sliderIndex],
-                value: newValue
-            };
-
-            const newTotal = newAllocations.reduce((sum, asset) => sum + asset.value, 0);
-            const normalizedAllocations = newTotal > 0 ? newAllocations.map(asset => ({
-                ...asset,
-                value: (asset.value / newTotal) * 100
-            })) : newAllocations.map(asset => ({ 
-                ...asset, 
-                value: 100 / newAllocations.length 
-            }));
             
-            return {
-                ...prev,
-                [activePortfolioKey]: {
-                    ...prev[activePortfolioKey],
-                    allocation: normalizedAllocations
-                }
-            };
+            if (field === 'value') {
+                newAllocations[sliderIndex] = {
+                    ...newAllocations[sliderIndex],
+                    value: newValue
+                };
+
+                const newTotal = newAllocations.reduce((sum, asset) => sum + asset.value, 0);
+                const normalizedAllocations = newTotal > 0 ? newAllocations.map(asset => ({
+                    ...asset,
+                    value: (asset.value / newTotal) * 100
+                })) : newAllocations.map(asset => ({ 
+                    ...asset, 
+                    value: 100 / newAllocations.length 
+                }));
+                
+                return {
+                    ...prev,
+                    [activePortfolioKey]: {
+                        ...prev[activePortfolioKey],
+                        allocation: normalizedAllocations
+                    }
+                };
+            } else {
+                newAllocations[sliderIndex] = {
+                    ...newAllocations[sliderIndex],
+                    [field]: newValue
+                };
+                
+                return {
+                    ...prev,
+                    [activePortfolioKey]: {
+                        ...prev[activePortfolioKey],
+                        allocation: newAllocations
+                    }
+                };
+            }
         });
     };
 
-    const handleReturnRateChange = (assetIndex: number, newRate: string) => {
-        setPortfolios(prev => {
-            const newAllocations = [...prev[activePortfolioKey].allocation];
-            newAllocations[assetIndex] = {
-                ...newAllocations[assetIndex],
-                returnRate: parseFloat(newRate) || 0
-            };
-            
-            return {
-                ...prev,
-                [activePortfolioKey]: {
-                    ...prev[activePortfolioKey],
-                    allocation: newAllocations
-                }
-            };
-        });
-    };
-
-    const calculateAllocatedAmount = (percentage: number) => {
-        const total = parseFloat(activePortfolio.initialInvestment) || 0;
-        return Math.round(total * (percentage / 100));
-    };
+    const totalAllocatedAmount = useMemo(() => {
+        return activePortfolio.allocation.reduce((sum, asset) => sum + asset.amount, 0);
+    }, [activePortfolio.allocation]);
 
     const isOverview = activePortfolioKey === "Overview";
     const useNewLayout = activePortfolioKey === "Emergency Fund" || activePortfolioKey === "Car Fund";
@@ -373,7 +377,6 @@ export default function FinancialDashboard() {
             {isOverview ? (
                 // OVERVIEW TAB
                 <div className="space-y-6 max-w-7xl mx-auto">
-                    {/* Quick Stats */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                         <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-transform cursor-pointer">
                             <div className="text-4xl mb-3">💼</div>
@@ -397,9 +400,7 @@ export default function FinancialDashboard() {
                         </div>
                     </div>
 
-                    {/* Income & Assets Charts */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {/* Income Chart */}
                         <div className="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-300">
                             <h3 className="text-2xl font-extrabold mb-5 text-gray-900 flex items-center gap-2">
                                 <span className="text-3xl">💰</span> Income & Expenses
@@ -430,7 +431,6 @@ export default function FinancialDashboard() {
                             </div>
                         </div>
 
-                        {/* Assets Pie Chart - FIXED COLORS */}
                         <div className="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-300">
                             <h3 className="text-2xl font-extrabold mb-5 text-gray-900 flex items-center gap-2">
                                 <span className="text-3xl">🏦</span> Current Assets
@@ -469,13 +469,11 @@ export default function FinancialDashboard() {
                         </div>
                     </div>
 
-                    {/* Financial Goals with Bar Chart */}
                     <div className="bg-white p-8 rounded-2xl shadow-xl border-2 border-gray-300">
                         <h3 className="text-3xl font-extrabold mb-6 text-gray-900 flex items-center gap-2">
                             <span className="text-4xl">🎯</span> Financial Goals & Requirements
                         </h3>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            {/* Goals List */}
                             <div className="space-y-5">
                                 <div className="p-6 bg-gradient-to-r from-purple-100 to-purple-200 rounded-xl border-l-4 border-purple-600 shadow-lg hover:shadow-xl transition-shadow">
                                     <div className="flex justify-between items-center mb-2">
@@ -488,39 +486,38 @@ export default function FinancialDashboard() {
                                 <div className="p-6 bg-gradient-to-r from-pink-100 to-pink-200 rounded-xl border-l-4 border-pink-600 shadow-lg hover:shadow-xl transition-shadow">
                                     <div className="flex justify-between items-center mb-2">
                                         <h4 className="font-extrabold text-gray-900 text-xl">🚗 Car Purchase</h4>
-                                        <span className="text-pink-900 font-extrabold text-2xl">৳3,000,000</span>
+                                        <span className="text-pink-900 font-extrabold text-2xl">৳3,450,000</span>
                                     </div>
                                     <p className="text-base font-bold text-gray-800">5 Years - No loan interest</p>
                                 </div>
                                 
                                 <div className="p-6 bg-gradient-to-r from-orange-100 to-orange-200 rounded-xl border-l-4 border-orange-600 shadow-lg hover:shadow-xl transition-shadow">
                                     <div className="flex justify-between items-center mb-2">
-                                        <h4 className="font-extrabold text-gray-900 text-xl">🏠 Apartment Down Payment</h4>
-                                        <span className="text-orange-900 font-extrabold text-2xl">৳15,000,000</span>
+                                        <h4 className="font-extrabold text-gray-900 text-xl">🏠 Home Down Payment</h4>
+                                        <span className="text-orange-900 font-extrabold text-2xl">৳7,940,490</span>
                                     </div>
-                                    <p className="text-base font-bold text-gray-800">Down in 5 yrs; rest in 12 yrs</p>
+                                    <p className="text-base font-bold text-gray-800">8 Years for down payment</p>
                                 </div>
 
                                 <div className="p-7 bg-gradient-to-r from-blue-200 to-purple-200 rounded-xl border-3 border-blue-600 shadow-xl">
                                     <div className="flex justify-between items-center">
                                         <h4 className="font-extrabold text-gray-900 text-2xl">Total Requirements</h4>
-                                        <span className="text-blue-900 font-extrabold text-3xl">৳18,500,000</span>
+                                        <span className="text-blue-900 font-extrabold text-3xl">৳11,890,490</span>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Bar Chart Visualization */}
                             <div className="flex items-center justify-center">
                                 <div className="h-full w-full">
                                     <ResponsiveContainer width="100%" height={400}>
                                         <BarChart 
                                             data={[
-                                                { name: 'Emergency Fund', value: 500000, fill: '#8B5CF6' },
-                                                { name: 'Car Purchase', value: 3000000, fill: '#EC4899' },
-                                                { name: 'Apartment', value: 15000000, fill: '#F59E0B' }
+                                                { name: 'Emergency', value: 500000, fill: '#8B5CF6' },
+                                                { name: 'Car', value: 3450000, fill: '#EC4899' },
+                                                { name: 'Home Down', value: 7940490, fill: '#F59E0B' }
                                             ]}
                                             layout="vertical"
-                                            margin={{ top: 5, right: 30, left: 120, bottom: 5 }}
+                                            margin={{ top: 5, right: 30, left: 100, bottom: 5 }}
                                         >
                                             <XAxis 
                                                 type="number" 
@@ -535,14 +532,14 @@ export default function FinancialDashboard() {
                                                 tick={{ fill: '#000000', fontSize: 14, fontWeight: 'bold' }}
                                                 stroke="#000000"
                                                 strokeWidth={2}
-                                                width={110}
+                                                width={90}
                                             />
                                             <RechartsTooltip content={<CustomBarTooltip />} />
                                             <Bar dataKey="value" radius={[0, 10, 10, 0]} barSize={40}>
                                                 {[
-                                                    { name: 'Emergency Fund', value: 500000, fill: '#8B5CF6' },
-                                                    { name: 'Car Purchase', value: 3000000, fill: '#EC4899' },
-                                                    { name: 'Apartment', value: 15000000, fill: '#F59E0B' }
+                                                    { name: 'Emergency', value: 500000, fill: '#8B5CF6' },
+                                                    { name: 'Car', value: 3450000, fill: '#EC4899' },
+                                                    { name: 'Home Down', value: 7940490, fill: '#F59E0B' }
                                                 ].map((entry, index) => (
                                                     <Cell key={`cell-${index}`} fill={entry.fill} />
                                                 ))}
@@ -554,9 +551,7 @@ export default function FinancialDashboard() {
                         </div>
                     </div>
 
-                    {/* Investment Options & Risk Profile Grid */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {/* Investment Options */}
                         <div className="bg-white p-8 rounded-2xl shadow-xl border-2 border-gray-300">
                             <h3 className="text-3xl font-extrabold mb-6 text-gray-900 flex items-center gap-2">
                                 <span className="text-4xl">📊</span> Investment Options
@@ -584,9 +579,7 @@ export default function FinancialDashboard() {
                             </div>
                         </div>
 
-                        {/* Risk Profile & Strategic Tasks */}
                         <div className="space-y-6">
-                            {/* Risk Profile */}
                             <div className="bg-gradient-to-br from-red-100 to-orange-100 p-7 rounded-2xl shadow-xl border-3 border-red-500">
                                 <h3 className="text-2xl font-extrabold mb-4 text-gray-900 flex items-center gap-2">
                                     <span className="text-3xl">⚠️</span> Risk Profile
@@ -599,7 +592,6 @@ export default function FinancialDashboard() {
                                 </div>
                             </div>
 
-                            {/* Strategic Tasks */}
                             <div className="bg-white p-7 rounded-2xl shadow-xl border-2 border-gray-300">
                                 <h3 className="text-2xl font-extrabold mb-5 text-gray-900 flex items-center gap-2">
                                     <span className="text-3xl">📋</span> Strategic Tasks
@@ -611,7 +603,7 @@ export default function FinancialDashboard() {
                                     </li>
                                     <li className="flex items-start gap-3 text-gray-800 font-semibold text-base">
                                         <span className="text-blue-600 font-bold text-lg">•</span>
-                                        <span>Calculate Required Rate of Return (RRR) for Car and Apartment</span>
+                                        <span>Calculate Required Rate of Return (RRR)</span>
                                     </li>
                                     <li className="flex items-start gap-3 text-gray-800 font-semibold text-base">
                                         <span className="text-blue-600 font-bold text-lg">•</span>
@@ -619,15 +611,15 @@ export default function FinancialDashboard() {
                                     </li>
                                     <li className="flex items-start gap-3 text-gray-800 font-semibold text-base">
                                         <span className="text-blue-600 font-bold text-lg">•</span>
-                                        <span>Compare returns, risk, and liquidity of investments</span>
+                                        <span>Compare returns, risk, and liquidity</span>
                                     </li>
                                     <li className="flex items-start gap-3 text-gray-800 font-semibold text-base">
                                         <span className="text-blue-600 font-bold text-lg">•</span>
-                                        <span>Design diversified portfolio (Traditional + Alternative assets)</span>
+                                        <span>Design diversified portfolio</span>
                                     </li>
                                     <li className="flex items-start gap-3 text-gray-800 font-semibold text-base">
                                         <span className="text-blue-600 font-bold text-lg">•</span>
-                                        <span>10-year Financial Projection and Goal Feasibility</span>
+                                        <span>Financial Projection & Feasibility</span>
                                     </li>
                                 </ul>
                             </div>
@@ -635,7 +627,7 @@ export default function FinancialDashboard() {
                     </div>
                 </div>
             ) : useNewLayout ? (
-                // EMERGENCY & CAR FUND (NO CHANGES)
+                // EMERGENCY & CAR FUND
                 <div className="space-y-6 max-w-7xl mx-auto">
                     <div className="bg-white p-8 rounded-2xl shadow-xl border-2 border-blue-400">
                         <div className="mb-6">
@@ -652,10 +644,10 @@ export default function FinancialDashboard() {
                             </p>
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
                                 <label htmlFor="initialInvestment" className="block text-base font-extrabold text-gray-900 mb-2">
-                                    Initial Investment (BDT)
+                                    Initial Investment (৳)
                                 </label>
                                 <input
                                     type="text"
@@ -670,83 +662,147 @@ export default function FinancialDashboard() {
                             
                             <div>
                                 <label className="block text-base font-extrabold text-gray-900 mb-2">
-                                    Weighted Average Return (%)
+                                    Portfolio Return (%)
                                 </label>
                                 <div className="w-full bg-gradient-to-r from-blue-200 to-purple-200 text-blue-950 rounded-xl border-3 border-blue-500 p-3 text-xl font-extrabold shadow-lg">
                                     {calculatedWeightedReturn}%
                                 </div>
-                                <p className="text-sm font-bold text-gray-700 mt-2">Auto-calculated</p>
                             </div>
                         </div>
+
+                        {activePortfolio.additionalInfo && (
+                            <div className="p-4 bg-yellow-100 rounded-xl border-2 border-yellow-500 mb-6">
+                                <p className="text-gray-900 font-bold text-sm">{activePortfolio.additionalInfo}</p>
+                            </div>
+                        )}
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div className="bg-white p-7 rounded-2xl shadow-xl border-2 border-gray-300">
-                            <h3 className="text-2xl font-extrabold mb-6 text-gray-900">Asset Allocation</h3>
-                            <div className="space-y-5">
-                                {activePortfolio.allocation.map((asset, index) => (
-                                    <div key={asset.name} className="border-2 border-gray-300 rounded-xl p-5 bg-gradient-to-br from-gray-50 to-white shadow-md hover:shadow-lg transition-shadow">
-                                        <div className="flex justify-between items-center mb-3">
-                                            <label htmlFor={asset.name} className="font-extrabold text-base" style={{color: asset.color}}>
-                                                {asset.name}
-                                            </label>
-                                            <div className="text-right">
-                                                <div className="text-gray-900 font-extrabold text-xl">{asset.value.toFixed(1)}%</div>
-                                                <div className="text-sm text-gray-700 font-bold">
-                                                    ৳{calculateAllocatedAmount(asset.value).toLocaleString()}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <input
-                                            type="range"
-                                            name={asset.name}
-                                            id={asset.name}
-                                            min="0"
-                                            max="100"
-                                            value={asset.value}
-                                            onChange={(e) => handleAllocationChange(index, Number(e.target.value))}
-                                            className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer mb-3 shadow-inner"
-                                            style={{ accentColor: asset.color }}
-                                        />
-                                        <div className="flex items-center gap-2">
-                                            <label className="text-sm text-gray-900 font-extrabold">Return Rate:</label>
-                                            <input
-                                                type="number"
-                                                step="0.01"
-                                                value={asset.returnRate}
-                                                onChange={(e) => handleReturnRateChange(index, e.target.value)}
-                                                onFocus={(e) => e.target.select()}
-                                                className="w-24 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500"
-                                            />
-                                            <span className="text-sm font-extrabold text-gray-900">%</span>
-                                        </div>
-                                    </div>
-                                ))}
+                    {/* Table + Donut Side by Side */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="lg:col-span-2 bg-white p-7 rounded-2xl shadow-xl border-2 border-gray-300">
+                            <div className="flex justify-between items-center mb-6">
+                                <h3 className="text-2xl font-extrabold text-gray-900">Asset Allocation Details</h3>
+                                <div className="text-right">
+                                    <p className="text-sm font-bold text-gray-600">Total Allocated</p>
+                                    <p className="text-2xl font-extrabold text-blue-600">৳{totalAllocatedAmount.toLocaleString()}</p>
+                                </div>
+                            </div>
+                            
+                            <div className="overflow-x-auto">
+                                <table className="w-full border-collapse">
+                                    <thead>
+                                        <tr className="bg-gradient-to-r from-blue-100 to-purple-100 border-2 border-gray-300">
+                                            <th className="p-3 text-left font-extrabold text-gray-900 border-r-2 border-gray-300">Instrument</th>
+                                            <th className="p-3 text-center font-extrabold text-gray-900 border-r-2 border-gray-300">Allocation %</th>
+                                            <th className="p-3 text-center font-extrabold text-gray-900 border-r-2 border-gray-300">Return %</th>
+                                            <th className="p-3 text-right font-extrabold text-gray-900">Amount (৳)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {activePortfolio.allocation.map((asset, index) => (
+                                            <tr key={asset.name} className="border-b-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                                                <td className="p-4 border-r-2 border-gray-200">
+                                                    <input
+                                                        type="text"
+                                                        value={asset.name}
+                                                        onChange={(e) => {
+                                                            setPortfolios(prev => {
+                                                                const newAllocations = [...prev[activePortfolioKey].allocation];
+                                                                newAllocations[index] = {
+                                                                    ...newAllocations[index],
+                                                                    name: e.target.value
+                                                                };
+                                                                return {
+                                                                    ...prev,
+                                                                    [activePortfolioKey]: {
+                                                                        ...prev[activePortfolioKey],
+                                                                        allocation: newAllocations
+                                                                    }
+                                                                };
+                                                            });
+                                                        }}
+                                                        className="w-full bg-transparent font-extrabold text-base border-none focus:outline-none focus:ring-2 focus:ring-blue-300 rounded px-2"
+                                                        style={{color: asset.color}}
+                                                    />
+                                                </td>
+                                                <td className="p-4 border-r-2 border-gray-200">
+                                                    <div className="flex flex-col items-center gap-2">
+                                                        <input
+                                                            type="range"
+                                                            min="0"
+                                                            max="100"
+                                                            value={asset.value}
+                                                            onChange={(e) => handleAllocationChange(index, 'value', Number(e.target.value))}
+                                                            className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+                                                            style={{ accentColor: asset.color }}
+                                                        />
+                                                        <input
+                                                            type="number"
+                                                            step="0.1"
+                                                            value={asset.value.toFixed(1)}
+                                                            onChange={(e) => handleAllocationChange(index, 'value', parseFloat(e.target.value) || 0)}
+                                                            onFocus={(e) => e.target.select()}
+                                                            className="w-20 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-300 px-2 py-1 text-base font-extrabold text-center focus:ring-2 focus:ring-blue-500"
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td className="p-4 border-r-2 border-gray-200">
+                                                    <input
+                                                        type="number"
+                                                        step="0.01"
+                                                        value={asset.returnRate}
+                                                        onChange={(e) => handleAllocationChange(index, 'returnRate', parseFloat(e.target.value) || 0)}
+                                                        onFocus={(e) => e.target.select()}
+                                                        className="w-24 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 mx-auto block text-center"
+                                                    />
+                                                </td>
+                                                <td className="p-4 text-right">
+                                                    <input
+                                                        type="number"
+                                                        step="1000"
+                                                        value={asset.amount}
+                                                        onChange={(e) => handleAllocationChange(index, 'amount', parseFloat(e.target.value) || 0)}
+                                                        onFocus={(e) => e.target.select()}
+                                                        className="w-40 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 text-right"
+                                                    />
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        <tr className="bg-gradient-to-r from-gray-100 to-gray-200 font-extrabold border-t-4 border-gray-400">
+                                            <td className="p-4 text-lg border-r-2 border-gray-300">Total</td>
+                                            <td className="p-4 text-center text-lg border-r-2 border-gray-300">100%</td>
+                                            <td className="p-4 text-center text-lg text-blue-700 border-r-2 border-gray-300">{calculatedWeightedReturn}%</td>
+                                            <td className="p-4 text-right text-lg text-blue-700">৳{totalAllocatedAmount.toLocaleString()}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
-                        <div className="bg-white p-7 rounded-2xl shadow-xl border-2 border-gray-300 flex flex-col items-center justify-center">
-                            <h3 className="text-2xl font-extrabold mb-6 text-gray-900">Portfolio Distribution</h3>
-                            <div className="relative h-96 w-full">
+                        {/* Donut Chart - Right Side with FIXED HEIGHT */}
+                        <div className="lg:col-span-1 bg-white p-7 rounded-2xl shadow-xl border-2 border-gray-300 flex flex-col items-center justify-center">
+                            <h3 className="text-2xl font-extrabold mb-6 text-gray-900">Distribution</h3>
+                            <div className="relative w-full" style={{ height: '450px' }}>
                                 <Doughnut data={doughnutData} options={doughnutOptions} />
                             </div>
                         </div>
                     </div>
 
+                    {/* Growth Projection - Full Width */}
                     <div className="bg-white p-8 rounded-2xl shadow-xl border-2 border-gray-300">
                         <h2 className="text-3xl font-extrabold mb-6 text-gray-900">📈 Projected Growth</h2>
                         
-                        <div className="h-80 relative mb-6 bg-gray-50 p-4 rounded-xl">
+                        <div className="h-96 relative mb-6 bg-gray-50 p-4 rounded-xl">
                             <Line data={lineData} options={lineOptions} />
                         </div>
 
                         <div className="mt-6 p-6 bg-gradient-to-r from-cyan-100 to-blue-100 rounded-2xl flex flex-wrap justify-between items-center gap-6 border-3 border-cyan-500 shadow-lg">
                             <div>
                                 <span className="text-base font-bold text-gray-800 block mb-1">
-                                    Projected Value at Year {activePortfolioKey === "Car Fund" ? "5" : "12"}
+                                    Projected at Year {activePortfolioKey === "Car Fund" ? "5" : "8"}
                                 </span>
                                 <span className="text-4xl font-extrabold text-cyan-700">
-                                    ৳{calculatedProjection[activePortfolioKey === "Car Fund" ? 5 : 12][1].toLocaleString()}
+                                    ৳{calculatedProjection[activePortfolioKey === "Car Fund" ? 5 : 8][1].toLocaleString()}
                                 </span>
                             </div>
                             <div className="text-left sm:text-right">
@@ -759,27 +815,27 @@ export default function FinancialDashboard() {
                     </div>
                 </div>
             ) : (
-                // HOME FUND (NO CHANGES)
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-                    <div className="lg:col-span-1 bg-white p-7 rounded-2xl shadow-xl flex flex-col gap-6 border-2 border-gray-300">
-                        <div>
-                            <h2 className="text-2xl font-extrabold mb-2 text-gray-900">{activePortfolioKey}</h2>
-                            <span className="text-base font-bold text-blue-700">
+                // HOME FUND - LONGER SLIDERS
+                <div className="space-y-6 max-w-7xl mx-auto">
+                    <div className="bg-white p-8 rounded-2xl shadow-xl border-2 border-blue-400">
+                        <div className="mb-6">
+                            <h2 className="text-3xl font-extrabold mb-2 text-gray-900">{activePortfolioKey}</h2>
+                            <span className="text-lg font-bold text-blue-700">
                                 Goal: {activePortfolio.goal} ({activePortfolio.timeframe})
                             </span>
                         </div>
                         
-                        <div className="p-5 bg-blue-50 rounded-xl border-l-4 border-blue-500">
-                            <h3 className="text-lg font-extrabold mb-2 text-gray-900">Rationale:</h3>
-                            <p className="text-gray-800 text-sm font-semibold leading-relaxed">
+                        <div className="mb-6 p-5 bg-blue-50 rounded-xl border-l-4 border-blue-500">
+                            <h3 className="text-xl font-extrabold mb-3 text-gray-900">Allocation Rationale:</h3>
+                            <p className="text-gray-800 text-base font-semibold leading-relaxed">
                                 {activePortfolio.justification}
                             </p>
                         </div>
                         
-                        <div className="space-y-5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
                                 <label className="block text-base font-extrabold text-gray-900 mb-2">
-                                    Initial Investment (BDT)
+                                    Year 0 Investment (৳)
                                 </label>
                                 <input
                                     type="text"
@@ -793,77 +849,153 @@ export default function FinancialDashboard() {
                             
                             <div>
                                 <label className="block text-base font-extrabold text-gray-900 mb-2">
-                                    Weighted Return (%)
+                                    Portfolio Return (%)
                                 </label>
                                 <div className="w-full bg-gradient-to-r from-blue-200 to-purple-200 text-blue-950 rounded-xl border-3 border-blue-500 p-3 text-xl font-extrabold shadow-lg">
                                     {calculatedWeightedReturn}%
                                 </div>
                             </div>
-                            
-                            <div>
-                                <h3 className="text-lg font-extrabold mb-4 text-gray-900">Asset Allocation</h3>
-                                <div className="space-y-4">
+                        </div>
+
+                        {activePortfolio.additionalInfo && (
+                            <div className="p-4 bg-yellow-100 rounded-xl border-2 border-yellow-500">
+                                <p className="text-gray-900 font-bold text-sm">{activePortfolio.additionalInfo}</p>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Portfolio B Table - Full Width with LONGER SLIDERS */}
+                    <div className="bg-white p-7 rounded-2xl shadow-xl border-2 border-gray-300">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-2xl font-extrabold text-gray-900">Portfolio B - Asset Allocation</h3>
+                            <div className="text-right">
+                                <p className="text-sm font-bold text-gray-600">Total Allocated</p>
+                                <p className="text-2xl font-extrabold text-blue-600">৳{totalAllocatedAmount.toLocaleString()}</p>
+                            </div>
+                        </div>
+                        
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-collapse">
+                                <thead>
+                                    <tr className="bg-gradient-to-r from-blue-100 to-purple-100 border-2 border-gray-300">
+                                        <th className="p-3 text-left font-extrabold text-gray-900 border-r-2 border-gray-300 w-1/4">Instrument</th>
+                                        <th className="p-3 text-center font-extrabold text-gray-900 border-r-2 border-gray-300 w-1/3">Allocation %</th>
+                                        <th className="p-3 text-center font-extrabold text-gray-900 border-r-2 border-gray-300 w-1/6">Return %</th>
+                                        <th className="p-3 text-right font-extrabold text-gray-900 w-1/4">Amount (৳)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     {activePortfolio.allocation.map((asset, index) => (
-                                        <div key={asset.name} className="border-2 border-gray-300 rounded-xl p-4 bg-gradient-to-br from-gray-50 to-white shadow-md">
-                                            <div className="flex justify-between mb-2">
-                                                <label className="font-extrabold text-sm" style={{color: asset.color}}>
-                                                    {asset.name}
-                                                </label>
-                                                <span className="text-gray-900 font-extrabold text-base">{asset.value.toFixed(1)}%</span>
-                                            </div>
-                                            <input
-                                                type="range"
-                                                min="0"
-                                                max="100"
-                                                value={asset.value}
-                                                onChange={(e) => handleAllocationChange(index, Number(e.target.value))}
-                                                className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer mb-2"
-                                                style={{ accentColor: asset.color }}
-                                            />
-                                            <div className="flex items-center gap-2">
-                                                <label className="text-xs text-gray-900 font-extrabold">Return:</label>
+                                        <tr key={asset.name} className="border-b-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                                            <td className="p-4 border-r-2 border-gray-200">
+                                                <input
+                                                    type="text"
+                                                    value={asset.name}
+                                                    onChange={(e) => {
+                                                        setPortfolios(prev => {
+                                                            const newAllocations = [...prev[activePortfolioKey].allocation];
+                                                            newAllocations[index] = {
+                                                                ...newAllocations[index],
+                                                                name: e.target.value
+                                                            };
+                                                            return {
+                                                                ...prev,
+                                                                [activePortfolioKey]: {
+                                                                    ...prev[activePortfolioKey],
+                                                                    allocation: newAllocations
+                                                                }
+                                                            };
+                                                        });
+                                                    }}
+                                                    className="w-full bg-transparent font-extrabold text-base border-none focus:outline-none focus:ring-2 focus:ring-blue-300 rounded px-2"
+                                                    style={{color: asset.color}}
+                                                />
+                                            </td>
+                                            <td className="p-4 border-r-2 border-gray-200">
+                                                <div className="flex flex-col items-center gap-2">
+                                                    <input
+                                                        type="range"
+                                                        min="0"
+                                                        max="100"
+                                                        value={asset.value}
+                                                        onChange={(e) => handleAllocationChange(index, 'value', Number(e.target.value))}
+                                                        className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+                                                        style={{ accentColor: asset.color }}
+                                                    />
+                                                    <input
+                                                        type="number"
+                                                        step="0.1"
+                                                        value={asset.value.toFixed(1)}
+                                                        onChange={(e) => handleAllocationChange(index, 'value', parseFloat(e.target.value) || 0)}
+                                                        onFocus={(e) => e.target.select()}
+                                                        className="w-20 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-300 px-2 py-1 text-base font-extrabold text-center focus:ring-2 focus:ring-blue-500"
+                                                    />
+                                                </div>
+                                            </td>
+                                            <td className="p-4 border-r-2 border-gray-200">
                                                 <input
                                                     type="number"
                                                     step="0.01"
                                                     value={asset.returnRate}
-                                                    onChange={(e) => handleReturnRateChange(index, e.target.value)}
+                                                    onChange={(e) => handleAllocationChange(index, 'returnRate', parseFloat(e.target.value) || 0)}
                                                     onFocus={(e) => e.target.select()}
-                                                    className="w-20 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-2 py-1 text-sm font-extrabold"
+                                                    className="w-24 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 mx-auto block text-center"
                                                 />
-                                                <span className="text-xs font-extrabold">%</span>
-                                            </div>
-                                        </div>
+                                            </td>
+                                            <td className="p-4 text-right">
+                                                <input
+                                                    type="number"
+                                                    step="1000"
+                                                    value={asset.amount}
+                                                    onChange={(e) => handleAllocationChange(index, 'amount', parseFloat(e.target.value) || 0)}
+                                                    onFocus={(e) => e.target.select()}
+                                                    className="w-40 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 text-right"
+                                                />
+                                            </td>
+                                        </tr>
                                     ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="relative h-72 w-72 mx-auto mt-4">
-                            <Doughnut data={doughnutData} options={doughnutOptions} />
+                                    <tr className="bg-gradient-to-r from-gray-100 to-gray-200 font-extrabold border-t-4 border-gray-400">
+                                        <td className="p-4 text-lg border-r-2 border-gray-300">Total</td>
+                                        <td className="p-4 text-center text-lg border-r-2 border-gray-300">100%</td>
+                                        <td className="p-4 text-center text-lg text-blue-700 border-r-2 border-gray-300">{calculatedWeightedReturn}%</td>
+                                        <td className="p-4 text-right text-lg text-blue-700">৳{totalAllocatedAmount.toLocaleString()}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
-                    <div className="lg:col-span-2 bg-white p-8 rounded-2xl shadow-xl border-2 border-gray-300">
-                        <h2 className="text-3xl font-extrabold mb-6 text-gray-900">📈 Projected Growth</h2>
-                        
-                        <div className="h-80 relative mb-6 bg-gray-50 p-4 rounded-xl">
-                            <Line data={lineData} options={lineOptions} />
+                    {/* Charts Side by Side */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="bg-white p-7 rounded-2xl shadow-xl border-2 border-gray-300 flex flex-col items-center justify-center">
+                            <h3 className="text-2xl font-extrabold mb-6 text-gray-900">Visual Distribution</h3>
+                            <div className="relative w-full" style={{ height: '400px' }}>
+                                <Doughnut data={doughnutData} options={doughnutOptions} />
+                            </div>
                         </div>
 
-                        <div className="mt-6 p-6 bg-gradient-to-r from-cyan-100 to-blue-100 rounded-2xl flex flex-wrap justify-between items-center gap-6 border-3 border-cyan-500 shadow-lg">
-                            <div>
-                                <span className="text-base font-bold text-gray-800 block mb-1">
-                                    Projected Year {activePortfolioKey === "Car Fund" ? "5" : "12"}
-                                </span>
-                                <span className="text-4xl font-extrabold text-cyan-700">
-                                    ৳{calculatedProjection[activePortfolioKey === "Car Fund" ? 5 : 12][1].toLocaleString()}
-                                </span>
+                        <div className="bg-white p-8 rounded-2xl shadow-xl border-2 border-gray-300">
+                            <h2 className="text-3xl font-extrabold mb-6 text-gray-900">📈 Growth Projection</h2>
+                            
+                            <div className="h-80 relative mb-6 bg-gray-50 p-4 rounded-xl">
+                                <Line data={lineData} options={lineOptions} />
                             </div>
-                            <div className="text-left sm:text-right">
-                                <span className="text-base font-bold text-gray-800 block mb-1">Target Value</span>
-                                <span className="text-2xl font-extrabold text-gray-900">
-                                    ৳{activePortfolio.target.toLocaleString()}
-                                </span>
+
+                            <div className="mt-6 p-6 bg-gradient-to-r from-cyan-100 to-blue-100 rounded-2xl flex flex-wrap justify-between items-center gap-6 border-3 border-cyan-500 shadow-lg">
+                                <div>
+                                    <span className="text-base font-bold text-gray-800 block mb-1">
+                                        Projected Year 8
+                                    </span>
+                                    <span className="text-4xl font-extrabold text-cyan-700">
+                                        ৳{calculatedProjection[8][1].toLocaleString()}
+                                    </span>
+                                </div>
+                                <div className="text-left sm:text-right">
+                                    <span className="text-base font-bold text-gray-800 block mb-1">Target Value</span>
+                                    <span className="text-2xl font-extrabold text-gray-900">
+                                        ৳{activePortfolio.target.toLocaleString()}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
