@@ -107,7 +107,7 @@ const initialPortfolioData: Record<string, Portfolio> = {
             { name: "Biniyog.io", value: 6, color: "#F59E0B", returnRate: 16.0, amount: 175000 },
             { name: "WeGro Global", value: 14, color: "#F59E0B", returnRate: 22.0, amount: 400000 },
             { name: "iFarmer", value: 12, color: "#F59E0B", returnRate: 19.0, amount: 300000 },
-            { name: "Gold Kinun", value: 2, color: "#EF4444", returnRate: 5.0, amount: 0 },
+            { name: "Gold Kinen", value: 2, color: "#EF4444", returnRate: 5.0, amount: 0 },
             { name: "One Bank Double", value: 10, color: "#10B981", returnRate: 13.1, amount: 500000 },
             { name: "UCB Income Plus MF", value: 15, color: "#10B981", returnRate: 20.0, amount: 200000 },
             { name: "EDGE Growth Fund", value: 11, color: "#10B981", returnRate: 20.0, amount: 200000 },
@@ -574,7 +574,17 @@ export default function FinancialDashboard() {
                                 
                                 <div className="p-5 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl border-l-4 border-purple-600 shadow-md">
                                     <h4 className="font-extrabold text-purple-700 text-lg mb-2">Fintech Options</h4>
-                                    <p className="text-gray-800 font-semibold">WeGro, iFarmer, Biniyog.io, Goldkinun, FreshieFarm</p>
+                                    <p className="text-gray-800 font-semibold">WeGro, iFarmer, Biniyog.io, Gold Kinen, FreshieFarm</p>
+                                </div>
+
+                                <div className="p-5 bg-gradient-to-r from-cyan-50 to-cyan-100 rounded-xl border-l-4 border-cyan-600 shadow-md">
+                                    <h4 className="font-extrabold text-cyan-700 text-lg mb-2">Peer Investment Networks</h4>
+                                    <p className="text-gray-800 font-semibold">Bangladesh Investors Alliance, Investors Community Alliance</p>
+                                </div>
+
+                                <div className="p-5 bg-gradient-to-r from-pink-50 to-pink-100 rounded-xl border-l-4 border-pink-600 shadow-md">
+                                    <h4 className="font-extrabold text-pink-700 text-lg mb-2">Fractional Land Platforms</h4>
+                                    <p className="text-gray-800 font-semibold">Jomee Jomaa</p>
                                 </div>
                             </div>
                         </div>
@@ -585,10 +595,15 @@ export default function FinancialDashboard() {
                                     <span className="text-3xl">⚠️</span> Risk Profile
                                 </h3>
                                 <div className="p-5 bg-white/90 rounded-xl shadow-inner">
-                                    <h4 className="font-extrabold text-red-700 text-xl mb-3">Risk Appetite: HIGH 📈</h4>
-                                    <p className="text-gray-900 text-lg font-bold">
-                                        Nafis has a high capacity for risk. Does not want to lose more than <span className="text-red-700 text-xl">15%</span> in any given year.
-                                    </p>
+                                    <h4 className="font-extrabold text-orange-700 text-xl mb-3">Overall Risk: Moderate-Aggressive</h4>
+                                    <div className="space-y-2">
+                                        <p className="text-gray-900 text-base font-bold">
+                                            <span className="text-blue-700">Capacity:</span> High
+                                        </p>
+                                        <p className="text-gray-900 text-base font-bold">
+                                            <span className="text-blue-700">Willingness:</span> Moderate
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -779,7 +794,7 @@ export default function FinancialDashboard() {
                             </div>
                         </div>
 
-                        {/* Donut Chart - Right Side with FIXED HEIGHT */}
+                        {/* Donut Chart - Right Side */}
                         <div className="lg:col-span-1 bg-white p-7 rounded-2xl shadow-xl border-2 border-gray-300 flex flex-col items-center justify-center">
                             <h3 className="text-2xl font-extrabold mb-6 text-gray-900">Distribution</h3>
                             <div className="relative w-full" style={{ height: '450px' }}>
@@ -815,7 +830,7 @@ export default function FinancialDashboard() {
                     </div>
                 </div>
             ) : (
-                // HOME FUND - LONGER SLIDERS
+                // HOME FUND
                 <div className="space-y-6 max-w-7xl mx-auto">
                     <div className="bg-white p-8 rounded-2xl shadow-xl border-2 border-blue-400">
                         <div className="mb-6">
