@@ -1,7 +1,7 @@
 'use client'; // This component needs to be a Client Component to check the URL
 
 import { usePathname } from 'next/navigation';
-import { Navbar } from '@/app/components/nav'; // UPDATED: Changed path to use alias
+import { Navbar } from '@/app/components/nav';
 
 export default function LayoutWrapper({
   children,
@@ -9,12 +9,14 @@ export default function LayoutWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isBizCompPage = pathname === '/bizcomp';
+  
+  // Check if the current path starts with /bizcomp (matches /bizcomp and all child routes)
+  const isBizCompPage = pathname.startsWith('/bizcomp');
 
   return (
     <>
       {isBizCompPage ? (
-        // If we're on the /bizcomp page, just render the page content directly
+        // If we're on any /bizcomp route, render without navbar
         <>{children}</>
       ) : (
         // On all other pages, render the default layout with the navbar
@@ -28,4 +30,3 @@ export default function LayoutWrapper({
     </>
   );
 }
-
