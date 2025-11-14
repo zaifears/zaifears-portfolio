@@ -24,11 +24,11 @@ interface ColorOption {
   imageUrl: string;
 }
 
-// --- Mock Data (Renamed to Blazers as requested) ---
+// --- Mock Data ---
 const mockWardrobe: Product[] = [
   {
     id: 1,
-    name: 'The Ash Grey Blazer', // Was Grey Denim Pant
+    name: 'The Ash Grey Blazer',
     price: 9500,
     imageUrl: '/bizcomp/accfinity/burgundy-blazer.jpg',
     status: 'Owned',
@@ -42,21 +42,21 @@ const mockWardrobe: Product[] = [
   },
   {
     id: 3,
-    name: 'The North Star Blazer', // Was Linen Shirt
+    name: 'The North Star Blazer',
     price: 9200,
     imageUrl: '/bizcomp/accfinity/charcoal-blazer.jpg',
     status: 'Owned',
   },
   {
     id: 4,
-    name: 'The Meridian Blazer', // Was Trouser
+    name: 'The Meridian Blazer',
     price: 8900,
     imageUrl: '/bizcomp/accfinity/olive-blazer.jpg',
     status: 'Recommended',
   },
   {
     id: 5,
-    name: 'The Equinox Blazer', // Was Crewneck
+    name: 'The Equinox Blazer',
     price: 8500,
     imageUrl: '/bizcomp/accfinity/camel-blazer.jpg',
     status: 'Recommended',
@@ -127,7 +127,7 @@ const colorOptions: ColorOption[] = [
   },
 ];
 
-// --- Helper Components ---
+// --- Helper Components (Palette Changed) ---
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline';
@@ -140,12 +140,11 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props
 }) => {
-  // Zoomed out: Reduced px/py
   const baseStyle = 'px-4 py-2 rounded-xl font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 text-sm';
   const styles = {
-    primary: 'bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white hover:shadow-xl hover:scale-105 focus:ring-[#D4AF37]',
-    secondary: 'bg-white text-[#62122f] border-2 border-[#62122f] hover:bg-[#62122f] hover:text-white focus:ring-[#F8F7F3]',
-    outline: 'bg-transparent border-2 border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black',
+    primary: 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:shadow-xl hover:scale-105 focus:ring-blue-500',
+    secondary: 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-600 hover:text-white focus:ring-blue-100',
+    outline: 'bg-transparent border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white',
   };
   return (
     <button className={`${baseStyle} ${styles[variant]} ${className}`} {...props}>
@@ -174,9 +173,9 @@ const Sidebar: React.FC<{
     { name: 'Wardrobe', icon: Shirt, page: 'wardrobe' },
   ];
 
-  // Zoomed out: Reduced width (w-64), reduced padding
   return (
-    <div className={`w-64 bg-gradient-to-b from-[#62122f] to-[#3d0a1d] text-white flex flex-col ${className}`}>
+    // Changed sidebar gradient to blue
+    <div className={`w-64 bg-gradient-to-b from-blue-700 to-blue-900 text-white flex flex-col ${className}`}>
       <div className="flex items-center justify-center h-20 shadow-lg px-4 py-4 border-b border-white border-opacity-10">
         <Logo />
       </div>
@@ -185,8 +184,9 @@ const Sidebar: React.FC<{
           <button
             key={item.name}
             onClick={() => setPage(item.page)}
+            // Changed active state to white bg with blue text
             className={`w-full flex items-center px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${currentPage === item.page
-                ? 'bg-[#D4AF37] text-black shadow-lg'
+                ? 'bg-white text-blue-700 shadow-lg'
                 : 'text-gray-300 hover:bg-white hover:bg-opacity-10 hover:translate-x-1'
               }`}
           >
@@ -205,13 +205,13 @@ const Sidebar: React.FC<{
   );
 };
 
-// --- Page Components ---
+// --- Page Components (Palette Changed) ---
 
 const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage }) => (
   <div className="p-6 max-w-7xl mx-auto">
     <div className="mb-8">
-      {/* Zoomed out: text-6xl -> text-4xl */}
-      <h1 className="text-4xl font-bold bg-gradient-to-r from-[#62122f] to-[#8B1538] bg-clip-text text-transparent mb-2">
+      {/* Changed text gradient to blue */}
+      <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-2">
         Welcome to Polaris
       </h1>
       <p className="text-lg text-gray-600">
@@ -220,12 +220,15 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
     </div>
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-      <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] p-6 rounded-2xl text-white shadow-2xl">
-        <Sparkles className="h-8 w-8 text-[#D4AF37] mb-3" />
+      {/* Changed card gradient to blue */}
+      <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-2xl text-white shadow-2xl">
+        {/* Changed icon color to white (was gold) */}
+        <Sparkles className="h-8 w-8 text-white mb-3" />
         <h2 className="text-2xl font-bold mb-3">The Customer Success Story</h2>
         <div className="space-y-3 text-white text-opacity-95 text-base">
           <p className="leading-relaxed">
-            <span className="font-bold text-[#D4AF37]">52% of our customers return</span> to make repeat purchases -
+            {/* Changed highlight to lighter blue */}
+            <span className="font-bold text-blue-300">52% of our customers return</span> to make repeat purchases -
             a testament to our quality and customer satisfaction.
           </p>
           <p className="leading-relaxed">
@@ -239,11 +242,12 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
         <h2 className="text-2xl font-bold text-gray-900 mb-3">The Polaris Advantage</h2>
         <div className="space-y-3 text-gray-700 text-base">
           <p className="leading-relaxed">
-            <span className="font-bold text-[#62122f]">Dedicated in-house workshop</span> ensures
+            {/* Changed text color to blue */}
+            <span className="font-bold text-blue-600">Dedicated in-house workshop</span> ensures
             consistent quality and rapid iteration on customer feedback.
           </p>
           <p className="leading-relaxed">
-            Combined with <span className="font-bold text-[#62122f]">AI-powered digital tools</span>,
+            Combined with <span className="font-bold text-blue-600">AI-powered digital tools</span>,
             we deliver personalized experiences that drive loyalty and lifetime value.
           </p>
         </div>
@@ -254,7 +258,8 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
       <h2 className="text-2xl font-bold text-gray-900 mb-4">About Polaris</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h3 className="text-lg font-semibold text-[#62122f] mb-2">What We Are</h3>
+          {/* Changed text color to blue */}
+          <h3 className="text-lg font-semibold text-blue-600 mb-2">What We Are</h3>
           <p className="text-gray-700 leading-relaxed text-sm">
             Polaris is a premium menswear brand built on the foundation of <strong>&quot;old-money&quot; aesthetic</strong> -
             timeless, sophisticated, and refined. We craft garments that transcend trends, focusing on
@@ -262,7 +267,7 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
           </p>
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-[#62122f] mb-2">Our Vision</h3>
+          <h3 className="text-lg font-semibold text-blue-600 mb-2">Our Vision</h3>
           <p className="text-gray-700 leading-relaxed text-sm">
             Currently focused on men&apos;s tailoring, we&apos;re building the technology and expertise to
             expand into <strong>women&apos;s formal wear</strong> within 18 months. Our AI-driven approach
@@ -273,68 +278,70 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {/* Feature Cards - Zoomed out padding and sizing */}
-      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('fit_finder')}>
-        <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-          <Scan className="h-6 w-6 text-[#D4AF37]" />
+      {/* Changed hover border to blue */}
+      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('fit_finder')}>
+        {/* Changed icon bg to blue */}
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          {/* Changed icon color to white */}
+          <Scan className="h-6 w-6 text-white" />
         </div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">AI Fit Finder</h3>
         <p className="text-gray-600 leading-relaxed mb-3 text-sm">
           Upload your photo or enter measurements. AI analyzes your body type and recommends perfect size.
         </p>
-        <div className="flex items-center text-[#62122f] font-semibold text-sm group-hover:translate-x-2 transition-transform">
+        <div className="flex items-center text-blue-600 font-semibold text-sm group-hover:translate-x-2 transition-transform">
           Try it now <ArrowRight className="ml-2 h-4 w-4" />
         </div>
       </div>
 
-      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('color_picker')}>
-        <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-          <Palette className="h-6 w-6 text-[#D4AF37]" />
+      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('color_picker')}>
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          <Palette className="h-6 w-6 text-white" />
         </div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">AI Color Picker</h3>
         <p className="text-gray-600 leading-relaxed mb-3 text-sm">
           See yourself in any color. AI-powered visualization shows realistic previews before purchase.
         </p>
-        <div className="flex items-center text-[#62122f] font-semibold text-sm group-hover:translate-x-2 transition-transform">
+        <div className="flex items-center text-blue-600 font-semibold text-sm group-hover:translate-x-2 transition-transform">
           Explore colors <ArrowRight className="ml-2 h-4 w-4" />
         </div>
       </div>
 
-      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('style_finder')}>
-        <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-          <ImageIcon className="h-6 w-6 text-[#D4AF37]" />
+      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('style_finder')}>
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          <ImageIcon className="h-6 w-6 text-white" />
         </div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">Style Finder</h3>
         <p className="text-gray-600 leading-relaxed mb-3 text-sm">
           Upload any clothing photo. AI identifies the style and suggests matching pieces from our collection.
         </p>
-        <div className="flex items-center text-[#62122f] font-semibold text-sm group-hover:translate-x-2 transition-transform">
+        <div className="flex items-center text-blue-600 font-semibold text-sm group-hover:translate-x-2 transition-transform">
           Find styles <ArrowRight className="ml-2 h-4 w-4" />
         </div>
       </div>
 
-      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('booking')}>
-        <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-          <Calendar className="h-6 w-6 text-[#D4AF37]" />
+      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('booking')}>
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          <Calendar className="h-6 w-6 text-white" />
         </div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">Virtual Consultation</h3>
         <p className="text-gray-600 leading-relaxed mb-3 text-sm">
           Book a free 15-min video call with expert stylists. Get personalized recommendations.
         </p>
-        <div className="flex items-center text-[#62122f] font-semibold text-sm group-hover:translate-x-2 transition-transform">
+        <div className="flex items-center text-blue-600 font-semibold text-sm group-hover:translate-x-2 transition-transform">
           Book now <ArrowRight className="ml-2 h-4 w-4" />
         </div>
       </div>
 
-      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('wardrobe')}>
-        <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-          <Shirt className="h-6 w-6 text-[#D4AF37]" />
+      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('wardrobe')}>
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          <Shirt className="h-6 w-6 text-white" />
         </div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">Digital Wardrobe</h3>
         <p className="text-gray-600 leading-relaxed mb-3 text-sm">
           Track purchases and get AI-driven recommendations. Build your perfect wardrobe over time.
         </p>
-        <div className="flex items-center text-[#62122f] font-semibold text-sm group-hover:translate-x-2 transition-transform">
+        <div className="flex items-center text-blue-600 font-semibold text-sm group-hover:translate-x-2 transition-transform">
           View wardrobe <ArrowRight className="ml-2 h-4 w-4" />
         </div>
       </div>
@@ -443,7 +450,6 @@ const FitFinderPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Zoomed out: text-5xl -> text-3xl */}
       <h1 className="text-3xl font-bold text-gray-900 mb-2">AI Fit Finder</h1>
       <p className="text-lg text-gray-600 mb-8">
         Get your perfect size in seconds using AI technology
@@ -453,7 +459,7 @@ const FitFinderPage: React.FC = () => {
         <div className="space-y-4">
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100">
             <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-              <Camera className="h-6 w-6 text-[#62122f] mr-2" />
+              <Camera className="h-6 w-6 text-blue-600 mr-2" />
               AI Photo Analysis (Optional)
             </h3>
             {!uploadedPhoto ? (
@@ -464,7 +470,7 @@ const FitFinderPage: React.FC = () => {
                   onChange={handlePhotoUpload}
                   className="hidden"
                 />
-                <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 hover:border-[#D4AF37] hover:bg-gray-50 transition-all text-center">
+                <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 hover:border-blue-500 hover:bg-gray-50 transition-all text-center">
                   <Upload className="h-10 w-10 text-gray-400 mx-auto mb-3" />
                   <p className="text-base font-semibold text-gray-900 mb-1">Upload Your Photo</p>
                   <p className="text-xs text-gray-600">
@@ -505,7 +511,7 @@ const FitFinderPage: React.FC = () => {
               <div>
                 <label className="flex justify-between text-sm font-bold text-gray-900 mb-2">
                   Height (cm)
-                  <span className="font-black text-[#62122f] text-base">{heightCm} cm</span>
+                  <span className="font-black text-blue-600 text-base">{heightCm} cm</span>
                 </label>
                 <input
                   type="range"
@@ -513,13 +519,13 @@ const FitFinderPage: React.FC = () => {
                   max="210"
                   value={heightCm}
                   onChange={(e) => setHeightCm(Number(e.target.value))}
-                  className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#62122f]"
+                  className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer accent-blue-600"
                 />
               </div>
               <div>
                 <label className="flex justify-between text-sm font-bold text-gray-900 mb-2">
                   Height (ft/in)
-                  <span className="font-black text-[#62122f] text-base">{displayFeet}&apos; {displayInches}&quot;</span>
+                  <span className="font-black text-blue-600 text-base">{displayFeet}&apos; {displayInches}&quot;</span>
                 </label>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -530,7 +536,7 @@ const FitFinderPage: React.FC = () => {
                       max="7"
                       value={displayFeet}
                       onChange={(e) => setHeightCm(feetInchesToCm(Number(e.target.value), displayInches))}
-                      className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#62122f]"
+                      className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer accent-blue-600"
                     />
                     <div className="text-center mt-1 font-bold text-gray-900 text-xs">{displayFeet}&apos;</div>
                   </div>
@@ -542,7 +548,7 @@ const FitFinderPage: React.FC = () => {
                       max="11"
                       value={displayInches}
                       onChange={(e) => setHeightCm(feetInchesToCm(displayFeet, Number(e.target.value)))}
-                      className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#62122f]"
+                      className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer accent-blue-600"
                     />
                     <div className="text-center mt-1 font-bold text-gray-900 text-xs">{displayInches}&quot;</div>
                   </div>
@@ -551,7 +557,7 @@ const FitFinderPage: React.FC = () => {
               <div>
                 <label className="flex justify-between text-sm font-bold text-gray-900 mb-2">
                   Weight
-                  <span className="font-black text-[#62122f] text-base">{weight} kg</span>
+                  <span className="font-black text-blue-600 text-base">{weight} kg</span>
                 </label>
                 <input
                   type="range"
@@ -559,7 +565,7 @@ const FitFinderPage: React.FC = () => {
                   max="120"
                   value={weight}
                   onChange={(e) => setWeight(Number(e.target.value))}
-                  className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#62122f]"
+                  className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer accent-blue-600"
                 />
               </div>
               <div>
@@ -571,7 +577,7 @@ const FitFinderPage: React.FC = () => {
                       type="button"
                       onClick={() => setBuild(b)}
                       className={`py-2 px-3 rounded-lg font-bold text-sm transition-all ${build === b
-                          ? 'bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white shadow-lg scale-105'
+                          ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg scale-105'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                     >
@@ -584,17 +590,17 @@ const FitFinderPage: React.FC = () => {
           </div>
         </div>
         <div className="space-y-4">
-          <div className="bg-white p-8 rounded-2xl shadow-2xl border-2 border-[#D4AF37]">
+          <div className="bg-white p-8 rounded-2xl shadow-2xl border-2 border-blue-500">
             {size ? (
               <div className="text-center">
                 <p className="text-2xl font-black text-gray-900 mb-6">Your AI-Recommended Sizes:</p>
-                <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] rounded-2xl p-6 mb-4 shadow-xl">
+                <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-6 mb-4 shadow-xl">
                   <p className="text-sm font-bold text-white mb-2">Clothing Size</p>
-                  <div className="text-7xl font-black text-[#D4AF37] drop-shadow-2xl mb-2">{size}</div>
+                  <div className="text-7xl font-black text-white drop-shadow-2xl mb-2">{size}</div>
                   <p className="text-lg font-bold text-white">{build} Fit</p>
                 </div>
                 {shoeSize && (
-                  <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-6 mb-4 shadow-xl">
+                  <div className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-6 mb-4 shadow-xl">
                     <p className="text-sm font-bold text-white mb-2">Shoe Size (EU)</p>
                     <div className="text-5xl font-black text-white drop-shadow-2xl">{shoeSize}</div>
                   </div>
@@ -607,7 +613,7 @@ const FitFinderPage: React.FC = () => {
               </div>
             ) : (
               <div className="text-center py-8">
-                <Sparkles className="h-12 w-12 text-[#D4AF37] mx-auto mb-3" />
+                <Sparkles className="h-12 w-12 text-blue-500 mx-auto mb-3" />
                 <p className="text-lg font-semibold text-gray-900 mb-1">
                   Select your build to unlock your perfect size
                 </p>
@@ -619,20 +625,20 @@ const FitFinderPage: React.FC = () => {
           </div>
           <div className="bg-white p-5 rounded-xl shadow-lg border-2 border-gray-100">
             <h4 className="font-bold text-gray-900 mb-3 flex items-center text-base">
-              <Zap className="h-5 w-5 text-[#D4AF37] mr-2" />
+              <Zap className="h-5 w-5 text-blue-500 mr-2" />
               How It Works
             </h4>
             <ul className="space-y-2 text-xs text-gray-700">
               <li className="flex items-start">
-                <span className="bg-[#62122f] text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5">1</span>
+                <span className="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5">1</span>
                 <span className="leading-relaxed">Upload photo (optional) or enter manual measurements</span>
               </li>
               <li className="flex items-start">
-                <span className="bg-[#62122f] text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5">2</span>
+                <span className="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5">2</span>
                 <span className="leading-relaxed">AI analyzes 500+ pattern data points from our workshop</span>
               </li>
               <li className="flex items-start">
-                <span className="bg-[#62122f] text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5">3</span>
+                <span className="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5">3</span>
                 <span className="leading-relaxed">Get instant size recommendation with 95% accuracy</span>
               </li>
             </ul>
@@ -686,11 +692,10 @@ const ColorPickerPage: React.FC = () => {
 
       {showUploadSection ? (
         <div className="max-w-4xl mx-auto">
-          {/* Zoomed out: p-16 -> p-10 */}
           <div className="bg-white rounded-2xl shadow-2xl border-2 border-gray-100 p-10">
             <div className="text-center mb-8">
-              <div className="mx-auto w-24 h-24 bg-gradient-to-br from-[#62122f] to-[#8B1538] rounded-full flex items-center justify-center mb-4 shadow-2xl">
-                <Upload className="h-10 w-10 text-[#D4AF37]" />
+              <div className="mx-auto w-24 h-24 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center mb-4 shadow-2xl">
+                <Upload className="h-10 w-10 text-white" />
               </div>
               <h2 className="text-3xl font-bold text-gray-900 mb-2">
                 Upload Your Photo
@@ -705,7 +710,7 @@ const ColorPickerPage: React.FC = () => {
                   onChange={handleFileChange}
                   className="hidden"
                 />
-                <div className="px-8 py-4 bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all text-lg">
+                <div className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all text-lg">
                   Choose Photo
                 </div>
               </label>
@@ -731,12 +736,12 @@ const ColorPickerPage: React.FC = () => {
               </div>
               <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 rounded-xl text-white">
                 <div className="flex items-start gap-3">
-                  <Shield className="h-6 w-6 text-[#D4AF37] mt-1 flex-shrink-0" />
+                  <Shield className="h-6 w-6 text-blue-400 mt-1 flex-shrink-0" />
                   <div className="text-left">
                     <p className="font-bold text-lg text-white mb-1">We Do Not Store Your Data</p>
                     <p className="text-sm text-gray-300 leading-relaxed">
                       We use <strong className="text-white">Google Gemini AI</strong> for color transformation.
-                      Your photo is processed securely in real-time and <strong className="text-[#D4AF37]">immediately
+                      Your photo is processed securely in real-time and <strong className="text-blue-400">immediately
                         discarded</strong> after visualization. Zero storage, maximum privacy.
                     </p>
                   </div>
@@ -790,7 +795,7 @@ const ColorPickerPage: React.FC = () => {
                   setShowUploadSection(true);
                   setUploadedImage(null);
                 }}
-                className="w-full py-3 text-[#62122f] border-2 border-[#62122f] rounded-xl font-bold hover:bg-[#62122f] hover:text-white transition-all text-base"
+                className="w-full py-3 text-blue-600 border-2 border-blue-600 rounded-xl font-bold hover:bg-blue-600 hover:text-white transition-all text-base"
               >
                 Upload Different Photo
               </button>
@@ -805,7 +810,7 @@ const ColorPickerPage: React.FC = () => {
                     key={color.id}
                     onClick={() => setSelectedColor(color)}
                     className={`p-4 rounded-xl border-2 transition-all duration-300 ${selectedColor.id === color.id
-                        ? 'border-[#D4AF37] bg-gradient-to-br from-[#D4AF37] to-[#F4D03F] bg-opacity-10 shadow-xl scale-105'
+                        ? 'border-blue-500 bg-blue-50 shadow-xl scale-105'
                         : 'border-gray-200 hover:border-gray-400 hover:shadow-lg'
                       }`}
                   >
@@ -815,7 +820,7 @@ const ColorPickerPage: React.FC = () => {
                         style={{ backgroundColor: color.hex }}
                       />
                       <div>
-                        <p className={`font-bold text-sm ${selectedColor.id === color.id ? 'text-[#62122f]' : 'text-gray-700'
+                        <p className={`font-bold text-sm ${selectedColor.id === color.id ? 'text-blue-700' : 'text-gray-700'
                           }`}>
                           {color.name}
                         </p>
@@ -828,7 +833,7 @@ const ColorPickerPage: React.FC = () => {
             </div>
             <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl text-white shadow-lg">
               <div className="flex items-start gap-3">
-                <Zap className="h-6 w-6 text-[#D4AF37] mt-1 flex-shrink-0" />
+                <Zap className="h-6 w-6 text-blue-400 mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-bold text-lg mb-1">Powered by Google Gemini</h4>
                   <p className="text-sm leading-relaxed text-gray-300">
@@ -900,28 +905,28 @@ const StyleFinderPage: React.FC = () => {
                 onChange={handleStyleUpload}
                 className="hidden"
               />
-              <div className="border-4 border-dashed border-gray-300 rounded-2xl p-12 hover:border-[#D4AF37] hover:bg-gray-50 transition-all text-center group">
-                <Camera className="h-16 w-16 text-gray-400 mx-auto mb-4 group-hover:text-[#62122f] transition-colors" />
+              <div className="border-4 border-dashed border-gray-300 rounded-2xl p-12 hover:border-blue-500 hover:bg-gray-50 transition-all text-center group">
+                <Camera className="h-16 w-16 text-gray-400 mx-auto mb-4 group-hover:text-blue-600 transition-colors" />
                 <p className="text-2xl font-bold text-gray-900 mb-2">Upload Clothing Photo</p>
                 <p className="text-base text-gray-600 mb-6">
                   AI will analyze the style and suggest similar items from Polaris
                 </p>
-                <div className="inline-block px-8 py-3 bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white font-bold rounded-xl hover:shadow-2xl transition-all text-base">
+                <div className="inline-block px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:shadow-2xl transition-all text-base">
                   Select Photo
                 </div>
               </div>
             </label>
             <div className="mt-6 grid grid-cols-3 gap-3">
               <div className="p-3 bg-gray-50 rounded-xl text-center">
-                <Search className="h-6 w-6 text-[#62122f] mx-auto mb-1" />
+                <Search className="h-6 w-6 text-blue-600 mx-auto mb-1" />
                 <p className="text-xs font-semibold text-gray-700">AI Analysis</p>
               </div>
               <div className="p-3 bg-gray-50 rounded-xl text-center">
-                <Sparkles className="h-6 w-6 text-[#62122f] mx-auto mb-1" />
+                <Sparkles className="h-6 w-6 text-blue-600 mx-auto mb-1" />
                 <p className="text-xs font-semibold text-gray-700">Style Match</p>
               </div>
               <div className="p-3 bg-gray-50 rounded-xl text-center">
-                <Shield className="h-6 w-6 text-[#62122f] mx-auto mb-1" />
+                <Shield className="h-6 w-6 text-blue-600 mx-auto mb-1" />
                 <p className="text-xs font-semibold text-gray-700">No Storage</p>
               </div>
             </div>
@@ -936,7 +941,7 @@ const StyleFinderPage: React.FC = () => {
                 <h3 className="text-lg font-bold text-gray-900 mb-3">Your Uploaded Photo</h3>
                 {analyzing ? (
                   <div className="flex items-center justify-center py-4">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#62122f]"></div>
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
                     <span className="ml-3 text-sm text-gray-600">Analyzing style...</span>
                   </div>
                 ) : (
@@ -960,7 +965,7 @@ const StyleFinderPage: React.FC = () => {
                     setUploadedStyle(null);
                     setResults(false);
                   }}
-                  className="w-full mt-4 py-2 border-2 border-gray-300 rounded-xl font-semibold hover:border-[#62122f] hover:bg-gray-50 transition-all text-sm"
+                  className="w-full mt-4 py-2 border-2 border-gray-300 rounded-xl font-semibold hover:border-blue-600 hover:bg-gray-50 transition-all text-sm"
                 >
                   Upload Different Photo
                 </button>
@@ -971,7 +976,7 @@ const StyleFinderPage: React.FC = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Matching Pieces from Polaris</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {genericProducts.map(item => (
-                <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all group">
+                <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all group">
                   <div className="relative">
                     <img src={item.imageUrl} alt={item.name} className="h-56 w-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full font-bold text-xs shadow-lg">
@@ -990,7 +995,7 @@ const StyleFinderPage: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-bold text-[#62122f]">৳{item.price.toLocaleString()}</span>
+                      <span className="text-xl font-bold text-blue-600">৳{item.price.toLocaleString()}</span>
                       <Button className="px-4 py-2 text-sm">
                         View Details
                       </Button>
@@ -1073,15 +1078,15 @@ const BookingPage: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-gray-900 mb-1">Full Name</label>
-                <input type="text" required className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#62122f] focus:border-transparent text-sm" placeholder="Enter your name" />
+                <input type="text" required className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm" placeholder="Enter your name" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-gray-900 mb-1">Email</label>
-                <input type="email" required className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#62122f] focus:border-transparent text-sm" placeholder="your@email.com" />
+                <input type="email" required className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm" placeholder="your@email.com" />
               </div>
               <div>
                 <label className="block text-xs font-bold text-gray-900 mb-1">Topic</label>
-                <textarea className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#62122f] focus:border-transparent text-sm" rows={3} placeholder="Sizing help, wardrobe building, fabric questions..."></textarea>
+                <textarea className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm" rows={3} placeholder="Sizing help, wardrobe building, fabric questions..."></textarea>
               </div>
               <Button type="submit" className="w-full text-base py-3">
                 Request Consultation
@@ -1115,7 +1120,7 @@ const WardrobePage: React.FC = () => {
     <div className="p-6 max-w-7xl mx-auto">
       <div className="mb-6 bg-gradient-to-r from-green-500 to-emerald-600 p-4 rounded-xl text-white shadow-xl">
         <div className="flex items-start">
-          <Shirt className="h-6 w-6 text-yellow-300 mr-3 mt-1" />
+          <Shirt className="h-6 w-6 text-white mr-3 mt-1" />
           <div>
             <h3 className="text-lg font-bold mb-1">High-LTV Retention Engine</h3>
             <p className="text-white text-opacity-95 text-sm">
@@ -1133,7 +1138,7 @@ const WardrobePage: React.FC = () => {
       <div className="mb-10">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold text-gray-900">Your Collection</h2>
-          <div className="px-4 py-2 bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white rounded-full font-bold shadow-md text-sm">
+          <div className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full font-bold shadow-md text-sm">
             Total Value: ৳{(ownedItems.reduce((sum, item) => sum + item.price, 0)).toLocaleString()}
           </div>
         </div>
@@ -1144,11 +1149,10 @@ const WardrobePage: React.FC = () => {
               className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-100 hover:shadow-xl hover:scale-105 transition-all cursor-pointer"
               onClick={() => { if (item.id === 1) window.location.href = '/bizcomp/accfinity/r3/product-page'; }}
             >
-              {/* Zoomed out: h-72 -> h-56 */}
               <img src={item.imageUrl} alt={item.name} className="h-56 w-full object-cover" />
               <div className="p-4">
                 <h4 className="text-base font-bold text-gray-900 mb-0.5 truncate">{item.name}</h4>
-                <p className="text-lg font-bold text-[#62122f] mb-2">৳{item.price.toLocaleString()}</p>
+                <p className="text-lg font-bold text-blue-600 mb-2">৳{item.price.toLocaleString()}</p>
                 <span className="inline-block px-3 py-1 bg-green-100 text-green-800 text-[10px] font-bold rounded-full">
                   OWNED
                 </span>
@@ -1173,12 +1177,12 @@ const WardrobePage: React.FC = () => {
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Recommended For You</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {recommendedItems.map(item => (
-            <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-dashed border-[#D4AF37] hover:border-solid hover:shadow-xl hover:scale-105 transition-all">
+            <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-dashed border-blue-500 hover:border-solid hover:shadow-xl hover:scale-105 transition-all">
               <img src={item.imageUrl} alt={item.name} className="h-56 w-full object-cover" />
               <div className="p-4">
                 <h4 className="text-base font-bold text-gray-900 mb-0.5 truncate">{item.name}</h4>
-                <p className="text-lg font-bold text-[#62122f] mb-2">৳{item.price.toLocaleString()}</p>
-                <span className="inline-block px-3 py-1 bg-[#D4AF37] bg-opacity-20 text-[#62122f] text-[10px] font-bold rounded-full mb-3">
+                <p className="text-lg font-bold text-blue-600 mb-2">৳{item.price.toLocaleString()}</p>
+                <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full mb-3">
                   AI MATCH
                 </span>
                 <Button className="w-full py-2 text-sm">
@@ -1192,10 +1196,10 @@ const WardrobePage: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-400 mb-1">Projected 2-Year LTV</p>
-              <p className="text-5xl font-black text-[#D4AF37]">৳35,000+</p>
+              <p className="text-5xl font-black text-blue-400">৳35,000+</p>
               <p className="text-sm text-gray-400 mt-1">vs ৳4,000 one-time buyers</p>
             </div>
-            <TrendingUp className="h-16 w-16 text-[#D4AF37]" />
+            <TrendingUp className="h-16 w-16 text-blue-400" />
           </div>
         </div>
       </div>
@@ -1231,7 +1235,7 @@ export default function App() {
       <Sidebar currentPage={currentPage} setPage={setPage} className="hidden md:flex" />
 
       <div className="md:hidden flex flex-col w-full">
-        <div className="flex items-center justify-between h-16 bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white px-4 shadow-xl">
+        <div className="flex items-center justify-between h-16 bg-gradient-to-r from-blue-700 to-blue-900 text-white px-4 shadow-xl">
           <Logo />
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu">
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -1267,8 +1271,8 @@ export default function App() {
               'wardrobe': 'Digital Wardrobe'
             }[currentPage]}
           </h2>
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white rounded-full font-bold shadow-md text-xs">
-            <Sparkles className="h-3 w-3 text-[#D4AF37]" />
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full font-bold shadow-md text-xs">
+            <Sparkles className="h-3 w-3 text-white" />
             Investor Demo - {new Date().getFullYear()}
           </div>
         </header>
