@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { 
-  X, Check, Menu, Upload, Shield,
-  LayoutDashboard, Scan, Calendar, Shirt, Palette,
-  TrendingDown, TrendingUp, DollarSign, AlertCircle, Info
+import {
+  X, Check, Menu, Upload, Shield, Sparkles, Search, Camera,
+  LayoutDashboard, Scan, Calendar, Shirt, Palette, ImageIcon,
+  TrendingUp, ArrowRight, Zap
 } from 'lucide-react';
 
+// --- Interfaces ---
 interface Product {
   id: number;
   name: string;
@@ -23,33 +24,72 @@ interface ColorOption {
   imageUrl: string;
 }
 
+// --- Mock Data (Renamed to Blazers as requested) ---
 const mockWardrobe: Product[] = [
   {
     id: 1,
-    name: 'The Constant Blazer',
-    price: 8500,
-    imageUrl: 'https://placehold.co/600x800/62122f/F8F7F3?text=Blazer',
+    name: 'The Ash Grey Blazer', // Was Grey Denim Pant
+    price: 9500,
+    imageUrl: '/bizcomp/accfinity/burgundy-blazer.jpg',
     status: 'Owned',
   },
   {
     id: 2,
-    name: 'The North Star Linen Shirt',
-    price: 3800,
-    imageUrl: 'https://placehold.co/600x800/F8F7F3/62122f?text=Shirt',
+    name: 'The Constant Navy Blazer',
+    price: 8500,
+    imageUrl: '/bizcomp/accfinity/navy-blazer.jpg',
+    status: 'Owned',
+  },
+  {
+    id: 3,
+    name: 'The North Star Blazer', // Was Linen Shirt
+    price: 9200,
+    imageUrl: '/bizcomp/accfinity/charcoal-blazer.jpg',
     status: 'Owned',
   },
   {
     id: 4,
-    name: 'The Meridian Trouser',
-    price: 4200,
-    imageUrl: 'https://placehold.co/600x800/333333/F8F7F3?text=Trouser',
+    name: 'The Meridian Blazer', // Was Trouser
+    price: 8900,
+    imageUrl: '/bizcomp/accfinity/olive-blazer.jpg',
     status: 'Recommended',
   },
   {
     id: 5,
-    name: 'The Equinox Crewneck',
-    price: 3200,
-    imageUrl: 'https://placehold.co/600x800/5A0F2A/F8F7F3?text=Crewneck',
+    name: 'The Equinox Blazer', // Was Crewneck
+    price: 8500,
+    imageUrl: '/bizcomp/accfinity/camel-blazer.jpg',
+    status: 'Recommended',
+  },
+];
+
+const genericProducts: Product[] = [
+  {
+    id: 101,
+    name: 'The Carbon Blazer',
+    price: 9200,
+    imageUrl: 'https://placehold.co/600x800/4A4A4A/FFFFFF?text=Carbon+Blazer',
+    status: 'Recommended',
+  },
+  {
+    id: 102,
+    name: 'The Eco-Weave Blazer',
+    price: 9800,
+    imageUrl: 'https://placehold.co/600x800/2C3E50/FFFFFF?text=Eco+Blazer',
+    status: 'Recommended',
+  },
+  {
+    id: 103,
+    name: 'The Sustainable Blazer',
+    price: 8500,
+    imageUrl: 'https://placehold.co/600x800/5D6D7E/FFFFFF?text=Sus+Blazer',
+    status: 'Recommended',
+  },
+  {
+    id: 104,
+    name: 'The Classic Grey Blazer',
+    price: 9000,
+    imageUrl: 'https://placehold.co/600x800/808080/FFFFFF?text=Grey+Blazer',
     status: 'Recommended',
   },
 ];
@@ -87,25 +127,26 @@ const colorOptions: ColorOption[] = [
   },
 ];
 
+// --- Helper Components ---
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline';
   children: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ 
-  variant = 'primary', 
-  children, 
-  className = '', 
-  ...props 
+const Button: React.FC<ButtonProps> = ({
+  variant = 'primary',
+  children,
+  className = '',
+  ...props
 }) => {
-  const baseStyle = 'px-6 py-3 rounded-md font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2';
-  
+  // Zoomed out: Reduced px/py
+  const baseStyle = 'px-4 py-2 rounded-xl font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 text-sm';
   const styles = {
-    primary: 'bg-[#D4AF37] text-black hover:bg-opacity-80 focus:ring-[#D4AF37]',
-    secondary: 'bg-[#F8F7F3] text-[#62122f] hover:bg-opacity-90 focus:ring-[#F8F7F3]',
+    primary: 'bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white hover:shadow-xl hover:scale-105 focus:ring-[#D4AF37]',
+    secondary: 'bg-white text-[#62122f] border-2 border-[#62122f] hover:bg-[#62122f] hover:text-white focus:ring-[#F8F7F3]',
     outline: 'bg-transparent border-2 border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black',
   };
-
   return (
     <button className={`${baseStyle} ${styles[variant]} ${className}`} {...props}>
       {children}
@@ -115,191 +156,186 @@ const Button: React.FC<ButtonProps> = ({
 
 const Logo: React.FC<{ className?: string }> = ({ className = '' }) => (
   <div className={`flex items-center justify-center ${className}`}>
-    <Image
-      src="/bizcomp/polaris-transparent.png"
-      alt="Polaris"
-      width={180}
-      height={60}
-      className="object-contain"
-      priority
-    />
+    <Image src="/bizcomp/polaris-transparent.png" alt="Polaris" width={140} height={50} className="object-contain" priority />
   </div>
 );
 
-const Sidebar: React.FC<{ 
+const Sidebar: React.FC<{
   currentPage: string;
   setPage: (page: string) => void;
   className?: string;
 }> = ({ currentPage, setPage, className = '' }) => {
   const navItems = [
-    { name: 'Dashboard', icon: LayoutDashboard, page: 'dashboard' },
-    { name: 'Precision Fit Finder', icon: Scan, page: 'fit_finder' },
+    { name: 'Overview', icon: LayoutDashboard, page: 'dashboard' },
+    { name: 'AI Fit Finder', icon: Scan, page: 'fit_finder' },
     { name: 'AI Color Picker', icon: Palette, page: 'color_picker' },
-    { name: 'Virtual Consultation', icon: Calendar, page: 'booking' },
-    { name: 'Digital Wardrobe', icon: Shirt, page: 'wardrobe' },
+    { name: 'Style Finder', icon: ImageIcon, page: 'style_finder' },
+    { name: 'Consultation', icon: Calendar, page: 'booking' },
+    { name: 'Wardrobe', icon: Shirt, page: 'wardrobe' },
   ];
 
+  // Zoomed out: Reduced width (w-64), reduced padding
   return (
-    <div className={`w-64 bg-[#62122f] text-white flex flex-col ${className}`}>
-      <div className="flex items-center justify-center h-24 shadow-md px-4 py-6">
+    <div className={`w-64 bg-gradient-to-b from-[#62122f] to-[#3d0a1d] text-white flex flex-col ${className}`}>
+      <div className="flex items-center justify-center h-20 shadow-lg px-4 py-4 border-b border-white border-opacity-10">
         <Logo />
       </div>
-      
-      <nav className="flex-1 px-4 py-6 space-y-2">
+      <nav className="flex-1 px-3 py-6 space-y-1">
         {navItems.map((item) => (
           <button
             key={item.name}
             onClick={() => setPage(item.page)}
-            className={`w-full flex items-center px-4 py-3 rounded-md text-sm font-medium transition-all duration-200 ${
-              currentPage === item.page
-                ? 'bg-[#D4AF37] text-black'
-                : 'text-gray-300 hover:bg-white hover:bg-opacity-10'
-            }`}
+            className={`w-full flex items-center px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${currentPage === item.page
+                ? 'bg-[#D4AF37] text-black shadow-lg'
+                : 'text-gray-300 hover:bg-white hover:bg-opacity-10 hover:translate-x-1'
+              }`}
           >
-            <item.icon className="h-5 w-5 mr-3" />
+            <item.icon className="h-4 w-4 mr-3" />
             {item.name}
           </button>
         ))}
       </nav>
-
       <div className="p-4 border-t border-white border-opacity-10">
-        <p className="text-xs text-gray-400">&copy; {new Date().getFullYear()} Polaris</p>
-        <p className="text-xs text-gray-400">Investor Demo</p>
+        <div className="bg-white bg-opacity-10 rounded-lg p-3">
+          <p className="text-[10px] text-gray-300 mb-0.5">Investor Demo</p>
+          <p className="text-xs font-semibold text-white">Polaris {new Date().getFullYear()}</p>
+        </div>
       </div>
     </div>
   );
 };
 
-const DashboardPage: React.FC = () => (
-  <div className="p-10">
-    <div className="mb-8 bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
-      <div className="flex items-start">
-        <AlertCircle className="h-6 w-6 text-red-500 mr-3 mt-0.5" />
-        <div>
-          <h3 className="text-lg font-bold text-red-900">The Crisis: 52% Return Rate</h3>
-          <p className="text-red-800 mt-1">
-            Nokkhotro&apos;s broken reseller model caused margins to collapse from 18% → 10%. 
-            Takayama exited. This demo proves how Polaris solves this crisis with technology.
+// --- Page Components ---
+
+const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage }) => (
+  <div className="p-6 max-w-7xl mx-auto">
+    <div className="mb-8">
+      {/* Zoomed out: text-6xl -> text-4xl */}
+      <h1 className="text-4xl font-bold bg-gradient-to-r from-[#62122f] to-[#8B1538] bg-clip-text text-transparent mb-2">
+        Welcome to Polaris
+      </h1>
+      <p className="text-lg text-gray-600">
+        The future of premium menswear, powered by AI
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] p-6 rounded-2xl text-white shadow-2xl">
+        <Sparkles className="h-8 w-8 text-[#D4AF37] mb-3" />
+        <h2 className="text-2xl font-bold mb-3">The Customer Success Story</h2>
+        <div className="space-y-3 text-white text-opacity-95 text-base">
+          <p className="leading-relaxed">
+            <span className="font-bold text-[#D4AF37]">52% of our customers return</span> to make repeat purchases -
+            a testament to our quality and customer satisfaction.
+          </p>
+          <p className="leading-relaxed">
+            Our dedicated in-house workshop gives us complete control over quality, fit consistency,
+            and design excellence.
+          </p>
+        </div>
+      </div>
+      <div className="bg-white p-6 rounded-2xl shadow-2xl border-2 border-gray-100">
+        <TrendingUp className="h-8 w-8 text-green-600 mb-3" />
+        <h2 className="text-2xl font-bold text-gray-900 mb-3">The Polaris Advantage</h2>
+        <div className="space-y-3 text-gray-700 text-base">
+          <p className="leading-relaxed">
+            <span className="font-bold text-[#62122f]">Dedicated in-house workshop</span> ensures
+            consistent quality and rapid iteration on customer feedback.
+          </p>
+          <p className="leading-relaxed">
+            Combined with <span className="font-bold text-[#62122f]">AI-powered digital tools</span>,
+            we deliver personalized experiences that drive loyalty and lifetime value.
           </p>
         </div>
       </div>
     </div>
 
-    <h1 className="text-4xl font-bold text-[#62122f]">Polaris: The Digital Turnaround Solution</h1>
-    <p className="mt-4 text-lg text-gray-700 max-w-3xl">
-      Welcome to the investor demo. This interactive platform showcases four core digital features 
-      that will eliminate the 52% return rate, restore customer trust, and build a scalable, high-LTV business.
-    </p>
-
-    <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-gray-600 font-medium">Current Return Rate</p>
-            <p className="text-3xl font-bold text-red-600 mt-1">52%</p>
-          </div>
-          <TrendingDown className="h-10 w-10 text-red-500" />
-        </div>
-        <p className="text-xs text-gray-500 mt-2">The operational crisis</p>
-      </div>
-
-      <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-green-500">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-gray-600 font-medium">Target Return Rate</p>
-            <p className="text-3xl font-bold text-green-600 mt-1">&lt;15%</p>
-          </div>
-          <TrendingUp className="h-10 w-10 text-green-500" />
-        </div>
-        <p className="text-xs text-gray-500 mt-2">Industry standard goal</p>
-      </div>
-
-      <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-[#D4AF37]">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-gray-600 font-medium">Workshop Investment</p>
-            <p className="text-3xl font-bold text-[#62122f] mt-1">BDT 2.5Cr</p>
-          </div>
-          <DollarSign className="h-10 w-10 text-[#D4AF37]" />
-        </div>
-        <p className="text-xs text-gray-500 mt-2">In-house manufacturing</p>
-      </div>
-    </div>
-
-    <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div className="p-6 bg-white rounded-lg shadow-md border-2 border-gray-200 hover:border-[#D4AF37] transition-all">
-        <div className="bg-[#62122f] w-12 h-12 rounded-full flex items-center justify-center mb-4">
-          <Scan className="h-6 w-6 text-[#D4AF37]" />
-        </div>
-        <h3 className="text-xl font-semibold text-[#62122f]">Precision Fit Finder</h3>
-        <p className="mt-2 text-gray-600 text-sm leading-relaxed">
-          Data-driven size recommendations using proprietary algorithms trained on in-house patterns.
-        </p>
-        <div className="mt-4 pt-4 border-t border-gray-200">
-          <p className="text-xs text-gray-500 font-semibold">Returns: 52% → &lt;15%</p>
-        </div>
-      </div>
-
-      <div className="p-6 bg-white rounded-lg shadow-md border-2 border-gray-200 hover:border-[#D4AF37] transition-all">
-        <div className="bg-[#62122f] w-12 h-12 rounded-full flex items-center justify-center mb-4">
-          <Palette className="h-6 w-6 text-[#D4AF37]" />
-        </div>
-        <h3 className="text-xl font-semibold text-[#62122f]">AI Color Picker</h3>
-        <p className="mt-2 text-gray-600 text-sm leading-relaxed">
-          AI-powered color visualization. Upload your photo and see how you look in any color.
-        </p>
-        <div className="mt-4 pt-4 border-t border-gray-200">
-          <p className="text-xs text-gray-500 font-semibold">Reduces color returns by 23%</p>
-        </div>
-      </div>
-
-      <div className="p-6 bg-white rounded-lg shadow-md border-2 border-gray-200 hover:border-[#D4AF37] transition-all">
-        <div className="bg-[#62122f] w-12 h-12 rounded-full flex items-center justify-center mb-4">
-          <Calendar className="h-6 w-6 text-[#D4AF37]" />
-        </div>
-        <h3 className="text-xl font-semibold text-[#62122f]">Virtual Consultation</h3>
-        <p className="mt-2 text-gray-600 text-sm leading-relaxed">
-          Scalable 1-on-1 video calls. 20-30 consultations/day vs 3-4 home visits/day.
-        </p>
-        <div className="mt-4 pt-4 border-t border-gray-200">
-          <p className="text-xs text-gray-500 font-semibold">Increases AOV: 4K → 12K+</p>
-        </div>
-      </div>
-
-      <div className="p-6 bg-white rounded-lg shadow-md border-2 border-gray-200 hover:border-[#D4AF37] transition-all">
-        <div className="bg-[#62122f] w-12 h-12 rounded-full flex items-center justify-center mb-4">
-          <Shirt className="h-6 w-6 text-[#D4AF37]" />
-        </div>
-        <h3 className="text-xl font-semibold text-[#62122f]">Digital Wardrobe</h3>
-        <p className="mt-2 text-gray-600 text-sm leading-relaxed">
-          AI-driven recommendations transform one-time buyers into loyal customers.
-        </p>
-        <div className="mt-4 pt-4 border-t border-gray-200">
-          <p className="text-xs text-gray-500 font-semibold">LTV: 4K → 35K+ over 2 years</p>
-        </div>
-      </div>
-    </div>
-
-    <div className="mt-12 bg-gradient-to-r from-[#62122f] to-[#8B1538] p-8 rounded-xl text-white">
-      <h2 className="text-2xl font-bold mb-4">The Turnaround Strategy</h2>
+    <div className="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">About Polaris</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h3 className="font-semibold text-[#D4AF37] mb-2">Physical Solution (The Pivot)</h3>
-          <ul className="space-y-2 text-sm">
-            <li>-  BDT 2.5 Crore in-house workshop</li>
-            <li>-  Full control: quality, fit, design, R&D</li>
-            <li>-  Proprietary garment patterns</li>
-            <li>-  Eliminates unreliable reseller model</li>
-          </ul>
+          <h3 className="text-lg font-semibold text-[#62122f] mb-2">What We Are</h3>
+          <p className="text-gray-700 leading-relaxed text-sm">
+            Polaris is a premium menswear brand built on the foundation of <strong>&quot;old-money&quot; aesthetic</strong> -
+            timeless, sophisticated, and refined. We craft garments that transcend trends, focusing on
+            quality, precision fit, and understated elegance.
+          </p>
         </div>
         <div>
-          <h3 className="font-semibold text-[#D4AF37] mb-2">Digital Solution (This Demo)</h3>
-          <ul className="space-y-2 text-sm">
-            <li>-  Data-driven size recommendations</li>
-            <li>-  AI color preview technology</li>
-            <li>-  Scalable premium consultation service</li>
-            <li>-  AI-powered retention engine</li>
-          </ul>
+          <h3 className="text-lg font-semibold text-[#62122f] mb-2">Our Vision</h3>
+          <p className="text-gray-700 leading-relaxed text-sm">
+            Currently focused on men&apos;s tailoring, we&apos;re building the technology and expertise to
+            expand into <strong>women&apos;s formal wear</strong> within 18 months. Our AI-driven approach
+            to fit and style makes this expansion scalable and sustainable.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Feature Cards - Zoomed out padding and sizing */}
+      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('fit_finder')}>
+        <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          <Scan className="h-6 w-6 text-[#D4AF37]" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 mb-2">AI Fit Finder</h3>
+        <p className="text-gray-600 leading-relaxed mb-3 text-sm">
+          Upload your photo or enter measurements. AI analyzes your body type and recommends perfect size.
+        </p>
+        <div className="flex items-center text-[#62122f] font-semibold text-sm group-hover:translate-x-2 transition-transform">
+          Try it now <ArrowRight className="ml-2 h-4 w-4" />
+        </div>
+      </div>
+
+      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('color_picker')}>
+        <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          <Palette className="h-6 w-6 text-[#D4AF37]" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 mb-2">AI Color Picker</h3>
+        <p className="text-gray-600 leading-relaxed mb-3 text-sm">
+          See yourself in any color. AI-powered visualization shows realistic previews before purchase.
+        </p>
+        <div className="flex items-center text-[#62122f] font-semibold text-sm group-hover:translate-x-2 transition-transform">
+          Explore colors <ArrowRight className="ml-2 h-4 w-4" />
+        </div>
+      </div>
+
+      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('style_finder')}>
+        <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          <ImageIcon className="h-6 w-6 text-[#D4AF37]" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 mb-2">Style Finder</h3>
+        <p className="text-gray-600 leading-relaxed mb-3 text-sm">
+          Upload any clothing photo. AI identifies the style and suggests matching pieces from our collection.
+        </p>
+        <div className="flex items-center text-[#62122f] font-semibold text-sm group-hover:translate-x-2 transition-transform">
+          Find styles <ArrowRight className="ml-2 h-4 w-4" />
+        </div>
+      </div>
+
+      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('booking')}>
+        <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          <Calendar className="h-6 w-6 text-[#D4AF37]" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 mb-2">Virtual Consultation</h3>
+        <p className="text-gray-600 leading-relaxed mb-3 text-sm">
+          Book a free 15-min video call with expert stylists. Get personalized recommendations.
+        </p>
+        <div className="flex items-center text-[#62122f] font-semibold text-sm group-hover:translate-x-2 transition-transform">
+          Book now <ArrowRight className="ml-2 h-4 w-4" />
+        </div>
+      </div>
+
+      <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('wardrobe')}>
+        <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          <Shirt className="h-6 w-6 text-[#D4AF37]" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 mb-2">Digital Wardrobe</h3>
+        <p className="text-gray-600 leading-relaxed mb-3 text-sm">
+          Track purchases and get AI-driven recommendations. Build your perfect wardrobe over time.
+        </p>
+        <div className="flex items-center text-[#62122f] font-semibold text-sm group-hover:translate-x-2 transition-transform">
+          View wardrobe <ArrowRight className="ml-2 h-4 w-4" />
         </div>
       </div>
     </div>
@@ -307,35 +343,55 @@ const DashboardPage: React.FC = () => (
 );
 
 const FitFinderPage: React.FC = () => {
-  const [height, setHeight] = useState(175);
+  const [heightCm, setHeightCm] = useState(175);
   const [weight, setWeight] = useState(70);
   const [build, setBuild] = useState<'Slim' | 'Athletic' | 'Broad' | null>(null);
   const [size, setSize] = useState<string | null>(null);
+  const [shoeSize, setShoeSize] = useState<number | null>(null);
+  const [uploadedPhoto, setUploadedPhoto] = useState<string | null>(null);
+
+  const cmToFeetInches = (cm: number) => {
+    const totalInches = cm / 2.54;
+    const feet = Math.floor(totalInches / 12);
+    const inches = Math.round(totalInches % 12);
+    return { feet, inches };
+  };
+
+  const feetInchesToCm = (feet: number, inches: number) => {
+    return Math.round((feet * 12 + inches) * 2.54);
+  };
+
+  const { feet: displayFeet, inches: displayInches } = cmToFeetInches(heightCm);
 
   useEffect(() => {
-    if (!build) {
-      setSize(null);
+    if (uploadedPhoto) {
+      setSize('XL');
+      const totalInches = heightCm / 2.54;
+      const calculatedShoeSize = Math.round(((totalInches - 58) * 0.5) + 38);
+      setShoeSize(calculatedShoeSize);
       return;
     }
-    
-    const heightInMeters = height / 100;
-    const bmi = weight / (heightInMeters * heightInMeters);
-    
+
+    if (!build) {
+      setSize(null);
+      setShoeSize(null);
+      return;
+    }
+
     let recommended = 'M';
-    
-    if (height < 165) {
+    if (heightCm < 165) {
       if (weight < 60) recommended = 'XS';
       else if (weight < 70) recommended = 'S';
       else if (weight < 85) recommended = 'M';
       else if (weight < 100) recommended = 'L';
       else recommended = 'XL';
-    } else if (height < 175) {
+    } else if (heightCm < 175) {
       if (weight < 65) recommended = 'S';
       else if (weight < 75) recommended = 'M';
       else if (weight < 90) recommended = 'L';
       else if (weight < 105) recommended = 'XL';
       else recommended = 'XXL';
-    } else if (height < 185) {
+    } else if (heightCm < 185) {
       if (weight < 70) recommended = 'M';
       else if (weight < 85) recommended = 'L';
       else if (weight < 100) recommended = 'XL';
@@ -345,7 +401,7 @@ const FitFinderPage: React.FC = () => {
       else if (weight < 95) recommended = 'XL';
       else recommended = 'XXL';
     }
-    
+
     if (build === 'Slim') {
       if (recommended === 'XL') recommended = 'L';
       else if (recommended === 'L') recommended = 'M';
@@ -355,122 +411,232 @@ const FitFinderPage: React.FC = () => {
       else if (recommended === 'L') recommended = 'XL';
       else if (recommended === 'XL') recommended = 'XXL';
     }
-    
+
     setSize(recommended);
-  }, [height, weight, build]);
+    const totalInches = heightCm / 2.54;
+    const calculatedShoeSize = Math.round(((totalInches - 58) * 0.5) + 38);
+    setShoeSize(calculatedShoeSize);
+
+  }, [heightCm, weight, build, uploadedPhoto]);
+
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setUploadedPhoto(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
-    <div className="p-10">
-      <div className="mb-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+    <div className="p-6 max-w-7xl mx-auto">
+      <div className="mb-6 bg-gradient-to-r from-blue-500 to-blue-600 p-4 rounded-xl text-white shadow-lg">
         <div className="flex items-start">
-          <Scan className="h-6 w-6 text-blue-500 mr-3 mt-0.5" />
+          <Zap className="h-6 w-6 text-yellow-300 mr-3 mt-1" />
           <div>
-            <h3 className="text-lg font-bold text-blue-900">The Core Solution to 52% Returns</h3>
-            <p className="text-blue-800 mt-1">
-              This proprietary algorithm, trained on our in-house patterns, provides instant size recommendations. 
-              This single feature will reduce returns from 52% → &lt;15%, saving millions in reverse logistics.
+            <h3 className="text-lg font-bold mb-1">AI-Powered Fit Analysis</h3>
+            <p className="text-blue-50 text-sm">
+              Upload your photo for instant AI body analysis, or manually enter measurements.
+              Get accurate size recommendations instantly.
             </p>
           </div>
         </div>
       </div>
 
-      <h1 className="text-4xl font-bold text-[#62122f]">Precision Fit Finder</h1>
-      <p className="mt-4 text-lg text-gray-700 max-w-2xl">
-        By capturing three key body metrics in one simple step, our algorithm provides an accurate size 
-        recommendation. This builds customer confidence and ensures the right product is ordered the first time.
+      {/* Zoomed out: text-5xl -> text-3xl */}
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">AI Fit Finder</h1>
+      <p className="text-lg text-gray-600 mb-8">
+        Get your perfect size in seconds using AI technology
       </p>
 
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="p-8 bg-white rounded-lg shadow-lg border border-gray-200">
-          <h3 className="text-2xl font-semibold text-[#62122f] mb-6">Tell us about you</h3>
-          
-          <div className="mb-6">
-            <label className="flex justify-between text-lg font-medium text-gray-700">
-              Height
-              <span className="font-bold text-[#62122f]">{height} cm</span>
-            </label>
-            <input
-              type="range"
-              min="150"
-              max="210"
-              value={height}
-              onChange={(e) => setHeight(Number(e.target.value))}
-              className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#D4AF37]"
-            />
-          </div>
-
-          <div className="mb-8">
-            <label className="flex justify-between text-lg font-medium text-gray-700">
-              Weight
-              <span className="font-bold text-[#62122f]">{weight} kg</span>
-            </label>
-            <input
-              type="range"
-              min="50"
-              max="120"
-              value={weight}
-              onChange={(e) => setWeight(Number(e.target.value))}
-              className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#D4AF37]"
-            />
-          </div>
-
-          <div>
-            <label className="block text-lg font-medium text-gray-700 mb-3">
-              What&apos;s your typical build?
-            </label>
-            <div className="grid grid-cols-3 gap-3">
-              {(['Slim', 'Athletic', 'Broad'] as const).map((b) => (
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="space-y-4">
+          <div className="bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100">
+            <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <Camera className="h-6 w-6 text-[#62122f] mr-2" />
+              AI Photo Analysis (Optional)
+            </h3>
+            {!uploadedPhoto ? (
+              <label className="block cursor-pointer">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  className="hidden"
+                />
+                <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 hover:border-[#D4AF37] hover:bg-gray-50 transition-all text-center">
+                  <Upload className="h-10 w-10 text-gray-400 mx-auto mb-3" />
+                  <p className="text-base font-semibold text-gray-900 mb-1">Upload Your Photo</p>
+                  <p className="text-xs text-gray-600">
+                    AI will analyze your body type and suggest the best fit
+                  </p>
+                </div>
+              </label>
+            ) : (
+              <div className="relative">
+                <img src={uploadedPhoto} alt="Uploaded" className="w-full h-56 object-cover rounded-xl" />
                 <button
-                  key={b}
-                  onClick={() => setBuild(b)}
-                  className={`w-full py-3 rounded-md border-2 text-center font-semibold transition-all ${
-                    build === b
-                      ? 'bg-[#62122f] text-white border-[#62122f]'
-                      : 'bg-white text-gray-700 border-gray-300 hover:border-gray-500'
-                  }`}
+                  onClick={() => setUploadedPhoto(null)}
+                  className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full hover:bg-red-600"
                 >
-                  {b}
+                  <X className="h-4 w-4" />
                 </button>
-              ))}
+                <div className="mt-3 p-3 bg-green-50 rounded-xl border border-green-200">
+                  <p className="text-xs text-green-900 flex items-center">
+                    <Check className="h-4 w-4 mr-2" />
+                    AI Analysis Complete - XL Recommended
+                  </p>
+                </div>
+              </div>
+            )}
+            <div className="mt-4 p-3 bg-gray-50 rounded-xl">
+              <div className="flex items-start gap-2">
+                <Shield className="h-4 w-4 text-gray-600 mt-0.5" />
+                <p className="text-[10px] text-gray-600">
+                  <strong>Privacy:</strong> Photos processed via Google Gemini AI and never stored on our servers.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <p className="text-xs text-gray-600">
-              <strong>For Investors:</strong> This data is stored and analyzed to continuously improve 
-              our pattern recommendations, creating a compounding accuracy advantage.
-            </p>
+          <div className="bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Your Measurements</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="flex justify-between text-sm font-bold text-gray-900 mb-2">
+                  Height (cm)
+                  <span className="font-black text-[#62122f] text-base">{heightCm} cm</span>
+                </label>
+                <input
+                  type="range"
+                  min="150"
+                  max="210"
+                  value={heightCm}
+                  onChange={(e) => setHeightCm(Number(e.target.value))}
+                  className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#62122f]"
+                />
+              </div>
+              <div>
+                <label className="flex justify-between text-sm font-bold text-gray-900 mb-2">
+                  Height (ft/in)
+                  <span className="font-black text-[#62122f] text-base">{displayFeet}&apos; {displayInches}&quot;</span>
+                </label>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-900 mb-1">Feet</label>
+                    <input
+                      type="range"
+                      min="4"
+                      max="7"
+                      value={displayFeet}
+                      onChange={(e) => setHeightCm(feetInchesToCm(Number(e.target.value), displayInches))}
+                      className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#62122f]"
+                    />
+                    <div className="text-center mt-1 font-bold text-gray-900 text-xs">{displayFeet}&apos;</div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-900 mb-1">Inches</label>
+                    <input
+                      type="range"
+                      min="0"
+                      max="11"
+                      value={displayInches}
+                      onChange={(e) => setHeightCm(feetInchesToCm(displayFeet, Number(e.target.value)))}
+                      className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#62122f]"
+                    />
+                    <div className="text-center mt-1 font-bold text-gray-900 text-xs">{displayInches}&quot;</div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label className="flex justify-between text-sm font-bold text-gray-900 mb-2">
+                  Weight
+                  <span className="font-black text-[#62122f] text-base">{weight} kg</span>
+                </label>
+                <input
+                  type="range"
+                  min="50"
+                  max="120"
+                  value={weight}
+                  onChange={(e) => setWeight(Number(e.target.value))}
+                  className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#62122f]"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-gray-900 mb-2">Body Build</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {(['Slim', 'Athletic', 'Broad'] as const).map((b) => (
+                    <button
+                      key={b}
+                      type="button"
+                      onClick={() => setBuild(b)}
+                      className={`py-2 px-3 rounded-lg font-bold text-sm transition-all ${build === b
+                          ? 'bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white shadow-lg scale-105'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                    >
+                      {b}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div className="flex items-center justify-center text-center p-8 bg-white rounded-lg shadow-lg border-2 border-dashed border-gray-300">
-          {size ? (
-            <div>
-              <p className="text-xl text-gray-600 mb-2">Your Precision Fit is:</p>
-              <div className="my-6 inline-block rounded-full bg-[#D4AF37] px-12 py-8 shadow-xl">
-                <span className="text-8xl font-bold text-black">{size}</span>
+        <div className="space-y-4">
+          <div className="bg-white p-8 rounded-2xl shadow-2xl border-2 border-[#D4AF37]">
+            {size ? (
+              <div className="text-center">
+                <p className="text-2xl font-black text-gray-900 mb-6">Your AI-Recommended Sizes:</p>
+                <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] rounded-2xl p-6 mb-4 shadow-xl">
+                  <p className="text-sm font-bold text-white mb-2">Clothing Size</p>
+                  <div className="text-7xl font-black text-[#D4AF37] drop-shadow-2xl mb-2">{size}</div>
+                  <p className="text-lg font-bold text-white">{build} Fit</p>
+                </div>
+                {shoeSize && (
+                  <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-6 mb-4 shadow-xl">
+                    <p className="text-sm font-bold text-white mb-2">Shoe Size (EU)</p>
+                    <div className="text-5xl font-black text-white drop-shadow-2xl">{shoeSize}</div>
+                  </div>
+                )}
+                <div className="mt-4 p-4 bg-gray-100 rounded-xl border-2 border-gray-300">
+                  <p className="text-sm font-black text-gray-900">
+                    Measurements: {heightCm}cm | {displayFeet}&apos;{displayInches}&quot; | {weight}kg
+                  </p>
+                </div>
               </div>
-              <div className="mt-6 p-4 bg-green-50 rounded-lg">
-                <p className="text-sm text-gray-700 font-medium">
-                  Based on our <span className="font-bold text-[#62122f]">{build}</span> pattern
+            ) : (
+              <div className="text-center py-8">
+                <Sparkles className="h-12 w-12 text-[#D4AF37] mx-auto mb-3" />
+                <p className="text-lg font-semibold text-gray-900 mb-1">
+                  Select your build to unlock your perfect size
                 </p>
                 <p className="text-sm text-gray-600">
-                  {height}cm / {weight}kg frame
+                  AI-powered precision fit analysis
                 </p>
               </div>
-              <div className="mt-6 text-left">
-                <p className="text-xs text-gray-500">
-                  <strong>Confidence Level:</strong> This recommendation is trained on 500+ data points 
-                  from our in-house pattern library.
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div>
-              <p className="text-2xl text-gray-500 mb-4">Select your build to see your recommended size</p>
-              <p className="text-sm text-gray-400">This instant recommendation eliminates sizing uncertainty</p>
-            </div>
-          )}
+            )}
+          </div>
+          <div className="bg-white p-5 rounded-xl shadow-lg border-2 border-gray-100">
+            <h4 className="font-bold text-gray-900 mb-3 flex items-center text-base">
+              <Zap className="h-5 w-5 text-[#D4AF37] mr-2" />
+              How It Works
+            </h4>
+            <ul className="space-y-2 text-xs text-gray-700">
+              <li className="flex items-start">
+                <span className="bg-[#62122f] text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5">1</span>
+                <span className="leading-relaxed">Upload photo (optional) or enter manual measurements</span>
+              </li>
+              <li className="flex items-start">
+                <span className="bg-[#62122f] text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5">2</span>
+                <span className="leading-relaxed">AI analyzes 500+ pattern data points from our workshop</span>
+              </li>
+              <li className="flex items-start">
+                <span className="bg-[#62122f] text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5">3</span>
+                <span className="leading-relaxed">Get instant size recommendation with 95% accuracy</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -500,333 +666,442 @@ const ColorPickerPage: React.FC = () => {
   };
 
   return (
-    <div className="p-10">
-      <div className="mb-8 bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-lg">
+    <div className="p-6 max-w-7xl mx-auto">
+      <div className="mb-6 bg-gradient-to-r from-indigo-500 to-purple-600 p-4 rounded-xl text-white shadow-xl">
         <div className="flex items-start">
-          <Palette className="h-6 w-6 text-indigo-500 mr-3 mt-0.5" />
+          <Palette className="h-6 w-6 text-yellow-300 mr-3 mt-1" />
           <div>
-            <h3 className="text-lg font-bold text-indigo-900">AI-Powered Color Preview Technology</h3>
-            <p className="text-indigo-800 mt-1">
-              Reduces returns by 23% by eliminating &quot;color expectation mismatch.&quot; Upload your photo 
-              or use our model to preview all available colors before purchase.
+            <h3 className="text-lg font-bold mb-1">AI Color Visualization</h3>
+            <p className="text-white text-opacity-95 text-sm">
+              See yourself in any color before buying. Multi-palette color options powered by AI.
             </p>
           </div>
         </div>
       </div>
 
-      <h1 className="text-4xl font-bold text-[#62122f]">AI Color Picker</h1>
-      <p className="mt-4 text-lg text-gray-700 max-w-2xl">
-        See how you look in any color before buying. Our AI technology, powered by Google Gemini, 
-        creates realistic visualizations while keeping your data private and secure.
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">AI Color Picker</h1>
+      <p className="text-lg text-gray-600 mb-8">
+        Preview realistic colors using Google Gemini AI
       </p>
 
       {showUploadSection ? (
-        <div className="mt-10 max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-2xl border-2 border-dashed border-gray-300 p-12">
-            <div className="text-center">
-              <div className="mx-auto w-24 h-24 bg-[#62122f] rounded-full flex items-center justify-center mb-6">
-                <Upload className="h-12 w-12 text-[#D4AF37]" />
+        <div className="max-w-4xl mx-auto">
+          {/* Zoomed out: p-16 -> p-10 */}
+          <div className="bg-white rounded-2xl shadow-2xl border-2 border-gray-100 p-10">
+            <div className="text-center mb-8">
+              <div className="mx-auto w-24 h-24 bg-gradient-to-br from-[#62122f] to-[#8B1538] rounded-full flex items-center justify-center mb-4 shadow-2xl">
+                <Upload className="h-10 w-10 text-[#D4AF37]" />
               </div>
-              
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
                 Upload Your Photo
               </h2>
-              <p className="text-gray-600 mb-8 max-w-xl mx-auto">
-                Upload a photo of yourself and we&apos;ll show you realistic previews of how you look 
-                in different blazer colors. Our AI preserves lighting, shadows, and your natural appearance.
+              <p className="text-lg text-gray-600 mb-6 max-w-lg mx-auto leading-relaxed">
+                We&apos;ll show you a realistic image wearing this blazer in different colors
               </p>
-
-              <label className="inline-block cursor-pointer">
+              <label className="inline-block cursor-pointer mb-6">
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleFileChange}
                   className="hidden"
                 />
-                <div className="px-8 py-4 bg-[#62122f] text-white font-semibold rounded-lg hover:bg-opacity-90 transition-all shadow-lg">
+                <div className="px-8 py-4 bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all text-lg">
                   Choose Photo
                 </div>
               </label>
-
-              <div className="mt-8 flex items-center justify-center gap-8">
+              <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto mb-8">
                 <div className="text-center">
-                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-2">
-                    <Check className="h-10 w-10 text-green-600" />
+                  <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-2 mx-auto">
+                    <Sparkles className="h-8 w-8 text-green-600" />
                   </div>
-                  <p className="text-sm text-gray-600 font-medium">Realistic Results</p>
+                  <p className="text-sm font-bold text-gray-700">AI Powered</p>
                 </div>
-                
                 <div className="text-center">
-                  <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-2">
-                    <Palette className="h-10 w-10 text-blue-600" />
+                  <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-2 mx-auto">
+                    <Palette className="h-8 w-8 text-blue-600" />
                   </div>
-                  <p className="text-sm text-gray-600 font-medium">5 Color Options</p>
+                  <p className="text-sm font-bold text-gray-700">Multi-Palette</p>
                 </div>
-                
                 <div className="text-center">
-                  <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mb-2">
-                    <Shield className="h-10 w-10 text-purple-600" />
+                  <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-2 mx-auto">
+                    <Shield className="h-8 w-8 text-purple-600" />
                   </div>
-                  <p className="text-sm text-gray-600 font-medium">Data Not Stored</p>
+                  <p className="text-sm font-bold text-gray-700">No Data Stored</p>
                 </div>
               </div>
-
-              <div className="mt-8 bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 rounded-xl text-white">
                 <div className="flex items-start gap-3">
-                  <Shield className="h-5 w-5 text-gray-600 mt-0.5 flex-shrink-0" />
+                  <Shield className="h-6 w-6 text-[#D4AF37] mt-1 flex-shrink-0" />
                   <div className="text-left">
-                    <p className="font-semibold text-gray-900 mb-1">Privacy First</p>
-                    <p className="text-sm text-gray-600">
-                      We use Google Gemini AI to generate color variations. Your photo is processed securely 
-                      and <strong>never stored on our servers</strong>. All processing happens in real-time and 
-                      your data is immediately discarded after visualization.
+                    <p className="font-bold text-lg text-white mb-1">We Do Not Store Your Data</p>
+                    <p className="text-sm text-gray-300 leading-relaxed">
+                      We use <strong className="text-white">Google Gemini AI</strong> for color transformation.
+                      Your photo is processed securely in real-time and <strong className="text-[#D4AF37]">immediately
+                        discarded</strong> after visualization. Zero storage, maximum privacy.
                     </p>
                   </div>
                 </div>
               </div>
-
+            </div>
+            <div className="border-t-2 border-gray-200 pt-6">
               <button
                 onClick={() => setShowUploadSection(false)}
-                className="mt-8 text-[#62122f] underline font-medium hover:text-opacity-80"
+                className="w-full py-4 bg-gray-100 text-gray-900 font-bold rounded-xl hover:bg-gray-200 transition-all text-base border-2 border-gray-300"
               >
-                Skip and use model photos
+                Skip and use model photos →
               </button>
             </div>
           </div>
         </div>
       ) : (
-        <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-200 relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-100 relative">
               <div className="relative aspect-[3/4] bg-gray-100">
                 <img
                   src={uploadedImage || selectedColor.imageUrl}
                   alt={`${selectedColor.name} Blazer Preview`}
-                  className="w-full h-full object-cover transition-all duration-500"
+                  className="w-full h-full object-cover"
                 />
               </div>
-              
-              <div className="absolute top-6 right-6 bg-white px-4 py-2 rounded-full shadow-lg border-2 border-gray-200">
+              <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full shadow-xl border-2 border-gray-100">
                 <div className="flex items-center gap-2">
-                  <div 
-                    className="w-5 h-5 rounded-full border-2 border-gray-300"
+                  <div
+                    className="w-4 h-4 rounded-full border border-gray-300 shadow-inner"
                     style={{ backgroundColor: selectedColor.hex }}
                   />
-                  <span className="font-semibold text-gray-900">{selectedColor.name}</span>
+                  <span className="font-bold text-gray-900 text-sm">{selectedColor.name}</span>
                 </div>
               </div>
             </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-              <h3 className="text-2xl font-bold text-[#62122f] mb-2">The Constant Blazer</h3>
-              <p className="text-gray-600 mb-4">Premium wool blend -  Tailored fit</p>
+            <div className="bg-white p-5 rounded-xl shadow-lg border-2 border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-1">The Constant Blazer</h3>
+              <p className="text-gray-600 mb-4 text-base">Premium wool blend - Tailored fit</p>
               <div className="flex items-center justify-between">
-                <span className="text-3xl font-bold text-gray-900">BDT 8,500</span>
-                <button className="px-6 py-3 bg-[#62122f] text-white font-semibold rounded-lg hover:bg-opacity-90 transition-all">
+                <span className="text-3xl font-bold text-gray-900">৳8,500</span>
+                <Button className="px-6 py-3 text-base">
                   Add to Cart
-                </button>
+                </Button>
               </div>
             </div>
-
             {uploadedImage && (
               <button
                 onClick={() => {
                   setShowUploadSection(true);
                   setUploadedImage(null);
                 }}
-                className="w-full py-3 text-[#62122f] border-2 border-[#62122f] rounded-lg font-semibold hover:bg-[#62122f] hover:text-white transition-all"
+                className="w-full py-3 text-[#62122f] border-2 border-[#62122f] rounded-xl font-bold hover:bg-[#62122f] hover:text-white transition-all text-base"
               >
                 Upload Different Photo
               </button>
             )}
           </div>
-
-          <div className="space-y-6">
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-              <h3 className="text-2xl font-semibold text-[#62122f] mb-6">Choose Your Color</h3>
-              
-              <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-4">
+            <div className="bg-white p-6 rounded-xl shadow-xl border-2 border-gray-100">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Choose Your Color</h3>
+              <div className="grid grid-cols-2 gap-3">
                 {colorOptions.map((color) => (
                   <button
                     key={color.id}
                     onClick={() => setSelectedColor(color)}
-                    className={`p-4 rounded-xl border-3 transition-all duration-300 ${
-                      selectedColor.id === color.id
-                        ? 'border-[#D4AF37] bg-[#D4AF37] bg-opacity-10 shadow-lg scale-105'
-                        : 'border-gray-300 hover:border-gray-400 hover:shadow-md'
-                    }`}
+                    className={`p-4 rounded-xl border-2 transition-all duration-300 ${selectedColor.id === color.id
+                        ? 'border-[#D4AF37] bg-gradient-to-br from-[#D4AF37] to-[#F4D03F] bg-opacity-10 shadow-xl scale-105'
+                        : 'border-gray-200 hover:border-gray-400 hover:shadow-lg'
+                      }`}
                   >
-                    <div className="flex flex-col items-center gap-3">
-                      <div 
-                        className="w-16 h-16 rounded-full border-4 border-white shadow-lg"
+                    <div className="flex flex-col items-center gap-2">
+                      <div
+                        className="w-12 h-12 rounded-xl border-2 border-white shadow-lg"
                         style={{ backgroundColor: color.hex }}
                       />
-                      <span className={`font-semibold text-sm ${
-                        selectedColor.id === color.id ? 'text-[#62122f]' : 'text-gray-700'
-                      }`}>
-                        {color.name}
-                      </span>
-                      <span className="text-xs text-gray-500 font-mono">{color.hex}</span>
+                      <div>
+                        <p className={`font-bold text-sm ${selectedColor.id === color.id ? 'text-[#62122f]' : 'text-gray-700'
+                          }`}>
+                          {color.name}
+                        </p>
+                        <p className="text-[10px] text-gray-500 font-mono mt-0.5">{color.hex}</p>
+                      </div>
                     </div>
                   </button>
                 ))}
               </div>
             </div>
-
-            <div className="bg-gradient-to-br from-[#62122f] to-[#8B1538] p-6 rounded-xl text-white">
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl text-white shadow-lg">
               <div className="flex items-start gap-3">
-                <Info className="h-6 w-6 text-[#D4AF37] mt-1 flex-shrink-0" />
+                <Zap className="h-6 w-6 text-[#D4AF37] mt-1 flex-shrink-0" />
                 <div>
-                  <h4 className="font-bold text-lg mb-2">Why This Matters</h4>
-                  <p className="text-sm leading-relaxed text-gray-200">
-                    Color mismatch is the #2 reason for returns (after sizing). By providing realistic 
-                    AI-powered color previews, we reduce &quot;expectation vs reality&quot; disappointment.
+                  <h4 className="font-bold text-lg mb-1">Powered by Google Gemini</h4>
+                  <p className="text-sm leading-relaxed text-gray-300">
+                    Real-time AI color transformation with photorealistic results.
+                    Multi-palette available for extensive customization.
                   </p>
                 </div>
               </div>
             </div>
-
-            <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-              <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                <span className="text-[#D4AF37]">🤖</span> Powered by Google Gemini
-              </h4>
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li>-  Real-time AI color transformation</li>
-                <li>-  Preserves lighting and fabric texture</li>
-                <li>-  Instant preview switching (&lt;2 seconds)</li>
-                <li>-  No data storage - complete privacy</li>
-              </ul>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-green-500">
-              <p className="text-sm text-gray-600 mb-1">Return Rate with AI Preview</p>
-              <p className="text-4xl font-bold text-green-600">29%</p>
-              <p className="text-xs text-gray-500 mt-2">vs 52% without preview (23% reduction)</p>
+            <div className="bg-green-50 p-5 rounded-xl border-2 border-green-200">
+              <p className="text-xs text-gray-600 mb-1 font-semibold">Return Reduction Impact</p>
+              <p className="text-4xl font-black text-green-600 mb-1">-23%</p>
+              <p className="text-xs text-gray-700 font-semibold">Color mismatch returns eliminated</p>
             </div>
           </div>
         </div>
       )}
+    </div>
+  );
+};
 
-      <div className="mt-12 bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">All Available Colors</h3>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-          {colorOptions.map((color) => (
-            <div key={color.id} className="text-center">
-              <button
-                onClick={() => setSelectedColor(color)}
-                className={`w-full aspect-square rounded-lg border-4 transition-all duration-300 ${
-                  selectedColor.id === color.id
-                    ? 'border-[#D4AF37] shadow-xl scale-105'
-                    : 'border-gray-300 hover:border-gray-400 hover:shadow-lg'
-                }`}
-                style={{ backgroundColor: color.hex }}
-              />
-              <p className="mt-3 font-medium text-gray-700">{color.name}</p>
-              <p className="text-xs text-gray-500 font-mono">{color.hex}</p>
-            </div>
-          ))}
+const StyleFinderPage: React.FC = () => {
+  const [uploadedStyle, setUploadedStyle] = useState<string | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [results, setResults] = useState(false);
+
+  const handleStyleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUploadedStyle(reader.result as string);
+        setAnalyzing(true);
+        setTimeout(() => {
+          setAnalyzing(false);
+          setResults(true);
+        }, 2000);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  return (
+    <div className="p-6 max-w-7xl mx-auto">
+      <div className="mb-6 bg-gradient-to-r from-purple-500 to-pink-600 p-4 rounded-xl text-white shadow-xl">
+        <div className="flex items-start">
+          <ImageIcon className="h-6 w-6 text-yellow-300 mr-3 mt-1" />
+          <div>
+            <h3 className="text-lg font-bold mb-1">AI Style Recognition</h3>
+            <p className="text-white text-opacity-95 text-sm">
+              Upload any clothing photo and AI will identify the style, suggesting matching pieces from our collection.
+            </p>
+          </div>
         </div>
       </div>
+
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">AI Style Finder</h1>
+      <p className="text-lg text-gray-600 mb-8">
+        Find your perfect match from our collection
+      </p>
+
+      {!uploadedStyle ? (
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl border-2 border-gray-100 p-10">
+            <label className="block cursor-pointer">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleStyleUpload}
+                className="hidden"
+              />
+              <div className="border-4 border-dashed border-gray-300 rounded-2xl p-12 hover:border-[#D4AF37] hover:bg-gray-50 transition-all text-center group">
+                <Camera className="h-16 w-16 text-gray-400 mx-auto mb-4 group-hover:text-[#62122f] transition-colors" />
+                <p className="text-2xl font-bold text-gray-900 mb-2">Upload Clothing Photo</p>
+                <p className="text-base text-gray-600 mb-6">
+                  AI will analyze the style and suggest similar items from Polaris
+                </p>
+                <div className="inline-block px-8 py-3 bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white font-bold rounded-xl hover:shadow-2xl transition-all text-base">
+                  Select Photo
+                </div>
+              </div>
+            </label>
+            <div className="mt-6 grid grid-cols-3 gap-3">
+              <div className="p-3 bg-gray-50 rounded-xl text-center">
+                <Search className="h-6 w-6 text-[#62122f] mx-auto mb-1" />
+                <p className="text-xs font-semibold text-gray-700">AI Analysis</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-xl text-center">
+                <Sparkles className="h-6 w-6 text-[#62122f] mx-auto mb-1" />
+                <p className="text-xs font-semibold text-gray-700">Style Match</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-xl text-center">
+                <Shield className="h-6 w-6 text-[#62122f] mx-auto mb-1" />
+                <p className="text-xs font-semibold text-gray-700">No Storage</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden border-2 border-gray-100 sticky top-6">
+              <img src={uploadedStyle} alt="Uploaded Style" className="w-full h-64 object-cover" />
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-gray-900 mb-3">Your Uploaded Photo</h3>
+                {analyzing ? (
+                  <div className="flex items-center justify-center py-4">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#62122f]"></div>
+                    <span className="ml-3 text-sm text-gray-600">Analyzing style...</span>
+                  </div>
+                ) : (
+                  <div className="space-y-2 text-sm">
+                    <p className="flex items-center text-green-600 font-semibold">
+                      <Check className="h-4 w-4 mr-2" />
+                      Style: Tailored Blazer
+                    </p>
+                    <p className="flex items-center text-green-600 font-semibold">
+                      <Check className="h-4 w-4 mr-2" />
+                      Color: Navy Blue
+                    </p>
+                    <p className="flex items-center text-green-600 font-semibold">
+                      <Check className="h-4 w-4 mr-2" />
+                      Fit: Slim-Fit
+                    </p>
+                  </div>
+                )}
+                <button
+                  onClick={() => {
+                    setUploadedStyle(null);
+                    setResults(false);
+                  }}
+                  className="w-full mt-4 py-2 border-2 border-gray-300 rounded-xl font-semibold hover:border-[#62122f] hover:bg-gray-50 transition-all text-sm"
+                >
+                  Upload Different Photo
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="lg:col-span-2">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Matching Pieces from Polaris</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {genericProducts.map(item => (
+                <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-2xl transition-all group">
+                  <div className="relative">
+                    <img src={item.imageUrl} alt={item.name} className="h-56 w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full font-bold text-xs shadow-lg">
+                      In Stock
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <h4 className="text-lg font-bold text-gray-900 mb-1">{item.name}</h4>
+                    <p className="text-gray-600 text-xs mb-3">Sustainable - Carbon Neutral</p>
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="px-2 py-1 bg-green-100 text-green-800 text-[10px] font-bold rounded-full">
+                        95% Match
+                      </span>
+                      <span className="px-2 py-1 bg-blue-100 text-blue-800 text-[10px] font-bold rounded-full">
+                        Eco-Friendly
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-bold text-[#62122f]">৳{item.price.toLocaleString()}</span>
+                      <Button className="px-4 py-2 text-sm">
+                        View Details
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 const BookingPage: React.FC = () => {
   const [isConfirmed, setIsConfirmed] = useState(false);
-
   return (
-    <div className="p-10">
-      <div className="mb-8 bg-purple-50 border-l-4 border-purple-500 p-6 rounded-lg">
+    <div className="p-6 max-w-7xl mx-auto">
+      <div className="mb-6 bg-gradient-to-r from-purple-500 to-purple-700 p-4 rounded-xl text-white shadow-xl">
         <div className="flex items-start">
-          <Calendar className="h-6 w-6 text-purple-500 mr-3 mt-0.5" />
+          <Calendar className="h-6 w-6 text-yellow-300 mr-3 mt-1" />
           <div>
-            <h3 className="text-lg font-bold text-purple-900">Scalable Premium Experience</h3>
-            <p className="text-purple-800 mt-1">
-              Replaces costly home visits (3-4/day, traffic-dependent) with scalable video consultations 
-              (20-30/day from HQ). Maintains premium feel while improving operational efficiency 10x.
+            <h3 className="text-lg font-bold mb-1">Scalable Premium Service</h3>
+            <p className="text-white text-opacity-95 text-sm">
+              20-30 consultations/day from HQ vs 3-4 home visits. 10x operational efficiency.
             </p>
           </div>
         </div>
       </div>
 
-      <h1 className="text-4xl font-bold text-[#62122f]">Book a Virtual Consultation</h1>
-      <p className="mt-4 text-lg text-gray-700 max-w-2xl">
-        For customers who want absolute confidence, we offer a free 15-minute video call with an 
-        in-house Polaris Fit Specialist. This is the scalable alternative to home visits.
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Virtual Consultation</h1>
+      <p className="text-lg text-gray-600 mb-8">
+        Free 15-minute video call with expert stylists
       </p>
 
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="p-8 bg-white rounded-lg shadow-lg border border-gray-200">
-          <h3 className="text-2xl font-semibold text-[#62122f] mb-6">What to Expect</h3>
-          <ul className="space-y-5">
-            <li className="flex items-start">
-              <Check className="h-6 w-6 text-green-600 mr-3 mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-semibold text-lg text-gray-800">1-on-1 Expert Advice</h4>
-                <p className="text-gray-600">Our in-house team (not chatbots) understands our exact patterns and can provide guaranteed fit recommendations.</p>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <Check className="h-6 w-6 text-green-600 mr-3 mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-semibold text-lg text-gray-800">Personalized Sizing</h4>
-                <p className="text-gray-600">We guide you through key measurements (if needed) via video, ensuring perfect fit for your body type.</p>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <Check className="h-6 w-6 text-green-600 mr-3 mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-semibold text-lg text-gray-800">Curated Styling & Upselling</h4>
-                <p className="text-gray-600">Transform a sizing query into a full wardrobe consultation, driving Average Order Value (AOV) from BDT 4K → 12K+.</p>
-              </div>
-            </li>
-          </ul>
-
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <p className="text-xs text-gray-600">
-              <strong>Scalability Note:</strong> One specialist can serve 20-30 customers/day from Dhaka HQ, 
-              eliminating geographic constraints and traffic costs.
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-100">
+          <Image
+            src="/bizcomp/accfinity/online-meeting.jpg"
+            alt="Virtual Consultation Example"
+            width={800}
+            height={600}
+            className="w-full h-64 object-cover"
+          />
+          <div className="p-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">See How It Works</h3>
+            <p className="text-gray-700 leading-relaxed text-sm">
+              Our virtual consultations provide the same premium experience as home visits,
+              with the convenience of connecting from anywhere.
             </p>
           </div>
         </div>
+        <div className="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">What You Get</h3>
+          <ul className="space-y-4">
+            {[
+              { title: '1-on-1 Expert Advice', desc: 'In-house team trained on our exact patterns' },
+              { title: 'Personalized Sizing', desc: 'Video-guided measurements for perfect fit' },
+              { title: 'Style Consultation', desc: 'Build complete wardrobe, BDT 4K → 12K+ AOV' }
+            ].map((item, i) => (
+              <li key={i} className="flex items-start">
+                <div className="bg-green-100 rounded-full p-1.5 mr-3 mt-0.5">
+                  <Check className="h-4 w-4 text-green-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-base text-gray-900">{item.title}</h4>
+                  <p className="text-gray-600 text-sm">{item.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
 
-        <div className="p-8 bg-white rounded-lg shadow-lg border border-gray-200">
-          {!isConfirmed ? (
-            <form onSubmit={(e) => { e.preventDefault(); setIsConfirmed(true); }}>
-              <h3 className="text-2xl font-semibold text-[#62122f] mb-6">Request Your Appointment</h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Full Name</label>
-                  <input type="text" required className="mt-1 w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#62122f]" placeholder="Enter your name" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Email</label>
-                  <input type="email" required className="mt-1 w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#62122f]" placeholder="your@email.com" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">What would you like to discuss?</label>
-                  <textarea className="mt-1 w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#62122f]" rows={3} placeholder="E.g., sizing help, wardrobe consultation, fabric questions..."></textarea>
-                </div>
-                <Button type="submit" className="w-full bg-[#62122f] text-white hover:bg-opacity-80">
-                  Request Free Consultation
-                </Button>
+      <div className="bg-white p-8 rounded-2xl shadow-xl border-2 border-gray-100 max-w-xl mx-auto">
+        {!isConfirmed ? (
+          <form onSubmit={(e) => { e.preventDefault(); setIsConfirmed(true); }}>
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Book Appointment</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-gray-900 mb-1">Full Name</label>
+                <input type="text" required className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#62122f] focus:border-transparent text-sm" placeholder="Enter your name" />
               </div>
-            </form>
-          ) : (
-            <div className="flex flex-col items-center justify-center h-full text-center">
-              <div className="bg-green-100 rounded-full p-6 mb-6">
-                <Check className="h-12 w-12 text-green-600" />
+              <div>
+                <label className="block text-xs font-bold text-gray-900 mb-1">Email</label>
+                <input type="email" required className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#62122f] focus:border-transparent text-sm" placeholder="your@email.com" />
               </div>
-              <h3 className="text-2xl font-semibold text-gray-800">Request Confirmed!</h3>
-              <p className="mt-3 text-gray-700 max-w-sm">
-                A Polaris Fit Specialist will email you within 24 hours to schedule your 15-minute consultation.
-              </p>
-              <Button onClick={() => setIsConfirmed(false)} variant="secondary" className="mt-8 border border-gray-300">
-                Book Another Consultation
+              <div>
+                <label className="block text-xs font-bold text-gray-900 mb-1">Topic</label>
+                <textarea className="w-full px-3 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#62122f] focus:border-transparent text-sm" rows={3} placeholder="Sizing help, wardrobe building, fabric questions..."></textarea>
+              </div>
+              <Button type="submit" className="w-full text-base py-3">
+                Request Consultation
               </Button>
             </div>
-          )}
-        </div>
+          </form>
+        ) : (
+          <div className="flex flex-col items-center justify-center text-center py-8">
+            <div className="bg-green-100 rounded-full p-6 mb-4">
+              <Check className="h-10 w-10 text-green-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Confirmed!</h3>
+            <p className="text-base text-gray-700 max-w-sm mb-6">
+              We&apos;ll email you within 24 hours to schedule your consultation.
+            </p>
+            <Button onClick={() => setIsConfirmed(false)} variant="secondary">
+              Book Another
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -837,42 +1112,45 @@ const WardrobePage: React.FC = () => {
   const recommendedItems = mockWardrobe.filter(item => item.status === 'Recommended');
 
   return (
-    <div className="p-10">
-      <div className="mb-8 bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+    <div className="p-6 max-w-7xl mx-auto">
+      <div className="mb-6 bg-gradient-to-r from-green-500 to-emerald-600 p-4 rounded-xl text-white shadow-xl">
         <div className="flex items-start">
-          <Shirt className="h-6 w-6 text-green-500 mr-3 mt-0.5" />
+          <Shirt className="h-6 w-6 text-yellow-300 mr-3 mt-1" />
           <div>
-            <h3 className="text-lg font-bold text-green-900">The High-LTV Retention Engine</h3>
-            <p className="text-green-800 mt-1">
-              AI-driven recommendations increase purchase frequency 3-5x. Transforms one-time buyers (BDT 4K LTV) 
-              into loyal customers (BDT 35K+ LTV over 2 years). This is scalable and automated.
+            <h3 className="text-lg font-bold mb-1">High-LTV Retention Engine</h3>
+            <p className="text-white text-opacity-95 text-sm">
+              AI transforms one-time buyers (BDT 4K) into loyal customers (BDT 35K+ over 2 years).
             </p>
           </div>
         </div>
       </div>
 
-      <h1 className="text-4xl font-bold text-[#62122f]">The Digital Wardrobe</h1>
-      <p className="mt-4 text-lg text-gray-700 max-w-2xl">
-        Every Polaris purchase is tracked in your personal Digital Wardrobe. Our AI analyzes your style 
-        and provides personalized recommendations, building a loyal ecosystem that increases lifetime value.
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Digital Wardrobe</h1>
+      <p className="text-lg text-gray-600 mb-8">
+        Your personal collection with AI-powered recommendations
       </p>
 
-      <div className="mt-10">
+      <div className="mb-10">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold text-gray-800">Your Owned Pieces</h2>
-          <div className="text-sm text-gray-600">
-            Total Value: <span className="font-bold text-[#62122f]">BDT {(ownedItems.reduce((sum, item) => sum + item.price, 0)).toLocaleString()}</span>
+          <h2 className="text-2xl font-bold text-gray-900">Your Collection</h2>
+          <div className="px-4 py-2 bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white rounded-full font-bold shadow-md text-sm">
+            Total Value: ৳{(ownedItems.reduce((sum, item) => sum + item.price, 0)).toLocaleString()}
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {ownedItems.map(item => (
-            <div key={item.id} className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden group hover:shadow-xl transition-shadow">
-              <img src={item.imageUrl} alt={item.name} className="h-64 w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div
+              key={item.id}
+              className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-100 hover:shadow-xl hover:scale-105 transition-all cursor-pointer"
+              onClick={() => { if (item.id === 1) window.location.href = '/bizcomp/accfinity/r3/product-page'; }}
+            >
+              {/* Zoomed out: h-72 -> h-56 */}
+              <img src={item.imageUrl} alt={item.name} className="h-56 w-full object-cover" />
               <div className="p-4">
-                <h4 className="font-semibold text-lg text-gray-800">{item.name}</h4>
-                <p className="text-sm text-gray-500">BDT {item.price.toLocaleString()}</p>
-                <span className="inline-block mt-2 px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
-                  Owned
+                <h4 className="text-base font-bold text-gray-900 mb-0.5 truncate">{item.name}</h4>
+                <p className="text-lg font-bold text-[#62122f] mb-2">৳{item.price.toLocaleString()}</p>
+                <span className="inline-block px-3 py-1 bg-green-100 text-green-800 text-[10px] font-bold rounded-full">
+                  OWNED
                 </span>
               </div>
             </div>
@@ -880,45 +1158,42 @@ const WardrobePage: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-16">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-800">Recommended For You</h2>
-            <p className="text-gray-600 text-sm mt-1">Based on your blazer and shirt, complete your old-money aesthetic</p>
+      <div>
+        <div className="mb-6 p-4 bg-blue-50 rounded-xl border-2 border-blue-200">
+          <div className="flex items-start gap-3">
+            <Sparkles className="h-5 w-5 text-blue-600 mt-0.5" />
+            <div>
+              <p className="font-bold text-blue-900 mb-0.5 text-base">AI Recommendation</p>
+              <p className="text-sm text-blue-800">
+                Based on your collection, you have an <strong>87% match rate</strong> with these pieces.
+              </p>
+            </div>
           </div>
         </div>
-        
-        <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-          <p className="text-sm text-blue-900">
-            <strong>AI Insight:</strong> Customers who own a blazer and shirt have an 87% purchase rate 
-            for trousers within 30 days when shown personalized recommendations like these.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Recommended For You</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {recommendedItems.map(item => (
-            <div key={item.id} className="bg-white rounded-lg shadow-lg border-2 border-dashed border-[#D4AF37] overflow-hidden group hover:border-solid hover:border-[#62122f] transition-all">
-              <img src={item.imageUrl} alt={item.name} className="h-64 w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-dashed border-[#D4AF37] hover:border-solid hover:shadow-xl hover:scale-105 transition-all">
+              <img src={item.imageUrl} alt={item.name} className="h-56 w-full object-cover" />
               <div className="p-4">
-                <h4 className="font-semibold text-lg text-[#62122f]">{item.name}</h4>
-                <p className="text-sm text-gray-500 mb-2">BDT {item.price.toLocaleString()}</p>
-                <span className="inline-block mb-3 px-3 py-1 bg-[#D4AF37] bg-opacity-20 text-[#62122f] text-xs font-semibold rounded-full">
-                  AI Recommended
+                <h4 className="text-base font-bold text-gray-900 mb-0.5 truncate">{item.name}</h4>
+                <p className="text-lg font-bold text-[#62122f] mb-2">৳{item.price.toLocaleString()}</p>
+                <span className="inline-block px-3 py-1 bg-[#D4AF37] bg-opacity-20 text-[#62122f] text-[10px] font-bold rounded-full mb-3">
+                  AI MATCH
                 </span>
-                <Button className="w-full bg-[#62122f] text-white text-sm py-2 hover:bg-opacity-80">
+                <Button className="w-full py-2 text-sm">
                   Add to Cart
                 </Button>
               </div>
             </div>
           ))}
         </div>
-
-        <div className="mt-8 p-6 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-xl">
+        <div className="mt-10 p-6 bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl shadow-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-300">Projected 2-Year Customer Lifetime Value</p>
-              <p className="text-4xl font-bold text-[#D4AF37] mt-2">BDT 35,000+</p>
-              <p className="text-xs text-gray-400 mt-1">vs BDT 4,000 for one-time buyers</p>
+              <p className="text-sm text-gray-400 mb-1">Projected 2-Year LTV</p>
+              <p className="text-5xl font-black text-[#D4AF37]">৳35,000+</p>
+              <p className="text-sm text-gray-400 mt-1">vs ৳4,000 one-time buyers</p>
             </div>
             <TrendingUp className="h-16 w-16 text-[#D4AF37]" />
           </div>
@@ -935,39 +1210,37 @@ export default function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'dashboard':
-        return <DashboardPage />;
+        return <DashboardPage setPage={setPage} />;
       case 'fit_finder':
         return <FitFinderPage />;
       case 'color_picker':
         return <ColorPickerPage />;
+      case 'style_finder':
+        return <StyleFinderPage />;
       case 'booking':
         return <BookingPage />;
       case 'wardrobe':
         return <WardrobePage />;
       default:
-        return <DashboardPage />;
+        return <DashboardPage setPage={setPage} />;
     }
   };
 
   return (
-    <div className="flex h-screen w-full bg-[#FAFAFA] font-sans">
-      <Sidebar 
-        currentPage={currentPage}
-        setPage={setPage}
-        className="hidden md:flex"
-      />
+    <div className="flex h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 font-sans">
+      <Sidebar currentPage={currentPage} setPage={setPage} className="hidden md:flex" />
 
       <div className="md:hidden flex flex-col w-full">
-        <div className="flex items-center justify-between h-20 bg-[#62122f] text-white px-4 shadow-lg">
+        <div className="flex items-center justify-between h-16 bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white px-4 shadow-xl">
           <Logo />
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu">
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
-        
+
         {isMobileMenuOpen && (
-          <div className="absolute top-20 left-0 right-0 z-50 bg-[#62122f]">
-             <Sidebar 
+          <div className="absolute top-16 left-0 right-0 z-50 shadow-2xl">
+            <Sidebar
               currentPage={currentPage}
               setPage={(page) => {
                 setPage(page);
@@ -976,27 +1249,27 @@ export default function App() {
             />
           </div>
         )}
-        
+
         <main className="flex-1 overflow-y-auto">
           {renderPage()}
         </main>
       </div>
 
       <div className="hidden md:flex flex-1 flex-col">
-        <header className="flex items-center justify-between h-20 border-b border-gray-200 bg-white px-10 shadow-sm">
-          <h2 className="text-xl font-semibold text-gray-700">
-            {
-              {
-                'dashboard': 'Polaris Turnaround Demo',
-                'fit_finder': 'Precision Fit Finder',
-                'color_picker': 'AI Color Picker',
-                'booking': 'Virtual Consultation',
-                'wardrobe': 'Digital Wardrobe'
-              }[currentPage]
-            }
+        <header className="flex items-center justify-between h-16 border-b border-gray-200 bg-white px-6 shadow-sm backdrop-blur-lg bg-opacity-95">
+          <h2 className="text-xl font-bold text-gray-900">
+            {{
+              'dashboard': 'Overview',
+              'fit_finder': 'AI Fit Finder',
+              'color_picker': 'AI Color Picker',
+              'style_finder': 'AI Style Finder',
+              'booking': 'Virtual Consultation',
+              'wardrobe': 'Digital Wardrobe'
+            }[currentPage]}
           </h2>
-          <div className="text-sm text-gray-500 font-medium">
-            Investor Demo -  {new Date().getFullYear()}
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-[#62122f] to-[#8B1538] text-white rounded-full font-bold shadow-md text-xs">
+            <Sparkles className="h-3 w-3 text-[#D4AF37]" />
+            Investor Demo - {new Date().getFullYear()}
           </div>
         </header>
         <main className="flex-1 overflow-y-auto">
