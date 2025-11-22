@@ -127,8 +127,8 @@ export default function Page() {
   
   return (
     <>
-      <div className="min-h-screen">
-        <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12">
+      <div className="min-h-screen w-full overflow-x-hidden">
+        <div className="w-full max-w-6xl mx-auto px-3 sm:px-4 py-8 sm:py-12">
           <div className="text-center mb-12 sm:mb-16">
             
             <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-items-center mb-6 sm:mb-8">

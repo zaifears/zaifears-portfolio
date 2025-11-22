@@ -31,6 +31,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
+  maximumScale: 1,
+  userScalable: false,
 };
 
 const cx = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(' ');
@@ -49,6 +51,9 @@ export default function RootLayout({
       )}
     >
       <head>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Shahoriar Hossain" />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-F0NPB44JWC"
