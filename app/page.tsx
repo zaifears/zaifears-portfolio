@@ -115,59 +115,18 @@ export default function Page() {
 
   const [copied, setCopied] = useState(false);
 
-  const handleCopyEmail = () => {
-    const textArea = document.createElement('textarea');
-    textArea.value = 'contact@shahoriar.me';
-    document.body.appendChild(textArea);
-    textArea.select();
+  const handleCopyEmail = async () => {
     try {
-      document.execCommand('copy');
+      await navigator.clipboard.writeText('contact@shahoriar.me');
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy text: ', err);
     }
-    document.body.removeChild(textArea);
   };
   
   return (
     <>
-      <style jsx global>{`
-        @keyframes spin-gradient {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        .outline-container::before {
-          content: '';
-          position: absolute;
-          inset: -3px;
-          background: conic-gradient(from 180deg at 50% 50%, #3b82f6, #000, #000, #3b82f6);
-          clip-path: url(#blob-shape);
-          animation: spin-gradient 6s linear infinite;
-          z-index: -1;
-          will-change: transform;
-        }
-        .outline-container {
-          contain: layout style paint;
-        }
-        @keyframes scroll-words-step {
-          0%, 14% { transform: translateY(0); }
-          16%, 30% { transform: translateY(-14.28%); }
-          32%, 46% { transform: translateY(-28.57%); }
-          48%, 62% { transform: translateY(-42.85%); }
-          64%, 78% { transform: translateY(-57.14%); }
-          80%, 94% { transform: translateY(-71.42%); }
-          96%, 100% { transform: translateY(-85.71%); }
-        }
-        .animate-scroll-words-step {
-          animation: scroll-words-step 12s ease-in-out infinite;
-        }
-        .scrolling-text-mask {
-          -webkit-mask-image: linear-gradient(to bottom, transparent 10%, black 20%, black 80%, transparent 90%);
-          mask-image: linear-gradient(to bottom, transparent 10%, black 20%, black 80%, transparent 90%);
-        }
-      `}</style>
-      
       <div className="min-h-screen">
         <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12">
           <div className="text-center mb-12 sm:mb-16">
@@ -204,7 +163,7 @@ export default function Page() {
               <div className="hidden md:block w-full order-3"></div>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold font-mono tracking-tight mb-4 sm:mb-6 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold font-mono tracking-tight mb-4 sm:mb-6 bg-linear-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
               MD AL SHAHORIAR HOSSAIN
             </h1>
             
@@ -212,13 +171,13 @@ export default function Page() {
                 <span className="text-gray-600 dark:text-gray-400 whitespace-nowrap">I do</span>
                 <div className="relative h-12 sm:h-16 md:h-20 w-full sm:w-80 md:w-96 overflow-hidden scrolling-text-mask">
                     <div className="animate-scroll-words-step">
-                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Financial Analysis</div>
-                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Web Development</div>
-                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Graphic Design</div>
-                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Data Visualization</div>
-                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Investment Strategy</div>
-                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Problem Solving</div>
-                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Financial Analysis</div>
+                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Financial Analysis</div>
+                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Web Development</div>
+                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Graphic Design</div>
+                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Data Visualization</div>
+                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Investment Strategy</div>
+                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Problem Solving</div>
+                        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center sm:justify-start text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-purple-500 to-blue-500 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 px-2">Financial Analysis</div>
                     </div>
                 </div>
             </div>
@@ -351,13 +310,31 @@ export default function Page() {
             <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Get Started</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
               <Link href="/techtips" className="group relative block h-32 sm:h-40 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-600/20" aria-label="Visit Tech Tips section">
-                <Image src="/techtips.png" alt="Tech Tips" fill className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110" />
+                <Image
+                  src="/techtips.png"
+                  alt="Tech Tips"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+                />
               </Link>
               <Link href="/design-portfolio" className="group relative block h-32 sm:h-40 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-600/20" aria-label="Visit Design Portfolio">
-                <Image src="/designbox.png" alt="Design Portfolio" fill className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110" />
+                <Image
+                  src="/designbox.png"
+                  alt="Design Portfolio"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+                />
               </Link>
               <Link href="/live-text" className="group relative block h-32 sm:h-40 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-teal-600/20 sm:col-span-2 md:col-span-1" aria-label="Access Live Text feature">
-                <Image src="/livetexttelegram.png" alt="Live Text from Telegram" fill className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110" />
+                <Image
+                  src="/livetexttelegram.png"
+                  alt="Live Text from Telegram"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 33vw"
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+                />
               </Link>
             </div>
           </div>
@@ -367,7 +344,7 @@ export default function Page() {
                 <Link href="/ide" className="group inline-block w-full">
                 <button
                     type="button"
-                    className="flex items-center justify-center w-full px-6 py-2 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-500 text-white rounded-xl font-semibold text-base shadow-lg gap-3 transition duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none active:scale-100 active:shadow group-hover:shadow-blue-500/30"
+                    className="flex items-center justify-center w-full px-6 py-2 bg-linear-to-r from-blue-600 via-blue-500 to-indigo-500 text-white rounded-xl font-semibold text-base shadow-lg gap-3 transition duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none active:scale-100 active:shadow group-hover:shadow-blue-500/30"
                     style={{ minHeight: "44px" }}
                 >
                     <FaPython className="text-xl" />

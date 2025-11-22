@@ -28,8 +28,9 @@
 }
 
 html {
-  min-width: 360px;
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* Custom Scrollbar Styling (applied only to elements with these classes) */
@@ -213,6 +214,71 @@ table {
   animation: fade-in-down 0.5s ease-out forwards;
 }
 /* -------------------------- */
+
+@keyframes spin-gradient {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.outline-container::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: conic-gradient(from 180deg at 50% 50%, #3b82f6, #000, #000, #3b82f6);
+  clip-path: url(#blob-shape);
+  animation: spin-gradient 6s linear infinite;
+  z-index: -1;
+  will-change: transform;
+}
+
+.outline-container {
+  contain: layout style paint;
+}
+
+@keyframes scroll-words-step {
+  0%,
+  14% {
+    transform: translateY(0);
+  }
+  16%,
+  30% {
+    transform: translateY(-14.28%);
+  }
+  32%,
+  46% {
+    transform: translateY(-28.57%);
+  }
+  48%,
+  62% {
+    transform: translateY(-42.85%);
+  }
+  64%,
+  78% {
+    transform: translateY(-57.14%);
+  }
+  80%,
+  94% {
+    transform: translateY(-71.42%);
+  }
+  96%,
+  100% {
+    transform: translateY(-85.71%);
+  }
+}
+
+.animate-scroll-words-step {
+  animation: scroll-words-step 12s ease-in-out infinite;
+}
+
+.scrolling-text-mask {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 10%, black 20%, black 80%, transparent 90%);
+  mask-image: linear-gradient(to bottom, transparent 10%, black 20%, black 80%, transparent 90%);
+}
+
 
 /* Custom style to move the Typebot bubble up on mobile */
 @media (max-width: 768px) {
