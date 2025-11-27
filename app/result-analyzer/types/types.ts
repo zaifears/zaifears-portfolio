@@ -4,9 +4,10 @@
 export interface Course {
   code: string;
   name: string;
-  marks: number;
+  marks?: number;
   grade: string;
   credits?: number;
+  gradePoint?: number;
   status: 'Pass' | 'Fail';
 }
 

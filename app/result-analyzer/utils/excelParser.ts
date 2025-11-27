@@ -1,6 +1,6 @@
 import { read, utils } from 'xlsx';
 import { Student, ExcelData, SummaryStats, CourseStats, GradeDistribution, RawExcelRow } from '../types/types';
-import { calculateGrade, isPass } from './gradeCalculator';
+import { getGradePoint } from './gradeCalculator';
 
 export async function parseExcelFile(file: File): Promise<ExcelData> {
   try {
@@ -8,14 +8,17 @@ export async function parseExcelFile(file: File): Promise<ExcelData> {
     const workbook = read(arrayBuffer);
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
-    const rawData: RawExcelRow[] = utils.sheet_to_json(worksheet, { defval: '' });
+    
+    // FIX 1: Read from the 2nd row (index 1) where real headers are
+    const rawData: RawExcelRow[] = utils.sheet_to_json(worksheet, { range: 1, defval: '' });
     
     if (rawData.length === 0) throw new Error('Excel file is empty');
 
     const students = parseStudentData(rawData);
+    
     if (students.length === 0) {
       console.error('Raw data sample:', rawData.slice(0, 3));
-      throw new Error('No valid student data found. Please ensure your Excel file has columns: Registration/ID, Name, Course Code, and Marks/Score');
+      throw new Error('No valid student data found. Ensure file has "Student ID" and "Course Code" columns.');
     }
 
     const summary = calculateSummaryStats(students);
@@ -26,7 +29,7 @@ export async function parseExcelFile(file: File): Promise<ExcelData> {
       summary,
       courseStats,
       batchInfo: sheetName || 'Unknown Batch',
-      semesterInfo: extractSemesterInfo(sheetName),
+      semesterInfo: 'Unknown Semester',
       totalCourses: courseStats.length,
       parseDateTime: new Date().toLocaleString(),
     };
@@ -35,211 +38,159 @@ export async function parseExcelFile(file: File): Promise<ExcelData> {
   }
 }
 
-function extractSemesterInfo(sheetName: string): string {
-  const match = sheetName.match(/\d+(?:st|nd|rd|th)?/i);
-  return match ? `${match[0]} Semester` : 'Unknown Semester';
-}
-
 function parseStudentData(rawData: RawExcelRow[]): Student[] {
-  if (rawData.length === 0) return [];
-  
-  const columnNames = Object.keys(rawData[0]);
-  console.log('DEBUG: Available columns:', columnNames);
-  
-  const findColumn = (keywords: string[]): string | null => {
-    // Try to find column by matching against any keyword
-    for (const col of columnNames) {
-      const colLower = col.toLowerCase().trim();
-      
-      // Exact match
-      if (keywords.some(kw => colLower === kw.toLowerCase())) {
-        return col;
-      }
-      
-      // Partial match
-      if (keywords.some(kw => {
-        const kwLower = kw.toLowerCase();
-        return colLower.includes(kwLower) || kwLower.includes(colLower);
-      })) {
-        return col;
-      }
-    }
-    return null;
-  };
+  const students: Student[] = [];
 
-  // Try to find columns with various keyword combinations
-  const regCol = findColumn(['registration', 'reg', 'roll', 'student id', 'id', 'student_id', 'registration_number', 'reg no', 'register']);
-  const nameCol = findColumn(['name', 'student name', 'full name', 'student_name', 'student']);
-  const codeCol = findColumn(['code', 'course code', 'course_code', 'course', 'subject']);
-  const marksCol = findColumn(['marks', 'score', 'marks obtained', 'total marks', 'obtained marks', 'marks_obtained', 'total_marks', 'total', 'marks out of']);
-
-  console.log('DEBUG: Detected columns:', { regCol, nameCol, codeCol, marksCol });
-
-  // If we can't find all required columns, try a fallback approach: assume column order
-  if (!regCol || !nameCol || !codeCol || !marksCol) {
-    console.warn('Could not find all required columns by keyword matching, trying column position fallback...');
-    console.log('Column names available:', columnNames);
-    
-    // Fallback: use first 4 columns if they exist
-    if (columnNames.length >= 4) {
-      const fallbackRegCol = columnNames[0];
-      const fallbackNameCol = columnNames[1];
-      const fallbackCodeCol = columnNames[2];
-      const fallbackMarksCol = columnNames[3];
-      
-      console.log('Using fallback columns:', { fallbackRegCol, fallbackNameCol, fallbackCodeCol, fallbackMarksCol });
-      
-      // Continue with fallback columns
-      const students: Map<string, Student> = new Map();
-      parseRows(rawData, students, fallbackRegCol, fallbackNameCol, fallbackCodeCol, fallbackMarksCol);
-      return Array.from(students.values());
-    }
-    
-    return [];
-  }
-
-  const students: Map<string, Student> = new Map();
-  parseRows(rawData, students, regCol, nameCol, codeCol, marksCol);
-  return Array.from(students.values());
-}
-
-function parseRows(
-  rawData: RawExcelRow[],
-  students: Map<string, Student>,
-  regCol: string,
-  nameCol: string,
-  codeCol: string,
-  marksCol: string
-): void {
   for (const row of rawData) {
-    const registration = String(row[regCol] || '').trim();
-    const name = String(row[nameCol] || '').trim();
-    const code = String(row[codeCol] || '').trim();
-    const marks = Number(row[marksCol] || 0);
+    // Identify Student ID and Name columns (flexible matching)
+    const idKey = Object.keys(row).find(k => /Student ID|Registration|ID/i.test(k));
+    const nameKey = Object.keys(row).find(k => /Student's Name|Name/i.test(k));
 
-    if (!registration || !name || !code || isNaN(marks) || marks < 0) continue;
+    if (!idKey || !nameKey) continue;
 
-    if (!students.has(registration)) {
-      students.set(registration, {
-        registration,
-        name,
-        courses: [],
-        totalMarks: 0,
-        totalGrade: 'F',
-        averageMarks: 0,
-        result: 'Fail',
-        passedCourses: 0,
-        failedCourses: 0,
-      });
+    const registration = String(row[idKey]).trim();
+    const name = String(row[nameKey]).trim();
+
+    if (!registration || !name) continue;
+
+    const student: Student = {
+      registration,
+      name,
+      courses: [],
+      totalMarks: 0,
+      totalGrade: '',
+      averageMarks: 0,
+      result: 'Pass',
+      passedCourses: 0,
+      failedCourses: 0,
+    };
+
+    // FIX 2: Iterate through all keys to find "Course Code" columns
+    Object.keys(row).forEach(key => {
+      if (key.startsWith("Course Code")) {
+        const courseCode = String(row[key]).trim();
+        if (!courseCode) return;
+
+        // Find the suffix (e.g., "" for first or ".1", ".2", etc.)
+        let suffix = key.replace("Course Code", "");
+        
+        // Attempt to find matching LG and GP keys
+        const lgKey = Object.keys(row).find(k => 
+          (k === `LG${suffix}` || k === `LG.${suffix.replace('_', '')}` || k === `LG${suffix.replace('.', '_')}`)
+        ) || `LG${suffix}`;
+        
+        const gpKey = Object.keys(row).find(k => 
+          (k === `GP${suffix}` || k === `GP.${suffix.replace('_', '')}` || k === `GP${suffix.replace('.', '_')}`)
+        ) || `GP${suffix}`;
+
+        const grade = String(row[lgKey] || '').trim();
+        const gp = Number(row[gpKey] || 0);
+
+        if (courseCode && grade) {
+          const status = (grade === 'F' || grade === 'AB') ? 'Fail' : 'Pass';
+          
+          student.courses.push({
+            code: courseCode,
+            name: courseCode,
+            grade: grade,
+            gradePoint: gp,
+            status: status,
+            marks: 0
+          });
+
+          if (status === 'Pass') student.passedCourses++;
+          else student.failedCourses++;
+        }
+      }
+    });
+
+    if (student.failedCourses > 0) student.result = 'Fail';
+    
+    // Calculate average GPA
+    if (student.courses.length > 0) {
+      const totalGP = student.courses.reduce((sum, c) => sum + (c.gradePoint || 0), 0);
+      student.averageMarks = parseFloat((totalGP / student.courses.length).toFixed(2));
     }
 
-    const student = students.get(registration)!;
-    const grade = calculateGrade(marks);
-    const status = isPass(marks) ? 'Pass' : 'Fail';
-    
-    student.courses.push({
-      code,
-      name: code,
-      marks,
-      grade,
-      status,
-    });
+    if (student.courses.length > 0) {
+      students.push(student);
+    }
   }
 
-  students.forEach((student) => {
-    if (student.courses.length === 0) {
-      return;
-    }
-
-    const totalMarks = student.courses.reduce((sum, c) => sum + c.marks, 0);
-    const averageMarks = totalMarks / student.courses.length;
-    const passedCourses = student.courses.filter(c => c.status === 'Pass').length;
-    const failedCourses = student.courses.filter(c => c.status === 'Fail').length;
-
-    student.totalMarks = totalMarks;
-    student.averageMarks = parseFloat(averageMarks.toFixed(2));
-    student.totalGrade = calculateGrade(averageMarks);
-    student.result = failedCourses === 0 ? 'Pass' : 'Fail';
-    student.passedCourses = passedCourses;
-    student.failedCourses = failedCourses;
-  });
+  return students;
 }
 
 function calculateSummaryStats(students: Student[]): SummaryStats {
-  if (students.length === 0) {
-    return {
-      totalStudents: 0,
-      passedStudents: 0,
-      failedStudents: 0,
-      averageMarks: 0,
-      topMarks: 0,
-      lowestMarks: 0,
-      passPercentage: 0,
-      failPercentage: 0,
-      gradeDistribution: { 'A+': 0, 'A': 0, 'B+': 0, 'B': 0, 'C+': 0, 'C': 0, 'F': 0 },
-    };
-  }
-
+  const totalStudents = students.length;
   const passedStudents = students.filter(s => s.result === 'Pass').length;
-  const failedStudents = students.length - passedStudents;
-  const allMarks = students.flatMap(s => s.courses.map(c => c.marks));
+  const failedStudents = totalStudents - passedStudents;
   
-  const averageMarks = allMarks.length > 0 ? parseFloat((allMarks.reduce((a, b) => a + b, 0) / allMarks.length).toFixed(2)) : 0;
-  const topMarks = allMarks.length > 0 ? Math.max(...allMarks) : 0;
-  const lowestMarks = allMarks.length > 0 ? Math.min(...allMarks) : 0;
-
-  const gradeDistribution: GradeDistribution = {
-    'A+': students.filter(s => s.totalGrade === 'A+').length,
-    'A': students.filter(s => s.totalGrade === 'A').length,
-    'B+': students.filter(s => s.totalGrade === 'B+').length,
-    'B': students.filter(s => s.totalGrade === 'B').length,
-    'C+': students.filter(s => s.totalGrade === 'C+').length,
-    'C': students.filter(s => s.totalGrade === 'C').length,
-    'F': students.filter(s => s.totalGrade === 'F').length,
-  };
+  const gradeDistribution: GradeDistribution = { 'A+': 0, 'A': 0, 'B+': 0, 'B': 0, 'C+': 0, 'C': 0, 'F': 0 };
+  
+  students.forEach(s => {
+    if (s.result === 'Fail') {
+      gradeDistribution['F']++;
+    } else if (s.averageMarks >= 4.0) {
+      gradeDistribution['A+']++;
+    } else if (s.averageMarks >= 3.75) {
+      gradeDistribution['A']++;
+    } else if (s.averageMarks >= 3.25) {
+      gradeDistribution['B+']++;
+    } else if (s.averageMarks >= 3.00) {
+      gradeDistribution['B']++;
+    } else if (s.averageMarks >= 2.50) {
+      gradeDistribution['C+']++;
+    } else {
+      gradeDistribution['C']++;
+    }
+  });
 
   return {
-    totalStudents: students.length,
+    totalStudents,
     passedStudents,
     failedStudents,
-    averageMarks,
-    topMarks,
-    lowestMarks,
-    passPercentage: parseFloat(((passedStudents / students.length) * 100).toFixed(2)),
-    failPercentage: parseFloat(((failedStudents / students.length) * 100).toFixed(2)),
+    averageMarks: totalStudents > 0 ? parseFloat((students.reduce((sum, s) => sum + s.averageMarks, 0) / totalStudents).toFixed(2)) : 0,
+    topMarks: totalStudents > 0 ? Math.max(...students.map(s => s.averageMarks)) : 0,
+    lowestMarks: totalStudents > 0 ? Math.min(...students.map(s => s.averageMarks)) : 0,
+    passPercentage: totalStudents > 0 ? parseFloat(((passedStudents / totalStudents) * 100).toFixed(2)) : 0,
+    failPercentage: totalStudents > 0 ? parseFloat(((failedStudents / totalStudents) * 100).toFixed(2)) : 0,
     gradeDistribution,
   };
 }
 
 function calculateCourseStats(students: Student[]): CourseStats[] {
-  const courseData: Map<string, { marks: number[]; passes: number; fails: number }> = new Map();
+  const courseMap = new Map<string, CourseStats>();
 
-  for (const student of students) {
-    for (const course of student.courses) {
-      if (!courseData.has(course.code)) {
-        courseData.set(course.code, { marks: [], passes: 0, fails: 0 });
+  students.forEach(student => {
+    student.courses.forEach(course => {
+      if (!courseMap.has(course.code)) {
+        courseMap.set(course.code, {
+          code: course.code,
+          name: course.name,
+          totalStudents: 0,
+          passedStudents: 0,
+          failedStudents: 0,
+          averageMarks: 0,
+          highestMarks: 0,
+          lowestMarks: 4,
+          passPercentage: 0
+        });
       }
-      const data = courseData.get(course.code)!;
-      data.marks.push(course.marks);
-      if (course.status === 'Pass') data.passes++;
-      else data.fails++;
-    }
-  }
 
-  return Array.from(courseData.entries()).map(([code, data]) => {
-    const total = data.marks.length;
-    const avg = total > 0 ? parseFloat((data.marks.reduce((a, b) => a + b, 0) / total).toFixed(2)) : 0;
-    
-    return {
-      code,
-      name: code,
-      totalStudents: total,
-      passedStudents: data.passes,
-      failedStudents: data.fails,
-      averageMarks: avg,
-      highestMarks: total > 0 ? Math.max(...data.marks) : 0,
-      lowestMarks: total > 0 ? Math.min(...data.marks) : 0,
-      passPercentage: total > 0 ? parseFloat(((data.passes / total) * 100).toFixed(2)) : 0,
-    };
+      const stats = courseMap.get(course.code)!;
+      stats.totalStudents++;
+      if (course.status === 'Pass') stats.passedStudents++;
+      else stats.failedStudents++;
+      
+      stats.averageMarks += (course.gradePoint || 0);
+      stats.highestMarks = Math.max(stats.highestMarks, course.gradePoint || 0);
+      stats.lowestMarks = Math.min(stats.lowestMarks, course.gradePoint || 0);
+    });
   });
+
+  return Array.from(courseMap.values()).map(stats => ({
+    ...stats,
+    averageMarks: parseFloat((stats.averageMarks / stats.totalStudents).toFixed(2)),
+    passPercentage: parseFloat(((stats.passedStudents / stats.totalStudents) * 100).toFixed(2))
+  })).sort((a, b) => a.code.localeCompare(b.code));
 }
