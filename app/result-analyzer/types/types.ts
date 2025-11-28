@@ -1,13 +1,12 @@
 /**
- * Course interface - represents a single course with marks and grade
+ * Course interface - represents a single course with grade and GPA
  */
 export interface Course {
   code: string;
   name: string;
-  marks?: number;
-  grade: string;
+  grade: string;  // Letter Grade (A+, A, B+, etc.)
+  gradePoint: number; // GP (0.00 to 4.00)
   credits?: number;
-  gradePoint?: number;
   status: 'Pass' | 'Fail';
 }
 
@@ -18,12 +17,10 @@ export interface Student {
   registration: string;
   name: string;
   courses: Course[];
-  totalMarks: number;
-  totalGrade: string;
-  averageMarks: number;
+  gpa: number;  // Semester GPA
+  cgpa?: number;  // Cumulative GPA if available
   result: 'Pass' | 'Fail';
-  passedCourses: number;
-  failedCourses: number;
+  rank?: number;  // Class position (calculated)
 }
 
 /**
@@ -32,11 +29,15 @@ export interface Student {
 export interface GradeDistribution {
   'A+': number;
   'A': number;
+  'A-': number;
   'B+': number;
   'B': number;
+  'B-': number;
   'C+': number;
   'C': number;
+  'D': number;
   'F': number;
+  [key: string]: number;
 }
 
 /**
@@ -46,11 +47,9 @@ export interface SummaryStats {
   totalStudents: number;
   passedStudents: number;
   failedStudents: number;
-  averageMarks: number;
-  topMarks: number;
-  lowestMarks: number;
+  averageCGPA: number;
+  topCGPA: number;
   passPercentage: number;
-  failPercentage: number;
   gradeDistribution: GradeDistribution;
 }
 
@@ -63,10 +62,11 @@ export interface CourseStats {
   totalStudents: number;
   passedStudents: number;
   failedStudents: number;
-  averageMarks: number;
-  highestMarks: number;
-  lowestMarks: number;
+  averageGP: number;  // Average Grade Point
+  mostFrequentGrade: string;
+  totalAPlus: number;  // Count of A+ grades
   passPercentage: number;
+  gradeDistribution: GradeDistribution;
 }
 
 /**

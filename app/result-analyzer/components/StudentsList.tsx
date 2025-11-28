@@ -8,12 +8,12 @@ interface StudentListProps {
   data: ExcelData;
 }
 
-type SortKey = 'registration' | 'name' | 'totalMarks' | 'averageMarks' | 'totalGrade';
+type SortKey = 'registration' | 'name' | 'gpa' | 'result';
 type SortOrder = 'asc' | 'desc';
 
 export default function StudentsList({ data }: StudentListProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortKey, setSortKey] = useState<SortKey>('registration');
+  const [sortKey, setSortKey] = useState<SortKey>('gpa');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -132,36 +132,24 @@ export default function StudentsList({ data }: StudentListProps) {
               </th>
               <th
                 className="px-4 py-3 text-left font-semibold text-gray-900 cursor-pointer hover:bg-gray-200"
-                onClick={() => handleSort('totalMarks')}
+                onClick={() => handleSort('gpa')}
               >
                 <div className="flex items-center space-x-1">
-                  <span>Total Marks</span>
-                  {sortKey === 'totalMarks' &&
+                  <span>GPA</span>
+                  {sortKey === 'gpa' &&
                     (sortOrder === 'asc' ? <FiArrowUp size={14} /> : <FiArrowDown size={14} />)}
                 </div>
               </th>
               <th
                 className="px-4 py-3 text-left font-semibold text-gray-900 cursor-pointer hover:bg-gray-200"
-                onClick={() => handleSort('averageMarks')}
+                onClick={() => handleSort('result')}
               >
                 <div className="flex items-center space-x-1">
-                  <span>Average</span>
-                  {sortKey === 'averageMarks' &&
+                  <span>Result</span>
+                  {sortKey === 'result' &&
                     (sortOrder === 'asc' ? <FiArrowUp size={14} /> : <FiArrowDown size={14} />)}
                 </div>
               </th>
-              <th
-                className="px-4 py-3 text-left font-semibold text-gray-900 cursor-pointer hover:bg-gray-200"
-                onClick={() => handleSort('totalGrade')}
-              >
-                <div className="flex items-center space-x-1">
-                  <span>Grade</span>
-                  {sortKey === 'totalGrade' &&
-                    (sortOrder === 'asc' ? <FiArrowUp size={14} /> : <FiArrowDown size={14} />)}
-                </div>
-              </th>
-              <th className="px-4 py-3 text-left font-semibold text-gray-900">Result</th>
-              <th className="px-4 py-3 text-left font-semibold text-gray-900">Courses</th>
             </tr>
           </thead>
           <tbody>
@@ -169,11 +157,14 @@ export default function StudentsList({ data }: StudentListProps) {
               <tr key={idx} className="border-b border-gray-200 hover:bg-gray-50">
                 <td className="px-4 py-3 text-gray-900 font-medium">{student.registration}</td>
                 <td className="px-4 py-3 text-gray-900">{student.name}</td>
-                <td className="px-4 py-3 text-gray-900">{student.totalMarks}</td>
-                <td className="px-4 py-3 text-gray-900">{student.averageMarks.toFixed(2)}</td>
+                <td className="px-4 py-3 text-gray-900 font-mono font-bold">{student.gpa.toFixed(2)}</td>
                 <td className="px-4 py-3">
-                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getGradeColor(student.totalGrade)}`}>
-                    {student.totalGrade}
+                  <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    student.result === 'Pass' 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-red-100 text-red-700'
+                  }`}>
+                    {student.result}
                   </span>
                 </td>
                 <td className="px-4 py-3">
@@ -182,9 +173,6 @@ export default function StudentsList({ data }: StudentListProps) {
                   ) : (
                     <span className="text-red-600 font-semibold">✗ Fail</span>
                   )}
-                </td>
-                <td className="px-4 py-3 text-gray-600 text-xs">
-                  P: {student.passedCourses} / F: {student.failedCourses}
                 </td>
               </tr>
             ))}

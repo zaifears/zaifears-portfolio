@@ -1,40 +1,32 @@
 /**
- * Convert marks (0-100) to letter grade (A+ to F)
- */
-export function calculateGrade(marks: number): string {
-  const numMarks = Number(marks);
-  if (isNaN(numMarks)) return 'F';
-  if (numMarks >= 90) return 'A+';
-  if (numMarks >= 80) return 'A';
-  if (numMarks >= 70) return 'B+';
-  if (numMarks >= 60) return 'B';
-  if (numMarks >= 50) return 'C+';
-  if (numMarks >= 40) return 'C';
-  return 'F';
-}
-
-/**
- * Check if marks is passing (>= 40)
- */
-export function isPass(marks: number): boolean {
-  const numMarks = Number(marks);
-  return !isNaN(numMarks) && numMarks >= 40;
-}
-
-/**
- * Get grade point (for GPA calculation)
+ * Get grade point value from letter grade
+ * Based on standard 4.0 GPA scale
  */
 export function getGradePoint(grade: string): number {
   const points: Record<string, number> = {
-    'A+': 4.0,
-    'A': 3.7,
-    'B+': 3.3,
-    'B': 3.0,
-    'C+': 2.7,
-    'C': 2.0,
-    'F': 0.0,
+    'A+': 4.00,
+    'A': 3.75,
+    'A-': 3.50,
+    'B+': 3.25,
+    'B': 3.00,
+    'B-': 2.75,
+    'C+': 2.50,
+    'C': 2.25,
+    'D': 2.00,
+    'F': 0.00,
+    'AB': 0.00,  // Absent
+    'I': 0.00,   // Incomplete
+    'W': 0.00,   // Withdrawn
   };
-  return points[grade] || 0;
+  return points[grade.toUpperCase()] || 0.00;
+}
+
+/**
+ * Check if a grade is passing grade
+ */
+export function isPassGrade(grade: string): boolean {
+  const failGrades = ['F', 'AB', 'I', 'W'];
+  return !failGrades.includes(grade.toUpperCase());
 }
 
 /**
@@ -44,11 +36,17 @@ export function getGradeDescription(grade: string): string {
   const descriptions: Record<string, string> = {
     'A+': 'Outstanding',
     'A': 'Excellent',
-    'B+': 'Very Good',
-    'B': 'Good',
-    'C+': 'Satisfactory',
-    'C': 'Pass',
+    'A-': 'Very Good',
+    'B+': 'Good',
+    'B': 'Satisfactory',
+    'B-': 'Above Average',
+    'C+': 'Average',
+    'C': 'Acceptable',
+    'D': 'Poor',
     'F': 'Fail',
+    'AB': 'Absent',
+    'I': 'Incomplete',
+    'W': 'Withdrawn',
   };
-  return descriptions[grade] || 'Unknown';
+  return descriptions[grade.toUpperCase()] || 'Unknown';
 }

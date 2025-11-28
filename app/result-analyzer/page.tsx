@@ -7,10 +7,11 @@ import Charts from './components/Charts';
 import StudentsList from './components/StudentsList';
 import CourseAnalysis from './components/CourseAnalysis';
 import ExportData from './components/ExportData';
+import StudentResultSummary from './components/StudentResultSummary';
 import { ExcelData } from './types/types';
 import { parseExcelFile } from './utils/excelParser';
 
-type TabType = 'dashboard' | 'analytics' | 'students' | 'courses' | 'export';
+type TabType = 'dashboard' | 'search' | 'analytics' | 'courses' | 'students' | 'export';
 
 export default function ResultAnalyzerPage() {
   const [excelData, setExcelData] = useState<ExcelData | null>(null);
@@ -34,92 +35,99 @@ export default function ResultAnalyzerPage() {
     }
   };
 
-  const tabs: { id: TabType; label: string; icon: string }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'analytics', label: 'Analytics', icon: '📈' },
-    { id: 'students', label: 'Students', icon: '👥' },
-    { id: 'courses', label: 'Courses', icon: '📚' },
-    { id: 'export', label: 'Export', icon: '💾' },
+  const tabs: { id: TabType; label: string }[] = [
+    { id: 'dashboard', label: 'Overview' },
+    { id: 'search', label: 'Result Search' },
+    { id: 'analytics', label: 'Batch Analytics' },
+    { id: 'courses', label: 'Course Breakdown' },
+    { id: 'students', label: 'All Students' },
+    { id: 'export', label: 'Export Data' },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-            University Result Analyzer
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Upload Excel files to analyze student results with interactive charts and detailed reports
-          </p>
+    <div className="min-h-screen bg-gray-50 pb-20">
+      {/* Modern Header */}
+      <div className="bg-blue-600 text-white sticky top-0 z-20 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 py-6 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-black">🎓 Result Analyzer</h1>
+            <p className="text-blue-100 text-sm mt-1">Comprehensive student performance analysis</p>
+          </div>
+          {excelData && (
+            <button 
+              onClick={() => {
+                setExcelData(null);
+                setError(null);
+              }}
+              className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold transition-all backdrop-blur-sm"
+            >
+              Upload New File
+            </button>
+          )}
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         {!excelData ? (
           // Upload Section
-          <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
-            <FileUpload onFileUpload={handleFileUpload} isLoading={loading} />
-            {error && (
-              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
-                {error}
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 text-center border border-gray-100">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-6">
+                <span className="text-3xl">📊</span>
               </div>
-            )}
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">Upload Result Sheet</h2>
+              <p className="text-gray-500 mb-8 text-lg">
+                Upload your Excel result file to generate comprehensive analytics, insights, and individual student reports.
+              </p>
+              <FileUpload onFileUpload={handleFileUpload} isLoading={loading} />
+              {error && (
+                <div className="mt-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg text-red-700 font-semibold">
+                  ⚠️ {error}
+                </div>
+              )}
+              <p className="text-xs text-gray-400 mt-8">
+                Supports Excel files (.xlsx) in standard university result format with course codes and grade points
+              </p>
+            </div>
           </div>
         ) : (
-          // Tabs Section
+          // Main Content Section
           <>
-            {/* Tab Navigation */}
-            <div className="bg-white rounded-t-lg shadow-md border-b border-gray-200">
-              <div className="flex overflow-x-auto">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`px-4 md:px-6 py-3 md:py-4 font-medium text-sm md:text-base whitespace-nowrap transition-colors border-b-2 ${
-                      activeTab === tab.id
-                        ? 'border-blue-500 text-blue-600 bg-blue-50'
-                        : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                    }`}
-                  >
-                    <span className="inline mr-2">{tab.icon}</span>
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
+            {/* Modern Tab Navigation */}
+            <div className="flex overflow-x-auto gap-2 mb-8 pb-2 scrollbar-hide">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-5 py-2.5 rounded-full font-semibold text-sm transition-all whitespace-nowrap ${
+                    activeTab === tab.id
+                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
+                      : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
 
-            {/* Tab Content */}
-            <div className="bg-white rounded-b-lg shadow-md p-6 md:p-8">
+            {/* Tab Content with Animation */}
+            <div className="animate-fade-in">
               {activeTab === 'dashboard' && <Dashboard data={excelData} />}
+              {activeTab === 'search' && <StudentResultSummary data={excelData} />}
               {activeTab === 'analytics' && <Charts data={excelData} />}
-              {activeTab === 'students' && <StudentsList data={excelData} />}
               {activeTab === 'courses' && <CourseAnalysis data={excelData} />}
+              {activeTab === 'students' && <StudentsList data={excelData} />}
               {activeTab === 'export' && <ExportData data={excelData} />}
-            </div>
-
-            {/* Upload New File Button */}
-            <div className="mt-6 text-center">
-              <button
-                onClick={() => {
-                  setExcelData(null);
-                  setActiveTab('dashboard');
-                  setError(null);
-                }}
-                className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold rounded-lg transition-colors"
-              >
-                Upload Another File
-              </button>
             </div>
           </>
         )}
       </div>
 
       {/* Footer */}
-      <div className="bg-gray-100 border-t border-gray-200 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-600 text-sm">
-          <p>University Result Analyzer • All data is processed locally in your browser</p>
+      <div className="bg-white border-t border-gray-200 mt-16">
+        <div className="max-w-7xl mx-auto px-4 py-8 text-center text-gray-600 text-sm">
+          <p className="font-semibold mb-1">🎓 University Result Analyzer</p>
+          <p>All data is processed locally in your browser • No data is stored on servers</p>
         </div>
       </div>
     </div>
