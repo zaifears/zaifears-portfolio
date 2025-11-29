@@ -74,15 +74,7 @@ export default function Dashboard({ data }: DashboardProps) {
       </div>
 
       {/* Additional Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <p className="text-gray-600 text-sm font-medium">Highest Marks</p>
-          <p className="text-2xl font-bold text-gray-900 mt-2">{summary.topMarks}</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <p className="text-gray-600 text-sm font-medium">Lowest Marks</p>
-          <p className="text-2xl font-bold text-gray-900 mt-2">{summary.lowestMarks}</p>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
         <div className="bg-white rounded-lg shadow-md p-6">
           <p className="text-gray-600 text-sm font-medium">Total Courses</p>
           <p className="text-2xl font-bold text-gray-900 mt-2">{data.totalCourses}</p>

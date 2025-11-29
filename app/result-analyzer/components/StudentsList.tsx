@@ -8,7 +8,7 @@ interface StudentListProps {
   data: ExcelData;
 }
 
-type SortKey = 'registration' | 'name' | 'totalMarks' | 'averageMarks' | 'totalGrade';
+type SortKey = 'registration' | 'name' | 'averageMarks' | 'totalGrade';
 type SortOrder = 'asc' | 'desc';
 
 export default function StudentsList({ data }: StudentListProps) {
@@ -85,6 +85,33 @@ export default function StudentsList({ data }: StudentListProps) {
         <p className="text-gray-600 mt-1">Total Students: {data.summary.totalStudents}</p>
       </div>
 
+      {/* Top Performers (Nerds) Section */}
+      {(() => {
+        const topPerformers = [...data.students]
+          .sort((a, b) => b.averageMarks - a.averageMarks)
+          .slice(0, 10);
+
+        return (
+          <div className="bg-linear-to-r from-amber-50 to-yellow-50 rounded-lg shadow-md p-6 border border-yellow-200">
+            <h3 className="text-lg font-bold text-gray-900 mb-4">🧠 Top Performers</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+              {topPerformers.map((student, idx) => (
+                <div key={idx} className="bg-white rounded-lg p-4 shadow-sm border border-yellow-100">
+                  <div className="mb-2">
+                    <p className="font-semibold text-gray-900 text-sm">{student.name}</p>
+                    <p className="text-xs text-gray-500">{student.registration}</p>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-yellow-100">
+                    <p className="text-sm text-gray-600">GPA: <span className="font-bold text-yellow-600">{student.averageMarks.toFixed(2)}</span></p>
+                    <p className="text-xs text-green-600 mt-1">✓ {student.passedCourses} Passed</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
+
       {/* Search Box */}
       <div className="relative">
         <FiSearch className="absolute left-3 top-3 text-gray-400" />
@@ -132,16 +159,6 @@ export default function StudentsList({ data }: StudentListProps) {
               </th>
               <th
                 className="px-4 py-3 text-left font-semibold text-gray-900 cursor-pointer hover:bg-gray-200"
-                onClick={() => handleSort('totalMarks')}
-              >
-                <div className="flex items-center space-x-1">
-                  <span>Total Marks</span>
-                  {sortKey === 'totalMarks' &&
-                    (sortOrder === 'asc' ? <FiArrowUp size={14} /> : <FiArrowDown size={14} />)}
-                </div>
-              </th>
-              <th
-                className="px-4 py-3 text-left font-semibold text-gray-900 cursor-pointer hover:bg-gray-200"
                 onClick={() => handleSort('averageMarks')}
               >
                 <div className="flex items-center space-x-1">
@@ -169,11 +186,10 @@ export default function StudentsList({ data }: StudentListProps) {
               <tr key={idx} className="border-b border-gray-200 hover:bg-gray-50">
                 <td className="px-4 py-3 text-gray-900 font-medium">{student.registration}</td>
                 <td className="px-4 py-3 text-gray-900">{student.name}</td>
-                <td className="px-4 py-3 text-gray-900">{student.totalMarks}</td>
                 <td className="px-4 py-3 text-gray-900">{student.averageMarks.toFixed(2)}</td>
                 <td className="px-4 py-3">
-                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getGradeColor(student.totalGrade)}`}>
-                    {student.totalGrade}
+                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${getGradeColor(student.totalGrade)}`}>
+                    Grade: {student.totalGrade}
                   </span>
                 </td>
                 <td className="px-4 py-3">

@@ -40,6 +40,39 @@ export async function parseExcelFile(file: File): Promise<ExcelData> {
 
 function parseStudentData(rawData: RawExcelRow[]): Student[] {
   const students: Student[] = [];
+  
+  // First pass: collect all courses to identify the semester with most enrollments
+  const semesterCourses = new Map<string, number>(); // semester -> count
+  const courseToSemester = new Map<string, string>(); // course code -> semester pattern
+
+  for (const row of rawData) {
+    Object.keys(row).forEach(key => {
+      if (key.startsWith("Course Code")) {
+        const courseCode = String(row[key]).trim();
+        if (!courseCode) return;
+        
+        // Extract semester pattern from course code (e.g., "XXX320X" -> "320")
+        const semesterMatch = courseCode.match(/(\d{3})/);
+        if (semesterMatch) {
+          const semester = semesterMatch[1];
+          courseToSemester.set(courseCode, semester);
+          semesterCourses.set(semester, (semesterCourses.get(semester) || 0) + 1);
+        }
+      }
+    });
+  }
+
+  // Find the semester with the most courses
+  let targetSemester = '';
+  let maxCourses = 0;
+  for (const [semester, count] of semesterCourses) {
+    if (count > maxCourses) {
+      maxCourses = count;
+      targetSemester = semester;
+    }
+  }
+
+  console.log('Target semester pattern:', targetSemester, 'with', maxCourses, 'courses');
 
   for (const row of rawData) {
     // Identify Student ID and Name columns (flexible matching)
@@ -52,6 +85,10 @@ function parseStudentData(rawData: RawExcelRow[]): Student[] {
     const name = String(row[nameKey]).trim();
 
     if (!registration || !name) continue;
+
+    // Check for explicit Status/Result column in the Excel file
+    const statusKey = Object.keys(row).find(k => /Status|Result|Remarks/i.test(k) && !k.includes('Course'));
+    const statusValue = statusKey ? String(row[statusKey]).trim().toLowerCase() : '';
 
     const student: Student = {
       registration,
@@ -70,6 +107,10 @@ function parseStudentData(rawData: RawExcelRow[]): Student[] {
       if (key.startsWith("Course Code")) {
         const courseCode = String(row[key]).trim();
         if (!courseCode) return;
+
+        // Filter: only include courses from target semester
+        const courseSemester = courseToSemester.get(courseCode);
+        if (courseSemester !== targetSemester) return;
 
         // Find the suffix (e.g., "" for first or ".1", ".2", etc.)
         let suffix = key.replace("Course Code", "");
@@ -104,9 +145,23 @@ function parseStudentData(rawData: RawExcelRow[]): Student[] {
       }
     });
 
-    if (student.failedCourses > 0) student.result = 'Fail';
+    // Determine final result based on Status column if available
+    if (statusValue) {
+      // Use the explicit status from Excel if it exists
+      if (statusValue.includes('not promoted') || statusValue.includes('fail')) {
+        student.result = 'Fail';
+      } else if (statusValue.includes('promoted') || statusValue.includes('pass')) {
+        student.result = 'Pass';
+      } else {
+        // Fallback: determine by failed courses
+        student.result = student.failedCourses > 0 ? 'Fail' : 'Pass';
+      }
+    } else {
+      // No explicit status column - use failed courses logic
+      student.result = student.failedCourses > 0 ? 'Fail' : 'Pass';
+    }
     
-    // Calculate average GPA
+    // Calculate average GPA (for target semester only)
     if (student.courses.length > 0) {
       const totalGP = student.courses.reduce((sum, c) => sum + (c.gradePoint || 0), 0);
       student.averageMarks = parseFloat((totalGP / student.courses.length).toFixed(2));
@@ -150,8 +205,8 @@ function calculateSummaryStats(students: Student[]): SummaryStats {
     passedStudents,
     failedStudents,
     averageMarks: totalStudents > 0 ? parseFloat((students.reduce((sum, s) => sum + s.averageMarks, 0) / totalStudents).toFixed(2)) : 0,
-    topMarks: totalStudents > 0 ? Math.max(...students.map(s => s.averageMarks)) : 0,
-    lowestMarks: totalStudents > 0 ? Math.min(...students.map(s => s.averageMarks)) : 0,
+    topMarks: 0,
+    lowestMarks: 0,
     passPercentage: totalStudents > 0 ? parseFloat(((passedStudents / totalStudents) * 100).toFixed(2)) : 0,
     failPercentage: totalStudents > 0 ? parseFloat(((failedStudents / totalStudents) * 100).toFixed(2)) : 0,
     gradeDistribution,

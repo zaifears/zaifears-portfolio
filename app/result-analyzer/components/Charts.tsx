@@ -56,16 +56,6 @@ export default function Charts({ data }: ChartsProps) {
 
   const passFailColors = ['#10b981', '#ef4444'];
 
-  // Marks distribution
-  const marksRanges = ['0-40', '40-50', '50-60', '60-70', '70-80', '80-90', '90-100'];
-  const marksDistribution = marksRanges.map((range) => {
-    const [min, max] = range.split('-').map(Number);
-    const count = data.students
-      .flatMap((s) => s.courses)
-      .filter((c) => c.marks >= min && c.marks <= max).length;
-    return { range, count };
-  });
-
   return (
     <div className="space-y-8">
       <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Analytics</h2>
@@ -126,25 +116,11 @@ export default function Charts({ data }: ChartsProps) {
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={courseData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} />
-              <YAxis />
+              <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} tick={{ fill: '#4b5563' }} />
+              <YAxis tick={{ fill: '#4b5563' }} />
               <Tooltip />
               <Legend />
               <Bar dataKey="avg" fill="#3b82f6" name="Average Marks" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Marks Distribution */}
-        <div className="bg-white rounded-lg shadow-md p-6 lg:col-span-2">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">Marks Distribution</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={marksDistribution}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="range" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="count" fill="#f59e0b" name="Number of Students" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -155,8 +131,8 @@ export default function Charts({ data }: ChartsProps) {
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={courseData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} />
-              <YAxis />
+              <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} tick={{ fill: '#4b5563' }} />
+              <YAxis tick={{ fill: '#4b5563' }} />
               <Tooltip />
               <Legend />
               <Bar dataKey="passed" fill="#10b981" name="Passed" stackId="stack" />
