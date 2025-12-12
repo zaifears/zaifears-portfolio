@@ -24,7 +24,7 @@ const apps = [
 
 const powershellCommands = [
   { name: 'Chris Titus Tech\'s Windows Utility', command: 'irm "https://christitus.com/win" | iex', description: 'A comprehensive utility to install programs, tweak settings, and optimize Windows.' },
-  { name: 'IDM Activation Tool', command: 'iex(irm is.gd/idm_reset)', description: 'A script to manage the trial period of Internet Download Manager.' },
+  { name: 'IDM Activation Tool', command: 'iwr -useb https://raw.githubusercontent.com/ti014/IDM-Activator-Tool/main/IDMA.ps1 | iex', description: 'A script to manage the trial period of Internet Download Manager.' },
   { name: 'Microsoft Office Download', command: 'irm https://officetool.plus | iex', description: 'A tool to easily download and install various versions of Microsoft Office.' },
   { name: 'Windows Activation', command: 'irm https://get.activated.win | iex', description: 'A script for activating various versions of Windows.' },
 ];
