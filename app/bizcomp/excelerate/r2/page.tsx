@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FiArrowUpRight, FiArrowDownLeft, FiMoreVertical, FiEye, FiEyeOff, FiBell, FiSettings, FiQrCode } from 'react-icons/fi';
-import { MdSend, MdLocalAtm, MdShoppingCart, MdMobileScreenShare, MdAutoTransfer, MdHistory } from 'react-icons/md';
+import { FiArrowUpRight, FiArrowDownLeft, FiMoreVertical, FiEye, FiEyeOff, FiBell, FiSettings, FiCode } from 'react-icons/fi';
+import { MdSend, MdLocalAtm, MdShoppingCart, MdMobileScreenShare, MdReceiptLong, MdHistory } from 'react-icons/md';
 
 export default function BKashDemoApp() {
   const [showBalance, setShowBalance] = useState(true);
@@ -21,7 +21,7 @@ export default function BKashDemoApp() {
     { icon: MdLocalAtm, label: 'Cash Out', color: 'from-blue-500 to-cyan-500' },
     { icon: MdShoppingCart, label: 'Payment', color: 'from-purple-500 to-pink-500' },
     { icon: MdMobileScreenShare, label: 'Top Up', color: 'from-green-500 to-emerald-500' },
-    { icon: MdAutoTransfer, label: 'Bill Payment', color: 'from-orange-500 to-red-500' },
+    { icon: MdReceiptLong, label: 'Bill Payment', color: 'from-orange-500 to-red-500' },
     { icon: MdHistory, label: 'Loan', color: 'from-indigo-500 to-blue-500' },
   ];
 
@@ -34,7 +34,7 @@ export default function BKashDemoApp() {
   ];
 
   const quickActions = [
-    { icon: FiQrCode, label: 'Scan & Pay' },
+    { icon: FiCode, label: 'Scan & Pay' },
     { icon: MdSend, label: 'Request Money' },
     { icon: FiBell, label: 'Set Reminder' },
     { icon: FiSettings, label: 'Offers' },
@@ -43,7 +43,7 @@ export default function BKashDemoApp() {
   return (
     <div className="bg-gray-50 min-h-screen pb-24">
       {/* Header */}
-      <div className="bg-gradient-to-r from-pink-600 via-red-600 to-orange-600 text-white sticky top-0 z-50">
+      <div className="bg-linear-to-r from-pink-600 via-red-600 to-orange-600 text-white sticky top-0 z-50">
         <div className="max-w-md mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold">bKash</h1>
           <div className="flex gap-4">
@@ -59,7 +59,7 @@ export default function BKashDemoApp() {
 
       {/* Balance Card */}
       <div className="max-w-md mx-auto px-4 -mt-8 relative z-40">
-        <div className="bg-gradient-to-br from-pink-500 via-red-500 to-orange-600 rounded-3xl shadow-2xl p-8 text-white">
+        <div className="bg-linear-to-br from-pink-500 via-red-500 to-orange-600 rounded-3xl shadow-2xl p-8 text-white">
           {/* User Info */}
           <div className="flex justify-between items-start mb-8">
             <div>
@@ -132,7 +132,7 @@ export default function BKashDemoApp() {
             return (
               <button
                 key={idx}
-                className={`bg-gradient-to-br ${service.color} rounded-2xl p-6 shadow-md hover:shadow-lg transition transform hover:scale-105 flex flex-col items-center gap-3 text-white`}
+                className={`bg-linear-to-br ${service.color} rounded-2xl p-6 shadow-md hover:shadow-lg transition transform hover:scale-105 flex flex-col items-center gap-3 text-white`}
               >
                 <Icon size={32} />
                 <p className="text-xs font-semibold text-center">{service.label}</p>
@@ -176,7 +176,7 @@ export default function BKashDemoApp() {
 
       {/* Promotional Banner */}
       <div className="max-w-md mx-auto px-4 mt-8 mb-4">
-        <div className="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl p-6 text-white shadow-lg">
+        <div className="bg-linear-to-r from-blue-500 to-cyan-500 rounded-2xl p-6 text-white shadow-lg">
           <h3 className="text-lg font-bold mb-2">Send Money & Get Cashback!</h3>
           <p className="text-sm opacity-90 mb-4">Get up to 50 Taka cashback on your next 5 transfers</p>
           <button className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
