@@ -178,10 +178,6 @@ function parseStudentData(rawData: RawExcelRow[], courseMap: Map<string, string>
     const gpaKey = keys.find(k => k === 'GPA' || k === 'SGPA');
     if (gpaKey) {
       student.gpa = Number(row[gpaKey] || 0);
-    if (student.courses.length > 0) {
-      const totalGP = student.courses.reduce((sum, c) => sum + (c.gradePoint || 0), 0);
-      student.averageMarks = parseFloat((totalGP / student.courses.length).toFixed(2));
->>>>>>> 18241c0cfd444b712883a492636f51e37d553341
     }
 
     // Find and parse CGPA if available

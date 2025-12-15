@@ -184,7 +184,6 @@ export default function StudentsList({ data }: StudentListProps) {
               <tr key={idx} className="border-b border-gray-200 hover:bg-gray-50">
                 <td className="px-4 py-3 text-gray-900 font-medium">{student.registration}</td>
                 <td className="px-4 py-3 text-gray-900">{student.name}</td>
-<<<<<<< HEAD
                 <td className="px-4 py-3 text-gray-900 font-mono font-bold">{student.gpa.toFixed(2)}</td>
                 <td className="px-4 py-3">
                   <span className={`px-3 py-1 rounded-full text-xs font-bold ${
@@ -193,12 +192,6 @@ export default function StudentsList({ data }: StudentListProps) {
                       : 'bg-red-100 text-red-700'
                   }`}>
                     {student.result}
-=======
-                <td className="px-4 py-3 text-gray-900">{student.averageMarks.toFixed(2)}</td>
-                <td className="px-4 py-3">
-                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${getGradeColor(student.totalGrade)}`}>
-                    Grade: {student.totalGrade}
->>>>>>> 18241c0cfd444b712883a492636f51e37d553341
                   </span>
                 </td>
                 <td className="px-4 py-3">
