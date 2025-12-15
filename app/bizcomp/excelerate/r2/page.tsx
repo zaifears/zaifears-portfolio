@@ -1,141 +1,212 @@
-"use client";
+'use client';
 
-import React, { memo } from 'react';
-import Link from 'next/link';
+import React, { useState } from 'react';
+import { FiArrowUpRight, FiArrowDownLeft, FiMoreVertical, FiEye, FiEyeOff, FiBell, FiSettings, FiQrCode } from 'react-icons/fi';
+import { MdSend, MdLocalAtm, MdShoppingCart, MdMobileScreenShare, MdAutoTransfer, MdHistory } from 'react-icons/md';
 
-const SectionCard = memo(({ icon, title, children }: {
-  icon: string;
-  title: string;
-  children: React.ReactNode;
-}) => (
-  <section className="mb-12">
-    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 flex items-center">
-      <span className="text-green-600 mr-3">{icon}</span> {title}
-    </h2>
-    {children}
-  </section>
-));
+export default function BKashDemoApp() {
+  const [showBalance, setShowBalance] = useState(true);
+  const [activeTab, setActiveTab] = useState('home');
 
-SectionCard.displayName = 'SectionCard';
+  // Mock data
+  const accountData = {
+    balance: 45820,
+    name: 'Ahmed Hassan',
+    phone: '+880 1712 345 678',
+    level: 'Agent',
+  };
 
-const AnalysisBox = memo(({ title, description }: { title: string; description: string }) => (
-  <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl p-6 border border-green-200">
-    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">{title}</h3>
-    <p className="text-gray-600 text-sm sm:text-base">{description}</p>
-  </div>
-));
-
-AnalysisBox.displayName = 'AnalysisBox';
-
-export default function ExcelerateRound2() {
-  const analysisAreas = [
-    {
-      title: "Market Analysis",
-      description: "Deep dive into Bangladesh's digital payment market, competitive landscape, and growth opportunities."
-    },
-    {
-      title: "Financial Modeling",
-      description: "Advanced Excel models for revenue projections, cost analysis, and profitability scenarios."
-    },
-    {
-      title: "Data Visualization",
-      description: "Create compelling dashboards and visualizations to support findings and recommendations."
-    },
-    {
-      title: "Strategic Planning",
-      description: "Develop actionable strategies based on comprehensive data analysis and financial projections."
-    }
+  const services = [
+    { icon: MdSend, label: 'Send Money', color: 'from-pink-500 to-red-500' },
+    { icon: MdLocalAtm, label: 'Cash Out', color: 'from-blue-500 to-cyan-500' },
+    { icon: MdShoppingCart, label: 'Payment', color: 'from-purple-500 to-pink-500' },
+    { icon: MdMobileScreenShare, label: 'Top Up', color: 'from-green-500 to-emerald-500' },
+    { icon: MdAutoTransfer, label: 'Bill Payment', color: 'from-orange-500 to-red-500' },
+    { icon: MdHistory, label: 'Loan', color: 'from-indigo-500 to-blue-500' },
   ];
 
-  const deliverables = [
-    "Comprehensive Excel workbook with multiple analysis sheets",
-    "Market analysis and competitive benchmarking",
-    "5-year financial projections and forecasts",
-    "Interactive dashboards and visual summaries",
-    "Strategic recommendations and implementation roadmap"
+  const transactions = [
+    { type: 'send', amount: 500, recipient: 'Farhan Khan', date: '10 min ago', status: 'Completed', icon: FiArrowUpRight },
+    { type: 'receive', amount: 2000, recipient: 'Rahim Ahmed', date: '2 hours ago', status: 'Completed', icon: FiArrowDownLeft },
+    { type: 'send', amount: 1500, recipient: 'Mobile Bill', date: '5 hours ago', status: 'Completed', icon: FiArrowUpRight },
+    { type: 'receive', amount: 3500, recipient: 'Business Payment', date: '1 day ago', status: 'Completed', icon: FiArrowDownLeft },
+    { type: 'send', amount: 750, recipient: 'Online Purchase', date: '2 days ago', status: 'Completed', icon: FiArrowUpRight },
   ];
 
-  const objectives = [
-    "Analyze digital payment market trends and growth patterns",
-    "Develop financial forecasts and projections",
-    "Create advanced Excel models and dashboards",
-    "Provide data-driven strategic recommendations"
+  const quickActions = [
+    { icon: FiQrCode, label: 'Scan & Pay' },
+    { icon: MdSend, label: 'Request Money' },
+    { icon: FiBell, label: 'Set Reminder' },
+    { icon: FiSettings, label: 'Offers' },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-teal-50 p-4 sm:p-6">
-      <div className="w-full max-w-6xl mx-auto">
-        {/* Header with Back Button */}
-        <div className="mb-8 sm:mb-12">
-          <Link 
-            href="/bizcomp"
-            className="inline-flex items-center text-green-600 hover:text-green-700 font-semibold mb-4 sm:mb-6 transition-colors text-sm sm:text-base"
-          >
-            <span className="mr-2">←</span> Back to Competitions
-          </Link>
-          
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-teal-600 to-cyan-500 mb-4">
-            Project PayWave BD
-          </h1>
-          <p className="text-base sm:text-xl text-gray-600 font-medium">
-            Excelerate Round 2 - Excel based competition by FINACT
-          </p>
-        </div>
-
-        {/* Main Content Card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border-2 border-gray-200">
-          {/* Project Overview */}
-          <SectionCard icon="📱" title="Project Overview">
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              Project PayWave BD is a comprehensive financial analysis and modeling exercise focusing on digital payment solutions in Bangladesh. This round challenges participants to analyze market trends, develop financial projections, and create strategic recommendations using advanced Excel techniques.
-            </p>
-          </SectionCard>
-
-          {/* Objectives */}
-          <SectionCard icon="🎯" title="Objectives">
-            <ul className="space-y-2 sm:space-y-3">
-              {objectives.map((obj, idx) => (
-                <li key={idx} className="flex items-start gap-3">
-                  <span className="text-green-600 font-bold flex-shrink-0">•</span>
-                  <span className="text-gray-700 text-sm sm:text-base">{obj}</span>
-                </li>
-              ))}
-            </ul>
-          </SectionCard>
-
-          {/* Key Sections */}
-          <SectionCard icon="📊" title="Key Analysis Areas">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {analysisAreas.map((area, idx) => (
-                <AnalysisBox key={idx} title={area.title} description={area.description} />
-              ))}
-            </div>
-          </SectionCard>
-
-          {/* Deliverables */}
-          <SectionCard icon="✅" title="Deliverables">
-            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-              <ul className="space-y-2 sm:space-y-3 text-gray-700">
-                {deliverables.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <span className="text-green-600 flex-shrink-0">✓</span>
-                    <span className="text-sm sm:text-base">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </SectionCard>
-
-          {/* Footer */}
-          <div className="border-t border-gray-200 pt-8">
-            <p className="text-center text-gray-600 font-medium text-sm sm:text-base">
-              Excel expertise meets strategic business thinking
-            </p>
-            <p className="text-center text-xs sm:text-sm text-gray-500 mt-2">
-              Powered by Finance and Accounting Club of Brac University - FINACT
-            </p>
+    <div className="bg-gray-50 min-h-screen pb-24">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-pink-600 via-red-600 to-orange-600 text-white sticky top-0 z-50">
+        <div className="max-w-md mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold">bKash</h1>
+          <div className="flex gap-4">
+            <button className="p-2 hover:bg-white/20 rounded-lg transition">
+              <FiBell size={24} />
+            </button>
+            <button className="p-2 hover:bg-white/20 rounded-lg transition">
+              <FiSettings size={24} />
+            </button>
           </div>
         </div>
+      </div>
+
+      {/* Balance Card */}
+      <div className="max-w-md mx-auto px-4 -mt-8 relative z-40">
+        <div className="bg-gradient-to-br from-pink-500 via-red-500 to-orange-600 rounded-3xl shadow-2xl p-8 text-white">
+          {/* User Info */}
+          <div className="flex justify-between items-start mb-8">
+            <div>
+              <p className="text-sm opacity-90">Account Holder</p>
+              <p className="text-xl font-bold">{accountData.name}</p>
+              <p className="text-xs opacity-75">{accountData.phone}</p>
+            </div>
+            <div className="bg-white/20 px-3 py-1 rounded-full text-sm font-semibold">
+              {accountData.level}
+            </div>
+          </div>
+
+          {/* Balance Section */}
+          <div className="mb-8">
+            <p className="text-sm opacity-90 mb-2">Available Balance</p>
+            <div className="flex justify-between items-baseline gap-4">
+              <p className="text-4xl font-bold">
+                {showBalance ? `৳ ${accountData.balance.toLocaleString()}` : '••••••'}
+              </p>
+              <button
+                onClick={() => setShowBalance(!showBalance)}
+                className="p-2 hover:bg-white/20 rounded-lg transition"
+              >
+                {showBalance ? <FiEye size={20} /> : <FiEyeOff size={20} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Card Details */}
+          <div className="flex justify-between items-end">
+            <div>
+              <p className="text-xs opacity-75">Card Number</p>
+              <p className="text-lg font-mono font-semibold">•••• •••• •••• 1234</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs opacity-75">Valid Through</p>
+              <p className="font-semibold">12/28</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="max-w-md mx-auto px-4 mt-6">
+        <div className="grid grid-cols-4 gap-3">
+          {quickActions.map((action, idx) => {
+            const Icon = action.icon;
+            return (
+              <button
+                key={idx}
+                className="bg-white rounded-2xl p-4 shadow-md hover:shadow-lg transition transform hover:scale-105 flex flex-col items-center gap-2"
+              >
+                <Icon size={24} className="text-pink-600" />
+                <p className="text-xs font-semibold text-gray-700 text-center">{action.label}</p>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Services Grid */}
+      <div className="max-w-md mx-auto px-4 mt-8">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-bold text-gray-900">Services</h2>
+          <a href="#" className="text-pink-600 text-sm font-semibold hover:underline">See All</a>
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          {services.map((service, idx) => {
+            const Icon = service.icon;
+            return (
+              <button
+                key={idx}
+                className={`bg-gradient-to-br ${service.color} rounded-2xl p-6 shadow-md hover:shadow-lg transition transform hover:scale-105 flex flex-col items-center gap-3 text-white`}
+              >
+                <Icon size={32} />
+                <p className="text-xs font-semibold text-center">{service.label}</p>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Recent Transactions */}
+      <div className="max-w-md mx-auto px-4 mt-8">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-bold text-gray-900">Recent Transactions</h2>
+          <a href="#" className="text-pink-600 text-sm font-semibold hover:underline">View All</a>
+        </div>
+        <div className="space-y-2">
+          {transactions.map((txn, idx) => {
+            const Icon = txn.icon;
+            return (
+              <div key={idx} className="bg-white rounded-2xl p-4 flex items-center justify-between shadow-sm hover:shadow-md transition">
+                <div className="flex items-center gap-4 flex-1">
+                  <div className={`p-3 rounded-full ${txn.type === 'send' ? 'bg-red-100' : 'bg-green-100'}`}>
+                    <Icon size={20} className={txn.type === 'send' ? 'text-red-600' : 'text-green-600'} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-gray-900">{txn.recipient}</p>
+                    <p className="text-xs text-gray-500">{txn.date}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className={`font-bold text-lg ${txn.type === 'send' ? 'text-red-600' : 'text-green-600'}`}>
+                    {txn.type === 'send' ? '-' : '+'} ৳ {txn.amount.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-gray-500">{txn.status}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Promotional Banner */}
+      <div className="max-w-md mx-auto px-4 mt-8 mb-4">
+        <div className="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl p-6 text-white shadow-lg">
+          <h3 className="text-lg font-bold mb-2">Send Money & Get Cashback!</h3>
+          <p className="text-sm opacity-90 mb-4">Get up to 50 Taka cashback on your next 5 transfers</p>
+          <button className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
+            Learn More
+          </button>
+        </div>
+      </div>
+
+      {/* Bottom Navigation */}
+      <div className="max-w-md mx-auto fixed bottom-0 left-1/2 -translate-x-1/2 w-full bg-white border-t border-gray-200 flex justify-around items-center">
+        {[
+          { icon: FiArrowUpRight, label: 'Send', id: 'send' },
+          { icon: FiArrowDownLeft, label: 'Receive', id: 'receive' },
+          { icon: MdHistory, label: 'History', id: 'history' },
+          { icon: FiSettings, label: 'Menu', id: 'menu' },
+        ].map((nav) => {
+          const Icon = nav.icon;
+          return (
+            <button
+              key={nav.id}
+              onClick={() => setActiveTab(nav.id)}
+              className={`flex-1 py-4 flex flex-col items-center gap-1 transition ${
+                activeTab === nav.id ? 'text-pink-600' : 'text-gray-600'
+              }`}
+            >
+              <Icon size={24} />
+              <p className="text-xs font-semibold">{nav.label}</p>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
