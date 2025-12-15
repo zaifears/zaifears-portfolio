@@ -78,7 +78,6 @@ export default function Dashboard({ data }: DashboardProps) {
         })}
       </div>
 
-<<<<<<< HEAD
       {/* Course Insights */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {hardestCourse && (
