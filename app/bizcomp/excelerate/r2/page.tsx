@@ -13,7 +13,7 @@ export default function BKashDemoApp() {
     balance: 45820,
     name: 'Ahmed Hassan',
     phone: '+880 1712 345 678',
-    level: 'Agent',
+    level: 'User',
   };
 
   const services = [
@@ -47,10 +47,10 @@ export default function BKashDemoApp() {
         <div className="max-w-md mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold">bKash</h1>
           <div className="flex gap-4">
-            <button className="p-2 hover:bg-white/20 rounded-lg transition">
+            <button onClick={() => alert('Notifications')} className="p-2 hover:bg-white/20 rounded-lg transition cursor-pointer">
               <FiBell size={24} />
             </button>
-            <button className="p-2 hover:bg-white/20 rounded-lg transition">
+            <button onClick={() => alert('Settings')} className="p-2 hover:bg-white/20 rounded-lg transition cursor-pointer">
               <FiSettings size={24} />
             </button>
           </div>
@@ -73,7 +73,7 @@ export default function BKashDemoApp() {
           </div>
 
           {/* Balance Section */}
-          <div className="mb-8">
+          <div>
             <p className="text-sm opacity-90 mb-2">Available Balance</p>
             <div className="flex justify-between items-baseline gap-4">
               <p className="text-4xl font-bold">
@@ -87,18 +87,6 @@ export default function BKashDemoApp() {
               </button>
             </div>
           </div>
-
-          {/* Card Details */}
-          <div className="flex justify-between items-end">
-            <div>
-              <p className="text-xs opacity-75">Card Number</p>
-              <p className="text-lg font-mono font-semibold">•••• •••• •••• 1234</p>
-            </div>
-            <div className="text-right">
-              <p className="text-xs opacity-75">Valid Through</p>
-              <p className="font-semibold">12/28</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -107,10 +95,12 @@ export default function BKashDemoApp() {
         <div className="grid grid-cols-4 gap-3">
           {quickActions.map((action, idx) => {
             const Icon = action.icon;
+            const handleClick = () => alert(`Clicked: ${action.label}`);
             return (
               <button
                 key={idx}
-                className="bg-white rounded-2xl p-4 shadow-md hover:shadow-lg transition transform hover:scale-105 flex flex-col items-center gap-2"
+                onClick={handleClick}
+                className="bg-white rounded-2xl p-4 shadow-md hover:shadow-lg transition transform hover:scale-105 flex flex-col items-center gap-2 cursor-pointer"
               >
                 <Icon size={24} className="text-pink-600" />
                 <p className="text-xs font-semibold text-gray-700 text-center">{action.label}</p>
@@ -124,15 +114,17 @@ export default function BKashDemoApp() {
       <div className="max-w-md mx-auto px-4 mt-8">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold text-gray-900">Services</h2>
-          <a href="#" className="text-pink-600 text-sm font-semibold hover:underline">See All</a>
+          <button onClick={() => alert('View all services')} className="text-pink-600 text-sm font-semibold hover:underline cursor-pointer">See All</button>
         </div>
         <div className="grid grid-cols-3 gap-4">
           {services.map((service, idx) => {
             const Icon = service.icon;
+            const handleClick = () => alert(`Service: ${service.label}`);
             return (
               <button
                 key={idx}
-                className={`bg-linear-to-br ${service.color} rounded-2xl p-6 shadow-md hover:shadow-lg transition transform hover:scale-105 flex flex-col items-center gap-3 text-white`}
+                onClick={handleClick}
+                className={`bg-linear-to-br ${service.color} rounded-2xl p-6 shadow-md hover:shadow-lg transition transform hover:scale-105 flex flex-col items-center gap-3 text-white cursor-pointer`}
               >
                 <Icon size={32} />
                 <p className="text-xs font-semibold text-center">{service.label}</p>
@@ -146,13 +138,18 @@ export default function BKashDemoApp() {
       <div className="max-w-md mx-auto px-4 mt-8">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold text-gray-900">Recent Transactions</h2>
-          <a href="#" className="text-pink-600 text-sm font-semibold hover:underline">View All</a>
+          <button onClick={() => alert('View all transactions')} className="text-pink-600 text-sm font-semibold hover:underline cursor-pointer">View All</button>
         </div>
         <div className="space-y-2">
           {transactions.map((txn, idx) => {
             const Icon = txn.icon;
+            const handleClick = () => alert(`Transaction: ${txn.recipient} - ${txn.type === 'send' ? '-' : '+'} ৳ ${txn.amount}`);
             return (
-              <div key={idx} className="bg-white rounded-2xl p-4 flex items-center justify-between shadow-sm hover:shadow-md transition">
+              <button
+                key={idx}
+                onClick={handleClick}
+                className="bg-white rounded-2xl p-4 flex items-center justify-between shadow-sm hover:shadow-md transition w-full cursor-pointer text-left"
+              >
                 <div className="flex items-center gap-4 flex-1">
                   <div className={`p-3 rounded-full ${txn.type === 'send' ? 'bg-red-100' : 'bg-green-100'}`}>
                     <Icon size={20} className={txn.type === 'send' ? 'text-red-600' : 'text-green-600'} />
@@ -168,7 +165,7 @@ export default function BKashDemoApp() {
                   </p>
                   <p className="text-xs text-gray-500">{txn.status}</p>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -179,7 +176,7 @@ export default function BKashDemoApp() {
         <div className="bg-linear-to-r from-blue-500 to-cyan-500 rounded-2xl p-6 text-white shadow-lg">
           <h3 className="text-lg font-bold mb-2">Send Money & Get Cashback!</h3>
           <p className="text-sm opacity-90 mb-4">Get up to 50 Taka cashback on your next 5 transfers</p>
-          <button className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
+          <button onClick={() => alert('Cashback offer details')} className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition cursor-pointer">
             Learn More
           </button>
         </div>
