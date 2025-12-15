@@ -81,6 +81,39 @@ function extractCourseNames(data: any[][]): Map<string, string> {
 
 function parseStudentData(rawData: RawExcelRow[], courseMap: Map<string, string>): Student[] {
   const students: Student[] = [];
+  
+  // First pass: collect all courses to identify the semester with most enrollments
+  const semesterCourses = new Map<string, number>(); // semester -> count
+  const courseToSemester = new Map<string, string>(); // course code -> semester pattern
+
+  for (const row of rawData) {
+    Object.keys(row).forEach(key => {
+      if (key.startsWith("Course Code")) {
+        const courseCode = String(row[key]).trim();
+        if (!courseCode) return;
+        
+        // Extract semester pattern from course code (e.g., "XXX320X" -> "320")
+        const semesterMatch = courseCode.match(/(\d{3})/);
+        if (semesterMatch) {
+          const semester = semesterMatch[1];
+          courseToSemester.set(courseCode, semester);
+          semesterCourses.set(semester, (semesterCourses.get(semester) || 0) + 1);
+        }
+      }
+    });
+  }
+
+  // Find the semester with the most courses
+  let targetSemester = '';
+  let maxCourses = 0;
+  for (const [semester, count] of semesterCourses) {
+    if (count > maxCourses) {
+      maxCourses = count;
+      targetSemester = semester;
+    }
+  }
+
+  console.log('Target semester pattern:', targetSemester, 'with', maxCourses, 'courses');
 
   for (const row of rawData) {
     // Flexible key matching for student ID and name
@@ -94,6 +127,10 @@ function parseStudentData(rawData: RawExcelRow[], courseMap: Map<string, string>
 
     // Skip header rows and invalid entries
     if (!registration || !name || /registration|student id|ID/i.test(registration)) continue;
+
+    // Check for explicit Status/Result column in the Excel file
+    const statusKey = Object.keys(row).find(k => /Status|Result|Remarks/i.test(k) && !k.includes('Course'));
+    const statusValue = statusKey ? String(row[statusKey]).trim().toLowerCase() : '';
 
     const student: Student = {
       registration,
@@ -111,6 +148,7 @@ function parseStudentData(rawData: RawExcelRow[], courseMap: Map<string, string>
         const courseCode = String(row[key]).trim();
         if (!courseCode) return;
 
+<<<<<<< HEAD
         // Get the suffix to match LG and GP columns
         const suffix = key.replace('Course Code', '');
         
@@ -133,6 +171,7 @@ function parseStudentData(rawData: RawExcelRow[], courseMap: Map<string, string>
       }
     });
 
+<<<<<<< HEAD
     // Calculate overall result based on failed courses
     const hasFail = student.courses.some(c => c.status === 'Fail');
     student.result = hasFail ? 'Fail' : 'Pass';
@@ -141,6 +180,18 @@ function parseStudentData(rawData: RawExcelRow[], courseMap: Map<string, string>
     const gpaKey = keys.find(k => k === 'GPA' || k === 'SGPA');
     if (gpaKey) {
       student.gpa = Number(row[gpaKey] || 0);
+        student.result = student.failedCourses > 0 ? 'Fail' : 'Pass';
+      }
+    } else {
+      // No explicit status column - use failed courses logic
+      student.result = student.failedCourses > 0 ? 'Fail' : 'Pass';
+    }
+    
+    // Calculate average GPA (for target semester only)
+    if (student.courses.length > 0) {
+      const totalGP = student.courses.reduce((sum, c) => sum + (c.gradePoint || 0), 0);
+      student.averageMarks = parseFloat((totalGP / student.courses.length).toFixed(2));
+>>>>>>> 18241c0cfd444b712883a492636f51e37d553341
     }
 
     // Find and parse CGPA if available
