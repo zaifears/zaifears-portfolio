@@ -348,9 +348,9 @@ export default function FinancialDashboard() {
     const useNewLayout = activePortfolioKey === "Emergency Fund" || activePortfolioKey === "Car Fund";
 
     return (
-        <div className="bg-gradient-to-br from-slate-100 to-blue-100 text-gray-900 p-6 md:p-10 min-h-screen font-sans">
+        <div className="bg-linear-to-br from-slate-100 to-blue-100 text-gray-900 p-6 md:p-10 min-h-screen font-sans">
             <header className="mb-8 text-center">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-500 mb-3 drop-shadow-lg">
+                <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-blue-600 via-purple-600 to-cyan-500 mb-3 drop-shadow-lg">
                     Nafis's Financial Plan
                 </h1>
                 <p className="text-xl font-bold text-gray-800">
@@ -365,7 +365,7 @@ export default function FinancialDashboard() {
                         onClick={() => setActivePortfolioKey(name)}
                         className={`px-6 py-3 rounded-xl text-base font-bold transition-all duration-300 shadow-lg ${
                             activePortfolioKey === name 
-                                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl transform scale-105' 
+                                ? 'bg-linear-to-r from-blue-600 to-purple-600 text-white shadow-xl transform scale-105' 
                                 : 'bg-white text-gray-800 hover:shadow-xl hover:scale-105 border-2 border-gray-300'
                         }`}
                     >
@@ -378,22 +378,22 @@ export default function FinancialDashboard() {
                 // OVERVIEW TAB
                 <div className="space-y-6 max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-transform cursor-pointer">
+                        <div className="bg-linear-to-br from-blue-500 to-blue-600 p-6 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-transform cursor-pointer">
                             <div className="text-4xl mb-3">💼</div>
                             <div className="text-base font-semibold mb-1">Yearly Income</div>
                             <div className="text-3xl font-extrabold">৳1.08M</div>
                         </div>
-                        <div className="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-transform cursor-pointer">
+                        <div className="bg-linear-to-br from-green-500 to-green-600 p-6 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-transform cursor-pointer">
                             <div className="text-4xl mb-3">💰</div>
                             <div className="text-base font-semibold mb-1">Yearly Savings</div>
                             <div className="text-3xl font-extrabold">৳264K</div>
                         </div>
-                        <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-transform cursor-pointer">
+                        <div className="bg-linear-to-br from-purple-500 to-purple-600 p-6 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-transform cursor-pointer">
                             <div className="text-4xl mb-3">🏦</div>
                             <div className="text-base font-semibold mb-1">Total Assets</div>
                             <div className="text-3xl font-extrabold">৳5.2M</div>
                         </div>
-                        <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-6 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-transform cursor-pointer">
+                        <div className="bg-linear-to-br from-orange-500 to-orange-600 p-6 rounded-2xl shadow-xl text-white transform hover:scale-105 transition-transform cursor-pointer">
                             <div className="text-4xl mb-3">🎯</div>
                             <div className="text-base font-semibold mb-1">Goal Target</div>
                             <div className="text-3xl font-extrabold">৳18.5M</div>
@@ -475,7 +475,7 @@ export default function FinancialDashboard() {
                         </h3>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div className="space-y-5">
-                                <div className="p-6 bg-gradient-to-r from-purple-100 to-purple-200 rounded-xl border-l-4 border-purple-600 shadow-lg hover:shadow-xl transition-shadow">
+                                <div className="p-6 bg-linear-to-r from-purple-100 to-purple-200 rounded-xl border-l-4 border-purple-600 shadow-lg hover:shadow-xl transition-shadow">
                                     <div className="flex justify-between items-center mb-2">
                                         <h4 className="font-extrabold text-gray-900 text-xl">🛡️ Emergency Fund</h4>
                                         <span className="text-purple-900 font-extrabold text-2xl">৳500,000</span>
@@ -483,7 +483,7 @@ export default function FinancialDashboard() {
                                     <p className="text-base font-bold text-gray-800">Immediate access for emergencies</p>
                                 </div>
                                 
-                                <div className="p-6 bg-gradient-to-r from-pink-100 to-pink-200 rounded-xl border-l-4 border-pink-600 shadow-lg hover:shadow-xl transition-shadow">
+                                <div className="p-6 bg-linear-to-r from-pink-100 to-pink-200 rounded-xl border-l-4 border-pink-600 shadow-lg hover:shadow-xl transition-shadow">
                                     <div className="flex justify-between items-center mb-2">
                                         <h4 className="font-extrabold text-gray-900 text-xl">🚗 Car Purchase</h4>
                                         <span className="text-pink-900 font-extrabold text-2xl">৳3,450,000</span>
@@ -491,7 +491,7 @@ export default function FinancialDashboard() {
                                     <p className="text-base font-bold text-gray-800">5 Years - No loan interest</p>
                                 </div>
                                 
-                                <div className="p-6 bg-gradient-to-r from-orange-100 to-orange-200 rounded-xl border-l-4 border-orange-600 shadow-lg hover:shadow-xl transition-shadow">
+                                <div className="p-6 bg-linear-to-r from-orange-100 to-orange-200 rounded-xl border-l-4 border-orange-600 shadow-lg hover:shadow-xl transition-shadow">
                                     <div className="flex justify-between items-center mb-2">
                                         <h4 className="font-extrabold text-gray-900 text-xl">🏠 Home Down Payment</h4>
                                         <span className="text-orange-900 font-extrabold text-2xl">৳7,940,490</span>
@@ -499,7 +499,7 @@ export default function FinancialDashboard() {
                                     <p className="text-base font-bold text-gray-800">8 Years for down payment</p>
                                 </div>
 
-                                <div className="p-7 bg-gradient-to-r from-blue-200 to-purple-200 rounded-xl border-3 border-blue-600 shadow-xl">
+                                <div className="p-7 bg-linear-to-r from-blue-200 to-purple-200 rounded-xl border-3 border-blue-600 shadow-xl">
                                     <div className="flex justify-between items-center">
                                         <h4 className="font-extrabold text-gray-900 text-2xl">Total Requirements</h4>
                                         <span className="text-blue-900 font-extrabold text-3xl">৳11,890,490</span>
@@ -557,32 +557,32 @@ export default function FinancialDashboard() {
                                 <span className="text-4xl">📊</span> Investment Options
                             </h3>
                             <div className="space-y-5">
-                                <div className="p-5 bg-gradient-to-r from-red-50 to-red-100 rounded-xl border-l-4 border-red-600 shadow-md">
+                                <div className="p-5 bg-linear-to-r from-red-50 to-red-100 rounded-xl border-l-4 border-red-600 shadow-md">
                                     <h4 className="font-extrabold text-red-700 text-lg mb-2">Equity, Risky</h4>
                                     <p className="text-gray-800 font-semibold">Stocks, Mutual Funds</p>
                                 </div>
                                 
-                                <div className="p-5 bg-gradient-to-r from-green-50 to-green-100 rounded-xl border-l-4 border-green-600 shadow-md">
+                                <div className="p-5 bg-linear-to-r from-green-50 to-green-100 rounded-xl border-l-4 border-green-600 shadow-md">
                                     <h4 className="font-extrabold text-green-700 text-lg mb-2">Fixed Income, Safer</h4>
                                     <p className="text-gray-800 font-semibold">Bonds, Treasury Notes, National Savings Certificates</p>
                                 </div>
                                 
-                                <div className="p-5 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl border-l-4 border-blue-600 shadow-md">
+                                <div className="p-5 bg-linear-to-r from-blue-50 to-blue-100 rounded-xl border-l-4 border-blue-600 shadow-md">
                                     <h4 className="font-extrabold text-blue-700 text-lg mb-2">Steady, Limited Return</h4>
                                     <p className="text-gray-800 font-semibold">Fixed Deposits</p>
                                 </div>
                                 
-                                <div className="p-5 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl border-l-4 border-purple-600 shadow-md">
+                                <div className="p-5 bg-linear-to-r from-purple-50 to-purple-100 rounded-xl border-l-4 border-purple-600 shadow-md">
                                     <h4 className="font-extrabold text-purple-700 text-lg mb-2">Fintech Options</h4>
                                     <p className="text-gray-800 font-semibold">WeGro, iFarmer, Biniyog.io, Gold Kinen, FreshieFarm</p>
                                 </div>
 
-                                <div className="p-5 bg-gradient-to-r from-cyan-50 to-cyan-100 rounded-xl border-l-4 border-cyan-600 shadow-md">
+                                <div className="p-5 bg-linear-to-r from-cyan-50 to-cyan-100 rounded-xl border-l-4 border-cyan-600 shadow-md">
                                     <h4 className="font-extrabold text-cyan-700 text-lg mb-2">Peer Investment Networks</h4>
                                     <p className="text-gray-800 font-semibold">Bangladesh Investors Alliance, Investors Community Alliance</p>
                                 </div>
 
-                                <div className="p-5 bg-gradient-to-r from-pink-50 to-pink-100 rounded-xl border-l-4 border-pink-600 shadow-md">
+                                <div className="p-5 bg-linear-to-r from-pink-50 to-pink-100 rounded-xl border-l-4 border-pink-600 shadow-md">
                                     <h4 className="font-extrabold text-pink-700 text-lg mb-2">Fractional Land Platforms</h4>
                                     <p className="text-gray-800 font-semibold">Jomee Jomaa</p>
                                 </div>
@@ -590,7 +590,7 @@ export default function FinancialDashboard() {
                         </div>
 
                         <div className="space-y-6">
-                            <div className="bg-gradient-to-br from-red-100 to-orange-100 p-7 rounded-2xl shadow-xl border-3 border-red-500">
+                            <div className="bg-linear-to-br from-red-100 to-orange-100 p-7 rounded-2xl shadow-xl border-3 border-red-500">
                                 <h3 className="text-2xl font-extrabold mb-4 text-gray-900 flex items-center gap-2">
                                     <span className="text-3xl">⚠️</span> Risk Profile
                                 </h3>
@@ -679,7 +679,7 @@ export default function FinancialDashboard() {
                                 <label className="block text-base font-extrabold text-gray-900 mb-2">
                                     Portfolio Return (%)
                                 </label>
-                                <div className="w-full bg-gradient-to-r from-blue-200 to-purple-200 text-blue-950 rounded-xl border-3 border-blue-500 p-3 text-xl font-extrabold shadow-lg">
+                                <div className="w-full bg-linear-to-r from-blue-200 to-purple-200 text-blue-950 rounded-xl border-3 border-blue-500 p-3 text-xl font-extrabold shadow-lg">
                                     {calculatedWeightedReturn}%
                                 </div>
                             </div>
@@ -706,7 +706,7 @@ export default function FinancialDashboard() {
                             <div className="overflow-x-auto">
                                 <table className="w-full border-collapse">
                                     <thead>
-                                        <tr className="bg-gradient-to-r from-blue-100 to-purple-100 border-2 border-gray-300">
+                                        <tr className="bg-linear-to-r from-blue-100 to-purple-100 border-2 border-gray-300">
                                             <th className="p-3 text-left font-extrabold text-gray-900 border-r-2 border-gray-300">Instrument</th>
                                             <th className="p-3 text-center font-extrabold text-gray-900 border-r-2 border-gray-300">Allocation %</th>
                                             <th className="p-3 text-center font-extrabold text-gray-900 border-r-2 border-gray-300">Return %</th>
@@ -783,7 +783,7 @@ export default function FinancialDashboard() {
                                                 </td>
                                             </tr>
                                         ))}
-                                        <tr className="bg-gradient-to-r from-gray-100 to-gray-200 font-extrabold border-t-4 border-gray-400">
+                                        <tr className="bg-linear-to-r from-gray-100 to-gray-200 font-extrabold border-t-4 border-gray-400">
                                             <td className="p-4 text-lg border-r-2 border-gray-300">Total</td>
                                             <td className="p-4 text-center text-lg border-r-2 border-gray-300">100%</td>
                                             <td className="p-4 text-center text-lg text-blue-700 border-r-2 border-gray-300">{calculatedWeightedReturn}%</td>
@@ -811,7 +811,7 @@ export default function FinancialDashboard() {
                             <Line data={lineData} options={lineOptions} />
                         </div>
 
-                        <div className="mt-6 p-6 bg-gradient-to-r from-cyan-100 to-blue-100 rounded-2xl flex flex-wrap justify-between items-center gap-6 border-3 border-cyan-500 shadow-lg">
+                        <div className="mt-6 p-6 bg-linear-to-r from-cyan-100 to-blue-100 rounded-2xl flex flex-wrap justify-between items-center gap-6 border-3 border-cyan-500 shadow-lg">
                             <div>
                                 <span className="text-base font-bold text-gray-800 block mb-1">
                                     Projected at Year {activePortfolioKey === "Car Fund" ? "5" : "8"}
@@ -866,7 +866,7 @@ export default function FinancialDashboard() {
                                 <label className="block text-base font-extrabold text-gray-900 mb-2">
                                     Portfolio Return (%)
                                 </label>
-                                <div className="w-full bg-gradient-to-r from-blue-200 to-purple-200 text-blue-950 rounded-xl border-3 border-blue-500 p-3 text-xl font-extrabold shadow-lg">
+                                <div className="w-full bg-linear-to-r from-blue-200 to-purple-200 text-blue-950 rounded-xl border-3 border-blue-500 p-3 text-xl font-extrabold shadow-lg">
                                     {calculatedWeightedReturn}%
                                 </div>
                             </div>
@@ -892,7 +892,7 @@ export default function FinancialDashboard() {
                         <div className="overflow-x-auto">
                             <table className="w-full border-collapse">
                                 <thead>
-                                    <tr className="bg-gradient-to-r from-blue-100 to-purple-100 border-2 border-gray-300">
+                                    <tr className="bg-linear-to-r from-blue-100 to-purple-100 border-2 border-gray-300">
                                         <th className="p-3 text-left font-extrabold text-gray-900 border-r-2 border-gray-300 w-1/4">Instrument</th>
                                         <th className="p-3 text-center font-extrabold text-gray-900 border-r-2 border-gray-300 w-1/3">Allocation %</th>
                                         <th className="p-3 text-center font-extrabold text-gray-900 border-r-2 border-gray-300 w-1/6">Return %</th>
@@ -969,7 +969,7 @@ export default function FinancialDashboard() {
                                             </td>
                                         </tr>
                                     ))}
-                                    <tr className="bg-gradient-to-r from-gray-100 to-gray-200 font-extrabold border-t-4 border-gray-400">
+                                    <tr className="bg-linear-to-r from-gray-100 to-gray-200 font-extrabold border-t-4 border-gray-400">
                                         <td className="p-4 text-lg border-r-2 border-gray-300">Total</td>
                                         <td className="p-4 text-center text-lg border-r-2 border-gray-300">100%</td>
                                         <td className="p-4 text-center text-lg text-blue-700 border-r-2 border-gray-300">{calculatedWeightedReturn}%</td>
@@ -996,7 +996,7 @@ export default function FinancialDashboard() {
                                 <Line data={lineData} options={lineOptions} />
                             </div>
 
-                            <div className="mt-6 p-6 bg-gradient-to-r from-cyan-100 to-blue-100 rounded-2xl flex flex-wrap justify-between items-center gap-6 border-3 border-cyan-500 shadow-lg">
+                            <div className="mt-6 p-6 bg-linear-to-r from-cyan-100 to-blue-100 rounded-2xl flex flex-wrap justify-between items-center gap-6 border-3 border-cyan-500 shadow-lg">
                                 <div>
                                     <span className="text-base font-bold text-gray-800 block mb-1">
                                         Projected Year 8

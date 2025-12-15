@@ -12,7 +12,7 @@ const CompetitionCard = memo(({ href, title, subtitle, emoji, colors }: {
 }) => (
   <Link 
     href={href}
-    className={`group relative ${colors} rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer min-h-[200px] flex items-center justify-center`}
+    className={`group relative ${colors} rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer min-h-50 flex items-center justify-center`}
   >
     <div className="flex flex-col items-center justify-center h-full text-white text-center">
       <div className="text-5xl mb-3">{emoji}</div>
@@ -36,11 +36,11 @@ SectionHeader.displayName = 'SectionHeader';
 
 export default function BizCompPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 flex items-center justify-center p-4 sm:p-6">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-purple-50 flex items-center justify-center p-4 sm:p-6">
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-500 mb-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-blue-600 via-purple-600 to-cyan-500 mb-4">
             Business Competitions
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 font-medium">
@@ -61,14 +61,14 @@ export default function BizCompPage() {
               title="Round 2"
               subtitle="Portfolio Dashboard"
               emoji="🎯"
-              colors="bg-gradient-to-br from-blue-500 to-blue-600"
+              colors="bg-linear-to-br from-blue-500 to-blue-600"
             />
             <CompetitionCard
               href="/bizcomp/accfinity/r3"
               title="Round 3"
               subtitle="Advanced Analysis"
               emoji="🚀"
-              colors="bg-gradient-to-br from-purple-500 to-purple-600"
+              colors="bg-linear-to-br from-purple-500 to-purple-600"
             />
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function BizCompPage() {
               title="Round 2"
               subtitle="Project PayWave BD"
               emoji="📊"
-              colors="bg-gradient-to-br from-green-500 to-green-600"
+              colors="bg-linear-to-br from-green-500 to-green-600"
             />
           </div>
         </div>
