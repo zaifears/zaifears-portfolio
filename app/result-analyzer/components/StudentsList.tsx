@@ -8,7 +8,6 @@ interface StudentListProps {
   data: ExcelData;
 }
 
-<<<<<<< HEAD
 type SortKey = 'registration' | 'name' | 'gpa' | 'result';
 type SortOrder = 'asc' | 'desc';
 

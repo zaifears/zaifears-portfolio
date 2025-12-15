@@ -148,7 +148,6 @@ function parseStudentData(rawData: RawExcelRow[], courseMap: Map<string, string>
         const courseCode = String(row[key]).trim();
         if (!courseCode) return;
 
-<<<<<<< HEAD
         // Get the suffix to match LG and GP columns
         const suffix = key.replace('Course Code', '');
         
@@ -171,7 +170,6 @@ function parseStudentData(rawData: RawExcelRow[], courseMap: Map<string, string>
       }
     });
 
-<<<<<<< HEAD
     // Calculate overall result based on failed courses
     const hasFail = student.courses.some(c => c.status === 'Fail');
     student.result = hasFail ? 'Fail' : 'Pass';
@@ -180,14 +178,6 @@ function parseStudentData(rawData: RawExcelRow[], courseMap: Map<string, string>
     const gpaKey = keys.find(k => k === 'GPA' || k === 'SGPA');
     if (gpaKey) {
       student.gpa = Number(row[gpaKey] || 0);
-        student.result = student.failedCourses > 0 ? 'Fail' : 'Pass';
-      }
-    } else {
-      // No explicit status column - use failed courses logic
-      student.result = student.failedCourses > 0 ? 'Fail' : 'Pass';
-    }
-    
-    // Calculate average GPA (for target semester only)
     if (student.courses.length > 0) {
       const totalGP = student.courses.reduce((sum, c) => sum + (c.gradePoint || 0), 0);
       student.averageMarks = parseFloat((totalGP / student.courses.length).toFixed(2));

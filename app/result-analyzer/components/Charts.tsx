@@ -156,7 +156,6 @@ export default function Charts({ data }: ChartsProps) {
           </ResponsiveContainer>
         </div>
 
-<<<<<<< HEAD
         {/* A+ Count by Course */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:col-span-2">
           <h3 className="text-lg font-bold text-gray-900 mb-4">A+ Grades by Course</h3>
@@ -216,23 +215,6 @@ export default function Charts({ data }: ChartsProps) {
             </div>
           </div>
         )}
-=======
-        {/* Pass Rate by Course */}
-        <div className="bg-white rounded-lg shadow-md p-6 lg:col-span-2">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">Pass Rate by Course</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={courseData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} tick={{ fill: '#4b5563' }} />
-              <YAxis tick={{ fill: '#4b5563' }} />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="passed" fill="#10b981" name="Passed" stackId="stack" />
-              <Bar dataKey="failed" fill="#ef4444" name="Failed" stackId="stack" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
->>>>>>> 18241c0cfd444b712883a492636f51e37d553341
       </div>
     </div>
   );
