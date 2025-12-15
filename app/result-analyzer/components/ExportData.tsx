@@ -9,10 +9,10 @@ interface ExportDataProps {
 
 export default function ExportData({ data }: ExportDataProps) {
   const exportAsCSV = () => {
-    let csv = 'Registration,Name,Total Marks,Average Marks,Grade,Result,Passed Courses,Failed Courses\n';
+    let csv = 'Registration,Name,GPA,Result,Status\n';
 
     data.students.forEach((student) => {
-      csv += `"${student.registration}","${student.name}",${student.totalMarks},${student.averageMarks},${student.totalGrade},"${student.result}",${student.passedCourses},${student.failedCourses}\n`;
+      csv += `"${student.registration}","${student.name}",${student.gpa.toFixed(2)},"${student.result}","${student.result === 'Pass' ? 'Promoted' : 'Not Promoted'}"\n`;
     });
 
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -26,10 +26,10 @@ export default function ExportData({ data }: ExportDataProps) {
   };
 
   const exportAsSummaryCSV = () => {
-    let csv = 'Course Code,Course Name,Total Students,Passed,Failed,Average Marks,Highest Marks,Lowest Marks,Pass Percentage\n';
+    let csv = 'Course Code,Course Name,Total Students,Passed,Failed,Average GP,Pass Percentage\n';
 
     data.courseStats.forEach((course) => {
-      csv += `"${course.code}","${course.name}",${course.totalStudents},${course.passedStudents},${course.failedStudents},${course.averageMarks},${course.highestMarks},${course.lowestMarks},${course.passPercentage}\n`;
+      csv += `"${course.code}","${course.name}",${course.totalStudents},${course.passedStudents},${course.failedStudents},${course.averageGP.toFixed(2)},${course.passPercentage.toFixed(1)}\n`;
     });
 
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -48,10 +48,9 @@ export default function ExportData({ data }: ExportDataProps) {
     text += `${'='.repeat(50)}\n`;
     text += `Total Students: ${data.summary.totalStudents}\n`;
     text += `Passed: ${data.summary.passedStudents} (${data.summary.passPercentage}%)\n`;
-    text += `Failed: ${data.summary.failedStudents} (${data.summary.failPercentage}%)\n`;
-    text += `Average Marks: ${data.summary.averageMarks}\n`;
-    text += `Highest Marks: ${data.summary.topMarks}\n`;
-    text += `Lowest Marks: ${data.summary.lowestMarks}\n`;
+    text += `Failed: ${data.summary.failedStudents} (${(100 - data.summary.passPercentage).toFixed(2)}%)\n`;
+    text += `Average CGPA: ${data.summary.averageCGPA}\n`;
+    text += `Top CGPA: ${data.summary.topCGPA}\n`;
     text += `Total Courses: ${data.totalCourses}\n\n`;
 
     text += `GRADE DISTRIBUTION\n`;
@@ -62,11 +61,11 @@ export default function ExportData({ data }: ExportDataProps) {
     });
     text += '\n';
 
-    text += `TOP 10 STUDENTS (BY AVERAGE MARKS)\n`;
+    text += `TOP 10 STUDENTS (BY GPA)\n`;
     text += `${'='.repeat(50)}\n`;
-    const topStudents = [...data.students].sort((a, b) => b.averageMarks - a.averageMarks).slice(0, 10);
+    const topStudents = [...data.students].sort((a, b) => b.gpa - a.gpa).slice(0, 10);
     topStudents.forEach((student, idx) => {
-      text += `${idx + 1}. ${student.name} (${student.registration}) - Avg: ${student.averageMarks}, Grade: ${student.totalGrade}\n`;
+      text += `${idx + 1}. ${student.name} (${student.registration}) - GPA: ${student.gpa.toFixed(2)}\n`;
     });
 
     const blob = new Blob([text], { type: 'text/plain' });
