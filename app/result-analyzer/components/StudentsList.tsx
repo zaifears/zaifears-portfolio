@@ -88,7 +88,7 @@ export default function StudentsList({ data }: StudentListProps) {
       {/* Top Performers (Nerds) Section */}
       {(() => {
         const topPerformers = [...data.students]
-          .sort((a, b) => b.averageMarks - a.averageMarks)
+          .sort((a, b) => b.gpa - a.gpa)
           .slice(0, 10);
 
         return (
@@ -102,8 +102,8 @@ export default function StudentsList({ data }: StudentListProps) {
                     <p className="text-xs text-gray-500">{student.registration}</p>
                   </div>
                   <div className="mt-3 pt-3 border-t border-yellow-100">
-                    <p className="text-sm text-gray-600">GPA: <span className="font-bold text-yellow-600">{student.averageMarks.toFixed(2)}</span></p>
-                    <p className="text-xs text-green-600 mt-1">✓ {student.passedCourses} Passed</p>
+                    <p className="text-sm text-gray-600">GPA: <span className="font-bold text-yellow-600">{student.gpa.toFixed(2)}</span></p>
+                    <p className="text-xs text-green-600 mt-1">✓ {student.courses.length} Courses</p>
                   </div>
                 </div>
               ))}
