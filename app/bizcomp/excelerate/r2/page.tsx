@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
+import NextImage from 'next/image';
 import { FiArrowUpRight, FiArrowDownLeft, FiMoreVertical, FiEye, FiEyeOff, FiBell, FiSettings, FiCode, FiHome } from 'react-icons/fi';
 import { MdSend, MdLocalAtm, MdShoppingCart, MdMobileScreenShare, MdReceiptLong, MdHistory, MdTrendingUp, MdPublic, MdCallSplit } from 'react-icons/md';
 import { FaQrcode } from 'react-icons/fa';
 
-export default function BKashDemoApp() {
+export default function PaywaveDemo() {
   const [showBalance, setShowBalance] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
   const [showQRScanner, setShowQRScanner] = useState(false);
@@ -42,11 +43,16 @@ export default function BKashDemoApp() {
   const [participants, setParticipants] = useState<Array<{id: number, name: string, amount: number}>>([]);
   const [participantCount, setParticipantCount] = useState(2);
   const [lastSplitTapTime, setLastSplitTapTime] = useState(0);
+  const [showInvestment, setShowInvestment] = useState(false);
+  const [investmentStep, setInvestmentStep] = useState('options'); // 'options' or 'alternative'
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [language, setLanguage] = useState<'EN' | 'বাং'>('EN');
 
   // Mock data
   const accountData = {
-    balance: 45820,
-    name: 'Ahmed Hassan',
+    balance: 4582.75,
+    name: 'Shahoriar Hossain',
     phone: '+880 1712 345 678',
     level: 'User',
   };
@@ -61,11 +67,18 @@ export default function BKashDemoApp() {
   ];
 
   const transactions = [
-    { type: 'send', amount: 500, recipient: 'Farhan Khan', date: '10 min ago', status: 'Completed', icon: FiArrowUpRight },
-    { type: 'receive', amount: 2000, recipient: 'Rahim Ahmed', date: '2 hours ago', status: 'Completed', icon: FiArrowDownLeft },
+    { type: 'send', amount: 500, recipient: 'Rohan', date: '10 min ago', status: 'Completed', icon: FiArrowUpRight },
+    { type: 'receive', amount: 2000, recipient: 'Turjo', date: '2 hours ago', status: 'Completed', icon: FiArrowDownLeft },
     { type: 'send', amount: 1500, recipient: 'Payment Split - Restaurant', date: '5 hours ago', status: 'Completed', icon: FiArrowUpRight },
-    { type: 'receive', amount: 3500, recipient: 'Business Payment', date: '1 day ago', status: 'Completed', icon: FiArrowDownLeft },
+    { type: 'receive', amount: 3500, recipient: 'Saifullah', date: '1 day ago', status: 'Completed', icon: FiArrowDownLeft },
     { type: 'send', amount: 750, recipient: 'Online Purchase', date: '2 days ago', status: 'Completed', icon: FiArrowUpRight },
+    { type: 'receive', amount: 1200, recipient: 'Freelance Project', date: '3 days ago', status: 'Completed', icon: FiArrowDownLeft },
+    { type: 'send', amount: 2500, recipient: 'Rohan', date: '4 days ago', status: 'Completed', icon: FiArrowUpRight },
+    { type: 'receive', amount: 800, recipient: 'Money Request - Turjo', date: '5 days ago', status: 'Completed', icon: FiArrowDownLeft },
+    { type: 'send', amount: 3000, recipient: 'Utility Bill Payment', date: '6 days ago', status: 'Completed', icon: FiArrowUpRight },
+    { type: 'send', amount: 450, recipient: 'Saifullah', date: '1 week ago', status: 'Completed', icon: FiArrowUpRight },
+    { type: 'receive', amount: 5000, recipient: 'Salary Deposit', date: '1 week ago', status: 'Completed', icon: FiArrowDownLeft },
+    { type: 'send', amount: 1800, recipient: 'Shopping - Clothes', date: '8 days ago', status: 'Completed', icon: FiArrowUpRight },
   ];
 
   const quickActions = [
@@ -188,9 +201,10 @@ export default function BKashDemoApp() {
       // Generate participants with equal split
       const amount = parseFloat(splitAmount);
       const perPerson = (amount / participantCount).toFixed(2);
+      const names = ['You', 'Rohan', 'Turjo', 'Saifullah'];
       const newParticipants = Array.from({ length: participantCount }, (_, i) => ({
         id: i + 1,
-        name: i === 0 ? 'You' : `Person ${i + 1}`,
+        name: names[i] || `Person ${i + 1}`,
         amount: parseFloat(perPerson),
       }));
       setParticipants(newParticipants);
@@ -222,11 +236,25 @@ export default function BKashDemoApp() {
     setParticipants(participants.map(p => p.id === id ? { ...p, amount: newAmount } : p));
   };
 
+  const modalOpen =
+    showNotifications ||
+    showSettings ||
+    showSendMoney ||
+    showMobileRecharge ||
+    showCashOut ||
+    showAgentCashout ||
+    showPayment ||
+    showPaymentSplitting ||
+    showInvestment ||
+    showQRScanner;
+
   return (
-    <div className="bg-gray-50 min-h-screen pb-24">
+    <div
+      className={`bg-gray-50 min-h-screen pb-24 ${modalOpen ? 'h-screen overflow-hidden overscroll-none' : ''}`}
+    >
       {/* Under Development Modal */}
       {showUnderdevelopment && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/50 z-51 flex items-center justify-center pt-16">
           <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center">
             <p className="text-3xl mb-4">🚧</p>
             <h3 className="text-xl font-bold text-gray-900 mb-2">Under Development</h3>
@@ -241,21 +269,174 @@ export default function BKashDemoApp() {
         </div>
       )}
 
-      {/* Mobile Recharge Modal */}
-      {showMobileRecharge && (
-        <div className="fixed inset-0 bg-linear-to-b from-gray-50 to-white z-40 flex flex-col overflow-hidden">
-          {/* Close Button */}
-          <div className="flex justify-end p-4">
-            <button
-              onClick={() => setShowMobileRecharge(false)}
-              className="text-gray-700 text-2xl hover:text-[#2f6b44] transition"
-            >
-              ✕
-            </button>
+      {/* Notifications Modal */}
+      {showNotifications && (
+        <div className="fixed inset-0 bg-white z-50 flex flex-col overflow-hidden pt-16">
+          {/* Header */}
+          <div className="bg-[#2f6b44] text-white p-4 flex items-center">
+            <h3 className="text-xl font-bold">Notifications & Features</h3>
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto px-5 pb-5">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-36 scroll-smooth overscroll-contain">
+            {/* Feature 1 */}
+            <div className="bg-linear-to-r from-[#2f6b44]/10 to-[#ddaf3f]/10 rounded-lg p-4 border-l-4 border-[#2f6b44]">
+              <h4 className="font-bold text-gray-900 mb-1">💳 Get Cashback on Every Transfer</h4>
+              <p className="text-sm text-gray-600">Earn 0.5% cashback on all money transfers to your friends. Rewards add up fast!</p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="bg-linear-to-r from-[#ddaf3f]/10 to-[#2f6b44]/10 rounded-lg p-4 border-l-4 border-[#ddaf3f]">
+              <h4 className="font-bold text-gray-900 mb-1">📈 Smart Investments Now Available</h4>
+              <p className="text-sm text-gray-600">Start investing with as low as ৳100. Auto-invest feature helps grow your wealth daily.</p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="bg-linear-to-r from-[#2f6b44]/10 to-[#ddaf3f]/10 rounded-lg p-4 border-l-4 border-[#2f6b44]">
+              <h4 className="font-bold text-gray-900 mb-1">🎁 Refer Friends & Earn Rewards</h4>
+              <p className="text-sm text-gray-600">Invite 3 friends and get ৳500 bonus. They get ৳100 each when they sign up!</p>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="bg-linear-to-r from-[#ddaf3f]/10 to-[#2f6b44]/10 rounded-lg p-4 border-l-4 border-[#ddaf3f]">
+              <h4 className="font-bold text-gray-900 mb-1">🛡️ Enhanced Security Features</h4>
+              <p className="text-sm text-gray-600">Biometric authentication and transaction limits for maximum security on your account.</p>
+            </div>
+
+            {/* Feature 5 */}
+            <div className="bg-linear-to-r from-[#2f6b44]/10 to-[#ddaf3f]/10 rounded-lg p-4 border-l-4 border-[#2f6b44]">
+              <h4 className="font-bold text-gray-900 mb-1">🎯 Monthly Savings Goals</h4>
+              <p className="text-sm text-gray-600">Set savings targets and auto-transfer funds. Track your progress with visual charts.</p>
+            </div>
+
+            {/* Feature 6 */}
+            <div className="bg-linear-to-r from-[#ddaf3f]/10 to-[#2f6b44]/10 rounded-lg p-4 border-l-4 border-[#ddaf3f]">
+              <h4 className="font-bold text-gray-900 mb-1">💰 Bill Payment Discounts</h4>
+              <p className="text-sm text-gray-600">Get 2% discount on utility bills, internet, and mobile recharge payments this month!</p>
+            </div>
+          </div>
+
+          {/* Close Button - Fixed above bottom navbar */}
+          <div className="fixed bottom-16 left-0 right-0 bg-white border-t border-gray-200 p-4 max-w-md mx-auto w-full">
+            <button
+              onClick={() => setShowNotifications(false)}
+              className="w-full bg-[#2f6b44] text-white py-3 rounded-lg font-semibold hover:bg-[#1a3d25] transition text-lg"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Settings Modal */}
+      {showSettings && (
+        <div className="fixed inset-0 bg-white z-50 flex flex-col overflow-hidden pt-16">
+          {/* Header */}
+          <div className="bg-[#2f6b44] text-white p-4 flex items-center">
+            <h3 className="text-xl font-bold">Settings</h3>
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-36 scroll-smooth overscroll-contain">
+            {/* Profile */}
+            <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <p className="text-xs text-gray-500">Profile</p>
+                  <p className="text-sm font-bold text-gray-900">{accountData.name}</p>
+                  <p className="text-xs text-gray-600">{accountData.phone}</p>
+                </div>
+                <span className="text-[10px] px-2 py-1 bg-[#ddaf3f]/20 text-[#ddaf3f] rounded-full border border-[#ddaf3f]/60">Verified</span>
+              </div>
+              <button className="w-full mt-2 bg-[#2f6b44] text-white py-2 rounded-lg font-semibold hover:bg-[#1a3d25] transition text-sm">Edit Profile</button>
+            </div>
+
+            {/* Security */}
+            <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-bold text-gray-900">Login & Security</p>
+                  <p className="text-xs text-gray-600">Biometric login enabled</p>
+                </div>
+                <span className="text-[10px] px-2 py-1 bg-[#2f6b44]/10 text-[#2f6b44] rounded-full">On</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-bold text-gray-900">Transaction PIN</p>
+                  <p className="text-xs text-gray-600">Required for every payment</p>
+                </div>
+                <button className="text-xs font-semibold text-[#2f6b44] border border-[#2f6b44]/50 px-3 py-1 rounded-lg hover:bg-[#2f6b44]/5 transition">Manage</button>
+              </div>
+            </div>
+
+            {/* Preferences */}
+            <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-bold text-gray-900">Theme</p>
+                  <p className="text-xs text-gray-600">Light</p>
+                </div>
+                <button className="text-xs font-semibold text-[#2f6b44] border border-[#2f6b44]/50 px-3 py-1 rounded-lg hover:bg-[#2f6b44]/5 transition">Change</button>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-bold text-gray-900">Language</p>
+                  <p className="text-xs text-gray-600">English (US)</p>
+                </div>
+                <button className="text-xs font-semibold text-[#2f6b44] border border-[#2f6b44]/50 px-3 py-1 rounded-lg hover:bg-[#2f6b44]/5 transition">Change</button>
+              </div>
+            </div>
+
+            {/* Notifications */}
+            <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-bold text-gray-900">Push Notifications</p>
+                  <p className="text-xs text-gray-600">Transactions, offers, and security alerts</p>
+                </div>
+                <span className="text-[10px] px-2 py-1 bg-[#2f6b44]/10 text-[#2f6b44] rounded-full">On</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-bold text-gray-900">Email Updates</p>
+                  <p className="text-xs text-gray-600">Monthly summary and insights</p>
+                </div>
+                <span className="text-[10px] px-2 py-1 bg-gray-100 text-gray-600 rounded-full">Off</span>
+              </div>
+            </div>
+
+            {/* Limits */}
+            <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm space-y-2">
+              <p className="text-sm font-bold text-gray-900">Limits</p>
+              <div className="flex items-center justify-between text-sm text-gray-700">
+                <span>Daily Transfer Limit</span>
+                <span className="font-semibold">৳50,000</span>
+              </div>
+              <div className="flex items-center justify-between text-sm text-gray-700">
+                <span>Single Transaction</span>
+                <span className="font-semibold">৳10,000</span>
+              </div>
+              <button className="text-xs font-semibold text-[#2f6b44] border border-[#2f6b44]/50 px-3 py-1 rounded-lg hover:bg-[#2f6b44]/5 transition w-full">Request Increase</button>
+            </div>
+          </div>
+
+          {/* Close Button - Fixed above bottom navbar */}
+          <div className="fixed bottom-16 left-0 right-0 bg-white border-t border-gray-200 p-4 max-w-md mx-auto w-full">
+            <button
+              onClick={() => setShowSettings(false)}
+              className="w-full bg-[#2f6b44] text-white py-3 rounded-lg font-semibold hover:bg-[#1a3d25] transition text-lg"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Recharge Modal */}
+      {showMobileRecharge && (
+        <div className="fixed inset-0 bg-linear-to-b from-gray-50 to-white z-40 flex flex-col overflow-hidden pt-16">
+          {/* Content */}
+          <div className="flex-1 overflow-y-auto px-5 pb-28">
             {/* Step 1: Phone Number Input */}
             {rechargeStep === 'input' && (
               <>
@@ -491,17 +672,7 @@ export default function BKashDemoApp() {
 
       {/* Cash Out Modal */}
       {showCashOut && (
-        <div className="fixed inset-0 bg-linear-to-b from-gray-50 to-white z-40 flex flex-col overflow-hidden">
-          {/* Close Button */}
-          <div className="flex justify-end p-4">
-            <button
-              onClick={() => setShowCashOut(false)}
-              className="text-gray-700 text-2xl hover:text-[#2f6b44] transition"
-            >
-              ✕
-            </button>
-          </div>
-
+        <div className="fixed inset-0 bg-linear-to-b from-gray-50 to-white z-40 flex flex-col overflow-hidden pt-16">
           {/* Tabs */}
           <div className="flex bg-white border-b border-gray-200 sticky top-0 z-10 px-5">
             <button
@@ -635,19 +806,9 @@ export default function BKashDemoApp() {
 
       {/* Agent Cashout Modal */}
       {showAgentCashout && (
-        <div className="fixed inset-0 bg-linear-to-b from-gray-50 to-white z-40 flex flex-col overflow-hidden">
-          {/* Close Button */}
-          <div className="flex justify-end p-4">
-            <button
-              onClick={() => setShowAgentCashout(false)}
-              className="text-gray-700 text-2xl hover:text-[#2f6b44] transition"
-            >
-              ✕
-            </button>
-          </div>
-
+        <div className="fixed inset-0 bg-linear-to-b from-gray-50 to-white z-40 flex flex-col overflow-hidden pt-16">
           {/* Content */}
-          <div className="flex-1 overflow-y-auto px-5 pb-5">
+          <div className="flex-1 overflow-y-auto px-5 pb-28">
             {/* Amount Input */}
             {agentCashoutStep === 'amount' && (
               <>
@@ -732,20 +893,14 @@ export default function BKashDemoApp() {
       )}
 
       {showSendMoney && (
-        <div className="fixed inset-0 bg-white z-40 flex flex-col overflow-hidden">
+        <div className="fixed inset-0 bg-white z-40 flex flex-col overflow-hidden pt-16">
           {/* Header */}
-          <div className="bg-[#2f6b44] text-white p-4 flex justify-between items-center">
+          <div className="bg-[#2f6b44] text-white p-4 flex items-center">
             <h3 className="text-xl font-bold">Send Money</h3>
-            <button
-              onClick={() => setShowSendMoney(false)}
-              className="text-white text-2xl hover:text-[#ddaf3f] transition"
-            >
-              ✕
-            </button>
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6">
+          <div className="flex-1 overflow-y-auto p-6 pb-28">
             {/* Step 1: Phone Number Input */}
             {sendMoneyStep === 'input' && (
               <>
@@ -779,7 +934,7 @@ export default function BKashDemoApp() {
                     onClick={() => setShowSendMoney(false)}
                     className="w-full bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition text-lg"
                   >
-                    Cancel
+                    Back
                   </button>
                 </div>
               </>
@@ -871,20 +1026,14 @@ export default function BKashDemoApp() {
 
       {/* Payment Modal */}
       {showPayment && (
-        <div className="fixed inset-0 bg-white z-40 flex flex-col overflow-hidden">
+        <div className="fixed inset-0 bg-white z-40 flex flex-col overflow-hidden pt-16">
           {/* Header */}
-          <div className="bg-[#2f6b44] text-white p-4 flex justify-between items-center">
+          <div className="bg-[#2f6b44] text-white p-4 flex items-center">
             <h3 className="text-xl font-bold">Make Payment</h3>
-            <button
-              onClick={() => setShowPayment(false)}
-              className="text-white text-2xl hover:text-[#ddaf3f] transition"
-            >
-              ✕
-            </button>
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6">
+          <div className="flex-1 overflow-y-auto p-6 pb-28">
             {/* Step 1: Number Input */}
             {paymentStep === 'input' && (
               <>
@@ -919,7 +1068,7 @@ export default function BKashDemoApp() {
                     onClick={() => setShowPayment(false)}
                     className="w-full bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition text-lg"
                   >
-                    Cancel
+                    Back
                   </button>
                 </div>
               </>
@@ -1001,23 +1150,10 @@ export default function BKashDemoApp() {
 
       {/* Payment Splitting Modal */}
       {showPaymentSplitting && (
-        <div className="fixed inset-0 bg-white z-40 flex flex-col overflow-hidden">
+        <div className="fixed inset-0 bg-white z-40 flex flex-col overflow-hidden pt-16">
           {/* Header */}
-          <div className="bg-[#2f6b44] text-white p-4 flex justify-between items-center">
+          <div className="bg-[#2f6b44] text-white p-4 flex items-center">
             <h3 className="text-xl font-bold">Payment Splitting</h3>
-            <button
-              onClick={() => {
-                setShowPaymentSplitting(false);
-                setSplitStep('input');
-                setSplitAmount('');
-                setParticipants([]);
-                setParticipantCount(2);
-                setSplitMode('create');
-              }}
-              className="text-white text-2xl hover:text-[#ddaf3f] transition"
-            >
-              ✕
-            </button>
           </div>
 
           {/* Content */}
@@ -1183,7 +1319,7 @@ export default function BKashDemoApp() {
                     // Simulate scanning
                     setParticipants([
                       { id: 1, name: 'You', amount: 500 },
-                      { id: 2, name: 'Farhan Khan', amount: 500 },
+                      { id: 2, name: 'Rohan', amount: 500 },
                     ]);
                     handleSplitJoinNext();
                   }}
@@ -1328,7 +1464,7 @@ export default function BKashDemoApp() {
 
       {/* QR Scanner Modal */}
       {showQRScanner && (
-        <div className="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center">
+        <div className="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center pt-16">
           <div className="w-80 h-80 border-4 border-[#ddaf3f] rounded-lg flex items-center justify-center bg-gray-900 relative overflow-hidden">
             {/* Camera Background */}
             <div className="absolute inset-0 bg-linear-to-b from-gray-800 via-gray-900 to-gray-950 flex items-center justify-center">
@@ -1365,41 +1501,258 @@ export default function BKashDemoApp() {
             </div>
           )}
 
-          {/* Close Button */}
+        {/* Fixed Footer Back Button */}
+        <div className="fixed bottom-0 left-0 right-0 bg-black/80 border-t border-gray-700 p-4 max-w-md mx-auto">
           <button
             onClick={() => {
               setShowQRScanner(false);
               setScanned(false);
             }}
-            className="absolute top-4 right-4 text-white text-2xl hover:text-[#ddaf3f] transition"
+            className="w-full bg-white border-2 border-gray-300 text-gray-900 py-4 rounded-xl font-bold hover:bg-gray-50 transition text-lg"
           >
-            ✕
+            ← Back
           </button>
+        </div>
+        </div>
+      )}
+
+      {/* Investment Modal */}
+      {showInvestment && (
+        <div className="fixed inset-0 bg-white z-50 flex flex-col overflow-hidden pt-16">
+          {/* Header */}
+          <div className="bg-[#2f6b44] text-white p-4 flex items-center">
+            <h3 className="text-xl font-bold">Investment</h3>
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 overflow-y-auto p-6 pb-28">
+            {investmentStep === 'options' && (
+              <>
+                <div className="mb-8">
+                  <h4 className="text-lg font-bold text-gray-900 mb-6">Choose Investment Option</h4>
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* Sanchaypatra */}
+                    <button
+                      onClick={() => window.open('https://nationalsavings.gov.bd/', '_blank')}
+                      className="bg-linear-to-br from-[#2f6b44] to-[#1a3d25] text-white py-6 px-4 rounded-xl font-bold hover:shadow-lg transition flex flex-col items-center justify-center gap-2 shadow-md"
+                    >
+                      <span className="text-2xl">📊</span>
+                      <span className="text-sm text-center">সঞ্চয়পত্র</span>
+                    </button>
+
+                    {/* Mutual Fund */}
+                    <button
+                      onClick={() => setInvestmentStep('mutual-fund')}
+                      className="bg-linear-to-br from-[#2f6b44] to-[#1a3d25] text-white py-6 px-4 rounded-xl font-bold hover:shadow-lg transition flex flex-col items-center justify-center gap-2 shadow-md"
+                    >
+                      <span className="text-2xl">💼</span>
+                      <span className="text-sm text-center">Mutual Fund</span>
+                    </button>
+
+                    {/* Alternative Investment */}
+                    <button
+                      onClick={() => setInvestmentStep('alternative')}
+                      className="bg-linear-to-br from-[#2f6b44] to-[#1a3d25] text-white py-6 px-4 rounded-xl font-bold hover:shadow-lg transition flex flex-col items-center justify-center gap-2 shadow-md"
+                    >
+                      <span className="text-2xl">🌱</span>
+                      <span className="text-sm text-center">Alternative</span>
+                    </button>
+
+                    {/* Open BO Account */}
+                    <button
+                      onClick={() => setShowUnderdevelopment(true)}
+                      className="bg-linear-to-br from-[#2f6b44] to-[#1a3d25] text-white py-6 px-4 rounded-xl font-bold hover:shadow-lg transition flex flex-col items-center justify-center gap-2 shadow-md"
+                    >
+                      <span className="text-2xl">🏦</span>
+                      <span className="text-sm text-center">Open BO</span>
+                    </button>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowInvestment(false);
+                    setInvestmentStep('options');
+                  }}
+                  className="w-full bg-white border-2 border-gray-300 text-gray-900 py-3 rounded-xl font-bold hover:bg-gray-50 transition text-lg"
+                >
+                  Back
+                </button>
+              </>
+            )}
+
+            {investmentStep === 'mutual-fund' && (
+              <>
+                <div className="mb-6">
+                  <h4 className="text-lg font-bold text-gray-900 mb-6">Mutual Fund</h4>
+                </div>
+                <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-6 text-center mb-6">
+                  <p className="text-red-600 font-semibold mb-2">Account Required</p>
+                  <p className="text-gray-700 text-sm mb-4">No attached BO account found, you need a BO account first</p>
+                  <button
+                    onClick={() => {
+                      setInvestmentStep('options');
+                      setShowUnderdevelopment(true);
+                    }}
+                    className="w-full bg-[#2f6b44] text-white py-3 rounded-lg font-bold hover:bg-[#1a3d25] transition"
+                  >
+                    Create BO Account
+                  </button>
+                </div>
+                <button
+                  onClick={() => setInvestmentStep('options')}
+                  className="w-full bg-white border-2 border-gray-300 text-gray-900 py-3 rounded-xl font-bold hover:bg-gray-50 transition text-lg"
+                >
+                  Back
+                </button>
+              </>
+            )}
+
+            {investmentStep === 'alternative' && (
+              <>
+                <div className="mb-6">
+                  <h4 className="text-lg font-bold text-gray-900 mb-4">Alternative Investment Platforms</h4>
+                  <div className="space-y-3">
+                    {/* WeGro */}
+                    <button
+                      onClick={() => window.open('https://wegro.global', '_blank')}
+                      className="w-full bg-white border-2 border-[#2f6b44] rounded-xl p-4 hover:bg-[#2f6b44]/5 transition text-left"
+                    >
+                      <h5 className="font-bold text-gray-900 mb-1">WeGro</h5>
+                      <p className="text-xs text-gray-600 mb-3">wegro.global</p>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs bg-[#2f6b44] text-white px-3 py-1 rounded-full">Alternative Assets</span>
+                        <span className="text-[#2f6b44]">→</span>
+                      </div>
+                    </button>
+
+                    {/* iFarmer */}
+                    <button
+                      onClick={() => window.open('https://ifarmer.asia', '_blank')}
+                      className="w-full bg-white border-2 border-[#2f6b44] rounded-xl p-4 hover:bg-[#2f6b44]/5 transition text-left"
+                    >
+                      <h5 className="font-bold text-gray-900 mb-1">iFarmer</h5>
+                      <p className="text-xs text-gray-600 mb-3">ifarmer.asia</p>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs bg-[#2f6b44] text-white px-3 py-1 rounded-full">Agri Investment</span>
+                        <span className="text-[#2f6b44]">→</span>
+                      </div>
+                    </button>
+
+                    {/* Biniyog.io */}
+                    <button
+                      onClick={() => window.open('https://biniyog.io', '_blank')}
+                      className="w-full bg-white border-2 border-[#2f6b44] rounded-xl p-4 hover:bg-[#2f6b44]/5 transition text-left"
+                    >
+                      <h5 className="font-bold text-gray-900 mb-1">Biniyog.io</h5>
+                      <p className="text-xs text-gray-600 mb-3">biniyog.io</p>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs bg-[#2f6b44] text-white px-3 py-1 rounded-full">Investment Platform</span>
+                        <span className="text-[#2f6b44]">→</span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setInvestmentStep('options')}
+                  className="w-full bg-white border-2 border-gray-300 text-gray-900 py-3 rounded-xl font-bold hover:bg-gray-50 transition text-lg mt-6"
+                >
+                  Back
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Fixed Footer Back Button */}
+          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 max-w-md mx-auto">
+            <button
+              onClick={() => {
+                setShowInvestment(false);
+                setInvestmentStep('options');
+              }}
+              className="w-full bg-white border-2 border-gray-300 text-gray-900 py-4 rounded-xl font-bold hover:bg-gray-50 transition text-lg"
+            >
+              Back
+            </button>
+          </div>
         </div>
       )}
 
       {/* Header */}
-      <div className="bg-linear-to-r from-[#2f6b44] via-[#2f6b44] to-[#2f6b44] text-white sticky top-0 z-50">
-        <div className="max-w-md mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Paywave</h1>
-          <div className="flex gap-4">
-            <button onClick={() => alert('Notifications')} className="p-2 hover:bg-white/20 rounded-lg transition cursor-pointer">
-              <FiBell size={24} />
-            </button>
-            <button onClick={() => alert('Settings')} className="p-2 hover:bg-white/20 rounded-lg transition cursor-pointer">
-              <FiSettings size={24} />
-            </button>
+      <div className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50 shadow-sm">
+        <div className="max-w-md mx-auto px-4 py-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            {/* Show balance only on non-home pages and in modals */}
+            {(activeTab !== 'home' || showSendMoney || showMobileRecharge || showCashOut || showPayment || showPaymentSplitting || showInvestment || showNotifications || showSettings) && (
+              <div className="bg-[#ddaf3f]/15 border border-[#ddaf3f] rounded-lg px-2 py-1.5 flex items-center gap-1.5">
+                <div>
+                  <p className="text-xs text-gray-600 leading-none">Balance</p>
+                  <p className="text-xs font-bold text-[#ddaf3f]">
+                    {showBalance ? `৳${accountData.balance.toLocaleString()}` : '••••••'}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowBalance(!showBalance)}
+                  className="p-1.5 hover:bg-[#ddaf3f]/20 rounded transition text-[#ddaf3f] shrink-0"
+                >
+                  {showBalance ? <FiEye size={16} /> : <FiEyeOff size={16} />}
+                </button>
+              </div>
+            )}
+
+            {/* Logo only on home */}
+            {activeTab === 'home' && (
+              //next/image JSX type resolution in current TS setup
+              <NextImage
+                src="https://i.imgur.com/VfcHR6L.jpeg"
+                alt="Paywave Logo"
+                width={120}
+                height={40}
+                priority
+                className="h-10 w-auto object-contain"
+              />
+            )}
+          </div>
+
+          <div className="flex items-center gap-3">
+            {/* Language toggle only on home */}
+            {activeTab === 'home' && (
+              <button
+                type="button"
+                onClick={() => setLanguage(language === 'EN' ? 'বাং' : 'EN')}
+                className="relative flex h-9 w-24 items-center rounded-full border border-gray-200 bg-white shadow-sm overflow-hidden transition"
+                aria-label="Toggle language"
+              >
+                <span
+                  className={`absolute top-1 bottom-1 w-[calc(50%-6px)] rounded-full transition-all ${language === 'EN' ? 'left-1 bg-[#2f6b44]' : 'left-[calc(50%+2px)] bg-[#ddaf3f]'}`}
+                />
+                <span className={`z-10 flex-1 text-center text-xs font-semibold transition-colors ${language === 'EN' ? 'text-white' : 'text-gray-600'}`}>
+                  EN
+                </span>
+                <span className={`z-10 flex-1 text-center text-xs font-semibold transition-colors ${language === 'EN' ? 'text-gray-600' : 'text-white'}`}>
+                  বাং
+                </span>
+              </button>
+            )}
+
+            <div className="flex gap-2">
+              <button onClick={() => setShowNotifications(true)} className="p-2 hover:bg-gray-100 rounded-lg transition cursor-pointer text-gray-700">
+                <FiBell size={24} />
+              </button>
+              <button onClick={() => setShowSettings(true)} className="p-2 hover:bg-gray-100 rounded-lg transition cursor-pointer text-gray-700">
+                <FiSettings size={24} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* HOME VIEW */}
-      {activeTab === 'home' && !showQRScanner && !showSendMoney && !showMobileRecharge && !showCashOut && !showPayment && !showPaymentSplitting && (
+      {activeTab === 'home' && !showQRScanner && !showSendMoney && !showMobileRecharge && !showCashOut && !showPayment && !showPaymentSplitting && !showInvestment && (
       <>
 
       {/* Balance Card */}
-      <div className="max-w-md mx-auto px-4 -mt-8 relative z-40">
-        <div className="bg-linear-to-br from-[#2f6b44] via-[#2f6b44] to-[#2f6b44] rounded-3xl shadow-2xl p-8 text-white">
+      <div className="max-w-md mx-auto px-4 pt-20 pb-2 relative z-40">
+        <div className="bg-linear-to-br from-[#2f6b44] via-[#2f6b44] to-[#2f6b44] rounded-3xl shadow-xl p-8 text-white border-4 border-[#ddaf3f]">
           {/* User Info */}
           <div className="flex justify-between items-start mb-8">
             <div>
@@ -1407,21 +1760,21 @@ export default function BKashDemoApp() {
               <p className="text-xl font-bold">{accountData.name}</p>
               <p className="text-xs opacity-75">{accountData.phone}</p>
             </div>
-            <div className="bg-white/20 px-3 py-1 rounded-full text-sm font-semibold">
+            <div className="bg-[#ddaf3f]/20 text-[#ddaf3f] px-3 py-1 rounded-full text-sm font-semibold">
               {accountData.level}
             </div>
           </div>
 
           {/* Balance Section */}
           <div>
-            <p className="text-sm opacity-90 mb-2">Available Balance</p>
+            <p className="text-sm mb-2 text-[#ddaf3f]">Available Balance</p>
             <div className="flex justify-between items-baseline gap-4">
               <p className="text-4xl font-bold">
                 {showBalance ? `৳ ${accountData.balance.toLocaleString()}` : '••••••'}
               </p>
               <button
                 onClick={() => setShowBalance(!showBalance)}
-                className="p-2 hover:bg-white/20 rounded-lg transition"
+                className="p-2 rounded-lg transition text-[#ddaf3f] hover:bg-[#ddaf3f]/20"
               >
                 {showBalance ? <FiEye size={20} /> : <FiEyeOff size={20} />}
               </button>
@@ -1463,6 +1816,9 @@ export default function BKashDemoApp() {
                 setParticipants([]);
                 setParticipantCount(2);
                 setSplitMode('create');
+              } else if (service.label === 'Investment') {
+                setShowInvestment(true);
+                setInvestmentStep('options');
               } else {
                 alert(`Service: ${service.label}`);
               }
@@ -1471,7 +1827,7 @@ export default function BKashDemoApp() {
               <button
                 key={idx}
                 onClick={handleClick}
-                className="bg-linear-to-br from-[#2f6b44] to-[#1a3d25] rounded-2xl p-6 shadow-md hover:shadow-lg transition transform hover:scale-105 flex flex-col items-center gap-3 text-white cursor-pointer"
+                className="bg-linear-to-br from-[#2f6b44] to-[#1a3d25] rounded-2xl p-6 shadow-md hover:shadow-lg transition transform hover:scale-105 flex flex-col items-center gap-3 text-white cursor-pointer border border-[#ddaf3f]/30 hover:border-[#ddaf3f]/60"
               >
                 <Icon size={32} />
                 <p className="text-xs font-semibold text-center">{service.label}</p>
@@ -1485,10 +1841,29 @@ export default function BKashDemoApp() {
       <div className="max-w-md mx-auto px-4 mt-8">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold text-gray-900">Recent Transactions</h2>
-          <button onClick={() => alert('View all transactions')} className="text-[#2f6b44] text-sm font-semibold hover:underline cursor-pointer">View All</button>
+          <button
+            onClick={() => {
+              setShowQRScanner(false);
+              setShowSendMoney(false);
+              setShowMobileRecharge(false);
+              setShowCashOut(false);
+              setShowAgentCashout(false);
+              setShowPayment(false);
+              setShowPaymentSplitting(false);
+              setShowInvestment(false);
+              setShowNotifications(false);
+              setShowSettings(false);
+              setScanned(false);
+              setShowBalance(false);
+              setActiveTab('transactions');
+            }}
+            className="text-[#ddaf3f] text-sm font-semibold hover:underline cursor-pointer"
+          >
+            View All
+          </button>
         </div>
         <div className="space-y-2">
-          {transactions.map((txn: any, idx: number) => {
+          {transactions.slice(0, 5).map((txn: any, idx: number) => {
             const Icon = txn.icon;
             const handleClick = () => alert(`Transaction: ${txn.recipient} - ${txn.type === 'send' ? '-' : '+'} ৳ ${txn.amount}`);
             return (
@@ -1581,6 +1956,10 @@ export default function BKashDemoApp() {
               onClick={() => {
                 if (nav.id === 'qrcode') {
                   setShowQRScanner(true);
+                  setShowInvestment(false);
+                  setShowBalance(false);
+                  setShowSettings(false);
+                  setShowNotifications(false);
                 } else {
                   setShowQRScanner(false);
                   setShowSendMoney(false);
@@ -1589,11 +1968,15 @@ export default function BKashDemoApp() {
                   setShowAgentCashout(false);
                   setShowPayment(false);
                   setShowPaymentSplitting(false);
+                  setShowInvestment(false);
                   setScanned(false);
+                  setShowBalance(false);
+                  setShowSettings(false);
+                  setShowNotifications(false);
                   setActiveTab(nav.id);
                 }
               }}
-              className={`flex-1 py-4 flex flex-col items-center gap-1 transition ${
+              className={`flex-1 py-1 flex flex-col items-center gap-0.5 transition ${
                 activeTab === nav.id ? 'text-[#2f6b44]' : 'text-gray-600'
               } ${nav.id === 'qrcode' ? 'flex justify-center' : ''}`}
             >

@@ -142,7 +142,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const baseStyle = 'px-4 py-2 rounded-xl font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 text-sm';
   const styles = {
-    primary: 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:shadow-xl hover:scale-105 focus:ring-blue-500',
+    primary: 'bg-linear-to-r from-blue-600 to-blue-700 text-white hover:shadow-xl hover:scale-105 focus:ring-blue-500',
     secondary: 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-600 hover:text-white focus:ring-blue-100',
     outline: 'bg-transparent border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white',
   };
@@ -175,7 +175,7 @@ const Sidebar: React.FC<{
 
   return (
     // Changed sidebar gradient to blue
-    <div className={`w-64 bg-gradient-to-b from-blue-700 to-blue-900 text-white flex flex-col ${className}`}>
+    <div className={`w-64 bg-linear-to-b from-blue-700 to-blue-900 text-white flex flex-col ${className}`}>
       <div className="flex items-center justify-center h-20 shadow-lg px-4 py-4 border-b border-white border-opacity-10">
         <Logo />
       </div>
@@ -211,7 +211,7 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
   <div className="p-6 max-w-7xl mx-auto">
     <div className="mb-8">
       {/* Changed text gradient to blue */}
-      <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-2">
+      <h1 className="text-4xl font-bold bg-linear-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-2">
         Welcome to Polaris
       </h1>
       <p className="text-lg text-gray-600">
@@ -221,7 +221,7 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
       {/* Changed card gradient to blue */}
-      <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-2xl text-white shadow-2xl">
+      <div className="bg-linear-to-br from-blue-600 to-blue-800 p-6 rounded-2xl text-white shadow-2xl">
         {/* Changed icon color to white (was gold) */}
         <Sparkles className="h-8 w-8 text-white mb-3" />
         <h2 className="text-2xl font-bold mb-3">The Customer Success Story</h2>
@@ -281,7 +281,7 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
       {/* Changed hover border to blue */}
       <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('fit_finder')}>
         {/* Changed icon bg to blue */}
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <div className="bg-linear-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
           {/* Changed icon color to white */}
           <Scan className="h-6 w-6 text-white" />
         </div>
@@ -295,7 +295,7 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
       </div>
 
       <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('color_picker')}>
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <div className="bg-linear-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
           <Palette className="h-6 w-6 text-white" />
         </div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">AI Color Picker</h3>
@@ -308,7 +308,7 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
       </div>
 
       <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('style_finder')}>
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <div className="bg-linear-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
           <ImageIcon className="h-6 w-6 text-white" />
         </div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">Style Finder</h3>
@@ -321,7 +321,7 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
       </div>
 
       <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('booking')}>
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <div className="bg-linear-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
           <Calendar className="h-6 w-6 text-white" />
         </div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">Virtual Consultation</h3>
@@ -334,7 +334,7 @@ const DashboardPage: React.FC<{ setPage: (page: string) => void }> = ({ setPage 
       </div>
 
       <div className="group bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300 cursor-pointer" onClick={() => setPage('wardrobe')}>
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <div className="bg-linear-to-br from-blue-600 to-blue-700 w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
           <Shirt className="h-6 w-6 text-white" />
         </div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">Digital Wardrobe</h3>
@@ -437,7 +437,7 @@ const FitFinderPage: React.FC = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <div className="mb-6 bg-gradient-to-r from-blue-500 to-blue-600 p-4 rounded-xl text-white shadow-lg">
+      <div className="mb-6 bg-linear-to-r from-blue-500 to-blue-600 p-4 rounded-xl text-white shadow-lg">
         <div className="flex items-start">
           <Zap className="h-6 w-6 text-yellow-300 mr-3 mt-1" />
           <div>
@@ -577,7 +577,7 @@ const FitFinderPage: React.FC = () => {
                       type="button"
                       onClick={() => setBuild(b)}
                       className={`py-2 px-3 rounded-lg font-bold text-sm transition-all ${build === b
-                          ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg scale-105'
+                          ? 'bg-linear-to-r from-blue-600 to-blue-700 text-white shadow-lg scale-105'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                     >
@@ -594,13 +594,13 @@ const FitFinderPage: React.FC = () => {
             {size ? (
               <div className="text-center">
                 <p className="text-2xl font-black text-gray-900 mb-6">Your AI-Recommended Sizes:</p>
-                <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-6 mb-4 shadow-xl">
+                <div className="bg-linear-to-br from-blue-600 to-blue-700 rounded-2xl p-6 mb-4 shadow-xl">
                   <p className="text-sm font-bold text-white mb-2">Clothing Size</p>
                   <div className="text-7xl font-black text-white drop-shadow-2xl mb-2">{size}</div>
                   <p className="text-lg font-bold text-white">{build} Fit</p>
                 </div>
                 {shoeSize && (
-                  <div className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-6 mb-4 shadow-xl">
+                  <div className="bg-linear-to-br from-gray-700 to-gray-800 rounded-2xl p-6 mb-4 shadow-xl">
                     <p className="text-sm font-bold text-white mb-2">Shoe Size (EU)</p>
                     <div className="text-5xl font-black text-white drop-shadow-2xl">{shoeSize}</div>
                   </div>
@@ -673,7 +673,7 @@ const ColorPickerPage: React.FC = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <div className="mb-6 bg-gradient-to-r from-indigo-500 to-purple-600 p-4 rounded-xl text-white shadow-xl">
+      <div className="mb-6 bg-linear-to-r from-indigo-500 to-purple-600 p-4 rounded-xl text-white shadow-xl">
         <div className="flex items-start">
           <Palette className="h-6 w-6 text-yellow-300 mr-3 mt-1" />
           <div>
@@ -694,7 +694,7 @@ const ColorPickerPage: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl shadow-2xl border-2 border-gray-100 p-10">
             <div className="text-center mb-8">
-              <div className="mx-auto w-24 h-24 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center mb-4 shadow-2xl">
+              <div className="mx-auto w-24 h-24 bg-linear-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center mb-4 shadow-2xl">
                 <Upload className="h-10 w-10 text-white" />
               </div>
               <h2 className="text-3xl font-bold text-gray-900 mb-2">
@@ -710,7 +710,7 @@ const ColorPickerPage: React.FC = () => {
                   onChange={handleFileChange}
                   className="hidden"
                 />
-                <div className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all text-lg">
+                <div className="px-8 py-4 bg-linear-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all text-lg">
                   Choose Photo
                 </div>
               </label>
@@ -734,9 +734,9 @@ const ColorPickerPage: React.FC = () => {
                   <p className="text-sm font-bold text-gray-700">No Data Stored</p>
                 </div>
               </div>
-              <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 rounded-xl text-white">
+              <div className="bg-linear-to-r from-gray-800 to-gray-900 p-6 rounded-xl text-white">
                 <div className="flex items-start gap-3">
-                  <Shield className="h-6 w-6 text-blue-400 mt-1 flex-shrink-0" />
+                  <Shield className="h-6 w-6 text-blue-400 mt-1 shrink-0" />
                   <div className="text-left">
                     <p className="font-bold text-lg text-white mb-1">We Do Not Store Your Data</p>
                     <p className="text-sm text-gray-300 leading-relaxed">
@@ -762,7 +762,7 @@ const ColorPickerPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-4">
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-100 relative">
-              <div className="relative aspect-[3/4] bg-gray-100">
+              <div className="relative aspect-3/4 bg-gray-100">
                 <img
                   src={uploadedImage || selectedColor.imageUrl}
                   alt={`${selectedColor.name} Blazer Preview`}
@@ -831,9 +831,9 @@ const ColorPickerPage: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl text-white shadow-lg">
+            <div className="bg-linear-to-br from-gray-900 to-gray-800 p-5 rounded-xl text-white shadow-lg">
               <div className="flex items-start gap-3">
-                <Zap className="h-6 w-6 text-blue-400 mt-1 flex-shrink-0" />
+                <Zap className="h-6 w-6 text-blue-400 mt-1 shrink-0" />
                 <div>
                   <h4 className="font-bold text-lg mb-1">Powered by Google Gemini</h4>
                   <p className="text-sm leading-relaxed text-gray-300">
@@ -878,7 +878,7 @@ const StyleFinderPage: React.FC = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <div className="mb-6 bg-gradient-to-r from-purple-500 to-pink-600 p-4 rounded-xl text-white shadow-xl">
+      <div className="mb-6 bg-linear-to-r from-purple-500 to-pink-600 p-4 rounded-xl text-white shadow-xl">
         <div className="flex items-start">
           <ImageIcon className="h-6 w-6 text-yellow-300 mr-3 mt-1" />
           <div>
@@ -911,7 +911,7 @@ const StyleFinderPage: React.FC = () => {
                 <p className="text-base text-gray-600 mb-6">
                   AI will analyze the style and suggest similar items from Polaris
                 </p>
-                <div className="inline-block px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:shadow-2xl transition-all text-base">
+                <div className="inline-block px-8 py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:shadow-2xl transition-all text-base">
                   Select Photo
                 </div>
               </div>
@@ -1015,7 +1015,7 @@ const BookingPage: React.FC = () => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <div className="mb-6 bg-gradient-to-r from-purple-500 to-purple-700 p-4 rounded-xl text-white shadow-xl">
+      <div className="mb-6 bg-linear-to-r from-purple-500 to-purple-700 p-4 rounded-xl text-white shadow-xl">
         <div className="flex items-start">
           <Calendar className="h-6 w-6 text-yellow-300 mr-3 mt-1" />
           <div>
@@ -1118,7 +1118,7 @@ const WardrobePage: React.FC = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <div className="mb-6 bg-gradient-to-r from-green-500 to-emerald-600 p-4 rounded-xl text-white shadow-xl">
+      <div className="mb-6 bg-linear-to-r from-green-500 to-emerald-600 p-4 rounded-xl text-white shadow-xl">
         <div className="flex items-start">
           <Shirt className="h-6 w-6 text-white mr-3 mt-1" />
           <div>
@@ -1138,7 +1138,7 @@ const WardrobePage: React.FC = () => {
       <div className="mb-10">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold text-gray-900">Your Collection</h2>
-          <div className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full font-bold shadow-md text-sm">
+          <div className="px-4 py-2 bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-full font-bold shadow-md text-sm">
             Total Value: ৳{(ownedItems.reduce((sum, item) => sum + item.price, 0)).toLocaleString()}
           </div>
         </div>
@@ -1192,7 +1192,7 @@ const WardrobePage: React.FC = () => {
             </div>
           ))}
         </div>
-        <div className="mt-10 p-6 bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl shadow-xl">
+        <div className="mt-10 p-6 bg-linear-to-r from-gray-900 to-gray-800 text-white rounded-2xl shadow-xl">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-400 mb-1">Projected 2-Year LTV</p>
@@ -1231,11 +1231,11 @@ export default function App() {
   };
 
   return (
-    <div className="flex h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 font-sans">
+    <div className="flex h-screen w-full bg-linear-to-br from-gray-50 to-gray-100 font-sans">
       <Sidebar currentPage={currentPage} setPage={setPage} className="hidden md:flex" />
 
       <div className="md:hidden flex flex-col w-full">
-        <div className="flex items-center justify-between h-16 bg-gradient-to-r from-blue-700 to-blue-900 text-white px-4 shadow-xl">
+        <div className="flex items-center justify-between h-16 bg-linear-to-r from-blue-700 to-blue-900 text-white px-4 shadow-xl">
           <Logo />
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu">
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -1271,7 +1271,7 @@ export default function App() {
               'wardrobe': 'Digital Wardrobe'
             }[currentPage]}
           </h2>
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full font-bold shadow-md text-xs">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-full font-bold shadow-md text-xs">
             <Sparkles className="h-3 w-3 text-white" />
             Investor Demo - {new Date().getFullYear()}
           </div>
