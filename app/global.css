@@ -35,11 +35,13 @@ html {
   user-select: none;
   -webkit-touch-callout: none;
   touch-action: manipulation;
+  overflow-x: hidden;
 }
 
 body {
   -webkit-user-select: text;
   user-select: text;
+  overflow-x: hidden;
 }
 
 /* Prevent zoom on input focus (mobile) */
