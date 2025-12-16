@@ -48,7 +48,7 @@ export function Navbar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 h-screen p-6 bg-gray-100 dark:bg-black text-gray-600 dark:text-gray-400 font-mono justify-center sticky top-0">
+      <aside className="hidden md:flex flex-col w-64 h-screen p-6 bg-gray-100 dark:bg-black text-gray-600 dark:text-gray-400 font-mono justify-start md:sticky top-0 md:self-start md:overflow-y-auto">
         <nav>
           <ul>
             {navItems.map((item) => {
