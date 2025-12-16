@@ -20,12 +20,12 @@ export default function LayoutWrapper({
         <>{children}</>
       ) : (
         // On all other pages, render the default layout with the navbar
-        <div className="flex min-h-screen">
+        <>
           <Navbar />
-          <main className="flex-1 p-4 md:p-8 pb-20 md:pb-8">
+          <main className="md:ml-64 p-4 md:p-8 pb-20 md:pb-8">
             {children}
           </main>
-        </div>
+        </>
       )}
     </>
   );
