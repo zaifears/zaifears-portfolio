@@ -1262,13 +1262,8 @@ export default function PaywaveDemo() {
             {/* Merchant Payment Step */}
             {splitMode === 'create' && splitStep === 'merchant-payment' && (
               <>
-                <div className="mb-16"></div>
-                <div className="mb-8">
-                  <h4 className="text-lg font-bold text-gray-900 mb-6">Where to Pay</h4>
-                  <div className="bg-linear-to-r from-[#2f6b44]/10 to-[#ddaf3f]/10 rounded-2xl p-5 mb-6 border border-[#2f6b44]/20">
-                    <p className="text-xs text-gray-600 font-semibold uppercase tracking-wide mb-2">Total Amount to Split</p>
-                    <p className="text-3xl font-bold text-[#2f6b44]">৳ {splitAmount}</p>
-                  </div>
+                <div className="mb-4">
+                  <h4 className="text-lg font-bold text-gray-900 mb-4">Where to Pay</h4>
 
                   <label className="text-sm font-semibold text-gray-700 mb-3 block">Merchant/Receiver Number</label>
                   <input
@@ -1282,10 +1277,10 @@ export default function PaywaveDemo() {
                   <p className="text-xs text-gray-500 font-medium text-center">{splitMerchantNumber.length} / 11 digits</p>
                 </div>
 
-                <div className="mb-8 text-center">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-4">Merchant QR Code</h4>
-                  <div className="bg-gray-100 p-4 rounded-2xl border-4 border-[#ddaf3f] inline-flex flex-col items-center gap-3">
-                    <div className="w-48 h-48 bg-white border-2 border-[#ddaf3f] rounded-lg flex items-center justify-center relative">
+                <div className="mb-6 text-center">
+                  <h4 className="text-sm font-semibold text-gray-700 mb-3">Merchant QR Code</h4>
+                  <div className="bg-gray-100 p-3 rounded-xl border-4 border-[#ddaf3f] inline-flex flex-col items-center gap-2">
+                    <div className="w-32 h-32 bg-white border-2 border-[#ddaf3f] rounded-lg flex items-center justify-center relative">
                       {/* Merchant QR Code Pattern Background */}
                       <div className="absolute inset-0 grid grid-cols-6 gap-px p-1 rounded-lg overflow-hidden">
                         {Array.from({ length: 36 }).map((_, i) => (
@@ -1301,10 +1296,10 @@ export default function PaywaveDemo() {
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-600 mt-3 font-semibold">Scan to pay {splitMerchantNumber || 'merchant'}</p>
+                  <p className="text-xs text-gray-600 mt-2 font-semibold">Scan to pay {splitMerchantNumber || 'merchant'}</p>
                 </div>
 
-                <div className="space-y-3 mt-8">
+                <div className="space-y-3 mt-6">
                   <button
                     onClick={handleSplitMerchantNext}
                     disabled={!splitMerchantNumber || splitMerchantNumber.length < 10}
