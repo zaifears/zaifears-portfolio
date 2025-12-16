@@ -20,7 +20,15 @@ export const metadata: Metadata = {
   description: "Shahoriar Hossain's personal portfolio and life log.",
   icons: {
     icon: '/favicon.ico',
+    apple: [
+      '/apple-touch-icon-iphone-60x60.png',
+      '/apple-touch-icon-ipad-76x76.png',
+      '/apple-touch-icon-iphone-retina-120x120.png',
+      '/apple-touch-icon-ipad-retina-152x152.png'
+    ],
   },
+  manifest: '/manifest.webmanifest',
+  themeColor: '#2f6b44',
   verification: {
     google: 'pT4MHjovbY0MXYCrgAPN3LQHyTuLLq_iTtmWyx3GSgc',
   },
@@ -54,6 +62,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Shahoriar Hossain" />
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-iphone-60x60.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-ipad-76x76.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-iphone-retina-120x120.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-ipad-retina-152x152.png" />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-F0NPB44JWC"
@@ -64,6 +76,15 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-F0NPB44JWC');
+          `}
+        </Script>
+        <Script id="sw-register" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(() => {});
+              });
+            }
           `}
         </Script>
       </head>
