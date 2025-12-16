@@ -1703,7 +1703,7 @@ export default function PaywaveDemo() {
             {activeTab === 'home' && (
               //next/image JSX type resolution in current TS setup
               <NextImage
-                src="https://i.imgur.com/VfcHR6L.jpeg"
+                src="https://i.imgur.com/D7efmcM.png"
                 alt="Paywave Logo"
                 width={120}
                 height={40}
