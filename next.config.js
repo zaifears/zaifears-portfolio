@@ -1,5 +1,3 @@
-// Path: next.config.js
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -49,6 +47,10 @@ const nextConfig = {
         ]
       }
     ];
+  },
+  productionBrowserSourceMaps: false,
+  typescript: {
+    tsconfigPath: './tsconfig.json'
   }
 };
 
