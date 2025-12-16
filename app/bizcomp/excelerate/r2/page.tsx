@@ -1714,8 +1714,8 @@ export default function PaywaveDemo() {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Language toggle only on home */}
-            {activeTab === 'home' && (
+            {/* Language toggle only on home and when no modal is open */}
+            {activeTab === 'home' && !modalOpen && (
               <button
                 type="button"
                 onClick={() => setLanguage(language === 'EN' ? 'বাং' : 'EN')}
@@ -1751,8 +1751,8 @@ export default function PaywaveDemo() {
       <>
 
       {/* Balance Card */}
-      <div className="max-w-md mx-auto px-4 pt-20 pb-2 relative z-40">
-        <div className="bg-linear-to-br from-[#2f6b44] via-[#2f6b44] to-[#2f6b44] rounded-3xl shadow-xl p-8 text-white border-4 border-[#ddaf3f]">
+      <div className="max-w-md mx-auto px-4 pt-20 pb-1 relative z-40">
+        <div className="bg-linear-to-br from-[#2f6b44] via-[#2f6b44] to-[#2f6b44] rounded-3xl shadow-xl p-4 text-white border-[3px] border-[#ddaf3f]">
           {/* User Info */}
           <div className="flex justify-between items-start mb-8">
             <div>
