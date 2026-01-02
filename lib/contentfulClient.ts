@@ -6,12 +6,12 @@ const spaceId = process.env.CONTENTFUL_SPACE_ID;
 const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN;
 
 if (!spaceId || !accessToken) {
-  throw new Error('Contentful space ID and access token must be defined');
+  console.error('Contentful credentials missing. Check CONTENTFUL_SPACE_ID and CONTENTFUL_ACCESS_TOKEN environment variables.');
 }
 
 export const contentfulClient = createClient({
-  space: spaceId,
-  accessToken: accessToken,
+  space: spaceId || '',
+  accessToken: accessToken || '',
 });
 
 // Helper function to fetch with cache control

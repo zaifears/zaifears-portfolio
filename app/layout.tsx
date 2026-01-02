@@ -28,7 +28,6 @@ export const metadata: Metadata = {
     ],
   },
   manifest: '/manifest.webmanifest',
-  themeColor: '#2f6b44',
   verification: {
     google: 'pT4MHjovbY0MXYCrgAPN3LQHyTuLLq_iTtmWyx3GSgc',
   },

@@ -6,10 +6,8 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-// More aggressive cache control
-export const revalidate = 0; // Disable ISR caching
+// Ensure fresh data on each request
 export const dynamic = 'force-dynamic'; // Force dynamic rendering
-export const fetchCache = 'force-no-store'; // Don't cache fetch requests
 
 // Define the type for a single Life Event
 interface LifeEvent {
@@ -31,14 +29,19 @@ interface LifeEvent {
 }
 
 // Function to fetch a single life event by its slug
-async function getLifeEvent(slug: string) {
-  const response = await contentfulClient.getEntries({
-    content_type: 'zaifearsBlogPost',
-    'fields.slug': slug,
-    limit: 1,
-    include: 2,
-  });
-  return response.items.length > 0 ? response.items[0] as unknown as LifeEvent : null;
+async function getLifeEvent(slug: string): Promise<LifeEvent | null> {
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: 'zaifearsBlogPost',
+      'fields.slug': slug,
+      limit: 1,
+      include: 2,
+    });
+    return response.items.length > 0 ? response.items[0] as unknown as LifeEvent : null;
+  } catch (error) {
+    console.error('Failed to fetch life event from Contentful:', error);
+    return null;
+  }
 }
 
 // Function to get the YouTube video ID from a URL

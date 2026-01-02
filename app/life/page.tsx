@@ -3,10 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 
-// More aggressive cache control
-export const revalidate = 0; // Disable ISR caching
+// Ensure fresh data on each request
 export const dynamic = 'force-dynamic'; // Force dynamic rendering
-export const fetchCache = 'force-no-store'; // Don't cache fetch requests
 
 // Define a type for our Life Event entries for better code safety
 interface LifeEvent {
@@ -25,18 +23,35 @@ interface LifeEvent {
 }
 
 // Function to fetch all life events from Contentful
-async function getLifeEvents() {
-  const response = await contentfulClient.getEntries({
-    content_type: 'zaifearsBlogPost',
-    order: ['-fields.date'],   // Order by date, newest first
-    limit: 1000,
-    include: 2,
-  });
-  return response.items as unknown as LifeEvent[];
+async function getLifeEvents(): Promise<LifeEvent[]> {
+  try {
+    const response = await contentfulClient.getEntries({
+      content_type: 'zaifearsBlogPost',
+      order: ['-fields.date'],   // Order by date, newest first
+      limit: 1000,
+      include: 2,
+    });
+    return response.items as unknown as LifeEvent[];
+  } catch (error) {
+    console.error('Failed to fetch life events from Contentful:', error);
+    return [];
+  }
 }
 
 export default async function LifePage() {
   const lifeEvents = await getLifeEvents();
+
+  // Handle empty state
+  if (!lifeEvents || lifeEvents.length === 0) {
+    return (
+      <section>
+        <h1 className="font-bold text-3xl md:text-4xl mb-8">Life Journey</h1>
+        <p className="text-gray-600 dark:text-neutral-400">
+          No posts available yet. Check back soon!
+        </p>
+      </section>
+    );
+  }
 
   // Separate the latest post from the rest
   const latestEvent = lifeEvents[0];
