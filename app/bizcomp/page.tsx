@@ -91,6 +91,24 @@ export default function BizCompPage() {
           </div>
         </div>
 
+        {/* Technopreneurship Section */}
+        <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border-2 border-gray-200 mb-8">
+          <SectionHeader 
+            title="Technopreneurship"
+            subtitle="Innovation & entrepreneurial technology ventures"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CompetitionCard
+              href="/bizcomp/technopreneurship"
+              title="Technopreneurship"
+              subtitle="Tech-driven business solutions"
+              emoji="💡"
+              colors="bg-linear-to-br from-orange-500 to-orange-600"
+            />
+          </div>
+        </div>
+
         {/* Footer note */}
         <div className="text-center">
           <p className="text-sm text-gray-500">
