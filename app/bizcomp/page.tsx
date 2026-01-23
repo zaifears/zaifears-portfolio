@@ -91,6 +91,25 @@ export default function BizCompPage() {
           </div>
         </div>
 
+
+        {/* Beyond the Metrics Section */}
+        <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border-2 border-gray-200 mb-8">
+          <SectionHeader 
+            title="Beyond the Metrics"
+            subtitle="Final Round"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CompetitionCard
+              href="/bizcomp/btm-iut"
+              title="Final Round"
+              subtitle="Beyond the Metrics Competition"
+              emoji="📈"
+              colors="bg-linear-to-br from-cyan-500 to-blue-500"
+            />
+          </div>
+        </div>
+
         {/* Technopreneurship Section */}
         <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border-2 border-gray-200 mb-8">
           <SectionHeader 
