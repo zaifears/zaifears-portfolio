@@ -72,7 +72,7 @@ export default function BtmIutLayout({ children }: { children: React.ReactNode }
                     <div className="flex justify-center items-center">
                         <Link href="/bizcomp/btm-iut" className="relative w-28 h-8 md:w-32 md:h-12 block">
                             <Image
-                                src="/bizcomp/Team Centaurs_BizMetrics26_Final.png"
+                                src="/bizcomp/btm-iut/Team Centaurs_BizMetrics26_Final.png"
                                 alt="Centaur Logo"
                                 fill
                                 className="object-contain"
@@ -105,7 +105,7 @@ export default function BtmIutLayout({ children }: { children: React.ReactNode }
                         <div className="flex items-center justify-between px-6 py-4 h-16 shrink-0">
                             <div className="relative w-28 h-8 opacity-40">
                                 <Image
-                                    src="/bizcomp/Team Centaurs_BizMetrics26_Final.png"
+                                    src="/bizcomp/btm-iut/Team Centaurs_BizMetrics26_Final.png"
                                     alt="Centaur Logo"
                                     fill
                                     className="object-contain grayscale"

@@ -6,9 +6,9 @@ export default function BtmIutPage() {
         <main className="flex-1 relative w-full flex flex-col">
             {/* Hero Section */}
             <div className="relative w-full h-[85vh] md:h-[calc(100vh-120px)] min-h-[600px] overflow-hidden">
-                {/* Background Image */}
+                {/* Background Image - Path Fixed to include /btm-iut/ */}
                 <Image
-                    src="/bizcomp/Defense Through Habit-HERO.png"
+                    src="/bizcomp/btm-iut/Defense Through Habit-HERO.png"
                     alt="Hero Background"
                     fill
                     className="object-cover object-center z-0 scale-105"
@@ -16,9 +16,7 @@ export default function BtmIutPage() {
                     quality={90}
                 />
                 
-                {/* Dark Overlay Gradient - Responsive */}
-                {/* Mobile: Bottom-to-top gradient for text clarity */}
-                {/* Desktop: Left-to-right gradient for cinematic feel */}
+                {/* Dark Overlay Gradient - Fixed classes to standard Tailwind format */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent md:bg-gradient-to-r md:from-black/80 md:via-black/40 md:to-transparent z-10" />
 
                 {/* Hero Content */}
