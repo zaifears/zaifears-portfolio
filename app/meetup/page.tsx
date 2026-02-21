@@ -118,8 +118,8 @@ export default function MeetupPage() {
 
         {/* Gradient orbs background */}
         <div className="fixed inset-0 z-0 pointer-events-none">
-          <div className="absolute top-[-20%] left-[-10%] w-[400px] h-[400px] rounded-full bg-emerald-900/20 blur-[80px]" />
-          <div className="absolute bottom-[-20%] right-[-10%] w-[350px] h-[350px] rounded-full bg-amber-900/15 blur-[80px]" />
+          <div className="absolute top-[-20%] left-[-10%] w-100 h-100 rounded-full bg-emerald-900/20 blur-[80px]" />
+          <div className="absolute bottom-[-20%] right-[-10%] w-87.5 h-87.5 rounded-full bg-amber-900/15 blur-[80px]" />
         </div>
 
         {/* ──── HERO ──── */}
