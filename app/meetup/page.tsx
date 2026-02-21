@@ -234,7 +234,7 @@ export default function MeetupPage() {
           <div className="grid sm:grid-cols-3 gap-5">
             <Section delay={100}>
               <a
-                href="https://maps.app.goo.gl/vRb5HXMCwTgjA6316"
+                href="https://maps.app.goo.gl/c5K9zsguENAvJkBR8"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass rounded-2xl p-6 hover:border-emerald-500/20 transition-colors group block h-full"
@@ -246,7 +246,7 @@ export default function MeetupPage() {
                   <h3 className="text-white/40 text-xs uppercase tracking-widest">Location</h3>
                 </div>
                 <p className="text-xl font-semibold text-white/90">Dhaka University</p>
-                <p className="text-white/50 text-sm mt-1">Swimming Pool Area</p>
+                <p className="text-white/50 text-sm mt-1">TSC Swimming Pool</p>
                 <p className="text-emerald-400/60 text-xs mt-3 flex items-center gap-1 group-hover:text-emerald-400 transition-colors">
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                   Open in Google Maps
