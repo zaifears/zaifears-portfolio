@@ -64,6 +64,55 @@ function Section({ children, className = '', delay = 0 }: { children: React.Reac
   );
 }
 
+// ─── Countdown Timer component ─────────────────────────────────────────────
+function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
+
+  useEffect(() => {
+    const calculateTime = () => {
+      const endTime = new Date('2026-02-24T23:59:59').getTime();
+      const now = new Date().getTime();
+      const difference = endTime - now;
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    calculateTime();
+    const interval = setInterval(calculateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  if (!timeLeft) return null;
+
+  return (
+    <div className="flex gap-3 sm:gap-4 justify-center mb-8 flex-wrap items-baseline">
+      {[
+        { value: timeLeft.days, label: 'Days' },
+        { value: timeLeft.hours, label: 'Hours' },
+        { value: timeLeft.minutes, label: 'Mins' },
+        { value: timeLeft.seconds, label: 'Secs' },
+      ].map(({ value, label }, idx) => (
+        <div key={label} className="flex items-baseline gap-2">
+          <div className="text-3xl sm:text-4xl font-bold shimmer-text font-mono">
+            {String(value).padStart(2, '0')}
+          </div>
+          <span className="text-xs sm:text-sm text-white/50 uppercase tracking-widest">{label}</span>
+          {idx < 3 && <span className="text-2xl sm:text-3xl text-white/30 mx-1">:</span>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ─── Main page ──────────────────────────────────────────────────────────────
 export default function MeetupPage() {
   const { copied: copiedNumber, copy: copyNumber } = useCopy();
@@ -155,6 +204,8 @@ export default function MeetupPage() {
           <h1 className="text-5xl sm:text-7xl font-bold mb-4 shimmer-text leading-tight">
             Iftar Meetup<br />2026
           </h1>
+
+          <CountdownTimer />
 
           <p className="text-lg sm:text-xl text-white/60 max-w-md mb-8 leading-relaxed">
             Happy Ramadan to everyone! Like every year,<br className="hidden sm:block" />
@@ -458,6 +509,44 @@ export default function MeetupPage() {
               </iframe>
             </div>
           </Section>
+        </section>
+
+        {/* ──── FAQ ──── */}
+        <section className="relative z-10 max-w-4xl mx-auto px-4 py-10 sm:py-14">
+          <Section>
+            <h2 className="text-center text-sm tracking-[0.3em] uppercase text-amber-400/80 mb-12">
+              Frequently Asked Questions
+            </h2>
+          </Section>
+
+          <div className="space-y-4">
+            {[
+              {
+                question: 'Why the program is at DU?',
+                answer: 'Because we were able to arrange this space at such a short time',
+              },
+              {
+                question: 'Why the program is not at NDC campus?',
+                answer: 'Have to take permission from Father, long process, didn\'t had the time',
+              },
+              {
+                question: 'Why at 25th February?',
+                answer: 'Because people leave Dhaka at the end of Ramadan usually and its harder for us to meet at a common time',
+              },
+            ].map((faq, idx) => (
+              <Section key={idx} delay={100 + idx * 100}>
+                <div className="glass rounded-2xl p-6 hover:border-amber-500/20 transition-colors group">
+                  <h3 className="text-lg font-semibold text-white/90 mb-3 flex items-start gap-3">
+                    <span className="text-amber-400 text-xl shrink-0 mt-0.5">Q{idx + 1}</span>
+                    <span>{faq.question}</span>
+                  </h3>
+                  <p className="text-white/60 leading-relaxed ml-8 text-sm">
+                    {faq.answer}
+                  </p>
+                </div>
+              </Section>
+            ))}
+          </div>
         </section>
 
         {/* ──── FOOTER ──── */}
