@@ -10,13 +10,13 @@ export default function LayoutWrapper({
 }) {
   const pathname = usePathname();
   
-  // Check if the current path starts with /bizcomp (matches /bizcomp and all child routes)
-  const isBizCompPage = pathname.startsWith('/bizcomp');
+  // Check if the current path starts with /bizcomp or /meetup (matches all child routes)
+  const isFullScreenPage = pathname.startsWith('/bizcomp') || pathname.startsWith('/meetup');
 
   return (
     <>
-      {isBizCompPage ? (
-        // If we're on any /bizcomp route, render without navbar
+      {isFullScreenPage ? (
+        // If we're on a full-screen route, render without navbar
         <>{children}</>
       ) : (
         // On all other pages, render the default layout with the navbar
