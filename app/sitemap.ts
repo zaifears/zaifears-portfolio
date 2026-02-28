@@ -1,7 +1,7 @@
 import { contentfulClient } from '@/lib/contentfulClient';
 
-// --- UPDATED: The correct URL for your live website ---
-export const baseUrl = 'https://zaifears.vercel.app';
+// --- UPDATED: The correct URL for your live website (canonical domain for SEO) ---
+export const baseUrl = 'https://shahoriar.me';
 
 // Define the structure of a blog post for fetching
 interface LifeEvent {

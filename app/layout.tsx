@@ -1,4 +1,21 @@
 import './global.css'; // Using the alias for the global CSS
+
+// suppress annoying Recharts warnings about negative dims during build/SSR
+if (typeof global !== 'undefined') {
+  const origWarn = console.warn;
+  const origError = console.error;
+  const filterMsg = (msg: unknown) =>
+    typeof msg === 'string' && msg.includes('width(-1) and height(-1) of chart');
+  console.warn = (...args: any[]) => {
+    if (args.some(filterMsg)) return;
+    origWarn(...args);
+  };
+  console.error = (...args: any[]) => {
+    if (args.some(filterMsg)) return;
+    origError(...args);
+  };
+}
+
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
@@ -13,6 +30,7 @@ import Script from 'next/script';
 import LayoutWrapper from './LayoutWrapper'; // Import our new component using alias
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://shahoriar.me'),
   title: {
     default: 'Shahoriar Hossain',
     template: '%s | Shahoriar Hossain',

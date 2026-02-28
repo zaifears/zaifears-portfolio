@@ -82,7 +82,7 @@ export default function Charts({ data }: ChartsProps) {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Grade Distribution Pie Chart */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 min-w-0">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Batch Grade Distribution</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -106,7 +106,7 @@ export default function Charts({ data }: ChartsProps) {
         </div>
 
         {/* Pass/Fail Donut Chart */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 min-w-0">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Overall Pass/Fail Ratio</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -130,7 +130,7 @@ export default function Charts({ data }: ChartsProps) {
         </div>
 
         {/* Average GPA by Course */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:col-span-2">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:col-span-2 min-w-0">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Average Grade Point by Course</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={courseGpaData}>
@@ -157,7 +157,7 @@ export default function Charts({ data }: ChartsProps) {
         </div>
 
         {/* A+ Count by Course */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:col-span-2">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:col-span-2 min-w-0">
           <h3 className="text-lg font-bold text-gray-900 mb-4">A+ Grades by Course</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={courseAPlusData}>

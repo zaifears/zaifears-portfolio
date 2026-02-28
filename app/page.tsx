@@ -132,7 +132,7 @@ export default function Page() {
           <div className="text-center mb-12 sm:mb-16">
             
             <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-items-center mb-6 sm:mb-8">
-              <div className="w-full h-full flex flex-col items-center justify-center md:items-start order-2 md:order-1 mt-4 md:mt-0 min-h-[60px] gap-2">
+              <div className="w-full h-full flex flex-col items-center justify-center md:items-start order-2 md:order-1 mt-4 md:mt-0 min-h-15 gap-2">
                 <LiveTime />
                 <Weather />
               </div>
@@ -327,15 +327,7 @@ export default function Page() {
                   className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
                 />
               </Link>
-              <Link href="/live-text" className="group relative block h-32 sm:h-40 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-teal-600/20 sm:col-span-2 md:col-span-1" aria-label="Access Live Text feature">
-                <Image
-                  src="/livetexttelegram.png"
-                  alt="Live Text from Telegram"
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 33vw"
-                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
-                />
-              </Link>
+
             </div>
           </div>
           

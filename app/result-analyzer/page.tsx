@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import FileUpload from './components/FileUpload';
 import Dashboard from './components/Dashboard';
-import Charts from './components/Charts';
+import dynamic from 'next/dynamic';
+
+const Charts = dynamic(() => import('./components/Charts'), { ssr: false });
 import StudentsList from './components/StudentsList';
 import CourseAnalysis from './components/CourseAnalysis';
 import ExportData from './components/ExportData';

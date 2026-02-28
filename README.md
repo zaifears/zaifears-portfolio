@@ -22,7 +22,6 @@ This site is built with a modern, serverless stack. We use `pnpm` for dependency
 - **Framework:** [Next.js](https://nextjs.org/) (React)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 - **CMS (Content Management):** [Contentful](https://www.contentful.com/) for the "Life Journey" blog and "Certifications" sections.
-- **Real-time Functionality:** [Pusher](https://pusher.com/) and [Vercel KV Storage](https://vercel.com/storage/kv) for the "Live Text" feature.
 - **Deployment & Hosting:** [Vercel](https://vercel.com/), utilizing Serverless Functions, Web Analytics, and Speed Insights.
 
 ---
