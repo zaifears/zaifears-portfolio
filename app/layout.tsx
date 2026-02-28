@@ -56,19 +56,9 @@ export const metadata: Metadata = {
     images: ['https://shahoriar.me/shahoriar.jpg'],
   },
   metadataBase: new URL('https://shahoriar.me'),
-  other: {
-    // structured data for search engines
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Md Al Shahoriar Hossain",
-      "url": "https://shahoriar.me",
-      "sameAs": [
-        "https://www.linkedin.com/in/al-shahoriar/",
-        "https://github.com/zaifears"
-      ]
-    })
-  },
+  // NOTE: JSON‑LD will be injected manually in the <head> below; avoid using
+  // metadata.other because Next outputs <meta> tags which are ignored by
+  // search engines for structured data.
   icons: {
     icon: '/favicon.ico',
     apple: [
@@ -89,8 +79,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  maximumScale: 1,
-  userScalable: false,
+  // maximumScale and userScalable intentionally omitted for accessibility
 };
 
 const cx = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(' ');
@@ -112,16 +101,28 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Shahoriar Hossain" />
-        <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-iphone-60x60.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-ipad-76x76.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-iphone-retina-120x120.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-ipad-retina-152x152.png" />
-        <link rel="llm" href="/llm.txt" />
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-F0NPB44JWC"
+        {/* icons are already emitted by the metadata API */}
+        {/* JSON‑LD for structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Md Al Shahoriar Hossain",
+              "url": "https://shahoriar.me",
+              "sameAs": [
+                "https://www.linkedin.com/in/al-shahoriar/",
+                "https://github.com/zaifears"
+              ]
+            }),
+          }}
         />
-        <Script id="google-analytics">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-F0NPB44JWC"
+          strategy="lazyOnload"
+        />
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

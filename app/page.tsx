@@ -314,7 +314,7 @@ export default function Page() {
                   src="/techtips.png"
                   alt="Tech Tips"
                   fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 100vw, 50vw"
                   className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
                 />
               </Link>
@@ -323,7 +323,7 @@ export default function Page() {
                   src="/designbox.png"
                   alt="Design Portfolio"
                   fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 100vw, 50vw"
                   className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
                 />
               </Link>
