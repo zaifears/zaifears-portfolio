@@ -12,9 +12,9 @@ export default function Page() {
 
       {/* Hero Section: Profile picture and introduction */}
       <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
-        <div className="w-48 h-48 flex-shrink-0">
+        <div className="w-48 h-48 shrink-0">
           <Image
-            src="/my-profile.jpg"
+            src="/shahoriar.jpg"
             alt="MD AL SHAHORIAR HOSSAIN"
             width={193}
             height={193}

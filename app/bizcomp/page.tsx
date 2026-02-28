@@ -9,19 +9,31 @@ const CompetitionCard = memo(({ href, title, subtitle, emoji, colors }: {
   subtitle: string;
   emoji: string;
   colors: string;
-}) => (
-  <Link 
-    href={href}
-    className={`group relative ${colors} rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer min-h-50 flex items-center justify-center`}
-  >
-    <div className="flex flex-col items-center justify-center h-full text-white text-center">
-      <div className="text-5xl mb-3">{emoji}</div>
-      <h3 className="text-2xl font-bold mb-2">{title}</h3>
-      <p className="text-sm opacity-90">{subtitle}</p>
-    </div>
-    <div className="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-  </Link>
-));
+}) => {
+  const isExternal = href.startsWith('http');
+  const baseClasses = `group relative ${colors} rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer min-h-50 flex items-center justify-center`;
+
+  const inner = (
+    <>
+      <div className="flex flex-col items-center justify-center h-full text-white text-center">
+        <div className="text-5xl mb-3">{emoji}</div>
+        <h3 className="text-2xl font-bold mb-2">{title}</h3>
+        <p className="text-sm opacity-90">{subtitle}</p>
+      </div>
+      <div className="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+    </>
+  );
+
+  return isExternal ? (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={baseClasses}>
+      {inner}
+    </a>
+  ) : (
+    <Link href={href} className={baseClasses}>
+      {inner}
+    </Link>
+  );
+});
 
 CompetitionCard.displayName = 'CompetitionCard';
 
@@ -110,18 +122,18 @@ export default function BizCompPage() {
           </div>
         </div>
 
-        {/* Technopreneurship Section */}
+        {/* Technopreneurship Section (now links externally) */}
         <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border-2 border-gray-200 mb-8">
           <SectionHeader 
             title="Technopreneurship"
-            subtitle="Innovation & entrepreneurial technology ventures"
+            subtitle="External resource: cylnk.com"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <CompetitionCard
-              href="/bizcomp/technopreneurship"
+              href="https://cylnk.com"
               title="Technopreneurship"
-              subtitle="Tech-driven business solutions"
+              subtitle="Visit cylnk.com"
               emoji="💡"
               colors="bg-linear-to-br from-orange-500 to-orange-600"
             />

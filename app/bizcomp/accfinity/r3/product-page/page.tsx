@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { ArrowLeft, Heart, Share2, ChevronDown, ChevronUp, Leaf, Droplet, Trees, ShoppingCart, Star } from 'lucide-react';
 
 export default function ProductPage() {
@@ -23,7 +24,7 @@ export default function ProductPage() {
               <ArrowLeft className="h-6 w-6" />
               Back to Demo
             </a>
-            <img src="/bizcomp/polaris-transparent.png" alt="Polaris" style={{ width: '140px', height: '45px' }} className="object-contain" />
+            <Image src="/bizcomp/polaris-transparent.png" alt="Polaris" width={140} height={45} className="object-contain" />
           </div>
         </div>
       </header>
@@ -34,10 +35,11 @@ export default function ProductPage() {
             {/* --- PALETTE CHANGE: Image Border --- */}
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-blue-500">
               <div className="aspect-[3/4]">
-                <img 
+                <Image 
                   src="/bizcomp/accfinity/burgundy-blazer.jpg" 
                   alt="The Burgundy Estate Blazer" 
-                  className="w-full h-full object-cover" 
+                  fill
+                  className="object-cover" 
                 />
               </div>
             </div>

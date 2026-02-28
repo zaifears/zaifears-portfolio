@@ -148,7 +148,7 @@ export default function Page() {
                 <div className="outline-container relative w-full h-full">
                   <div className="absolute inset-0" style={{ clipPath: 'url(#blob-shape)' }}>
                     <Image
-                      src="/my-profile.jpg"
+                      src="/shahoriar.jpg"
                       alt="MD AL SHAHORIAR HOSSAIN - Finance Professional"
                       width={192}
                       height={192}
@@ -224,14 +224,14 @@ export default function Page() {
                 {/* Left side - Image */}
                 <div className="order-2 md:order-1">
                   <Link 
-                    href="https://skilldash.live" 
+                    href="https://skilldash.live/simulator" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="group block rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                   >
                     <Image
-                      src="/skilldash-banner.jpg"
-                      alt="SkillDash - Career Discovery Platform"
+                      src="/skilldash-simulator.png"
+                      alt="SkillDash Simulator - DSE Stock Simulator"
                       width={600}
                       height={300}
                       className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"
@@ -244,24 +244,24 @@ export default function Page() {
                 <div className="order-1 md:order-2 space-y-4">
                   <div>
                     <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                      SkillDash
+                      SkillDash Simulator
                     </h3>
                     <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">
-                      Transforming Career Discovery for Bangladesh's Youth
+                      Bangladesh's DSE Stock Simulator
                     </p>
                   </div>
                   
                   <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                    Witnessing countless talented graduates struggle with career direction inspired me to build SkillDash. Despite academic excellence, many face unemployment simply due to lack of clarity about their strengths and market opportunities. Visit{' '}
+                    Practice Dhaka Stock Exchange trading without risk using our paper trading simulator. The DSE module replicates live market conditions and lets you hone your investing strategies. Try the simulator now at{' '}
                     <Link 
-                      href="https://skilldash.live" 
+                      href="https://skilldash.live/simulator" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline transition-colors"
                     >
-                      skilldash.live
+                      skilldash.live/simulator
                     </Link>
-                    {' '}and experience AI-powered career discovery designed specifically for Bangladesh's job market.
+                    {' '}and start trading virtual DSE stocks today.
                   </p>
                 </div>
               </div>
@@ -309,7 +309,7 @@ export default function Page() {
           <div className="text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Get Started</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto justify-items-center">
-              <Link href="/techtips" className="group relative block h-32 sm:h-40 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-600/20" aria-label="Visit Tech Tips section">
+              <Link href="/techtips" className="group relative block w-full h-40 sm:h-48 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-600/20" aria-label="Visit Tech Tips section">
                 <Image
                   src="/techtips.png"
                   alt="Tech Tips"
@@ -318,7 +318,7 @@ export default function Page() {
                   className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
                 />
               </Link>
-              <Link href="/design-portfolio" className="group relative block h-32 sm:h-40 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-600/20" aria-label="Visit Design Portfolio">
+              <Link href="/design-portfolio" className="group relative block w-full h-40 sm:h-48 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-600/20" aria-label="Visit Design Portfolio">
                 <Image
                   src="/designbox.png"
                   alt="Design Portfolio"

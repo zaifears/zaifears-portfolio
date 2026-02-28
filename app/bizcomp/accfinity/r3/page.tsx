@@ -480,7 +480,9 @@ const FitFinderPage: React.FC = () => {
               </label>
             ) : (
               <div className="relative">
-                <img src={uploadedPhoto} alt="Uploaded" className="w-full h-56 object-cover rounded-xl" />
+                <div className="relative w-full h-56 rounded-xl overflow-hidden">
+                  <Image src={uploadedPhoto!} alt="Uploaded" fill className="object-cover" />
+                </div>
                 <button
                   onClick={() => setUploadedPhoto(null)}
                   className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full hover:bg-red-600"
@@ -763,11 +765,14 @@ const ColorPickerPage: React.FC = () => {
           <div className="space-y-4">
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-100 relative">
               <div className="relative aspect-3/4 bg-gray-100">
-                <img
-                  src={uploadedImage || selectedColor.imageUrl}
-                  alt={`${selectedColor.name} Blazer Preview`}
-                  className="w-full h-full object-cover"
-                />
+                <div className="relative w-full h-full">
+                  <Image
+                    src={uploadedImage || selectedColor.imageUrl}
+                    alt={`${selectedColor.name} Blazer Preview`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </div>
               <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full shadow-xl border-2 border-gray-100">
                 <div className="flex items-center gap-2">
@@ -936,7 +941,9 @@ const StyleFinderPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-xl overflow-hidden border-2 border-gray-100 sticky top-6">
-              <img src={uploadedStyle} alt="Uploaded Style" className="w-full h-64 object-cover" />
+              <div className="relative w-full h-64">
+              <Image src={uploadedStyle!} alt="Uploaded Style" fill className="object-cover" />
+            </div>
               <div className="p-5">
                 <h3 className="text-lg font-bold text-gray-900 mb-3">Your Uploaded Photo</h3>
                 {analyzing ? (
@@ -978,7 +985,9 @@ const StyleFinderPage: React.FC = () => {
               {genericProducts.map(item => (
                 <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all group">
                   <div className="relative">
-                    <img src={item.imageUrl} alt={item.name} className="h-56 w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="relative h-56 w-full">
+                      <Image src={item.imageUrl} alt={item.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
                     <div className="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full font-bold text-xs shadow-lg">
                       In Stock
                     </div>
@@ -1149,7 +1158,9 @@ const WardrobePage: React.FC = () => {
               className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-100 hover:shadow-xl hover:scale-105 transition-all cursor-pointer"
               onClick={() => { if (item.id === 1) window.location.href = '/bizcomp/accfinity/r3/product-page'; }}
             >
-              <img src={item.imageUrl} alt={item.name} className="h-56 w-full object-cover" />
+              <div className="relative h-56 w-full">
+                <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
+              </div>
               <div className="p-4">
                 <h4 className="text-base font-bold text-gray-900 mb-0.5 truncate">{item.name}</h4>
                 <p className="text-lg font-bold text-blue-600 mb-2">৳{item.price.toLocaleString()}</p>
@@ -1178,7 +1189,9 @@ const WardrobePage: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {recommendedItems.map(item => (
             <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-dashed border-blue-500 hover:border-solid hover:shadow-xl hover:scale-105 transition-all">
-              <img src={item.imageUrl} alt={item.name} className="h-56 w-full object-cover" />
+              <div className="relative h-56 w-full">
+                <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
+              </div>
               <div className="p-4">
                 <h4 className="text-base font-bold text-gray-900 mb-0.5 truncate">{item.name}</h4>
                 <p className="text-lg font-bold text-blue-600 mb-2">৳{item.price.toLocaleString()}</p>
