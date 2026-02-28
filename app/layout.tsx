@@ -23,6 +23,27 @@ export const metadata: Metadata = {
     template: '%s | Shahoriar Hossain',
   },
   description: "Shahoriar Hossain's personal portfolio and life log.",
+  openGraph: {
+    title: 'Shahoriar Hossain',
+    description: 'Personal portfolio showcasing skills, projects, and life journey.',
+    url: 'https://shahoriar.me',
+    siteName: 'Shahoriar Hossain',
+    images: [
+      {
+        url: 'https://shahoriar.me/shahoriar.jpg',
+        width: 800,
+        height: 800,
+        alt: 'Portrait of Shahoriar Hossain',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Shahoriar Hossain',
+    description: 'Personal portfolio and life log by Shahoriar Hossain.',
+    images: ['https://shahoriar.me/shahoriar.jpg'],
+  },
   icons: {
     icon: '/favicon.ico',
     apple: [
@@ -70,6 +91,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-ipad-76x76.png" />
         <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-iphone-retina-120x120.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-ipad-retina-152x152.png" />
+        <link rel="llm" href="/llm.txt" />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-F0NPB44JWC"

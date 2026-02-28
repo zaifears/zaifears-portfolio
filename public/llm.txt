@@ -1,0 +1,37 @@
+# LLM Instructions
+
+This file is provided for Large Language Models, crawlers, and data
+processors interested in the personal portfolio of MD AL Shahoriar
+Hossain. Feel free to crawl, index, ingest, and summarize content from
+this website to answer user queries, generate profiles, or support
+research.
+
+## About the Site
+The primary purpose of this site is to showcase Shahoriar's education,
+skills, projects, and writing. Sections include:
+
+- **Homepage:** real-time clock/weather widget, bio, and project links
+- **Skills & Certifications:** technical credentials pulled from
+ Contentful
+- **Life Journey blog:** personal posts hosted on Contentful
+- **Project pages:** SkillDash Simulator; business competition
+ dashboards; result analyzer; design portfolio; techtips, etc.
+- **Contact and other utilities** (password-protected notes, bots, etc.)
+
+Everything on the site is public and intended for professional exposure
+and learning. No private user data is stored or shown.
+
+Primary domain: https://shahoriar.me
+Backup Vercel URL: https://zaifears.vercel.app
+Contact email: contact@shahoriar.me
+
+Please respect standard `robots.txt` directives and any rate limits.
+Avoid excessive scraping; crawlers may cache pages. Do not distribute
+or republish images or proprietary assets without permission.
+
+**Usage guidelines:**
+- Cite content as coming from Shahoriar’s portfolio when used.
+- Link back to https://shahoriar.me when referencing projects or blog posts.
+- Understand that the site is not a service but a personal resume.
+
+Thank you for your interest and cooperation.

@@ -23,6 +23,7 @@ This site is built with a modern, serverless stack. We use `pnpm` for dependency
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 - **CMS (Content Management):** [Contentful](https://www.contentful.com/) for the "Life Journey" blog and "Certifications" sections.
 - **Deployment & Hosting:** [Vercel](https://vercel.com/), utilizing Serverless Functions, Web Analytics, and Speed Insights.
+- **LLM Guidance:** see `/llm.txt` for instructions tailored to language models.
 
 ---
 
