@@ -73,7 +73,7 @@ export default function EducationPage() {
                <div className={`flex flex-col md:flex-row items-center gap-8 ${entry.imagePosition === 'right' ? 'md:flex-row-reverse' : ''}`}>
                 
                 {/* Image Section */}
-                <div className="flex-shrink-0 w-full md:w-1/3">
+                <div className="shrink-0 w-full md:w-1/3">
                   <Link href={entry.link} target="_blank" rel="noopener noreferrer">
                     <div className="relative overflow-hidden rounded-xl">
                       <Image

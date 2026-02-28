@@ -78,7 +78,7 @@ export default function WhyUsPage() {
                 </section>
 
                 {/* CTA */}
-                <section className="bg-gradient-to-r from-black to-[#59b345]/10 border border-[#59b345]/30 rounded-3xl p-8 md:p-16 text-center space-y-8">
+                <section className="bg-linear-to-r from-black to-[#59b345]/10 border border-[#59b345]/30 rounded-3xl p-8 md:p-16 text-center space-y-8">
                     <h2 className="text-3xl md:text-6xl font-black uppercase tracking-tighter">Ready to Defend?</h2>
                     <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
                         Stop guessing and start protecting. Your future self will thank you for the routine you start today.

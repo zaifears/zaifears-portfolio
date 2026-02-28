@@ -17,14 +17,14 @@ export default function BtmIutPage() {
                 />
                 
                 {/* Dark Overlay Gradient - Fixed classes to standard Tailwind format */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent md:bg-gradient-to-r md:from-black/80 md:via-black/40 md:to-transparent z-10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent md:bg-linear-to-r md:from-black/80 md:via-black/40 md:to-transparent z-10" />
 
                 {/* Hero Content */}
                 <div className="absolute bottom-0 left-0 w-full p-6 pb-12 md:relative md:h-full md:p-8 z-20 flex flex-col justify-end md:justify-center items-start max-w-7xl mx-auto">
                     <div className="max-w-2xl animate-in fade-in slide-in-from-bottom-8 duration-700 w-full space-y-6">
                         <h1 className="text-5xl sm:text-6xl md:text-8xl font-black leading-[0.9] tracking-tighter drop-shadow-2xl uppercase">
                             NEW YEAR,<br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#59b345] to-white">
+                            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#59b345] to-white">
                                 NEW YOU
                             </span>
                         </h1>

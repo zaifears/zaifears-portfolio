@@ -17,11 +17,22 @@ import Script from 'next/script';
 import LayoutWrapper from './LayoutWrapper'; // Import our new component using alias
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://shahoriar.me'),
   title: {
-    default: 'Shahoriar Hossain',
-    template: '%s | Shahoriar Hossain',
+    default: 'Md Al Shahoriar Hossain',
+    template: '%s | Md Al Shahoriar Hossain',
   },
+  keywords: [
+    'Md Al Shahoriar Hossain',
+    'Shahoriar Hossain',
+    'Shahoriar BUP',
+    'Shahoriar NDC',
+    'Md Al Shahoriar Hossain BUP',
+    'Md Al Shahoriar Hossain Finance',
+    'Finance Professional',
+    'Web Developer',
+    'Bangladesh',
+    'zaifears'
+  ],
   description: "Shahoriar Hossain's personal portfolio and life log.",
   openGraph: {
     title: 'Shahoriar Hossain',
@@ -40,9 +51,23 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Shahoriar Hossain',
-    description: 'Personal portfolio and life log by Shahoriar Hossain.',
+    title: 'Md Al Shahoriar Hossain',
+    description: 'Personal portfolio and life log by Md Al Shahoriar Hossain.',
     images: ['https://shahoriar.me/shahoriar.jpg'],
+  },
+  metadataBase: new URL('https://shahoriar.me'),
+  other: {
+    // structured data for search engines
+    "application/ld+json": JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Md Al Shahoriar Hossain",
+      "url": "https://shahoriar.me",
+      "sameAs": [
+        "https://www.linkedin.com/in/al-shahoriar/",
+        "https://github.com/zaifears"
+      ]
+    })
   },
   icons: {
     icon: '/favicon.ico',

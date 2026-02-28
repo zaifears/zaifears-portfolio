@@ -126,7 +126,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
             {certificates.map((cert: Certificate, index: number) => (
               <div key={index} className="group bg-white dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 flex flex-col sm:flex-row items-start gap-6 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300">
                 {cert.fields.certificateImage && (
-                  <div className="flex-shrink-0 w-full sm:w-24 sm:h-24 bg-gray-100 dark:bg-gray-800 rounded-xl p-2 flex items-center justify-center group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-300">
+                  <div className="shrink-0 w-full sm:w-24 sm:h-24 bg-gray-100 dark:bg-gray-800 rounded-xl p-2 flex items-center justify-center group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-300">
                     <Image
                       src={`https:${cert.fields.certificateImage.fields.file.url}`}
                       alt={cert.fields.certificateImage.fields.title}
