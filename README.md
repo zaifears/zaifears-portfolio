@@ -10,14 +10,14 @@ This site was built in Visual Studio Code through a collaboration with AI. It's 
 
 You can view the live website at:
 
-- **Primary Domain:** [shahoriar.me](https://shahoriar.me)
+- **Primary Domain:** [zaifears.vercel.app](https://zaifears.vercel.app)
 - **Vercel URL:** [shahoriar.vercel.app](https://shahoriar.vercel.app)
 
 ---
 
 ## ✨ Core Technologies
 
-This site is built with a modern, serverless stack:
+This site is built with a modern, serverless stack. We use `pnpm` for dependency management––`npm` artifacts like `package-lock.json` are intentionally absent.
 
 - **Framework:** [Next.js](https://nextjs.org/) (React)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
@@ -29,4 +29,17 @@ This site is built with a modern, serverless stack:
 
 ## 💬 Get in Touch
 
-If you'd like to connect or discuss a project, feel free to reach out via the [contact page on my website](https://shahoriar.me/contact).
+If you'd like to connect or discuss a project, feel free to reach out via the [contact page on my website](https://zaifears.vercel.app/contact).
+
+---
+
+### 🛠 Development
+
+This project uses `pnpm`; run the following to install and develop:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Avoid using `npm install` or generation of `package-lock.json`—they’re not used here and may cause conflicts.

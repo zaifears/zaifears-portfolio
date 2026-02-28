@@ -3,8 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 
-// Ensure fresh data on each request
-export const dynamic = 'force-dynamic'; // Force dynamic rendering
+// ISR: revalidate every 60 seconds in the background instead of hitting Contentful on every request
+export const revalidate = 60;
 
 // Define a type for our Life Event entries for better code safety
 interface LifeEvent {

@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-// Ensure fresh data on each request
-export const dynamic = 'force-dynamic'; // Force dynamic rendering
+// ISR: revalidate every 60 seconds instead of hitting Contentful on every request
+export const revalidate = 60;
 
 // Define the type for a single Life Event
 interface LifeEvent {

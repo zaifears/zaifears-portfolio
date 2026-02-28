@@ -16,38 +16,11 @@ const nextConfig = {
       },
     ],
   },
-  // Add cache control headers to reduce caching issues
-  async headers() {
-    return [
-      {
-        source: '/skills',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-cache, no-store, must-revalidate'
-          }
-        ]
-      },
-      {
-        source: '/life',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-cache, no-store, must-revalidate'
-          }
-        ]
-      },
-      {
-        source: '/life/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-cache, no-store, must-revalidate'
-          }
-        ]
-      }
-    ];
-  },
+  // previously we added aggressive cache headers for some routes to avoid stale data,
+  // but this causes cold-start delays on Vercel Hobby tier. ISR is preferred instead.
+  // async headers() {
+  //   return [ /* removed */ ];
+  // },
   productionBrowserSourceMaps: false,
   typescript: {
     tsconfigPath: './tsconfig.json'

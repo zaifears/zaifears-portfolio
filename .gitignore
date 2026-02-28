@@ -20,7 +20,7 @@
 *.pem
 
 # debug
-npm-debug.log*
+# npm logs are not relevant; pnpm is used
 yarn-debug.log*
 yarn-error.log*
 
