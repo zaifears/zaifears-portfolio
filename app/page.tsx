@@ -308,7 +308,7 @@ export default function Page() {
 
           <div className="text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Get Started</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto justify-items-center">
               <Link href="/techtips" className="group relative block h-32 sm:h-40 rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-600/20" aria-label="Visit Tech Tips section">
                 <Image
                   src="/techtips.png"
