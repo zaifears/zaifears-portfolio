@@ -9,7 +9,7 @@ const educationEntries = [
     period: 'January 2025 - June 2025',
     description: 'By successfully completing the Certificate Level of Chartered Accountancy, I have gained a robust understanding of financial reporting, auditing principles, and domestic tax laws. This qualification directly supplements my academic studies, equipping me with the practical expertise needed to effectively manage accounts and ensure regulatory compliance. My background provides a comprehensive view of business operations, from strategic planning to detailed financial oversight.',
     website: 'https://www.icab.org.bd',
-    image: '/icab.png',
+    image: '/education/icab.png',
     imageAlt: 'Institute of Chartered Accountants of Bangladesh',
     link: 'https://www.icab.org.bd/',
     imagePosition: 'left',
@@ -22,7 +22,7 @@ const educationEntries = [
     period: '2022 - Present',
     description: 'I am currently pursuing my Bachelor\'s degree in Finance & Banking, where my coursework covers key areas such as investment analysis, risk management, and business law. Beyond my formal studies, I am deeply involved in campus life and practical learning opportunities. I have collaborated with faculty members on research projects and have taken an active role in organizing a variety of events. These include departmental seminars, a cross-university business hackathon, as well as workshops and competitions focused on practical skills like Excel.',
     website: 'https://bup.edu.bd',
-    image: '/university.png',
+    image: '/education/university.png',
     imageAlt: 'Bangladesh University of Professionals',
     link: 'https://en.wikipedia.org/wiki/Bangladesh_University_of_Professionals',
     imagePosition: 'right',
@@ -35,7 +35,7 @@ const educationEntries = [
     period: '2019 - 2021',
     description: 'I went to Notre Dame College for my higher secondary studies, where I focused on Business. I worked hard and was very happy to get a GPA of 5.00. Being at Notre Dame taught me a lot about business basics and helped me get ready for university. It was a challenging place that really helped me learn how to think critically and solve problems.',
     website: 'https://ndc.edu.bd',
-    image: '/college.png',
+    image: '/education/college.png',
     imageAlt: 'Notre Dame College',
     link: 'https://en.wikipedia.org/wiki/Notre_Dame_College,_Dhaka',
     imagePosition: 'left',
@@ -48,7 +48,7 @@ const educationEntries = [
     period: 'Completed 2019',
     description: 'This is where my interest in business really started. I finished my secondary school here, studying Business and getting a GPA of 4.50. Learning about commerce and economics at Ideal School & College is what made me want to continue studying business and finance. It gave me a great start and the motivation to keep learning.',
     website: 'https://iscm.edu.bd/',
-    image: '/school.png',
+    image: '/education/school.png',
     imageAlt: 'Ideal School & College',
     link: 'https://en.wikipedia.org/wiki/Ideal_School_and_College',
     imagePosition: 'right',
@@ -58,7 +58,15 @@ const educationEntries = [
 
 export default function EducationPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="fixed inset-0 md:left-64 z-0">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-16">
@@ -89,7 +97,7 @@ export default function EducationPage() {
                 </div>
 
                 {/* Content Section */}
-                <div className="flex-grow">
+                <div className="grow">
                   <Link href={entry.link} target="_blank" rel="noopener noreferrer">
                     <h2 className="text-2xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 hover:underline">
                       {entry.title}
@@ -146,6 +154,7 @@ export default function EducationPage() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

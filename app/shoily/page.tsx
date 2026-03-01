@@ -12,9 +12,9 @@ const luckOptions = [
 ];
 
 const slideshowImages = [
-  '/we.jpg',
-  '/we2.jpg',
-  '/we3.jpg',
+  '/shoily/we.jpg',
+  '/shoily/we2.jpg',
+  '/shoily/we3.jpg',
 ];
 
 export default function SecretBirthdayPage() {
@@ -54,7 +54,7 @@ export default function SecretBirthdayPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center p-4 bg-pink-50 dark:bg-gray-900">
-      <audio ref={audioRef} src="/happy-birthday.mp3" loop />
+      <audio ref={audioRef} src="/shoily/happy-birthday.mp3" loop />
 
       {!isRevealed ? (
         <div className="text-center">

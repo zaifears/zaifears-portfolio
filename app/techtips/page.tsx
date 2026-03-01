@@ -73,9 +73,9 @@ const CommandBlock = ({ content, isCodeBlock = false }: { content: string, isCod
   return (
     <div className="bg-gray-800 dark:bg-gray-900 rounded-lg p-4 font-mono text-sm text-gray-300 dark:text-gray-300 relative">
       {isCodeBlock ? (
-        <pre className="whitespace-pre-wrap break-words">{content}</pre>
+        <pre className="whitespace-pre-wrap wrap-break-word">{content}</pre>
       ) : (
-        <div className="pr-16 break-words">
+        <div className="pr-16 wrap-break-word">
           <span className="text-green-400 dark:text-green-400">powershell -c &quot;</span>
           <span>{content}</span>
           <span className="text-green-400 dark:text-green-400">&quot;</span>
@@ -95,7 +95,15 @@ export default function TechTipsPage() {
   const [activeTab, setActiveTab] = useState('apps');
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="fixed inset-0 md:left-64 z-0">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Tech Tips & Utilities</h1>
@@ -213,14 +221,14 @@ export default function TechTipsPage() {
               {powershellCommands.map((item) => (
                 <div key={item.name} className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg col-span-full">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <div className="w-16 h-16 bg-blue-100 dark:bg-blue-600/20 rounded-xl flex items-center justify-center group-hover:bg-blue-200 dark:group-hover:bg-blue-600/30 transition-colors duration-300">
                         <svg className="w-8 h-8 text-blue-500 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 3a1 1 0 000 2h6a1 1 0 100-2H5zm0 4a1 1 0 100 2h3a1 1 0 100-2H5z" clipRule="evenodd"/>
                         </svg>
                       </div>
                     </div>
-                    <div className="flex-grow">
+                    <div className="grow">
                       <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{item.name}</h3>
                       <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{item.description}</p>
                       <CommandBlock content={item.command} />
@@ -234,7 +242,7 @@ export default function TechTipsPage() {
           {activeTab === 'browserExtensions' && browserExtensions.map((ext) => (
             <div key={ext.name} className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-xl p-2 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors duration-300">
                     <Image 
                       src={`/techtips/${ext.logo}`} 
@@ -245,7 +253,7 @@ export default function TechTipsPage() {
                     />
                   </div>
                 </div>
-                <div className="flex-grow">
+                <div className="grow">
                   <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{ext.name}</h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{ext.description}</p>
                   <div className="flex flex-wrap gap-2">
@@ -299,7 +307,7 @@ export default function TechTipsPage() {
           {activeTab === 'websites' && interestingWebsites.map((tool) => (
             <div key={tool.name} className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-xl p-2 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors duration-300">
                     <Image 
                       src={`/techtips/${tool.logo}`} 
@@ -310,7 +318,7 @@ export default function TechTipsPage() {
                     />
                   </div>
                 </div>
-                <div className="flex-grow">
+                <div className="grow">
                   <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{tool.name}</h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{tool.description}</p>
                   <a 
@@ -329,6 +337,7 @@ export default function TechTipsPage() {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

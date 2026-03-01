@@ -11,7 +11,15 @@ const contactMethods = [
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="fixed inset-0 md:left-64 z-0">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-16">
@@ -30,7 +38,7 @@ export default function ContactPage() {
             className="group block bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 hover:border-blue-500/50 dark:hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-600/10"
           >
             <div className="flex items-center justify-center gap-6">
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-800 transition-colors duration-300">
                   <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-blue-500 dark:text-blue-400" />
                 </div>
@@ -41,7 +49,7 @@ export default function ContactPage() {
                   Book a time that works for both of us to discuss opportunities, projects, or just to chat
                 </p>
               </div>
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <svg className="w-6 h-6 text-gray-500 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-all duration-300 group-hover:transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                 </svg>
@@ -88,6 +96,7 @@ export default function ContactPage() {
             </p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

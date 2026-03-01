@@ -88,12 +88,12 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
             <div className="mb-16">
               <h2 className="text-3xl font-bold text-center mb-8">Core Competencies</h2>
               <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <SkillItem icon="problem.png" name="Problem-Solving" />
-                <SkillItem icon="entrepreneurial.png" name="Entrepreneurial Mindset" />
-                <SkillItem icon="analysis.png" name="Analysis & Research" />
-                <SkillItem icon="financial.png" name="Financial & Economic Analysis" />
-                <SkillItem icon="leadership.png" name="Leadership & Collaboration" />
-                <SkillItem icon="presentation.png" name="Presentation & Communication" />
+                <SkillItem icon="skills/problem.png" name="Problem-Solving" />
+                <SkillItem icon="skills/entrepreneurial.png" name="Entrepreneurial Mindset" />
+                <SkillItem icon="skills/analysis.png" name="Analysis & Research" />
+                <SkillItem icon="skills/financial.png" name="Financial & Economic Analysis" />
+                <SkillItem icon="skills/leadership.png" name="Leadership & Collaboration" />
+                <SkillItem icon="skills/presentation.png" name="Presentation & Communication" />
               </div>
             </div>
             <div className="mb-16">
@@ -103,20 +103,20 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
                   <TechSkillItem
                     title="Proficient Use of AI"
                     logos={[
-                      { src: 'chatgpt.png', alt: 'ChatGPT Logo', href: 'https://openai.com/chatgpt' },
-                      { src: 'claude.png', alt: 'Claude AI Logo', href: 'https://www.claude.ai/' },
-                      { src: 'gemini.png', alt: 'Google Gemini Logo', href: 'https://gemini.google.com/' },
-                      { src: 'grok.png', alt: 'Grok AI Logo', href: 'https://grok.x.ai/' },
+                      { src: 'skills/chatgpt.png', alt: 'ChatGPT Logo', href: 'https://openai.com/chatgpt' },
+                      { src: 'skills/claude.png', alt: 'Claude AI Logo', href: 'https://www.claude.ai/' },
+                      { src: 'skills/gemini.png', alt: 'Google Gemini Logo', href: 'https://gemini.google.com/' },
+                      { src: 'skills/grok.png', alt: 'Grok AI Logo', href: 'https://grok.x.ai/' },
                     ]}
                     names="I leverage various AI tools to accelerate my development workflow, from code generation to research and analysis."
                   />
                 </div>
-                <TechSkillItem title="Design" logos={[{ src: 'canva.png', alt: 'Canva', href: 'https://www.canva.com' }, { src: 'figma.png', alt: 'Figma', href: 'https://www.figma.com' }]} names="Canva, Figma" />
-                <TechSkillItem title="Office & Productivity" logos={[{ src: 'office.png', alt: 'Microsoft Office', href: 'https://www.office.com' }, { src: 'google.png', alt: 'Google Workspace', href: 'https://workspace.google.com' }]} names="Microsoft Office Suite, Google Workplace" />
-                <TechSkillItem title="Web Development" logos={[{ src: 'wordpress.png', alt: 'Wordpress', href: 'https://wordpress.org' }, { src: 'nextjs.png', alt: 'Next.js', href: 'https://nextjs.org' }]} names="Wordpress, Next.js" />
-                <TechSkillItem title="Data Analysis" logos={[{ src: 'stata.png', alt: 'Stata', href: 'https://en.wikipedia.org/wiki/Stata' }, { src: 'spss.png', alt: 'SPSS', href: 'https://en.wikipedia.org/wiki/SPSS' }]} names="Stata, SPSS" />
-                <TechSkillItem title="Data Visualization" logos={[{ src: 'powerbi.png', alt: 'Power BI', href: 'https://www.microsoft.com/en-us/power-platform/products/power-bi' }]} names="Power BI" />
-                <TechSkillItem title="IT Support" logos={[{ src: 'computer.png', alt: 'Computer Hardware', href: '#' }]} names="Proficient in building computers from scratch and disassembling hardware components. Skilled at diagnosing and resolving both hardware and software issues." />
+                <TechSkillItem title="Design" logos={[{ src: 'skills/canva.png', alt: 'Canva', href: 'https://www.canva.com' }, { src: 'skills/figma.png', alt: 'Figma', href: 'https://www.figma.com' }]} names="Canva, Figma" />
+                <TechSkillItem title="Office & Productivity" logos={[{ src: 'skills/office.png', alt: 'Microsoft Office', href: 'https://www.office.com' }, { src: 'skills/google.png', alt: 'Google Workspace', href: 'https://workspace.google.com' }]} names="Microsoft Office Suite, Google Workplace" />
+                <TechSkillItem title="Web Development" logos={[{ src: 'skills/wordpress.png', alt: 'Wordpress', href: 'https://wordpress.org' }, { src: 'skills/nextjs.png', alt: 'Next.js', href: 'https://nextjs.org' }]} names="Wordpress, Next.js" />
+                <TechSkillItem title="Data Analysis" logos={[{ src: 'skills/stata.png', alt: 'Stata', href: 'https://en.wikipedia.org/wiki/Stata' }, { src: 'skills/spss.png', alt: 'SPSS', href: 'https://en.wikipedia.org/wiki/SPSS' }]} names="Stata, SPSS" />
+                <TechSkillItem title="Data Visualization" logos={[{ src: 'skills/powerbi.png', alt: 'Power BI', href: 'https://www.microsoft.com/en-us/power-platform/products/power-bi' }]} names="Power BI" />
+                <TechSkillItem title="IT Support" logos={[{ src: 'skills/computer.png', alt: 'Computer Hardware', href: '#' }]} names="Proficient in building computers from scratch and disassembling hardware components. Skilled at diagnosing and resolving both hardware and software issues." />
               </div>
             </div>
           </>
@@ -136,7 +136,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
                     />
                   </div>
                 )}
-                <div className="flex-grow">
+                <div className="grow">
                   <h3 className="font-bold text-xl mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{cert.fields.title}</h3>
                   <p className="text-gray-600 dark:text-gray-400">{cert.fields.issuingBody}</p>
                   {cert.fields.description && (

@@ -37,14 +37,14 @@ export default function WhyUsPage() {
                             We didn't just build a hair product. We built a defence system for the modern man who values long-term confidence over short-term fixes.
                         </p>
                     </div>
-                    <div className="relative h-[300px] md:h-[500px] bg-white/5 rounded-3xl overflow-hidden border border-white/10 p-4">
+                    <div className="relative h-75 md:h-125 bg-white/5 rounded-3xl overflow-hidden border border-white/10 p-4">
                         <Image 
                             src="/bizcomp/Defense Through Habit-HERO.png" 
                             alt="Brand Identity" 
                             fill 
                             className="object-cover opacity-80"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-tr from-black via-transparent to-transparent" />
                     </div>
                 </section>
 

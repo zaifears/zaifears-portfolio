@@ -1,5 +1,20 @@
 import { createClient } from 'contentful';
 
+// Suppress the DEP0169 deprecation warning from url.parse() in Contentful SDK
+const originalEmit = process.emit;
+// @ts-ignore
+process.emit = function(name, ...args) {
+  if (
+    name === 'warning' &&
+    args[0] &&
+    typeof args[0] === 'object' &&
+    args[0].code === 'DEP0169'
+  ) {
+    return false;
+  }
+  return originalEmit.apply(process, [name, ...args] as Parameters<typeof process.emit>);
+};
+
 // Make sure to set these environment variables in your .env.local file
 // and also in your Vercel project settings.
 const spaceId = process.env.CONTENTFUL_SPACE_ID;

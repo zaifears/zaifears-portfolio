@@ -22,11 +22,11 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { href: '/', name: 'Home', icon: faHome },
-  { href: '/education', name: 'Education', icon: faUserGraduate },
+  { href: '/life', name: 'Life', icon: faFlag },
   { href: '/skills', name: 'Skills', icon: faCogs },
   { href: '/techtips', name: 'Tech Tips', icon: faMicrochip },
+  { href: '/education', name: 'Education', icon: faUserGraduate },
   { href: '/contact', name: 'Contact', icon: faEnvelope },
-  { href: '/life', name: 'Life', icon: faFlag },
   {
     href: 'https://cal.com/zaifears',
     name: 'Schedule a Meeting',
@@ -48,7 +48,7 @@ export function Navbar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex md:flex-col w-64 p-6 bg-gray-100 dark:bg-black text-gray-600 dark:text-gray-400 font-mono justify-center md:fixed md:inset-y-0 md:left-0 md:h-screen md:overflow-y-auto">
+      <aside className="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:z-40 w-64 p-6 bg-transparent text-gray-600 dark:text-gray-400 font-mono justify-center md:h-screen md:overflow-y-auto">
         <nav>
           <ul>
             {navItems.map((item) => {
@@ -91,9 +91,9 @@ export function Navbar() {
         </nav>
       </aside>
 
-      {/* Mobile Bottom Navigation Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 z-50">
-        <nav className="flex justify-around items-center py-3">
+      {/* Mobile Bottom Navigation Bar - Floating Glass Pill */}
+      <div className="md:hidden fixed bottom-4 left-4 right-4 z-50">
+        <nav className="flex justify-between items-center gap-1 py-3 px-1 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl shadow-lg shadow-black/10 dark:shadow-black/30 border border-gray-200/50 dark:border-white/10">
           {navItems
             .filter(item => !item.desktopOnly)
             .map((item) => {
@@ -103,15 +103,14 @@ export function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative flex flex-col items-center text-center p-2 rounded-lg transition-all duration-200 w-16 ${
+                  className={`relative flex flex-1 flex-col items-center justify-center gap-1 py-2 px-0.5 rounded-lg transition-all duration-300 ${
                     isActive
-                      ? 'text-blue-600 dark:text-blue-400 scale-110'
-                      : 'text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400'
+                      ? 'text-white bg-blue-500 dark:bg-blue-600 shadow-md shadow-blue-500/30'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-white/10'
                   }`}
                 >
-                  {isActive && <span className="absolute -top-1 h-1 w-8 bg-blue-500 dark:bg-blue-400 rounded-full"></span>}
-                  <FontAwesomeIcon icon={item.icon} className="w-6 h-6 mb-1" />
-                  <span className="text-xs font-semibold">{item.name}</span>
+                  <FontAwesomeIcon icon={item.icon} className="w-4 h-4" />
+                  <span className="text-[10px] font-semibold whitespace-nowrap leading-none">{item.name}</span>
                 </Link>
               );
             })}
