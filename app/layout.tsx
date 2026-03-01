@@ -139,6 +139,16 @@ export default function RootLayout({
             }
           `}
         </Script>
+        {/* Clarity tracking code for https://shahoriar.me/ */}
+        <Script id="clarity-script" strategy="lazyOnload">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "vp11pm799j");
+          `}
+        </Script>
       </head>
       {/* RESTORED: dark:bg-black and dark:text-white classes */}
       <body className="antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
