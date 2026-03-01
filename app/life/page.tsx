@@ -1,7 +1,13 @@
+import { Metadata } from 'next';
 import { contentfulClient } from '@/lib/contentfulClient';
 import Image from 'next/image';
 import Link from 'next/link';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
+
+export const metadata: Metadata = {
+  title: 'Life & Blog',
+  description: 'Read Md Al Shahoriar Hossain\'s personal blog and life updates. Explore insights, experiences, and stories from his professional and personal journey in Bangladesh.',
+};
 
 // ISR: revalidate every 60 seconds in the background instead of hitting Contentful on every request
 export const revalidate = 60;

@@ -1,6 +1,12 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { contentfulClient } from '@/lib/contentfulClient';
 import SkillsTabs from './SkillsTabs';
+
+export const metadata: Metadata = {
+  title: 'Skills & Certifications',
+  description: 'Explore Md Al Shahoriar Hossain\'s professional skills in finance, web development, programming languages, and certifications. Including CA Certificate Level and professional development credentials.',
+};
 
 export const revalidate = 60;
 

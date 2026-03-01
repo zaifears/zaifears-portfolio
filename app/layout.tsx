@@ -33,10 +33,10 @@ export const metadata: Metadata = {
     'Bangladesh',
     'zaifears'
   ],
-  description: "Shahoriar Hossain's personal portfolio and life log.",
+  description: "Md Al Shahoriar Hossain's personal portfolio showcasing finance expertise, web development projects, graphic design work, and professional journey in Bangladesh.",
   openGraph: {
     title: 'Shahoriar Hossain',
-    description: 'Personal portfolio showcasing skills, projects, and life journey.',
+    description: 'Explore the portfolio of Md Al Shahoriar Hossain - a finance professional and web developer from Bangladesh. Discover skills, projects, and insights into his professional journey.',
     url: 'https://shahoriar.me',
     siteName: 'Shahoriar Hossain',
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Md Al Shahoriar Hossain',
-    description: 'Personal portfolio and life log by Md Al Shahoriar Hossain.',
+    description: 'Md Al Shahoriar Hossain\'s personal portfolio - finance expertise, web development, graphic design, and professional insights. Explore his work and connect today.',
     images: ['/opengraph-image.png'],
   },
   metadataBase: new URL('https://shahoriar.me'),

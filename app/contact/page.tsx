@@ -1,6 +1,12 @@
+import { Metadata } from 'next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+
+export const metadata: Metadata = {
+  title: 'Contact',
+  description: 'Get in touch with Md Al Shahoriar Hossain via email, LinkedIn, Facebook, or YouTube. Available for professional inquiries, collaborations, and networking opportunities.',
+};
 
 const contactMethods = [
     { name: 'Email', href: 'mailto:alshahoriar.hossain@gmail.com', icon: faEnvelope, color: 'text-red-500 dark:text-red-400', hoverColor: 'hover:border-red-500', description: 'Send me an email for professional inquiries' },

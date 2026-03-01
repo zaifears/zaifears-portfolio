@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
+// Note: Metadata cannot be exported in 'use client' components
+// This page will inherit metadata from the parent layout
+
 const apps = [
   { name: 'Audacity', logo: 'audacity.png', description: 'A free, open-source, and cross-platform audio software for multi-track recording and editing.', link: 'https://www.audacityteam.org/download/windows/' },
   { name: 'Everything', logo: 'everything.png', description: 'A fast file search tool for Windows that can instantly locate files and folders by name.', link: 'https://www.voidtools.com/downloads/' },
