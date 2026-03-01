@@ -41,10 +41,10 @@ export const metadata: Metadata = {
     siteName: 'Shahoriar Hossain',
     images: [
       {
-        url: 'https://shahoriar.me/shahoriar.jpg',
-        width: 800,
-        height: 800,
-        alt: 'Portrait of Shahoriar Hossain',
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Shahoriar Hossain - Personal Portfolio',
       },
     ],
     type: 'website',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Md Al Shahoriar Hossain',
     description: 'Personal portfolio and life log by Md Al Shahoriar Hossain.',
-    images: ['https://shahoriar.me/shahoriar.jpg'],
+    images: ['/opengraph-image.png'],
   },
   metadataBase: new URL('https://shahoriar.me'),
   // NOTE: JSON‑LD will be injected manually in the <head> below; avoid using
