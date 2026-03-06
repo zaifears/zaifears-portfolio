@@ -41,21 +41,21 @@ export default function ContactPage() {
             href="https://cal.com/zaifears"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 hover:border-blue-500/50 dark:hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-600/10"
+            className="group block bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 md:p-8 hover:border-blue-500/50 dark:hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-600/10"
           >
-            <div className="flex items-center justify-center gap-6">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
               <div className="shrink-0">
-                <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-800 transition-colors duration-300">
-                  <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-blue-500 dark:text-blue-400" />
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-800 transition-colors duration-300">
+                  <FontAwesomeIcon icon={faCalendarAlt} className="w-8 h-8 md:w-10 md:h-10 text-blue-500 dark:text-blue-400" />
                 </div>
               </div>
               <div className="text-center">
-                <h2 className="text-2xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">Schedule an Online Meeting</h2>
-                <p className="text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors duration-300">
+                <h2 className="text-xl md:text-2xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">Schedule an Online Meeting</h2>
+                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors duration-300">
                   Book a time that works for both of us to discuss opportunities, projects, or just to chat
                 </p>
               </div>
-              <div className="shrink-0">
+              <div className="hidden md:block shrink-0">
                 <svg className="w-6 h-6 text-gray-500 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-all duration-300 group-hover:transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                 </svg>
@@ -65,21 +65,21 @@ export default function ContactPage() {
         </div>
 
         {/* Contact Methods Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
           {contactMethods.map((method) => (
             <a
               key={method.name}
               href={method.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 hover:bg-gray-200 dark:hover:bg-gray-800/50 ${method.hoverColor} transition-all duration-300 hover:transform hover:scale-[1.05] hover:shadow-2xl text-center`}
+              className={`group bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-4 md:p-6 hover:bg-gray-200 dark:hover:bg-gray-800/50 ${method.hoverColor} transition-all duration-300 hover:transform hover:scale-[1.05] hover:shadow-2xl text-center`}
             >
               <div className="flex flex-col items-center">
                 <div className="w-16 h-16 bg-gray-200 dark:bg-gray-800/50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-gray-300 dark:group-hover:bg-gray-700/50 transition-colors duration-300">
                   <FontAwesomeIcon icon={method.icon} className={`w-8 h-8 ${method.color} transition-transform duration-300 group-hover:scale-110`} />
                 </div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-black dark:group-hover:text-white transition-colors duration-300">{method.name}</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
+                <h3 className="text-base md:text-xl font-bold mb-1 md:mb-2 group-hover:text-black dark:group-hover:text-white transition-colors duration-300">{method.name}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
                   {method.description}
                 </p>
                 <div className="mt-3 flex items-center text-blue-500 dark:text-blue-400 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:transform group-hover:translate-y-0 translate-y-2">

@@ -34,14 +34,16 @@ const powershellCommands = [
 
 const browserExtensions = [
     { name: 'AdNauseam', logo: 'adnauseam.png', description: 'Clicks every ad on the pages you visit, making your data useless for trackers.', link: 'https://adnauseam.io/' },
-    { name: 'Allow Right Click', logo: 'rightclick.png', description: 'Re-enables the right-click menu on websites that block it.', link: 'https://webextension.org/listing/allow-right-click.html' },
+    { name: 'Allow Right Click', logo: 'allow-right-click.png', description: 'Re-enables the right-click menu on websites that block it.', link: 'https://webextension.org/listing/allow-right-click.html' },
     { name: 'Enhancer for Youtube', logo: 'enhancer.png', description: 'Provides dozens of features to improve your YouTube experience, like volume control, playback speed, and more.', link: 'https://www.mrfdev.com/enhancer-for-youtube' },
     { name: 'Facebook Container', logo: 'container.png', description: 'Prevents Facebook from tracking your activity on other websites.', link: 'https://github.com/mozilla/contain-facebook' },
     { name: 'FastForward', logo: 'fastforward.png', description: 'Skips annoying link shorteners and intermediary pages.', link: 'https://fastforward.team/' },
     { name: 'G App Launcher', logo: 'gapp.png', description: 'Provides a quick launcher for Google apps and services.', link: 'https://apps.jeurissen.co/g-app-launcher' },
     { name: 'Save Image as Type', logo: 'saveimage.png', description: 'Adds a context menu item to save images in a specific format (JPG, PNG, or WebP).', link: 'https://github.com/d7omdev/Save-Image-as-Type' },
     { name: 'Search by Image', logo: 'searchbyimage.png', description: 'A powerful reverse image search tool with support for multiple search engines.', link: 'https://github.com/dessant/search-by-image' },
+    { name: 'FastStream Video Player', logo: 'fast-stream.png', description: 'An advanced video player extension that improves buffering and playback speed on streaming sites.', link: 'https://addons.mozilla.org/en-US/firefox/addon/faststream/', linkChrome: 'https://chromewebstore.google.com/detail/faststream-video-player/kkeakohpadmbldjaiggikmnldlfkdfog' },
     { name: 'SponsorBlock for YouTube', logo: 'sponsorblock.png', description: 'Skips sponsored segments in YouTube videos.', link: 'https://sponsor.ajay.app/' },
+    { name: 'Table Capture', logo: 'table-capture.png', description: 'Captures HTML tables from web pages and exports them to spreadsheets or clipboard with one click.', link: 'https://addons.mozilla.org/en-US/firefox/addon/table-capture-firefox/', linkChrome: 'https://chromewebstore.google.com/detail/table-capture/iebpjdmgckacbodjpijphcplhebcmeop' },
     { name: 'To Google Translate', logo: 'googletranslate.png', description: 'A convenient way to translate selected text using Google Translate.', link: 'https://addons.mozilla.org/en-US/firefox/addon/to-google-translate/', linkChrome: 'https://chromewebstore.google.com/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb?hl=en' },
     { name: 'uBlock Origin', logo: 'ublock.png', description: 'A must-have. An efficient, wide-spectrum content blocker that is easy on CPU and memory.', link: 'https://github.com/gorhill/uBlock#ublock-origin' },
 ];
@@ -96,6 +98,7 @@ const CommandBlock = ({ content, isCodeBlock = false }: { content: string, isCod
 
 export default function TechTipsPage() {
   const [activeTab, setActiveTab] = useState('apps');
+  const [uBlockExpanded, setUBlockExpanded] = useState(false);
 
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
@@ -172,7 +175,7 @@ export default function TechTipsPage() {
           {activeTab === 'apps' && apps.map((app) => (
             <div key={app.name} className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-700/50 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-xl p-2 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors duration-300">
                     <Image 
                       src={`/techtips/${app.logo}`} 
@@ -183,7 +186,7 @@ export default function TechTipsPage() {
                     />
                   </div>
                 </div>
-                <div className="flex-grow">
+                <div className="grow">
                   <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{app.name}</h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{app.description}</p>
                   <a 
@@ -287,19 +290,36 @@ export default function TechTipsPage() {
                   </div>
                   {ext.name === 'uBlock Origin' && (
                     <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-800">
-                      <h4 className="text-lg font-bold mb-2 text-yellow-600 dark:text-yellow-400">My Filter List</h4>
-                      <a 
-                        href="/uBlock origin Filters.txt" 
-                        download="uBlock origin Filters.txt" 
-                        className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-semibold mb-4 transition-colors duration-300"
+                      <button
+                        onClick={(e) => { e.preventDefault(); setUBlockExpanded(!uBlockExpanded); }}
+                        className="flex items-center gap-2 text-sm font-semibold text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300 transition-colors"
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        <svg className={`w-4 h-4 transition-transform duration-200 ${uBlockExpanded ? 'rotate-90' : ''}`} fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"/>
                         </svg>
-                        Download Filter List
-                      </a>
-                      <h4 className="text-lg font-bold mb-2 text-yellow-600 dark:text-yellow-400">My Rules</h4>
-                      <CommandBlock content={uBlockRules} isCodeBlock={true} />
+                        {uBlockExpanded ? 'Hide' : 'Show'} My Filters & Rules
+                      </button>
+                      {uBlockExpanded && (
+                        <div className="mt-4 space-y-4">
+                          <div>
+                            <h4 className="text-lg font-bold mb-2 text-yellow-600 dark:text-yellow-400">My Filter List</h4>
+                            <a 
+                              href="/uBlock origin Filters.txt" 
+                              download="uBlock origin Filters.txt" 
+                              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-semibold transition-colors duration-300"
+                            >
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                              </svg>
+                              Download Filter List
+                            </a>
+                          </div>
+                          <div>
+                            <h4 className="text-lg font-bold mb-2 text-yellow-600 dark:text-yellow-400">My Rules</h4>
+                            <CommandBlock content={uBlockRules} isCodeBlock={true} />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
