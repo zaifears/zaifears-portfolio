@@ -18,10 +18,12 @@ import LayoutWrapper from './LayoutWrapper'; // Import our new component using a
 import { ClarityInitializer } from './components/ClarityInitializer';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://shahoriar.me'),
   title: {
-    default: 'Md Al Shahoriar Hossain',
+    default: 'Md Al Shahoriar Hossain | Portfolio & Projects',
     template: '%s | Md Al Shahoriar Hossain',
   },
+  description: 'Professional portfolio of Md Al Shahoriar Hossain (Shahoriar Hossain). Currently at IFA Consultancy. Explore projects in tech, finance, Islamic finance, and software development.',
   keywords: [
     'Md Al Shahoriar Hossain',
     'Shahoriar Hossain',
@@ -32,14 +34,16 @@ export const metadata: Metadata = {
     'Finance Professional',
     'Web Developer',
     'Bangladesh',
-    'zaifears'
+    'zaifears',
+    'IFA Consultancy'
   ],
-  description: "Md Al Shahoriar Hossain's personal portfolio showcasing finance expertise, web development projects, graphic design work, and professional journey in Bangladesh.",
   openGraph: {
-    title: 'Shahoriar Hossain',
-    description: 'Explore the portfolio of Md Al Shahoriar Hossain - a finance professional and web developer from Bangladesh. Discover skills, projects, and insights into his professional journey.',
+    title: 'Md Al Shahoriar Hossain',
+    description: 'Professional portfolio of Md Al Shahoriar Hossain.',
     url: 'https://shahoriar.me',
-    siteName: 'Shahoriar Hossain',
+    siteName: 'Md Al Shahoriar Hossain',
+    locale: 'en_US',
+    type: 'website',
     images: [
       {
         url: '/opengraph-image.png',
@@ -48,7 +52,6 @@ export const metadata: Metadata = {
         alt: 'Shahoriar Hossain - Personal Portfolio',
       },
     ],
-    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
@@ -56,10 +59,17 @@ export const metadata: Metadata = {
     description: 'Md Al Shahoriar Hossain\'s personal portfolio - finance expertise, web development, graphic design, and professional insights. Explore his work and connect today.',
     images: ['/opengraph-image.png'],
   },
-  metadataBase: new URL('https://shahoriar.me'),
-  // NOTE: JSON‑LD will be injected manually in the <head> below; avoid using
-  // metadata.other because Next outputs <meta> tags which are ignored by
-  // search engines for structured data.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: '/favicon.ico',
     apple: [
@@ -111,10 +121,21 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Md Al Shahoriar Hossain",
-              "url": "https://shahoriar.me",
+              "alternateName": "Shahoriar Hossain",
+              "url": "https://shahoriar.me/",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "IFA Consultancy"
+              },
+              "alumniOf": {
+                "@type": "CollegeOrUniversity",
+                "name": "Bangladesh University of Professionals"
+              },
               "sameAs": [
-                "https://www.linkedin.com/in/al-shahoriar/",
-                "https://github.com/zaifears"
+                "https://bup.edu.bd/news/details/944",
+                "https://bup.edu.bd/news/details/936",
+                "https://businessinspection.com.bd/finact-brac-university-hosts-excelerate-2025-excel-competition/",
+                "https://www.linkedin.com/in/shahoriarhossain/"
               ]
             }),
           }}

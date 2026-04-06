@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import HeroSection from './components/HeroSection';
 import FeaturedAreas from './components/FeaturedAreas';
+import FeaturedPress from './components/FeaturedPress';
 
 const FeaturedProjects = dynamic(() => import('./components/FeaturedProjects'), {
   loading: () => <div className="h-100" />,
@@ -23,12 +24,17 @@ export default function Page() {
       <div className="relative z-10">
         <HeroSection />
         <FeaturedAreas />
-        <Suspense fallback={<div className="h-[400px]" />}>
+        <Suspense fallback={<div className="h-100" />}>
           <FeaturedProjects />
         </Suspense>
-        <Suspense fallback={<div className="h-[300px]" />}>
+        <Suspense fallback={<div className="h-75" />}>
           <GetStarted />
         </Suspense>
+        
+        {/* FeaturedPress: Hidden from humans but visible to crawlers */}
+        <div className="sr-only">
+          <FeaturedPress />
+        </div>
       </div>
     </div>
   );

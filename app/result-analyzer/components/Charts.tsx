@@ -76,111 +76,119 @@ export default function Charts({ data }: ChartsProps) {
     name: course.name,
   }));
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       <h2 className="text-3xl font-bold text-gray-900">Batch Analytics</h2>
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
         {/* Grade Distribution Pie Chart */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 min-w-0">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 min-w-0 w-full">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Batch Grade Distribution</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={gradeData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {gradeData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={GRADE_COLORS[entry.name] || '#8884d8'} />
+          <div className="h-[300px] w-full min-w-0">
+            <ResponsiveContainer width="100%" height={300} minWidth={0}>
+              <PieChart>
+                <Pie
+                  data={gradeData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {gradeData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={GRADE_COLORS[entry.name] || '#8884d8'} />
                 ))}
               </Pie>
               <Tooltip />
             </PieChart>
-          </ResponsiveContainer>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Pass/Fail Donut Chart */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 min-w-0">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 min-w-0 w-full">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Overall Pass/Fail Ratio</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={passFailData}
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={100}
-                fill="#8884d8"
-                dataKey="value"
-                label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(1)}%`}
-              >
-                {passFailColors.map((color, index) => (
-                  <Cell key={`cell-${index}`} fill={color} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+          <div className="h-[300px] w-full min-w-0">
+            <ResponsiveContainer width="100%" height={300} minWidth={0}>
+              <PieChart>
+                <Pie
+                  data={passFailData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={100}
+                  fill="#8884d8"
+                  dataKey="value"
+                  label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(1)}%`}
+                >
+                  {passFailColors.map((color, index) => (
+                    <Cell key={`cell-${index}`} fill={color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Average GPA by Course */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:col-span-2 min-w-0">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:col-span-2 min-w-0 w-full">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Average Grade Point by Course</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={courseGpaData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-              <XAxis dataKey="code" angle={-45} textAnchor="end" height={80} />
-              <YAxis domain={[0, 4]} />
-              <Tooltip 
-                content={({ active, payload }) => {
-                  if (active && payload?.[0]) {
-                    return (
-                      <div className="bg-gray-900 text-white p-2 rounded text-xs">
-                        <p className="font-bold">{payload[0].payload.name}</p>
-                        <p>Avg GP: {payload[0].value?.toFixed(2)}</p>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-              <Legend />
-              <Bar dataKey="avg" fill="#3b82f6" name="Average GPA" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="h-[300px] w-full min-w-0">
+            <ResponsiveContainer width="100%" height={300} minWidth={0}>
+              <BarChart data={courseGpaData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis dataKey="code" angle={-45} textAnchor="end" height={80} />
+                <YAxis domain={[0, 4]} />
+                <Tooltip 
+                  content={({ active, payload }) => {
+                    if (active && payload?.[0]) {
+                      return (
+                        <div className="bg-gray-900 text-white p-2 rounded text-xs">
+                          <p className="font-bold">{payload[0].payload.name}</p>
+                          <p>Avg GP: {payload[0].value?.toFixed(2)}</p>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+                <Legend />
+                <Bar dataKey="avg" fill="#3b82f6" name="Average GPA" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* A+ Count by Course */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:col-span-2 min-w-0">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:col-span-2 min-w-0 w-full">
           <h3 className="text-lg font-bold text-gray-900 mb-4">A+ Grades by Course</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={courseAPlusData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-              <XAxis dataKey="code" angle={-45} textAnchor="end" height={80} />
-              <YAxis />
-              <Tooltip 
-                content={({ active, payload }) => {
-                  if (active && payload?.[0]) {
-                    return (
-                      <div className="bg-gray-900 text-white p-2 rounded text-xs">
-                        <p className="font-bold">{payload[0].payload.name}</p>
-                        <p>A+ Count: {payload[0].value}</p>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-              <Legend />
-              <Bar dataKey="aPlus" fill="#10b981" name="A+ Count" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="h-[300px] w-full min-w-0">
+            <ResponsiveContainer width="100%" height={300} minWidth={0}>
+              <BarChart data={courseAPlusData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis dataKey="code" angle={-45} textAnchor="end" height={80} />
+                <YAxis />
+                <Tooltip 
+                  content={({ active, payload }) => {
+                    if (active && payload?.[0]) {
+                      return (
+                        <div className="bg-gray-900 text-white p-2 rounded text-xs">
+                          <p className="font-bold">{payload[0].payload.name}</p>
+                          <p>A+ Count: {payload[0].value}</p>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+                <Legend />
+                <Bar dataKey="aPlus" fill="#10b981" name="A+ Count" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Top Performers */}
