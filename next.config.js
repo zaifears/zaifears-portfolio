@@ -24,7 +24,11 @@ const nextConfig = {
   productionBrowserSourceMaps: false,
   typescript: {
     tsconfigPath: './tsconfig.json'
-  }
+  },
+  // Enable compression for better delivery
+  compress: true,
+  // Turbopack configuration for Next.js 16+
+  turbopack: {},
 };
 
 module.exports = nextConfig;
