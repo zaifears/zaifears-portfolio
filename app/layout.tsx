@@ -28,7 +28,6 @@ export const metadata: Metadata = {
     'Md Al Shahoriar Hossain',
     'Shahoriar Hossain',
     'Shahoriar BUP',
-    'Shahoriar NDC',
     'Md Al Shahoriar Hossain BUP',
     'Md Al Shahoriar Hossain Finance',
     'Finance Professional',
