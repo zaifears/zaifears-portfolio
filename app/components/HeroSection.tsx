@@ -92,8 +92,8 @@ export default function HeroSection() {
             alt="Shahoriar Hossain"
             fill
             className="object-cover relative z-10"
-            priority
-            sizes="(max-width: 640px) 256px, 288px"
+            priority={true}
+            sizes="(max-width: 768px) 448px, 448px"
           />
           {/* Stylish bottom line */}
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-white to-transparent opacity-60 z-20" />
@@ -184,8 +184,8 @@ export default function HeroSection() {
             alt="Shahoriar Hossain"
             fill
             className="object-cover relative z-10"
-            priority
-            sizes="320px"
+            priority={true}
+            sizes="(max-width: 768px) 448px, 448px"
           />
           {/* Stylish bottom line */}
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-white to-transparent opacity-60 z-20" />

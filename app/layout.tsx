@@ -13,6 +13,7 @@ import { GeistMono } from 'geist/font/mono';
 // import { Navbar } from './components/nav'; // This is no longer needed here
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { GoogleTagManager } from '@next/third-parties/google';
 import Script from 'next/script';
 import LayoutWrapper from './LayoutWrapper'; // Import our new component using alias
 import { ClarityInitializer } from './components/ClarityInitializer';
@@ -139,18 +140,7 @@ export default function RootLayout({
             }),
           }}
         />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-F0NPB44JWC"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-F0NPB44JWC');
-          `}
-        </Script>
+        <GoogleTagManager gtmId="G-FONPB44JWC" />
         <Script id="sw-register" strategy="afterInteractive">
           {`
             if ('serviceWorker' in navigator) {
