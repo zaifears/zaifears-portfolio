@@ -7,7 +7,7 @@ export function useClarity() {
   useEffect(() => {
     // Defer Clarity initialization until page is interactive/idle
     const initClarity = () => {
-      const projectId = 'vp11pm799j';
+      const projectId = 'vp14gcgio2';
       Clarity.init(projectId);
     };
 

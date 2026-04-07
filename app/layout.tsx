@@ -1,8 +1,4 @@
 import './global.css'; // Using the alias for the global CSS
-
-// we no longer globally override console – warnings are harmless and
-// previous patch caused recursion with deprecation messages.
-
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
@@ -13,7 +9,6 @@ import { GeistMono } from 'geist/font/mono';
 // import { Navbar } from './components/nav'; // This is no longer needed here
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { GoogleTagManager } from '@next/third-parties/google';
 import Script from 'next/script';
 import LayoutWrapper from './LayoutWrapper'; // Import our new component using alias
 import { ClarityInitializer } from './components/ClarityInitializer';
@@ -140,7 +135,6 @@ export default function RootLayout({
             }),
           }}
         />
-        <GoogleTagManager gtmId="G-FONPB44JWC" />
         <Script id="sw-register" strategy="afterInteractive">
           {`
             if ('serviceWorker' in navigator) {
