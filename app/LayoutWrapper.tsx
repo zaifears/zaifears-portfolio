@@ -10,8 +10,12 @@ export default function LayoutWrapper({
 }) {
   const pathname = usePathname();
   
-  // Check if the current path starts with /bizcomp or /meetup (matches all child routes)
-  const isFullScreenPage = pathname.startsWith('/bizcomp') || pathname.startsWith('/meetup');
+  // Full-screen routes bypass the default site shell (navbar + shifted main content).
+  const isFullScreenPage =
+    pathname.startsWith('/bizcomp') ||
+    pathname.startsWith('/meetup') ||
+    pathname.startsWith('/zakat-calulation') ||
+    pathname.startsWith('/zakat-calculation');
 
   return (
     <>

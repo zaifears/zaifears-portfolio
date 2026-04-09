@@ -5,11 +5,13 @@ import { MetadataRoute } from 'next'
 // language models and crawlers.
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-      // crawlDelay: 1, // optional
-    },
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: '/zakat-calculation',
+      },
+    ],
     sitemap: 'https://zaifears.vercel.app/sitemap.xml',
     host: 'shahoriar.me',
   }
