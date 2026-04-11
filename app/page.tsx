@@ -30,11 +30,9 @@ export default function Page() {
         <Suspense fallback={<div className="h-75" />}>
           <GetStarted />
         </Suspense>
-        
-        {/* FeaturedPress: Hidden from humans but visible to crawlers */}
-        <div className="sr-only">
+        <Suspense fallback={<div className="h-75" />}>
           <FeaturedPress />
-        </div>
+        </Suspense>
       </div>
     </div>
   );
