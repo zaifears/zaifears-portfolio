@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ZakatCalculationLayout({
+export default function ZakatReportLayout({
   children,
 }: {
   children: React.ReactNode;

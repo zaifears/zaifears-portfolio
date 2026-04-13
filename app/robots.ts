@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: '/zakat-calculation',
+        disallow: ['/zakat-calculation', '/zakat-report'],
       },
     ],
     sitemap: 'https://zaifears.vercel.app/sitemap.xml',

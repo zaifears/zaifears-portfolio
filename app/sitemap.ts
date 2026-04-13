@@ -16,6 +16,7 @@ interface LifeEvent {
 export default async function sitemap() {
   // 1. Start with your static pages and assign SEO priorities
   // homepage and /life get highest weight; others are scaled based on content value
+  const excludedRoutes = new Set(['/zakat-calculation', '/zakat-report']);
   const priorityMap: Record<string, number> = {
     '': 1,
     '/life': 1,
@@ -26,11 +27,13 @@ export default async function sitemap() {
     '/design-portfolio': 0.5,
   };
 
-  const routes = ['', '/education', '/skills', '/techtips', '/contact', '/life', '/design-portfolio'].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString().split('T')[0],
-    priority: priorityMap[route] ?? 0.5, // default to medium
-  }));
+  const routes = ['', '/education', '/skills', '/techtips', '/contact', '/life', '/design-portfolio']
+    .filter((route) => !excludedRoutes.has(route))
+    .map((route) => ({
+      url: `${baseUrl}${route}`,
+      lastModified: new Date().toISOString().split('T')[0],
+      priority: priorityMap[route] ?? 0.5, // default to medium
+    }));
 
   // 2. Fetch all your dynamic "Life Journey" posts from Contentful
   try {

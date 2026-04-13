@@ -996,14 +996,21 @@ export default function ZakatCalculationPage() {
           <div className='grid min-h-20 grid-cols-[1fr_auto_1fr] items-center gap-2 py-2'>
             <div />
             <div className='flex items-center justify-center gap-5'>
-              <Image
-                src='/ifac-logo.png'
-                alt='IFA Consultancy logo'
-                width={140}
-                height={48}
-                className='h-10 w-auto shrink-0 object-contain'
-                priority
-              />
+              <a
+                href='https://ifacbd.com'
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label='Visit IFA Consultancy website'
+              >
+                <Image
+                  src='/ifac-logo.png'
+                  alt='IFA Consultancy logo'
+                  width={140}
+                  height={48}
+                  className='h-10 w-auto shrink-0 object-contain'
+                  priority
+                />
+              </a>
               <div className='text-center'>
                 <p className='text-[10px] font-bold uppercase tracking-[0.14em] text-[#636467]'>
                   Internal Zakat Calculation
