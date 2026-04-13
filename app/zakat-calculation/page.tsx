@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 type LineItem = {
   id: string;
@@ -11,18 +11,22 @@ type LineItem = {
   amountStatus?: 'valid' | 'invalid' | null;
 };
 
+type ClientType = 'institution' | 'person';
+type CalcOperator = '+' | '-' | '*' | '/' | '%';
+type CalcHistoryItem = {
+  id: string;
+  expression: string;
+  result: string;
+  timestamp: string;
+};
+
 type BusinessInfo = {
   name: string;
   address: string;
   email: string;
   calendarType: 'gregorian' | 'hijri';
+  clientType: ClientType;
   zakatYear: string;
-};
-
-type SummaryState = {
-  businessInfo: BusinessInfo;
-  assets: LineItem[];
-  liabilities: LineItem[];
 };
 
 const numFmt = new Intl.NumberFormat('en-BD', {
@@ -85,35 +89,56 @@ const extractFilename = (contentDisposition: string | null) => {
   return simpleMatch?.[1] ?? null;
 };
 
-const defaultState: SummaryState = {
-  businessInfo: {
-    name: '',
-    address: '',
-    email: '',
-    calendarType: 'hijri',
-    zakatYear: '1446-47',
-  },
-  assets: [
-    { id: 'a1', label: 'Investment in FDR', description: '', amount: 0, amountStatus: null },
-    { id: 'a2', label: 'Inventory', description: '', amount: 0, amountStatus: null },
-    {
-      id: 'a3',
-      label: 'Advance to Employee Against Expenses',
-      description: '',
-      amount: 0,
-      amountStatus: null,
-    },
-    { id: 'a4', label: 'Advance to Suppliers', description: '', amount: 0, amountStatus: null },
-    { id: 'a5', label: 'Accounts Receivable', description: '', amount: 0, amountStatus: null },
-    { id: 'a6', label: 'Inter Company Receivables', description: '', amount: 0, amountStatus: null },
-    { id: 'a7', label: 'Cash & Cash Equavalents', description: '', amount: 0, amountStatus: null },
-  ],
-  liabilities: [
-    { id: 'd1', label: 'Accounts Payable', description: '', amount: 0, amountStatus: null },
-    { id: 'd2', label: 'Short-Term Loans', description: '', amount: 0, amountStatus: null },
-    { id: 'd3', label: 'Accrued Liabilities', description: '', amount: 0, amountStatus: null },
-  ],
+const defaultBusinessInfo: BusinessInfo = {
+  name: '',
+  address: '',
+  email: '',
+  calendarType: 'hijri',
+  clientType: 'institution',
+  zakatYear: '1446-47',
 };
+
+const createInstitutionAssets = (): LineItem[] => [
+  { id: 'ia1', label: 'Investment in FDR', description: '', amount: 0, amountStatus: null },
+  { id: 'ia2', label: 'Inventory', description: '', amount: 0, amountStatus: null },
+  {
+    id: 'ia3',
+    label: 'Advance to Employee Against Expenses',
+    description: '',
+    amount: 0,
+    amountStatus: null,
+  },
+  { id: 'ia4', label: 'Advance to Suppliers', description: '', amount: 0, amountStatus: null },
+  { id: 'ia5', label: 'Accounts Receivable', description: '', amount: 0, amountStatus: null },
+  { id: 'ia6', label: 'Inter Company Receivables', description: '', amount: 0, amountStatus: null },
+  { id: 'ia7', label: 'Cash & Cash Equavalents', description: '', amount: 0, amountStatus: null },
+];
+
+const createInstitutionLiabilities = (): LineItem[] => [
+  { id: 'il1', label: 'Accounts Payable', description: '', amount: 0, amountStatus: null },
+  { id: 'il2', label: 'Short-Term Loans', description: '', amount: 0, amountStatus: null },
+  { id: 'il3', label: 'Accrued Liabilities', description: '', amount: 0, amountStatus: null },
+];
+
+const createPersonAssets = (): LineItem[] => [
+  { id: 'pa1', label: 'Gold in BDT', description: '', amount: 0, amountStatus: null },
+  { id: 'pa2', label: 'Cash in Hand', description: '', amount: 0, amountStatus: null },
+  {
+    id: 'pa3',
+    label: 'Foreign Currency (Amount in BDT)',
+    description: '',
+    amount: 0,
+    amountStatus: null,
+  },
+  { id: 'pa4', label: 'Bank Balance', description: '', amount: 0, amountStatus: null },
+  { id: 'pa5', label: 'Receivables', description: '', amount: 0, amountStatus: null },
+];
+
+const createPersonLiabilities = (): LineItem[] => [
+  { id: 'pl1', label: 'Personal Bank Loan', description: '', amount: 0, amountStatus: null },
+  { id: 'pl2', label: 'Business Loan', description: '', amount: 0, amountStatus: null },
+  { id: 'pl3', label: 'Personal Loan', description: '', amount: 0, amountStatus: null },
+];
 
 interface NumberInputProps {
   value: number;
@@ -177,6 +202,562 @@ function NumberInput({ value, status, onChange }: NumberInputProps) {
   );
 }
 
+const calcSymbol = (operator: CalcOperator) => {
+  if (operator === '*') {
+    return 'x';
+  }
+  if (operator === '/') {
+    return '/';
+  }
+  return operator;
+};
+
+const formatCalcValue = (value: number) => {
+  if (!Number.isFinite(value)) {
+    return 'Error';
+  }
+  const normalized = Math.round((value + Number.EPSILON) * 100000000) / 100000000;
+  return Number.isInteger(normalized) ? String(normalized) : String(normalized);
+};
+
+function QuickCalculator() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [display, setDisplay] = useState('0');
+  const [firstOperand, setFirstOperand] = useState<number | null>(null);
+  const [operator, setOperator] = useState<CalcOperator | null>(null);
+  const [awaitingSecond, setAwaitingSecond] = useState(false);
+  const [history, setHistory] = useState<CalcHistoryItem[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const keypadRef = useRef<HTMLDivElement | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const firstActionRef = useRef<HTMLButtonElement | null>(null);
+  const copyResetTimerRef = useRef<number | null>(null);
+  const historyStorageKey = 'zakatQuickCalculatorHistoryV1';
+  const actionsRef = useRef<{
+    inputDigit: (digit: string) => void;
+    inputDot: () => void;
+    handleOperator: (op: CalcOperator) => void;
+    handleEquals: () => void;
+    handleBackspace: () => void;
+    clearAll: () => void;
+    toggleHistory: () => void;
+  }>({
+    inputDigit: () => undefined,
+    inputDot: () => undefined,
+    handleOperator: () => undefined,
+    handleEquals: () => undefined,
+    handleBackspace: () => undefined,
+    clearAll: () => undefined,
+    toggleHistory: () => undefined,
+  });
+
+  const moveKeypadFocus = (direction: 'left' | 'right' | 'up' | 'down') => {
+    if (!keypadRef.current) {
+      return;
+    }
+
+    const buttons = Array.from(
+      keypadRef.current.querySelectorAll<HTMLButtonElement>('button[data-calc-nav="true"]'),
+    );
+
+    if (buttons.length === 0) {
+      return;
+    }
+
+    const active = document.activeElement as HTMLButtonElement | null;
+    const currentIndex = buttons.findIndex((button) => button === active);
+
+    if (currentIndex === -1) {
+      buttons[0]?.focus();
+      return;
+    }
+
+    const columns = 4;
+    let nextIndex = currentIndex;
+
+    if (direction === 'left') {
+      nextIndex = Math.max(0, currentIndex - 1);
+    }
+    if (direction === 'right') {
+      nextIndex = Math.min(buttons.length - 1, currentIndex + 1);
+    }
+    if (direction === 'up') {
+      nextIndex = Math.max(0, currentIndex - columns);
+    }
+    if (direction === 'down') {
+      nextIndex = Math.min(buttons.length - 1, currentIndex + columns);
+    }
+
+    buttons[nextIndex]?.focus();
+  };
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    try {
+      const raw = window.localStorage.getItem(historyStorageKey);
+      if (!raw) {
+        return;
+      }
+      const parsed = JSON.parse(raw) as CalcHistoryItem[];
+      if (Array.isArray(parsed)) {
+        setHistory(parsed.slice(0, 20));
+      }
+    } catch {
+      // Ignore malformed localStorage payloads.
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    try {
+      window.localStorage.setItem(historyStorageKey, JSON.stringify(history));
+    } catch {
+      // Ignore storage quota/private mode failures.
+    }
+  }, [history]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const closeOnOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node | null;
+      if (containerRef.current && target && !containerRef.current.contains(target)) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleGlobalKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setIsOpen(false);
+        return;
+      }
+
+      const isCalculatorFocused =
+        !!containerRef.current && containerRef.current.contains(document.activeElement);
+
+      if (!isCalculatorFocused) {
+        return;
+      }
+
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        moveKeypadFocus('left');
+        return;
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        moveKeypadFocus('right');
+        return;
+      }
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        moveKeypadFocus('up');
+        return;
+      }
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        moveKeypadFocus('down');
+        return;
+      }
+
+      if (/^\d$/.test(event.key)) {
+        event.preventDefault();
+        actionsRef.current.inputDigit(event.key);
+        return;
+      }
+
+      if (/^Numpad\d$/.test(event.code)) {
+        event.preventDefault();
+        actionsRef.current.inputDigit(event.code.slice(-1));
+        return;
+      }
+
+      if (event.key === '.' || event.code === 'NumpadDecimal') {
+        event.preventDefault();
+        actionsRef.current.inputDot();
+        return;
+      }
+
+      if (event.key === '+' || event.code === 'NumpadAdd') {
+        event.preventDefault();
+        actionsRef.current.handleOperator('+');
+        return;
+      }
+
+      if (event.key === '-' || event.code === 'NumpadSubtract') {
+        event.preventDefault();
+        actionsRef.current.handleOperator('-');
+        return;
+      }
+
+      if (event.key === '*' || event.code === 'NumpadMultiply') {
+        event.preventDefault();
+        actionsRef.current.handleOperator('*');
+        return;
+      }
+
+      if (event.key === '/' || event.code === 'NumpadDivide') {
+        event.preventDefault();
+        actionsRef.current.handleOperator('/');
+        return;
+      }
+
+      if (event.key === '%') {
+        event.preventDefault();
+        actionsRef.current.handleOperator('%');
+        return;
+      }
+
+      if (
+        event.key === '=' ||
+        event.key === 'Enter' ||
+        event.code === 'NumpadEnter'
+      ) {
+        event.preventDefault();
+        actionsRef.current.handleEquals();
+        return;
+      }
+
+      if (event.key === 'Backspace') {
+        event.preventDefault();
+        actionsRef.current.handleBackspace();
+        return;
+      }
+
+      if (event.key === 'Delete' || event.key === 'c' || event.key === 'C') {
+        event.preventDefault();
+        actionsRef.current.clearAll();
+        return;
+      }
+
+      if (event.key === 'h' || event.key === 'H') {
+        event.preventDefault();
+        actionsRef.current.toggleHistory();
+      }
+    };
+
+    document.addEventListener('mousedown', closeOnOutside);
+    document.addEventListener('touchstart', closeOnOutside);
+    document.addEventListener('keydown', handleGlobalKeyDown);
+    firstActionRef.current?.focus();
+
+    return () => {
+      document.removeEventListener('mousedown', closeOnOutside);
+      document.removeEventListener('touchstart', closeOnOutside);
+      document.removeEventListener('keydown', handleGlobalKeyDown);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setShowHistory(false);
+      triggerRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (copyResetTimerRef.current !== null) {
+        window.clearTimeout(copyResetTimerRef.current);
+      }
+    };
+  }, []);
+
+  const compute = (left: number, right: number, op: CalcOperator) => {
+    if (op === '+') {
+      return left + right;
+    }
+    if (op === '-') {
+      return left - right;
+    }
+    if (op === '*') {
+      return left * right;
+    }
+    if (op === '/') {
+      if (right === 0) {
+        return null;
+      }
+      return left / right;
+    }
+    if (right === 0) {
+      return null;
+    }
+    return left % right;
+  };
+
+  const clearAll = () => {
+    setDisplay('0');
+    setFirstOperand(null);
+    setOperator(null);
+    setAwaitingSecond(false);
+  };
+
+  const inputDigit = (digit: string) => {
+    if (display === 'Error') {
+      setDisplay(digit);
+      setAwaitingSecond(false);
+      return;
+    }
+
+    if (awaitingSecond) {
+      setDisplay(digit);
+      setAwaitingSecond(false);
+      return;
+    }
+
+    setDisplay((prev) => (prev === '0' ? digit : `${prev}${digit}`));
+  };
+
+  const inputDot = () => {
+    if (display === 'Error') {
+      setDisplay('0.');
+      setAwaitingSecond(false);
+      return;
+    }
+    if (awaitingSecond) {
+      setDisplay('0.');
+      setAwaitingSecond(false);
+      return;
+    }
+    if (!display.includes('.')) {
+      setDisplay((prev) => `${prev}.`);
+    }
+  };
+
+  const handleOperator = (nextOperator: CalcOperator) => {
+    const inputValue = Number(display);
+    if (!Number.isFinite(inputValue)) {
+      return;
+    }
+
+    if (firstOperand === null) {
+      setFirstOperand(inputValue);
+      setOperator(nextOperator);
+      setAwaitingSecond(true);
+      return;
+    }
+
+    if (operator && !awaitingSecond) {
+      const result = compute(firstOperand, inputValue, operator);
+      if (result === null) {
+        setDisplay('Error');
+        setFirstOperand(null);
+        setOperator(null);
+        setAwaitingSecond(false);
+        return;
+      }
+      setDisplay(formatCalcValue(result));
+      setFirstOperand(result);
+    }
+
+    setOperator(nextOperator);
+    setAwaitingSecond(true);
+  };
+
+  const handleEquals = () => {
+    if (firstOperand === null || operator === null) {
+      return;
+    }
+    const secondOperand = Number(display);
+    if (!Number.isFinite(secondOperand)) {
+      return;
+    }
+
+    const result = compute(firstOperand, secondOperand, operator);
+    if (result === null) {
+      setDisplay('Error');
+      setFirstOperand(null);
+      setOperator(null);
+      setAwaitingSecond(false);
+      return;
+    }
+
+    const expression = `${formatCalcValue(firstOperand)} ${calcSymbol(operator)} ${formatCalcValue(secondOperand)}`;
+    const resultText = formatCalcValue(result);
+
+    setHistory((prev) => [
+      {
+        id: createId(),
+        expression,
+        result: resultText,
+        timestamp: new Date().toLocaleString(),
+      },
+      ...prev,
+    ].slice(0, 20));
+
+    setDisplay(resultText);
+    setFirstOperand(null);
+    setOperator(null);
+    setAwaitingSecond(false);
+  };
+
+  const handleBackspace = () => {
+    if (display === 'Error') {
+      setDisplay('0');
+      return;
+    }
+    if (awaitingSecond) {
+      setDisplay('0');
+      setAwaitingSecond(false);
+      return;
+    }
+    setDisplay((prev) => (prev.length <= 1 ? '0' : prev.slice(0, -1)));
+  };
+
+  const handleCopyResult = async () => {
+    const valueToCopy = display;
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(valueToCopy);
+      } else {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = valueToCopy;
+        tempInput.style.position = 'fixed';
+        tempInput.style.left = '-9999px';
+        document.body.appendChild(tempInput);
+        tempInput.focus();
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      }
+
+      setCopied(true);
+      if (copyResetTimerRef.current !== null) {
+        window.clearTimeout(copyResetTimerRef.current);
+      }
+      copyResetTimerRef.current = window.setTimeout(() => setCopied(false), 1400);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  useEffect(() => {
+    actionsRef.current = {
+      inputDigit,
+      inputDot,
+      handleOperator,
+      handleEquals,
+      handleBackspace,
+      clearAll,
+      toggleHistory: () => setShowHistory((prev) => !prev),
+    };
+  });
+
+  const calcButtonBase =
+    'rounded-md border border-[#D4D9D7] bg-white px-2.5 py-2 text-sm font-semibold text-[#1F2937] transition hover:bg-[#F8FAF9]';
+
+  return (
+    <div ref={containerRef} className='relative w-full sm:w-auto'>
+      <button
+        ref={triggerRef}
+        type='button'
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-expanded={isOpen}
+        aria-controls='quick-calculator-panel'
+        aria-label='Toggle basic calculator'
+        className='flex w-full items-center justify-between gap-3 rounded-xl border border-[#D4D9D7] bg-white px-3 py-2 shadow-sm transition hover:border-[#A2A2B2] sm:min-w-44 sm:w-auto'
+      >
+        <span className='text-left'>
+          <span className='block text-[10px] font-bold uppercase tracking-[0.12em] text-[#636467]'>Basic Calculator</span>
+          <span className='block text-sm font-extrabold text-[#1F2937] [font-variant-numeric:tabular-nums]'>{display}</span>
+        </span>
+        <svg className='h-4 w-4 text-[#636467]' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
+          <path strokeLinecap='round' strokeLinejoin='round' d='M19 9l-7 7-7-7' />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div
+          id='quick-calculator-panel'
+          role='dialog'
+          aria-label='Basic calculator'
+          className='absolute left-1/2 z-50 mt-2 w-[min(92vw,20rem)] -translate-x-1/2 rounded-2xl border border-[#D4D9D7] bg-white p-3 shadow-xl sm:left-auto sm:right-0 sm:w-80 sm:translate-x-0'
+        >
+          <div className='mb-3 rounded-lg bg-[#111827] px-3 py-2'>
+            <div className='mb-1 flex items-center justify-between gap-2'>
+              <p className='text-[11px] font-medium text-[#9CA3AF]'>
+                {firstOperand !== null && operator ? `${formatCalcValue(firstOperand)} ${calcSymbol(operator)}` : 'Quick calculation'}
+              </p>
+              <button
+                type='button'
+                onClick={handleCopyResult}
+                className='rounded border border-[#374151] bg-[#1F2937] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#D1D5DB] transition hover:bg-[#374151]'
+              >
+                {copied ? 'Copied' : 'Copy'}
+              </button>
+            </div>
+            <p className='text-right text-2xl font-bold text-white [font-variant-numeric:tabular-nums]'>
+              {display}
+            </p>
+          </div>
+
+          <div ref={keypadRef} className='grid grid-cols-4 gap-2'>
+            <button ref={firstActionRef} data-calc-nav='true' type='button' className={`${calcButtonBase} text-[#B42318]`} onClick={clearAll}>C</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={handleBackspace}>Back</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => handleOperator('%')}>%</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => handleOperator('/')}>/</button>
+
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('7')}>7</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('8')}>8</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('9')}>9</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => handleOperator('*')}>x</button>
+
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('4')}>4</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('5')}>5</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('6')}>6</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => handleOperator('-')}>-</button>
+
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('1')}>1</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('2')}>2</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('3')}>3</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => handleOperator('+')}>+</button>
+
+            <button data-calc-nav='true' type='button' className={`${calcButtonBase} col-span-2`} onClick={() => inputDigit('0')}>0</button>
+            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={inputDot}>.</button>
+            <button data-calc-nav='true' type='button' className='rounded-md border border-[#068C44] bg-[#068C44] px-2.5 py-2 text-sm font-semibold text-white transition hover:bg-[#057A3C]' onClick={handleEquals}>=</button>
+          </div>
+
+          <div className='mt-3'>
+            <button
+              type='button'
+              onClick={() => setShowHistory((prev) => !prev)}
+              className='w-full rounded-md border border-[#D4D9D7] bg-[#F8FAF9] px-3 py-2 text-xs font-semibold uppercase tracking-widest text-[#4B5563] transition hover:bg-[#EEF4F1]'
+            >
+              History
+            </button>
+            {showHistory && (
+              <div className='mt-2 max-h-40 space-y-2 overflow-y-auto rounded-md border border-[#E5E7EB] bg-[#FCFDFC] p-2'>
+                {history.length === 0 ? (
+                  <p className='text-xs text-[#6B7280]'>No saved history yet.</p>
+                ) : (
+                  history.map((item) => (
+                    <div key={item.id} className='rounded-md border border-[#EEF2F0] bg-white px-2 py-1.5'>
+                      <p className='text-xs font-semibold text-[#1F2937]'>
+                        {item.expression} = {item.result}
+                      </p>
+                      <p className='text-[11px] text-[#6B7280]'>{item.timestamp}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 interface LineItemEditorProps {
   title: string;
   items: LineItem[];
@@ -199,7 +780,7 @@ function LineItemEditor({ title, items, setItems, accent }: LineItemEditorProps)
         {items.map((item, index) => (
           <div
             key={item.id}
-            className={`group flex flex-col gap-2 rounded-lg border p-3 sm:flex-row sm:items-center sm:gap-3 transition duration-200 hover:shadow-sm ${
+            className={`group flex flex-col gap-2 rounded-lg border p-3 lg:flex-row lg:items-center lg:gap-3 transition duration-200 hover:shadow-sm ${
               isDeductables
                 ? 'border-[#F8D3D0] bg-[#FFF8F8] hover:border-[#F2B8B5]'
                 : 'border-[#E5E7EB] bg-[#F9FAF9] hover:border-[#D1D5DB]'
@@ -225,7 +806,7 @@ function LineItemEditor({ title, items, setItems, accent }: LineItemEditorProps)
                 )
               }
               placeholder='Heading'
-              className={`h-9 flex-1 min-w-0 rounded-md border bg-white px-3 py-1.5 text-sm text-[#1F2937] outline-none focus:ring-2 transition-colors ${
+              className={`h-9 w-full min-w-0 rounded-md border bg-white px-3 py-1.5 text-sm text-[#1F2937] outline-none focus:ring-2 sm:flex-[1.6] transition-colors ${
                 isDeductables
                   ? 'border-[#F2B8B5]/60 focus:border-[#B42318] focus:ring-[#B42318]/25 hover:border-[#F2B8B5]'
                   : 'border-[#C9CFCC]/60 focus:border-[#068C44] focus:ring-[#068C44]/30 hover:border-[#C9CFCC]'
@@ -242,41 +823,43 @@ function LineItemEditor({ title, items, setItems, accent }: LineItemEditorProps)
                 )
               }
               placeholder='Description (optional)'
-              className={`h-9 w-full shrink-0 sm:w-40 md:w-52 lg:w-64 min-w-0 rounded-md border bg-white px-3 py-1.5 text-sm text-[#1F2937] outline-none focus:ring-2 transition-colors ${
+              className={`h-9 w-full shrink-0 sm:w-32 md:w-40 lg:w-48 min-w-0 rounded-md border bg-white px-3 py-1.5 text-sm text-[#1F2937] outline-none focus:ring-2 transition-colors ${
                 isDeductables
                   ? 'border-[#F2B8B5]/60 focus:border-[#B42318] focus:ring-[#B42318]/25 hover:border-[#F2B8B5]'
                   : 'border-[#C9CFCC]/60 focus:border-[#068C44] focus:ring-[#068C44]/30 hover:border-[#C9CFCC]'
               }`}
             />
-            <div className="w-full shrink-0 sm:w-56 md:w-64 lg:w-72">
-              <NumberInput
-                value={item.amount}
-                status={item.amountStatus ?? null}
-                onChange={(value, status) =>
-                  setItems((prev) =>
-                    prev.map((row) =>
-                      row.id === item.id
-                        ? { ...row, amount: value, amountStatus: status }
-                        : row,
-                    ),
-                  )
-                }
-              />
+            <div className='flex w-full items-center gap-2 sm:w-56 md:w-64 lg:w-72'>
+              <div className='min-w-0 flex-1'>
+                <NumberInput
+                  value={item.amount}
+                  status={item.amountStatus ?? null}
+                  onChange={(value, status) =>
+                    setItems((prev) =>
+                      prev.map((row) =>
+                        row.id === item.id
+                          ? { ...row, amount: value, amountStatus: status }
+                          : row,
+                      ),
+                    )
+                  }
+                />
+              </div>
+              <button
+                type='button'
+                onClick={() => setItems((prev) => prev.filter((row) => row.id !== item.id))}
+                title="Remove item"
+                className={`ml-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-md border text-sm outline-none transition-colors ${
+                  isDeductables 
+                    ? 'border-transparent text-[#B91C1C]/60 hover:bg-[#FEE2E2] hover:text-[#B91C1C] focus:bg-[#FEE2E2] focus:text-[#B91C1C]' 
+                    : 'border-transparent text-[#6B7280] hover:bg-[#FEE2E2] hover:text-[#B91C1C] focus:bg-[#FEE2E2] focus:text-[#B91C1C]'
+                }`}
+              >
+                <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
             </div>
-            <button
-              type='button'
-              onClick={() => setItems((prev) => prev.filter((row) => row.id !== item.id))}
-              title="Remove item"
-              className={`ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-md border text-sm outline-none transition-colors ${
-                isDeductables 
-                  ? 'border-transparent text-[#B91C1C]/60 hover:bg-[#FEE2E2] hover:text-[#B91C1C] focus:bg-[#FEE2E2] focus:text-[#B91C1C]' 
-                  : 'border-transparent text-[#6B7280] hover:bg-[#FEE2E2] hover:text-[#B91C1C] focus:bg-[#FEE2E2] focus:text-[#B91C1C]'
-              }`}
-            >
-              <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
-            </button>
           </div>
         ))}
       </div>
@@ -317,7 +900,7 @@ function LineItemEditor({ title, items, setItems, accent }: LineItemEditorProps)
         }`}
       >
         <p className={`text-xs font-bold uppercase tracking-widest ${isDeductables ? 'text-[#B42318]' : 'text-[#4B5563]'}`}>
-          {accent === 'gold' ? 'Total Zakatable Assets' : 'Total Deductables'}
+          {accent === 'gold' ? 'Total Zakatable Assets' : 'Total Zakatable Liabilities'}
         </p>
         <p
           className={`mt-1 sm:mt-0 text-xl md:text-2xl font-bold [font-variant-numeric:tabular-nums] ${
@@ -332,11 +915,27 @@ function LineItemEditor({ title, items, setItems, accent }: LineItemEditorProps)
 }
 
 export default function ZakatCalculationPage() {
-  const [businessInfo, setBusinessInfo] = useState<BusinessInfo>(defaultState.businessInfo);
-  const [assets, setAssets] = useState<LineItem[]>(defaultState.assets);
-  const [liabilities, setLiabilities] = useState<LineItem[]>(defaultState.liabilities);
+  const [businessInfo, setBusinessInfo] = useState<BusinessInfo>(defaultBusinessInfo);
+  const [institutionAssets, setInstitutionAssets] = useState<LineItem[]>(() =>
+    createInstitutionAssets(),
+  );
+  const [institutionLiabilities, setInstitutionLiabilities] = useState<LineItem[]>(() =>
+    createInstitutionLiabilities(),
+  );
+  const [personAssets, setPersonAssets] = useState<LineItem[]>(() => createPersonAssets());
+  const [personLiabilities, setPersonLiabilities] = useState<LineItem[]>(() =>
+    createPersonLiabilities(),
+  );
   const [isExporting, setIsExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
+
+  const assets = businessInfo.clientType === 'person' ? personAssets : institutionAssets;
+  const liabilities =
+    businessInfo.clientType === 'person' ? personLiabilities : institutionLiabilities;
+  const setAssets =
+    businessInfo.clientType === 'person' ? setPersonAssets : setInstitutionAssets;
+  const setLiabilities =
+    businessInfo.clientType === 'person' ? setPersonLiabilities : setInstitutionLiabilities;
 
   const totals = useMemo(() => {
     const totalAssets = sumLineItems(assets);
@@ -391,45 +990,37 @@ export default function ZakatCalculationPage() {
   };
 
   return (
-    <main className='min-h-screen bg-[#F4F6F5] pb-16 text-[#1F2937]'>
-      <div className='mx-auto max-w-350 px-4 pb-8 pt-8 sm:px-6 lg:px-10'>
-        <section className='mb-8 rounded-2xl border border-[#D4D9D7] bg-linear-to-b from-[#FFFFFF] to-[#F7FAF8] p-6 sm:p-8 shadow-sm relative overflow-hidden'>
-          <div className='absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-[#068C44]/5 blur-3xl'></div>
-          <div className='relative z-10'>
-            <div className='mb-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6'>
+    <main className='w-full h-full min-h-screen bg-[#F4F6F5] pb-16 text-[#1F2937]'>
+      <nav className='sticky top-0 z-40 border-b border-[#D4D9D7] bg-white/95 backdrop-blur'>
+        <div className='mx-auto max-w-350 px-4 sm:px-6 lg:px-10'>
+          <div className='grid min-h-20 grid-cols-[1fr_auto_1fr] items-center gap-2 py-2'>
+            <div />
+            <div className='flex items-center justify-center gap-5'>
               <Image
                 src='/ifac-logo.png'
                 alt='IFA Consultancy logo'
-                width={180}
-                height={64}
-                className='h-12 w-auto object-contain object-left shrink-0'
+                width={140}
+                height={48}
+                className='h-10 w-auto shrink-0 object-contain'
                 priority
               />
-              <div className='hidden sm:block h-10 w-px bg-[#E5E7EB]'></div>
-              <div>
-                <h1 className='text-2xl font-bold tracking-tight text-[#1F2937] sm:text-3xl'>
+              <div className='text-center'>
+                <p className='text-[10px] font-bold uppercase tracking-[0.14em] text-[#636467]'>
+                  Internal Zakat Calculation
+                </p>
+                <h1 className='text-lg font-extrabold tracking-tight text-[#1F2937]'>
                   Zakat <span className='text-[#068C44]'>Calculator</span>
                 </h1>
-                <p className='mt-1 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-[#636467]'>
-                  <span className='h-1.5 w-1.5 rounded-full bg-[#068C44]'></span>
-                  INTERNAL FINANCIAL TOOL
-                </p>
               </div>
             </div>
-            <p className='mt-5 max-w-2xl text-[15px] leading-relaxed text-[#4B5563]'>
-              Concise one-page flow. Rename headings, add/remove rows, and use negative values where required. Ensure all fields are filled accurately before exporting.
-            </p>
-            <div className='mt-6 inline-flex max-w-full items-start sm:items-center gap-3 rounded-lg border border-[#F59E0B]/30 bg-[#FFFBEB]/80 p-3 sm:px-4'>
-              <svg className="h-5 w-5 shrink-0 text-[#D97706] mt-0.5 sm:mt-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-              <p className='text-sm font-medium text-[#92400E] leading-snug'>
-                <strong className='font-bold'>CAUTION:</strong> Internal use only. Do not distribute this calculator link for personal use.
-              </p>
+            <div className='flex justify-end'>
+              <QuickCalculator />
             </div>
           </div>
-        </section>
+        </div>
+      </nav>
 
+      <div className='mx-auto max-w-350 px-4 pb-8 pt-8 sm:px-6 lg:px-10'>
         {exportError && (
           <section className='mb-6 rounded-xl border border-[#B91C1C]/40 bg-[#FEE2E2] p-4'>
             <div className='flex items-start justify-between gap-3'>
@@ -497,7 +1088,7 @@ export default function ZakatCalculationPage() {
               <label className='mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#636467]'>
                 Calendar Type
               </label>
-              <div className='flex gap-2 h-9.5'>
+              <div className='flex h-9.5 gap-2'>
                 <button
                   type='button'
                   onClick={() =>
@@ -536,9 +1127,48 @@ export default function ZakatCalculationPage() {
             </div>
             <div>
               <label className='mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#636467]'>
+                Client Type
+              </label>
+              <div className='flex h-11 gap-2'>
+                <button
+                  type='button'
+                  onClick={() =>
+                    setBusinessInfo((prev) => ({
+                      ...prev,
+                      clientType: 'institution',
+                    }))
+                  }
+                  className={`flex-1 rounded-md px-3 text-sm font-semibold transition-all ${
+                    businessInfo.clientType === 'institution'
+                      ? 'border border-[#068C44] bg-[#068C44]/10 text-[#068C44] shadow-sm shadow-[#068C44]/5'
+                      : 'border border-[#C9CFCC] bg-[#F9FAF9] text-[#4B5563] hover:border-[#A2A2B2] hover:bg-white'
+                  }`}
+                >
+                  Institution
+                </button>
+                <button
+                  type='button'
+                  onClick={() =>
+                    setBusinessInfo((prev) => ({
+                      ...prev,
+                      clientType: 'person',
+                    }))
+                  }
+                  className={`flex-1 rounded-md px-3 text-sm font-semibold transition-all ${
+                    businessInfo.clientType === 'person'
+                      ? 'border border-[#068C44] bg-[#068C44]/10 text-[#068C44] shadow-sm shadow-[#068C44]/5'
+                      : 'border border-[#C9CFCC] bg-[#F9FAF9] text-[#4B5563] hover:border-[#A2A2B2] hover:bg-white'
+                  }`}
+                >
+                  Person
+                </button>
+              </div>
+            </div>
+            <div>
+              <label className='mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#636467]'>
                 Zakat Year
               </label>
-              <div className='flex items-center gap-2 h-9.5'>
+              <div className='flex h-9.5 items-center gap-2'>
                 <button
                   type='button'
                   onClick={() => {
@@ -587,10 +1217,10 @@ export default function ZakatCalculationPage() {
           </div>
         </section>
 
-        <div className='grid gap-6 xl:grid-cols-2'>
-          <LineItemEditor title='Assets' items={assets} setItems={setAssets} accent='gold' />
+        <div className='grid gap-6 grid-cols-1'>
+          <LineItemEditor title='Assets (A)' items={assets} setItems={setAssets} accent='gold' />
           <LineItemEditor
-            title='Deductables'
+            title='Deductables (B)'
             items={liabilities}
             setItems={setLiabilities}
             accent='red'
@@ -599,7 +1229,7 @@ export default function ZakatCalculationPage() {
 
         <section className='mt-6 grid gap-4 lg:grid-cols-4'>
           <ResultCard label='Total Zakatable Assets' value={totals.totalAssets} color='gold' prefix='A.' />
-          <ResultCard label='Total Deductables' value={totals.totalDebt} color='red' prefix='B.' />
+          <ResultCard label='Total Zakatable Liabilities' value={totals.totalDebt} color='red' prefix='B.' />
           <div className='flex flex-col justify-center rounded-2xl border border-[#068C44]/30 bg-linear-to-r from-[#068C44]/10 to-[#068C44]/5 p-5 lg:col-span-2 shadow-sm'>
             <div className='flex items-center gap-3 mb-2'>
               <span className='flex h-6 items-center justify-center rounded-sm bg-[#068C44] px-2 text-xs font-bold text-white'>

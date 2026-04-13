@@ -14,6 +14,7 @@ type ExportPayload = {
     address: string;
     email: string;
     calendarType?: 'gregorian' | 'hijri';
+    clientType?: 'institution' | 'person';
     zakatYear: string;
   };
   assets: LineItem[];
@@ -117,6 +118,7 @@ export async function POST(req: Request) {
       address: '',
       email: '',
       calendarType: 'hijri',
+      clientType: 'institution',
       zakatYear: '',
     };
 
@@ -139,6 +141,10 @@ export async function POST(req: Request) {
     const totalAssets = assets.reduce((sum, row) => sum + row.amount, 0);
     const totalDebt = liabilities.reduce((sum, row) => sum + row.amount, 0);
     const net = totalAssets - totalDebt;
+    const clientTypeLabel = businessInfo.clientType === 'person' ? 'Individual' : 'Institution';
+    const nameLabel = businessInfo.clientType === 'person' ? 'Individual Name' : 'Institution Name';
+    const nameFallback = businessInfo.clientType === 'person' ? 'Individual Name' : 'Company Name';
+    const displayName = businessInfo.name.trim() || nameFallback;
 
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Zakat Summary', {
@@ -170,7 +176,7 @@ export async function POST(req: Request) {
 
     let rowNum = 1;
     const titleRow = worksheet.addRow({
-      section: `Zakat Calculation for ${businessInfo.name || 'Company Name'}`,
+      section: `Zakat Calculation for ${displayName}`,
       heading: '',
       amount: '',
       description: '',
@@ -188,7 +194,7 @@ export async function POST(req: Request) {
 
     // Business Information Section
     const businessHeaderRow = worksheet.addRow({
-      section: 'Business Information',
+      section: 'Client Information',
       heading: '',
       amount: '',
       description: '',
@@ -199,9 +205,10 @@ export async function POST(req: Request) {
     rowNum++;
 
     const rows = [
-      { section: '', heading: 'Company Name', amount: businessInfo.name, description: '' },
+      { section: '', heading: nameLabel, amount: businessInfo.name, description: '' },
       { section: '', heading: 'Address', amount: businessInfo.address, description: '' },
       { section: '', heading: 'Email', amount: businessInfo.email, description: '' },
+      { section: '', heading: 'Client Type', amount: clientTypeLabel, description: '' },
       {
         section: '',
         heading: 'Zakat Year',
@@ -397,7 +404,7 @@ export async function POST(req: Request) {
     const responseBody =
       buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer as ArrayBuffer);
 
-    const companyNamePart = safeFilePart(businessInfo.name || 'Company_Name');
+    const companyNamePart = safeFilePart(businessInfo.name.trim() || nameFallback.replace(/ /g, '_'));
     const yearPart = safeFilePart(businessInfo.zakatYear || 'Year');
     const fileName = `${companyNamePart}_Zakat_Calculation_${yearPart}.xlsx`;
 

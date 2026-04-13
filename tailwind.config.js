@@ -45,6 +45,27 @@ module.exports = {
         md: "calc(0.5rem - 2px)",
         sm: "calc(0.5rem - 4px)",
       },
+      // Custom spacing extensions for Zakat Calculator fixed layout
+      minWidth: {
+        // min-w-190: 760px - table minimum width for CashBank/Debts/OtherAssets
+        // min-w-275: 1100px - table minimum width for GoldSilver with 9 columns
+        190: "760px",
+        275: "1100px",
+      },
+      height: {
+        // h-4.5: 18px - delete button SVG size
+        // h-9.5: 38px - calendar/year selector button height
+        "4.5": "18px",
+        "9.5": "38px",
+      },
+      width: {
+        // w-4.5: 18px - delete button SVG size
+        "4.5": "18px",
+      },
+      margin: {
+        // mt-0.5: 2px - banner icon vertical alignment
+        "0.5": "2px",
+      },
     },
   },
   plugins: [],
