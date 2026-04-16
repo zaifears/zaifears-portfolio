@@ -29,6 +29,20 @@ type BusinessInfo = {
   zakatYear: string;
 };
 
+type ExportValidationIssue = {
+  field: string;
+  reason: string;
+};
+
+type ExportErrorPayload = {
+  error?: string;
+  debugCode?: string;
+  invalidFields?: ExportValidationIssue[];
+  details?: string;
+};
+
+const EXPORT_TIMEOUT_MS = 30_000;
+
 const numFmt = new Intl.NumberFormat('en-BD', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
@@ -88,6 +102,67 @@ const extractFilename = (contentDisposition: string | null) => {
   const simpleMatch = contentDisposition.match(/filename="?([^";]+)"?/i);
   return simpleMatch?.[1] ?? null;
 };
+
+const createClientDebugCode = (): string =>
+  `ZE-CLIENT-${Date.now().toString(36).toUpperCase()}`;
+
+const buildExportIssueDebugText = ({
+  debugCode,
+  httpStatus,
+  errorPayload,
+  fallbackError,
+}: {
+  debugCode: string;
+  httpStatus: number | null;
+  errorPayload?: ExportErrorPayload | null;
+  fallbackError?: string;
+}): string => {
+  const lines = [
+    `Debug code: ${debugCode}`,
+    `Time: ${new Date().toISOString()}`,
+    'Endpoint: POST /api/export',
+    `HTTP status: ${httpStatus ?? 'N/A'}`,
+  ];
+
+  if (errorPayload?.error) {
+    lines.push(`Server message: ${errorPayload.error}`);
+  }
+
+  if (Array.isArray(errorPayload?.invalidFields) && errorPayload.invalidFields.length > 0) {
+    lines.push(
+      `Invalid fields: ${errorPayload.invalidFields
+        .map((entry) => `${entry.field} (${entry.reason})`)
+        .join(', ')}`,
+    );
+  }
+
+  if (errorPayload?.details) {
+    lines.push(`Server details: ${errorPayload.details}`);
+  }
+
+  if (fallbackError) {
+    lines.push(`Client error: ${fallbackError}`);
+  }
+
+  return lines.join('\n');
+};
+
+const getInvalidNumericIssues = (
+  items: LineItem[],
+  group: 'assets' | 'liabilities',
+): ExportValidationIssue[] =>
+  items.flatMap((row, index) =>
+    row.amountStatus === 'invalid'
+      ? [
+          {
+            field: `${group}[${index}].amount`,
+            reason: `Invalid number format in row ${index + 1}${
+              row.label.trim() ? ` (${row.label.trim()})` : ''
+            }`,
+          },
+        ]
+      : [],
+  );
 
 const defaultBusinessInfo: BusinessInfo = {
   name: '',
@@ -928,6 +1003,7 @@ export default function ZakatCalculationPage() {
   );
   const [isExporting, setIsExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
+  const [exportIssueDebugText, setExportIssueDebugText] = useState<string | null>(null);
 
   const assets = businessInfo.clientType === 'person' ? personAssets : institutionAssets;
   const liabilities =
@@ -953,22 +1029,63 @@ export default function ZakatCalculationPage() {
   }, [assets, liabilities]);
 
   const handleExport = async () => {
-    setIsExporting(true);
     setExportError(null);
+    setExportIssueDebugText(null);
+
+    const invalidNumericIssues = [
+      ...getInvalidNumericIssues(assets, 'assets'),
+      ...getInvalidNumericIssues(liabilities, 'liabilities'),
+    ];
+
+    if (invalidNumericIssues.length > 0) {
+      const debugCode = createClientDebugCode();
+      setExportError(
+        'Some amount fields are invalid. Please correct them before exporting and share the debug details if needed.',
+      );
+      setExportIssueDebugText(
+        buildExportIssueDebugText({
+          debugCode,
+          httpStatus: 400,
+          errorPayload: {
+            error: 'Client blocked export because invalid numeric rows were detected.',
+            debugCode,
+            invalidFields: invalidNumericIssues,
+          },
+        }),
+      );
+      return;
+    }
+
+    setIsExporting(true);
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => {
+      controller.abort();
+    }, EXPORT_TIMEOUT_MS);
 
     try {
       const response = await fetch('/api/export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ businessInfo, assets, liabilities }),
+        signal: controller.signal,
       });
 
       if (!response.ok) {
-        const details = await response.text().catch(() => '');
+        const errorPayload = (await response.json().catch(() => null)) as ExportErrorPayload | null;
+        const debugCode =
+          errorPayload?.debugCode ??
+          response.headers.get('X-Debug-Code') ??
+          createClientDebugCode();
+
         setExportError(
-          `Export failed (${response.status} ${response.statusText})${
-            details ? `: ${details}` : ''
-          }`,
+          'We could not export the Excel file this time. Please share the debug details below with support.',
+        );
+        setExportIssueDebugText(
+          buildExportIssueDebugText({
+            debugCode,
+            httpStatus: response.status,
+            errorPayload,
+          }),
         );
         return;
       }
@@ -981,10 +1098,24 @@ export default function ZakatCalculationPage() {
         extractFilename(response.headers.get('Content-Disposition')) || 'Zakat_Summary.xlsx';
       anchor.click();
       URL.revokeObjectURL(url);
+      setExportIssueDebugText(null);
     } catch (error) {
+      const debugCode = createClientDebugCode();
       const message = error instanceof Error ? error.message : 'Unknown error';
-      setExportError(`Export failed before completion: ${message}`);
+      setExportError(
+        error instanceof DOMException && error.name === 'AbortError'
+          ? 'The export request timed out. Please share the debug details below with support.'
+          : 'A connectivity/runtime issue occurred during export. Please share the debug details below with support.',
+      );
+      setExportIssueDebugText(
+        buildExportIssueDebugText({
+          debugCode,
+          httpStatus: null,
+          fallbackError: message,
+        }),
+      );
     } finally {
+      window.clearTimeout(timeoutId);
       setIsExporting(false);
     }
   };
@@ -1029,20 +1160,33 @@ export default function ZakatCalculationPage() {
 
       <div className='mx-auto max-w-350 px-4 pb-8 pt-8 sm:px-6 lg:px-10'>
         {exportError && (
-          <section className='mb-6 rounded-xl border border-[#B91C1C]/40 bg-[#FEE2E2] p-4'>
+          <section className='mb-6 rounded-xl border border-amber-300 bg-amber-50 p-4'>
             <div className='flex items-start justify-between gap-3'>
               <div>
-                <p className='mb-1 text-sm font-semibold text-[#991B1B]'>Export Error</p>
-                <p className='text-sm leading-relaxed text-[#B91C1C]'>{exportError}</p>
+                <p className='mb-1 text-sm font-semibold text-amber-900'>Export Issue</p>
+                <p className='text-sm leading-relaxed text-amber-900'>{exportError}</p>
               </div>
               <button
                 type='button'
-                onClick={() => setExportError(null)}
-                className='rounded-md border border-[#B91C1C]/40 px-2 py-1 text-xs text-[#991B1B] hover:bg-[#FCA5A5]/20'
+                onClick={() => {
+                  setExportError(null);
+                  setExportIssueDebugText(null);
+                }}
+                className='rounded-md border border-amber-400/60 px-2 py-1 text-xs text-amber-900 hover:bg-amber-100'
               >
                 Dismiss
               </button>
             </div>
+            {exportIssueDebugText && (
+              <div className='mt-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3'>
+                <p className='text-xs font-semibold uppercase tracking-[0.08em] text-amber-900'>
+                  Debug Details (Share With Support)
+                </p>
+                <pre className='mt-2 whitespace-pre-wrap break-all text-xs text-amber-900'>
+                  {exportIssueDebugText}
+                </pre>
+              </div>
+            )}
           </section>
         )}
 
@@ -1238,13 +1382,16 @@ export default function ZakatCalculationPage() {
           <ResultCard label='Total Zakatable Assets' value={totals.totalAssets} color='gold' prefix='A.' />
           <ResultCard label='Total Zakatable Liabilities' value={totals.totalDebt} color='red' prefix='B.' />
           <div className='flex flex-col justify-center rounded-2xl border border-[#068C44]/30 bg-linear-to-r from-[#068C44]/10 to-[#068C44]/5 p-5 lg:col-span-2 shadow-sm'>
-            <div className='flex items-center gap-3 mb-2'>
-              <span className='flex h-6 items-center justify-center rounded-sm bg-[#068C44] px-2 text-xs font-bold text-white'>
-                A - B
-              </span>
-              <p className='text-xs font-bold uppercase tracking-[0.15em] text-[#636467]'>
-                Net Zakatable Asset
-              </p>
+            <div className='mb-2 flex items-center justify-between gap-2'>
+              <div className='flex items-center gap-3'>
+                <span className='flex h-6 items-center justify-center rounded-sm bg-[#068C44] px-2 text-xs font-bold text-white'>
+                  A - B
+                </span>
+                <p className='text-xs font-bold uppercase tracking-[0.15em] text-[#636467]'>
+                  Net Zakatable Asset
+                </p>
+              </div>
+              <CopyValueButton value={totals.netZakatableAssets} label='Net Zakatable Asset' />
             </div>
             <p className='text-3xl sm:text-4xl font-extrabold text-[#068C44] [font-variant-numeric:tabular-nums]'>
               {formatNumber(totals.netZakatableAssets)}
@@ -1262,9 +1409,12 @@ export default function ZakatCalculationPage() {
                   key={rate}
                   className='flex flex-col justify-center rounded-2xl border-2 border-[#E5E7EB] bg-white p-5 text-left'
                 >
-                  <p className='mb-1.5 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#636467]'>
-                    Zakat Rate
-                  </p>
+                  <div className='mb-1.5 flex items-center justify-between gap-2'>
+                    <p className='flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#636467]'>
+                      Zakat Rate
+                    </p>
+                    <CopyValueButton value={value} label={`Calculated Zakat ${rate}%`} />
+                  </div>
                   <p className='mb-3 text-3xl font-black text-[#4B5563]'>
                     {rate}%
                   </p>
@@ -1330,17 +1480,102 @@ function ResultCard({
 
   return (
     <div className={`flex flex-col justify-center rounded-xl border p-4 shadow-sm transition-colors ${tone}`}>
-      <p className='mb-2 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] sm:text-xs'>
-        {prefix && (
-          <span className={`inline-flex h-5 items-center justify-center rounded px-1.5 ${color === 'gold' ? 'bg-[#068C44]/10' : color === 'red' ? 'bg-[#B42318]/10' : ''}`}>
-            {prefix}
-          </span>
-        )}
-        <span className='opacity-80'>{label}</span>
-      </p>
+      <div className='mb-2 flex items-start justify-between gap-2'>
+        <p className='flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] sm:text-xs'>
+          {prefix && (
+            <span className={`inline-flex h-5 items-center justify-center rounded px-1.5 ${color === 'gold' ? 'bg-[#068C44]/10' : color === 'red' ? 'bg-[#B42318]/10' : ''}`}>
+              {prefix}
+            </span>
+          )}
+          <span className='opacity-80'>{label}</span>
+        </p>
+        <CopyValueButton value={value} label={label} />
+      </div>
       <p className={`text-2xl sm:text-3xl font-extrabold [font-variant-numeric:tabular-nums] ${color === 'red' ? 'text-[#B42318]' : 'text-[#068C44]'}`}>
         {formatNumber(value)}
       </p>
     </div>
+  );
+}
+
+function CopyValueButton({ value, label }: { value: number; label: string }) {
+  const [isCopied, setIsCopied] = useState(false);
+  const resetTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current !== null) {
+        window.clearTimeout(resetTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleCopy = async () => {
+    const valueToCopy = formatNumber(value);
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(valueToCopy);
+      } else {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = valueToCopy;
+        tempInput.style.position = 'fixed';
+        tempInput.style.left = '-9999px';
+        document.body.appendChild(tempInput);
+        tempInput.focus();
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      }
+
+      setIsCopied(true);
+      if (resetTimerRef.current !== null) {
+        window.clearTimeout(resetTimerRef.current);
+      }
+      resetTimerRef.current = window.setTimeout(() => setIsCopied(false), 1600);
+    } catch (error) {
+      console.error(`[zakat-calculation] Failed to copy ${label}:`, error);
+    }
+  };
+
+  return (
+    <button
+      type='button'
+      onClick={handleCopy}
+      aria-label={`Copy ${label}`}
+      title={isCopied ? 'Copied!' : `Copy ${label}`}
+      className={`relative z-10 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
+        isCopied
+          ? 'border-[#16A34A] bg-[#16A34A]/20 text-[#16A34A]'
+          : 'border-[#068C44]/40 bg-[#068C44]/10 text-[#068C44] hover:bg-[#068C44]/20'
+      }`}
+    >
+      <svg
+        className={`absolute h-5 w-5 transition-all duration-300 ${
+          isCopied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+        }`}
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z'
+        />
+      </svg>
+      <svg
+        className={`absolute h-5 w-5 transition-all duration-300 ${
+          isCopied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+        }`}
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+        strokeWidth={2.5}
+      >
+        <path strokeLinecap='round' strokeLinejoin='round' d='M5 13l4 4L19 7' />
+      </svg>
+    </button>
   );
 }

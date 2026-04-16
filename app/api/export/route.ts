@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server';
 import ExcelJS from 'exceljs';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 type LineItem = {
   id: string;
   label: string;
   description?: string;
   amount: number;
+  amountStatus?: 'valid' | 'invalid' | null;
 };
 
 type ExportPayload = {
@@ -21,18 +25,269 @@ type ExportPayload = {
   liabilities: LineItem[];
 };
 
-const toNumber = (value: unknown): number => {
-  const num = Number(value);
-  return Number.isFinite(num) ? num : 0;
+type ValidationIssue = {
+  field: string;
+  reason: string;
 };
 
-const safeFilePart = (value: string) =>
-  value
-    .trim()
-    .replace(/[\\/:*?"<>|]+/g, ' ')
+type NormalizedLineItem = {
+  label: string;
+  description: string;
+  amount: number;
+};
+
+type ValidationResult =
+  | {
+      isValid: true;
+      data: {
+        businessInfo: ExportPayload['businessInfo'];
+        assets: NormalizedLineItem[];
+        liabilities: NormalizedLineItem[];
+      };
+    }
+  | {
+      isValid: false;
+      issues: ValidationIssue[];
+    };
+
+const MAX_REQUEST_BYTES = 64 * 1024;
+const MAX_TEXT_LENGTH = 500;
+const MAX_LINE_ITEMS = 100;
+const ALLOWED_CALENDAR_TYPES = ['gregorian', 'hijri'] as const;
+const ALLOWED_CLIENT_TYPES = ['institution', 'person'] as const;
+
+const generateDebugCode = (): string =>
+  `ZE-${Date.now().toString(36).toUpperCase()}-${Math.random()
+    .toString(36)
+    .slice(2, 8)
+    .toUpperCase()}`;
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
+const validateAndNormalizeText = (
+  value: unknown,
+  field: string,
+  issues: ValidationIssue[],
+  options?: { allowEmpty?: boolean; maxLength?: number },
+): string => {
+  const allowEmpty = options?.allowEmpty ?? true;
+  const maxLength = options?.maxLength ?? MAX_TEXT_LENGTH;
+
+  if (typeof value !== 'string') {
+    issues.push({ field, reason: 'must be a string' });
+    return '';
+  }
+
+  const normalized = value.trim();
+  if (!allowEmpty && normalized.length === 0) {
+    issues.push({ field, reason: 'is required' });
+    return '';
+  }
+
+  if (normalized.length > maxLength) {
+    issues.push({ field, reason: `must be at most ${maxLength} characters` });
+    return '';
+  }
+
+  return normalized;
+};
+
+const validateLineItem = (
+  row: unknown,
+  index: number,
+  group: 'assets' | 'liabilities',
+  issues: ValidationIssue[],
+): NormalizedLineItem | null => {
+  if (!isRecord(row)) {
+    issues.push({
+      field: `${group}[${index}]`,
+      reason: 'must be an object',
+    });
+    return null;
+  }
+
+  if (row.amountStatus === 'invalid') {
+    issues.push({
+      field: `${group}[${index}].amount`,
+      reason: 'is invalid',
+    });
+  }
+
+  const label = validateAndNormalizeText(
+    row.label,
+    `${group}[${index}].label`,
+    issues,
+    { allowEmpty: true },
+  );
+  const description = validateAndNormalizeText(
+    row.description ?? '',
+    `${group}[${index}].description`,
+    issues,
+    { allowEmpty: true },
+  );
+
+  if (typeof row.amount !== 'number' || !Number.isFinite(row.amount)) {
+    issues.push({
+      field: `${group}[${index}].amount`,
+      reason: 'must be a finite number',
+    });
+    return null;
+  }
+
+  return {
+    label,
+    description,
+    amount: row.amount,
+  };
+};
+
+const validatePayload = (payload: unknown): ValidationResult => {
+  const issues: ValidationIssue[] = [];
+
+  if (!isRecord(payload)) {
+    return {
+      isValid: false,
+      issues: [{ field: 'payload', reason: 'must be a JSON object' }],
+    };
+  }
+
+  if (!isRecord(payload.businessInfo)) {
+    issues.push({ field: 'businessInfo', reason: 'must be an object' });
+  }
+
+  if (!Array.isArray(payload.assets)) {
+    issues.push({ field: 'assets', reason: 'must be an array' });
+  }
+
+  if (!Array.isArray(payload.liabilities)) {
+    issues.push({ field: 'liabilities', reason: 'must be an array' });
+  }
+
+  if (issues.length > 0) {
+    return { isValid: false, issues };
+  }
+
+  const businessInfoRecord = payload.businessInfo as Record<string, unknown>;
+  const assetsInput = payload.assets as unknown[];
+  const liabilitiesInput = payload.liabilities as unknown[];
+
+  if (assetsInput.length > MAX_LINE_ITEMS) {
+    issues.push({
+      field: 'assets',
+      reason: `must contain at most ${MAX_LINE_ITEMS} rows`,
+    });
+  }
+
+  if (liabilitiesInput.length > MAX_LINE_ITEMS) {
+    issues.push({
+      field: 'liabilities',
+      reason: `must contain at most ${MAX_LINE_ITEMS} rows`,
+    });
+  }
+
+  const name = validateAndNormalizeText(
+    businessInfoRecord.name,
+    'businessInfo.name',
+    issues,
+    { allowEmpty: true },
+  );
+  const address = validateAndNormalizeText(
+    businessInfoRecord.address,
+    'businessInfo.address',
+    issues,
+    { allowEmpty: true },
+  );
+  const email = validateAndNormalizeText(
+    businessInfoRecord.email,
+    'businessInfo.email',
+    issues,
+    { allowEmpty: true },
+  );
+  const zakatYear = validateAndNormalizeText(
+    businessInfoRecord.zakatYear,
+    'businessInfo.zakatYear',
+    issues,
+    { allowEmpty: true },
+  );
+
+  const calendarTypeRaw = businessInfoRecord.calendarType;
+  const calendarType =
+    typeof calendarTypeRaw === 'string' ? calendarTypeRaw.toLowerCase() : 'hijri';
+  if (!ALLOWED_CALENDAR_TYPES.includes(calendarType as (typeof ALLOWED_CALENDAR_TYPES)[number])) {
+    issues.push({
+      field: 'businessInfo.calendarType',
+      reason: 'must be gregorian or hijri',
+    });
+  }
+
+  const clientTypeRaw = businessInfoRecord.clientType;
+  const clientType =
+    typeof clientTypeRaw === 'string' ? clientTypeRaw.toLowerCase() : 'institution';
+  if (!ALLOWED_CLIENT_TYPES.includes(clientType as (typeof ALLOWED_CLIENT_TYPES)[number])) {
+    issues.push({
+      field: 'businessInfo.clientType',
+      reason: 'must be institution or person',
+    });
+  }
+
+  const assets: NormalizedLineItem[] = [];
+  const liabilities: NormalizedLineItem[] = [];
+
+  assetsInput.forEach((row, index) => {
+    const parsed = validateLineItem(row, index, 'assets', issues);
+    if (parsed) {
+      assets.push(parsed);
+    }
+  });
+
+  liabilitiesInput.forEach((row, index) => {
+    const parsed = validateLineItem(row, index, 'liabilities', issues);
+    if (parsed) {
+      liabilities.push(parsed);
+    }
+  });
+
+  if (issues.length > 0) {
+    return { isValid: false, issues };
+  }
+
+  return {
+    isValid: true,
+    data: {
+      businessInfo: {
+        name,
+        address,
+        email,
+        zakatYear,
+        calendarType: calendarType as ExportPayload['businessInfo']['calendarType'],
+        clientType: clientType as ExportPayload['businessInfo']['clientType'],
+      },
+      assets,
+      liabilities,
+    },
+  };
+};
+
+const sanitizeFileNameSegment = (value: string, fallback: string): string => {
+  const normalized = value
+    .replace(/[\\/:*?"<>|\u0000-\u001F]/g, '')
     .replace(/\s+/g, ' ')
-    .replace(/ /g, '_')
-    .slice(0, 80);
+    .trim();
+
+  return normalized.length > 0 ? normalized : fallback;
+};
+
+const sanitizeAsciiFileNameSegment = (value: string, fallback: string): string => {
+  const unicodeSafe = sanitizeFileNameSegment(value, fallback);
+  const asciiSafe = unicodeSafe
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\x20-\x7E]/g, '')
+    .trim();
+
+  return asciiSafe.length > 0 ? asciiSafe : fallback;
+};
 
 const stylePresets = {
   title: {
@@ -110,33 +365,65 @@ const stylePresets = {
 };
 
 export async function POST(req: Request) {
+  const contentLengthHeader = req.headers.get('content-length');
+  const contentLength = contentLengthHeader ? Number(contentLengthHeader) : null;
+
+  if (contentLength !== null && Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
+    const debugCode = generateDebugCode();
+    return NextResponse.json(
+      {
+        error: 'Payload too large.',
+        debugCode,
+      },
+      {
+        status: 413,
+        headers: {
+          'X-Debug-Code': debugCode,
+        },
+      },
+    );
+  }
+
+  let payload: unknown;
+
   try {
-    const payload = (await req.json()) as ExportPayload;
+    payload = await req.json();
+  } catch {
+    const debugCode = generateDebugCode();
+    return NextResponse.json(
+      {
+        error: 'Invalid JSON payload.',
+        debugCode,
+      },
+      {
+        status: 400,
+        headers: {
+          'X-Debug-Code': debugCode,
+        },
+      },
+    );
+  }
 
-    const businessInfo = payload.businessInfo ?? {
-      name: '',
-      address: '',
-      email: '',
-      calendarType: 'hijri',
-      clientType: 'institution',
-      zakatYear: '',
-    };
+  const validation = validatePayload(payload);
+  if (!validation.isValid) {
+    const debugCode = generateDebugCode();
+    return NextResponse.json(
+      {
+        error: 'Invalid export payload.',
+        debugCode,
+        invalidFields: validation.issues,
+      },
+      {
+        status: 400,
+        headers: {
+          'X-Debug-Code': debugCode,
+        },
+      },
+    );
+  }
 
-    const assets = Array.isArray(payload.assets)
-      ? payload.assets.map((row) => ({
-          label: String(row.label ?? ''),
-          description: String(row.description ?? ''),
-          amount: toNumber(row.amount),
-        }))
-      : [];
-
-    const liabilities = Array.isArray(payload.liabilities)
-      ? payload.liabilities.map((row) => ({
-          label: String(row.label ?? ''),
-          description: String(row.description ?? ''),
-          amount: toNumber(row.amount),
-        }))
-      : [];
+  try {
+    const { businessInfo, assets, liabilities } = validation.data;
 
     const totalAssets = assets.reduce((sum, row) => sum + row.amount, 0);
     const totalDebt = liabilities.reduce((sum, row) => sum + row.amount, 0);
@@ -404,20 +691,51 @@ export async function POST(req: Request) {
     const responseBody =
       buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer as ArrayBuffer);
 
-    const companyNamePart = safeFilePart(businessInfo.name.trim() || nameFallback.replace(/ /g, '_'));
-    const yearPart = safeFilePart(businessInfo.zakatYear || 'Year');
-    const fileName = `${companyNamePart}_Zakat_Calculation_${yearPart}.xlsx`;
+    const safeClientName = sanitizeFileNameSegment(
+      businessInfo.name || nameFallback,
+      nameFallback,
+    );
+    const safeYear = sanitizeFileNameSegment(businessInfo.zakatYear || 'Year', 'Year');
+    const unicodeFileName = `${safeClientName}_Zakat_Calculation_${safeYear}.xlsx`;
+    const asciiFileName = `${sanitizeAsciiFileNameSegment(
+      businessInfo.name || nameFallback,
+      nameFallback,
+    )}_Zakat_Calculation_${sanitizeAsciiFileNameSegment(
+      businessInfo.zakatYear || 'Year',
+      'Year',
+    )}.xlsx`;
+    const encodedFileName = encodeURIComponent(unicodeFileName);
 
     return new NextResponse(responseBody, {
       status: 200,
       headers: {
         'Content-Type':
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'Content-Disposition': `attachment; filename="${fileName}"`,
+        'Cache-Control': 'private, no-store, max-age=0',
+        'X-Content-Type-Options': 'nosniff',
+        'Content-Disposition': `attachment; filename="${asciiFileName}"; filename*=UTF-8''${encodedFileName}`,
       },
     });
   } catch (error) {
+    const debugCode = generateDebugCode();
     const message = error instanceof Error ? error.message : 'Unknown export error';
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error('[export] Failed to generate Excel file:', {
+      debugCode,
+      message,
+    });
+
+    return NextResponse.json(
+      {
+        error: 'Failed to generate export file.',
+        debugCode,
+        details: message,
+      },
+      {
+        status: 500,
+        headers: {
+          'X-Debug-Code': debugCode,
+        },
+      },
+    );
   }
 }

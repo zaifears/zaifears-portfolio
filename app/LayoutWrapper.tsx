@@ -15,7 +15,8 @@ export default function LayoutWrapper({
     pathname.startsWith('/bizcomp') ||
     pathname.startsWith('/meetup') ||
     pathname.startsWith('/zakat-calulation') ||
-    pathname.startsWith('/zakat-calculation');
+    pathname.startsWith('/zakat-calculation') ||
+    pathname.startsWith('/zakat-report');
 
   return (
     <>

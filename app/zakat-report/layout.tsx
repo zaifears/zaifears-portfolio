@@ -2,12 +2,12 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'IFA Consultancy',
+    absolute: 'Zakat Report Generator - IFA Consultancy',
   },
-  description: 'Internal tool for Zakat Calculation',
+  description: 'Internal tool for Zakat Report Generation',
   openGraph: {
-    title: 'IFA Consultancy',
-    description: 'Internal tool for Zakat Calculation',
+    title: 'Zakat Report Generator - IFA Consultancy',
+    description: 'Internal tool for Zakat Report Generation',
     type: 'website',
     images: [
       {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'IFA Consultancy',
-    description: 'Internal tool for Zakat Calculation',
+    title: 'Zakat Report Generator - IFA Consultancy',
+    description: 'Internal tool for Zakat Report Generation',
     images: ['/IFA%20Logo%20Alone.png'],
   },
   robots: {
