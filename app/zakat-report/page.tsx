@@ -151,7 +151,6 @@ function QuickCalculator() {
         type='button'
         onClick={() => setIsOpen((prev) => !prev)}
         className='flex min-w-40 items-center justify-between gap-2 rounded-xl border border-[#D4D9D7] bg-white px-3 py-2 shadow-sm transition hover:border-[#A2A2B2]'
-        aria-expanded={isOpen}
         aria-label='Toggle basic calculator'
       >
         <span className='text-left'>

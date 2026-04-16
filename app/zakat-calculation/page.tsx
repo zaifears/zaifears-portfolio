@@ -219,9 +219,10 @@ interface NumberInputProps {
   value: number;
   status: 'valid' | 'invalid' | null;
   onChange: (value: number, status: 'valid' | 'invalid' | null) => void;
+  ariaLabel?: string;
 }
 
-function NumberInput({ value, status, onChange }: NumberInputProps) {
+function NumberInput({ value, status, onChange, ariaLabel = 'Amount' }: NumberInputProps) {
   const [focused, setFocused] = useState(false);
   const [draft, setDraft] = useState('');
 
@@ -236,6 +237,7 @@ function NumberInput({ value, status, onChange }: NumberInputProps) {
       <input
         type='text'
         inputMode='decimal'
+        aria-label={ariaLabel}
         value={draft}
         onFocus={() => {
           setFocused(true);
@@ -737,7 +739,6 @@ function QuickCalculator() {
         ref={triggerRef}
         type='button'
         onClick={() => setIsOpen((prev) => !prev)}
-        aria-expanded={isOpen}
         aria-controls='quick-calculator-panel'
         aria-label='Toggle basic calculator'
         className='flex w-full items-center justify-between gap-3 rounded-xl border border-[#D4D9D7] bg-white px-3 py-2 shadow-sm transition hover:border-[#A2A2B2] sm:min-w-44 sm:w-auto'
@@ -909,6 +910,7 @@ function LineItemEditor({ title, items, setItems, accent }: LineItemEditorProps)
                 <NumberInput
                   value={item.amount}
                   status={item.amountStatus ?? null}
+                  ariaLabel={`Amount for ${item.label || `item ${index + 1}`}`}
                   onChange={(value, status) =>
                     setItems((prev) =>
                       prev.map((row) =>
