@@ -2,211 +2,14 @@
 
 import Image from 'next/image';
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { QuickCalculator } from '../components/QuickCalculator';
 
 import { detectBanglaInputMethod } from '../../lib/banglaInput';
-
-type CalcOperator = '+' | '-' | '*' | '/';
-
-function QuickCalculator() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [display, setDisplay] = useState('0');
-  const [firstOperand, setFirstOperand] = useState<number | null>(null);
-  const [operator, setOperator] = useState<CalcOperator | null>(null);
-  const [waitingForSecondOperand, setWaitingForSecondOperand] = useState(false);
-
-  const panelRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const handleOutsideClick = (event: MouseEvent) => {
-      const target = event.target as Node;
-      if (panelRef.current && !panelRef.current.contains(target)) {
-        setIsOpen(false);
-      }
-    };
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleOutsideClick);
-    document.addEventListener('keydown', handleEscape);
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, [isOpen]);
-
-  const clearAll = () => {
-    setDisplay('0');
-    setFirstOperand(null);
-    setOperator(null);
-    setWaitingForSecondOperand(false);
-  };
-
-  const inputDigit = (digit: string) => {
-    if (waitingForSecondOperand) {
-      setDisplay(digit);
-      setWaitingForSecondOperand(false);
-      return;
-    }
-
-    setDisplay((prev) => (prev === '0' ? digit : `${prev}${digit}`));
-  };
-
-  const inputDot = () => {
-    if (waitingForSecondOperand) {
-      setDisplay('0.');
-      setWaitingForSecondOperand(false);
-      return;
-    }
-
-    if (!display.includes('.')) {
-      setDisplay((prev) => `${prev}.`);
-    }
-  };
-
-  const calculate = (left: number, right: number, op: CalcOperator) => {
-    if (op === '+') {
-      return left + right;
-    }
-    if (op === '-') {
-      return left - right;
-    }
-    if (op === '*') {
-      return left * right;
-    }
-
-    if (right === 0) {
-      return null;
-    }
-
-    return left / right;
-  };
-
-  const selectOperator = (nextOperator: CalcOperator) => {
-    const inputValue = Number(display);
-
-    if (firstOperand === null) {
-      setFirstOperand(inputValue);
-      setOperator(nextOperator);
-      setWaitingForSecondOperand(true);
-      return;
-    }
-
-    if (operator && !waitingForSecondOperand) {
-      const result = calculate(firstOperand, inputValue, operator);
-      if (result === null) {
-        setDisplay('Error');
-        setFirstOperand(null);
-        setOperator(null);
-        setWaitingForSecondOperand(false);
-        return;
-      }
-
-      const resultText = String(Number(result.toFixed(8)));
-      setDisplay(resultText);
-      setFirstOperand(result);
-    }
-
-    setOperator(nextOperator);
-    setWaitingForSecondOperand(true);
-  };
-
-  const handleEquals = () => {
-    if (firstOperand === null || operator === null) {
-      return;
-    }
-
-    const inputValue = Number(display);
-    const result = calculate(firstOperand, inputValue, operator);
-
-    if (result === null) {
-      setDisplay('Error');
-    } else {
-      setDisplay(String(Number(result.toFixed(8))));
-    }
-
-    setFirstOperand(null);
-    setOperator(null);
-    setWaitingForSecondOperand(false);
-  };
-
-  const handleBackspace = () => {
-    setDisplay((prev) => (prev.length > 1 ? prev.slice(0, -1) : '0'));
-  };
-
-  const keypadButtonClass =
-    'rounded-md border border-[#D4D9D7] bg-white px-2 py-2 text-sm font-semibold text-[#1F2937] transition hover:bg-[#F7FAF9]';
-
-  return (
-    <div ref={panelRef} className='relative'>
-      <button
-        type='button'
-        onClick={() => setIsOpen((prev) => !prev)}
-        className='flex min-w-40 items-center justify-between gap-2 rounded-xl border border-[#D4D9D7] bg-white px-3 py-2 shadow-sm transition hover:border-[#A2A2B2]'
-        aria-label='Toggle basic calculator'
-      >
-        <span className='text-left'>
-          <span className='block text-[10px] font-bold uppercase tracking-[0.12em] text-[#636467]'>
-            Calculator
-          </span>
-          <span className='block text-sm font-extrabold text-[#1F2937]'>{display}</span>
-        </span>
-        <span className='text-[#636467]'>v</span>
-      </button>
-
-      {isOpen && (
-        <div className='absolute right-0 z-50 mt-2 w-72 rounded-2xl border border-[#D4D9D7] bg-white p-3 shadow-xl'>
-          <div className='mb-3 rounded-lg bg-[#111827] px-3 py-2'>
-            <p className='text-right text-2xl font-bold text-white'>{display}</p>
-          </div>
-
-          <div className='grid grid-cols-4 gap-2'>
-            <button type='button' className={`${keypadButtonClass} text-[#B42318]`} onClick={clearAll}>C</button>
-            <button type='button' className={keypadButtonClass} onClick={handleBackspace}>Back</button>
-            <button type='button' className={keypadButtonClass} onClick={() => selectOperator('/')}>/</button>
-            <button type='button' className={keypadButtonClass} onClick={() => selectOperator('*')}>x</button>
-
-            <button type='button' className={keypadButtonClass} onClick={() => inputDigit('7')}>7</button>
-            <button type='button' className={keypadButtonClass} onClick={() => inputDigit('8')}>8</button>
-            <button type='button' className={keypadButtonClass} onClick={() => inputDigit('9')}>9</button>
-            <button type='button' className={keypadButtonClass} onClick={() => selectOperator('-')}>-</button>
-
-            <button type='button' className={keypadButtonClass} onClick={() => inputDigit('4')}>4</button>
-            <button type='button' className={keypadButtonClass} onClick={() => inputDigit('5')}>5</button>
-            <button type='button' className={keypadButtonClass} onClick={() => inputDigit('6')}>6</button>
-            <button type='button' className={keypadButtonClass} onClick={() => selectOperator('+')}>+</button>
-
-            <button type='button' className={keypadButtonClass} onClick={() => inputDigit('1')}>1</button>
-            <button type='button' className={keypadButtonClass} onClick={() => inputDigit('2')}>2</button>
-            <button type='button' className={keypadButtonClass} onClick={() => inputDigit('3')}>3</button>
-            <button
-              type='button'
-              className='row-span-2 rounded-md border border-[#068C44] bg-[#068C44] px-2 py-2 text-sm font-semibold text-white transition hover:bg-[#057A3C]'
-              onClick={handleEquals}
-            >
-              =
-            </button>
-
-            <button type='button' className={`${keypadButtonClass} col-span-2`} onClick={() => inputDigit('0')}>0</button>
-            <button type='button' className={keypadButtonClass} onClick={inputDot}>.</button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 type ZakatReportFormData = {
   timeline: string;
   year: string;
+  type: string;
   date: string;
   month: string;
   client_name: string;
@@ -215,6 +18,10 @@ type ZakatReportFormData = {
   net_jakat: string;
   extra_info: string;
   optional_extra_info: string;
+};
+
+type GenerateZakatReportPayload = ZakatReportFormData & {
+  include_optional_extra_info: boolean;
 };
 
 type GenerateReportErrorPayload = {
@@ -323,6 +130,7 @@ const getDefaultFormData = (): ZakatReportFormData => {
   return {
     timeline: formatTimelineRange(TIMELINE_DEFAULT_START.Hijri, 'Hijri'),
     year: 'Hijri',
+    type: 'Personal',
     date: toInputDateValue(now),
     month: HIJRI_MONTHS[0],
     client_name: '',
@@ -465,6 +273,7 @@ const validateFormDataBeforeSubmit = (formData: ZakatReportFormData): string | n
   const requiredFields: Array<keyof ZakatReportFormData> = [
     'timeline',
     'year',
+    'type',
     'date',
     'month',
     'client_name',
@@ -478,6 +287,10 @@ const validateFormDataBeforeSubmit = (formData: ZakatReportFormData): string | n
     if (formData[field].trim().length === 0) {
       return 'Please fill in all required fields before generating the report.';
     }
+  }
+
+  if (formData.type !== 'Personal' && formData.type !== 'Institution') {
+    return 'Please select a valid Type.';
   }
 
   const timelineMatch = formData.timeline.trim().match(TIMELINE_PATTERN);
@@ -517,6 +330,7 @@ const validateFormDataBeforeSubmit = (formData: ZakatReportFormData): string | n
 
 export default function ZakatReportPage() {
   const [formData, setFormData] = useState<ZakatReportFormData>(() => getDefaultFormData());
+  const [includeOptionalExtraInfo, setIncludeOptionalExtraInfo] = useState(false);
   const [timelineStartBySystem, setTimelineStartBySystem] = useState<Record<YearSystem, number>>(
     {
       Hijri: TIMELINE_DEFAULT_START.Hijri,
@@ -668,10 +482,11 @@ export default function ZakatReportPage() {
     }, SUBMIT_TIMEOUT_MS);
 
     try {
-      const payload: ZakatReportFormData = {
+      const payload: GenerateZakatReportPayload = {
         ...formData,
         timeline: formData.timeline.trim(),
         year: formData.year.trim(),
+        type: formData.type.trim(),
         date: formData.date.trim(),
         month: formData.month.trim(),
         client_name: formData.client_name.trim(),
@@ -679,7 +494,8 @@ export default function ZakatReportPage() {
         jakat_rate: formData.jakat_rate.trim(),
         net_jakat: formData.net_jakat.trim(),
         extra_info: formData.extra_info.trim(),
-        optional_extra_info: formData.optional_extra_info.trim(),
+        optional_extra_info: includeOptionalExtraInfo ? formData.optional_extra_info.trim() : '',
+        include_optional_extra_info: includeOptionalExtraInfo,
       };
 
       const response = await fetch('/api/generate-zakat-report', {
@@ -888,6 +704,26 @@ export default function ZakatReportPage() {
                 </div>
 
                 <div>
+                  <label htmlFor='type' className='mb-2 block text-sm font-semibold text-slate-700'>
+                    Type
+                  </label>
+                  <select
+                    id='type'
+                    name='type'
+                    value={formData.type}
+                    onChange={(event) => {
+                      const { name, value } = event.target;
+                      setFormData((prev) => ({ ...prev, [name]: value }));
+                    }}
+                    required
+                    className='w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100'
+                  >
+                    <option value='Personal'>Personal</option>
+                    <option value='Institution'>Institution</option>
+                  </select>
+                </div>
+
+                <div>
                   <label htmlFor='date' className='mb-2 block text-sm font-semibold text-slate-700'>
                     Report Date
                   </label>
@@ -1090,6 +926,20 @@ export default function ZakatReportPage() {
                 </div>
 
                 <div>
+                  <label className='mb-2 flex items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-3'>
+                    <input
+                      type='checkbox'
+                      checked={includeOptionalExtraInfo}
+                      onChange={(event) => {
+                        setIncludeOptionalExtraInfo(event.target.checked);
+                      }}
+                      className='mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-700 focus:ring-2 focus:ring-emerald-100'
+                    />
+                    <span className='text-sm font-semibold text-slate-700'>
+                      Include Optional Extra Information in DOCX (আরো উল্লেখ্য যে,)
+                    </span>
+                  </label>
+
                   <label htmlFor='optional_extra_info' className='mb-2 block text-sm font-semibold text-slate-700'>
                     Optional Extra Information
                   </label>
@@ -1098,13 +948,20 @@ export default function ZakatReportPage() {
                     name='optional_extra_info'
                     value={formData.optional_extra_info}
                     onChange={handleFieldChange}
+                    disabled={!includeOptionalExtraInfo}
                     rows={3}
-                    className='w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100'
-                    placeholder='Additional optional notes (if any)...'
+                    className='w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500'
+                    placeholder={
+                      includeOptionalExtraInfo
+                        ? 'Additional optional notes (if any)...'
+                        : 'Enable the checkbox above to add this section to the report.'
+                    }
                   />
-                  <p className={`mt-1 text-xs ${optionalExtraInfoInputMethod.className}`}>
-                    {optionalExtraInfoInputMethod.label}
-                  </p>
+                  {includeOptionalExtraInfo && (
+                    <p className={`mt-1 text-xs ${optionalExtraInfoInputMethod.className}`}>
+                      {optionalExtraInfoInputMethod.label}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -1148,6 +1005,7 @@ export default function ZakatReportPage() {
                       Hijri: TIMELINE_DEFAULT_START.Hijri,
                       Gregorian: TIMELINE_DEFAULT_START.Gregorian,
                     });
+                    setIncludeOptionalExtraInfo(false);
                     setErrorMessage(null);
                     setIssueDebugText(null);
                     setSuccessMessage(null);
@@ -1176,3 +1034,4 @@ export default function ZakatReportPage() {
     </div>
   );
 }
+

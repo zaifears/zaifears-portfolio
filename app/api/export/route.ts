@@ -647,7 +647,7 @@ export async function POST(req: Request) {
     const zakatRates = [
       { rate: 2.5, description: '2.5% (Hijri)' },
       { rate: 2.577, description: '2.577% (Gregorian)' },
-      { rate: 2.6, description: '2.6% (Gregorian + Safe)' },
+      { rate: 2.6, description: '2.6% (Mufti Taqi Uthmani)' },
     ];
 
     zakatRates.forEach(({ rate, description }) => {

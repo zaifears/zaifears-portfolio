@@ -14,6 +14,7 @@ export const dynamic = 'force-dynamic';
 const REQUIRED_FIELDS = [
   'timeline',
   'year',
+  'type',
   'date',
   'month',
   'client_name',
@@ -25,6 +26,14 @@ const REQUIRED_FIELDS = [
 ] as const;
 
 const OPTIONAL_FIELDS = ['optional_extra_info'] as const;
+const OPTIONAL_EXTRA_INFO_FLAG = 'include_optional_extra_info';
+const OPTIONAL_EXTRA_INFO_LABEL_TAG = 'আরো উল্লেখ্য যে,';
+const OPTIONAL_EXTRA_INFO_LABEL_TEXT = 'আরো উল্লেখ্য যে,';
+const TYPE_FIELD = 'type';
+const TYPE_PERSONAL_VALUE = 'Personal';
+const TYPE_INSTITUTION_VALUE = 'Institution';
+const TYPE_PERSONAL_TEMPLATE_TEXT = 'যার';
+const TYPE_INSTITUTION_TEMPLATE_TEXT = 'যাদের';
 
 const TIMELINE_PATTERN = /^(\d{4})\s*-\s*(\d{2,4})$/;
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -73,22 +82,65 @@ const generateDebugCode = (): string =>
     .slice(2, 8)
     .toUpperCase()}`;
 
-type TemplateTag = (typeof REQUIRED_FIELDS)[number];
-type ZakatReportPayload = Record<TemplateTag, string>;
+type TemplateField = (typeof REQUIRED_FIELDS)[number];
+type ValidationField = TemplateField | typeof OPTIONAL_EXTRA_INFO_FLAG;
+type ZakatReportPayload = Record<TemplateField, string>;
+type ZakatReportTemplateData = ZakatReportPayload & {
+  [OPTIONAL_EXTRA_INFO_LABEL_TAG]: string;
+};
 
 type ValidationResult =
-  | { isValid: true; data: ZakatReportPayload }
+  | {
+      isValid: true;
+      data: ZakatReportPayload;
+      includeOptionalExtraInfo: boolean;
+    }
   | {
       isValid: false;
-      missingFields: TemplateTag[];
-      invalidFields: TemplateTag[];
+      missingFields: TemplateField[];
+      invalidFields: ValidationField[];
     };
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
 
-const isFieldOptional = (field: TemplateTag): boolean =>
+const isFieldOptional = (field: TemplateField): boolean =>
   OPTIONAL_FIELDS.includes(field as (typeof OPTIONAL_FIELDS)[number]);
+
+const parseIncludeOptionalExtraInfo = (value: unknown): boolean | null => {
+  if (typeof value === 'boolean') {
+    return value;
+  }
+
+  if (typeof value !== 'string') {
+    return null;
+  }
+
+  const normalized = value.trim().toLowerCase();
+  if (normalized === 'true') {
+    return true;
+  }
+
+  if (normalized === 'false' || normalized.length === 0) {
+    return false;
+  }
+
+  return null;
+};
+
+const parseReportType = (value: string): string | null => {
+  const normalized = value.trim().toLowerCase();
+
+  if (normalized === TYPE_PERSONAL_VALUE.toLowerCase()) {
+    return TYPE_PERSONAL_VALUE;
+  }
+
+  if (normalized === TYPE_INSTITUTION_VALUE.toLowerCase()) {
+    return TYPE_INSTITUTION_VALUE;
+  }
+
+  return null;
+};
 
 const isValidTimeline = (timeline: string, yearSystem: string): boolean => {
   const match = timeline.match(TIMELINE_PATTERN);
@@ -168,8 +220,8 @@ const validatePayload = (
     };
   }
 
-  const missingFields: TemplateTag[] = [];
-  const invalidFields: TemplateTag[] = [];
+  const missingFields: TemplateField[] = [];
+  const invalidFields: ValidationField[] = [];
   const data = {} as ZakatReportPayload;
 
   for (const field of REQUIRED_FIELDS) {
@@ -199,6 +251,15 @@ const validatePayload = (
     }
   }
 
+  if (!missingFields.includes(TYPE_FIELD)) {
+    const parsedReportType = parseReportType(data.type);
+    if (!parsedReportType) {
+      invalidFields.push(TYPE_FIELD);
+    } else {
+      data.type = parsedReportType;
+    }
+  }
+
   if (!missingFields.includes('date') && !isValidDateString(data.date)) {
     invalidFields.push('date');
   }
@@ -223,11 +284,26 @@ const validatePayload = (
     invalidFields.push('jakat_rate');
   }
 
+  let includeOptionalExtraInfo = false;
+  if (payload[OPTIONAL_EXTRA_INFO_FLAG] === undefined) {
+    includeOptionalExtraInfo = data.optional_extra_info.trim().length > 0;
+  } else {
+    const parsedIncludeOptionalExtraInfo = parseIncludeOptionalExtraInfo(
+      payload[OPTIONAL_EXTRA_INFO_FLAG],
+    );
+
+    if (parsedIncludeOptionalExtraInfo === null) {
+      invalidFields.push(OPTIONAL_EXTRA_INFO_FLAG);
+    } else {
+      includeOptionalExtraInfo = parsedIncludeOptionalExtraInfo;
+    }
+  }
+
   if (missingFields.length > 0 || invalidFields.length > 0) {
     return { isValid: false, missingFields, invalidFields };
   }
 
-  return { isValid: true, data };
+  return { isValid: true, data, includeOptionalExtraInfo };
 };
 
 const logTemplateError = (error: unknown, debugCode?: string) => {
@@ -351,7 +427,21 @@ export async function POST(request: Request) {
       linebreaks: true,
     });
 
-    doc.render(validation.data);
+    const renderData: ZakatReportTemplateData = {
+      ...validation.data,
+      type:
+        validation.data.type === TYPE_INSTITUTION_VALUE
+          ? TYPE_INSTITUTION_TEMPLATE_TEXT
+          : TYPE_PERSONAL_TEMPLATE_TEXT,
+      optional_extra_info: validation.includeOptionalExtraInfo
+        ? validation.data.optional_extra_info
+        : '',
+      [OPTIONAL_EXTRA_INFO_LABEL_TAG]: validation.includeOptionalExtraInfo
+        ? OPTIONAL_EXTRA_INFO_LABEL_TEXT
+        : '',
+    };
+
+    doc.render(renderData);
 
     const generatedDocument = doc.getZip().generate({
       type: 'nodebuffer',
