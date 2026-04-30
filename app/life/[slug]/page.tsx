@@ -7,6 +7,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, CalendarDays, Clock } from 'lucide-react';
 
+const baseUrl = 'https://shahoriar.me';
+
 // ISR: revalidate every 60 seconds instead of hitting Contentful on every request
 export const revalidate = 60;
 
@@ -138,7 +140,7 @@ export default async function LifePostPage({
           if (!videoId) return <p>Could not load YouTube video.</p>;
           
           return (
-            <div className="relative overflow-hidden my-8" style={{ paddingTop: '56.25%' }}>
+            <div className="relative overflow-hidden my-8 aspect-video">
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
                 src={`https://www.youtube.com/embed/${videoId}`}
@@ -171,12 +173,41 @@ export default async function LifePostPage({
     },
   };
 
-  const readingTime = event.fields.content
-    ? Math.max(1, Math.ceil(documentToPlainTextString(event.fields.content).split(/\s+/).length / 200))
-    : 1;
+  const plainText = event.fields.content ? documentToPlainTextString(event.fields.content) : '';
+  const description = plainText ? plainText.replace(/\s+/g, ' ').trim().slice(0, 160) : '';
+  const wordCount = plainText ? plainText.trim().split(/\s+/).length : 0;
+  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: event.fields.title,
+    description,
+    datePublished: event.fields.date,
+    dateModified: event.fields.date,
+    author: {
+      '@type': 'Person',
+      name: 'Md Al Shahoriar Hossain',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Md Al Shahoriar Hossain',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${baseUrl}/life/${slug}`,
+    },
+    ...(event.fields.coverImage?.fields?.file?.url
+      ? { image: [`https:${event.fields.coverImage.fields.file.url}`] }
+      : {}),
+  };
 
   return (
     <article className="max-w-4xl mx-auto overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Back navigation */}
       <Link 
         href="/life" 

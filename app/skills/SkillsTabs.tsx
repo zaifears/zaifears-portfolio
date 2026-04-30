@@ -26,6 +26,21 @@ interface SkillsTabsProps {
   certificates: Certificate[];
 }
 
+const workplaceEntries = [
+  {
+    company: 'IFA Consultancy',
+    role: 'Intern - Business Development',
+    range: 'December 01, 2025 - Now',
+    link: 'https://ifacbd.com/shahoriar',
+    logo: {
+      src: '/skills/ifac-logo-job.png',
+      alt: 'IFA Consultancy logo',
+    },
+    summary:
+      'Collaborate with cross-functional teams on high-ROI advisory and corporate compliance projects for enterprise and banking clients. Assist the commercialization of 25+ professional programs, leveraging AI-driven tools to solve operational bottlenecks and drive business development outcomes.',
+  },
+];
+
 const SkillItem = ({ icon, name }: { icon: string; name: string }) => (
   <div className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 text-center hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-lg">
     <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800/50 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-300">
@@ -56,6 +71,12 @@ const TechSkillItem = ({ title, logos, names }: { title: string; logos: { src: s
 const TabButtons = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) => (
   <div className="flex flex-wrap justify-center mb-12 bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm rounded-2xl p-2 max-w-fit mx-auto border border-gray-200 dark:border-gray-800">
     <button
+      onClick={() => setActiveTab('workplace')}
+      className={`px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${activeTab === 'workplace' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'}`}
+    >
+      Workplace
+    </button>
+    <button
       onClick={() => setActiveTab('skills')}
       className={`px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${activeTab === 'skills' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'}`}
     >
@@ -77,12 +98,75 @@ const TabButtons = ({ activeTab, setActiveTab }: { activeTab: string, setActiveT
 );
 
 export default function SkillsTabs({ certificates }: SkillsTabsProps) {
-  const [activeTab, setActiveTab] = useState('skills');
+  const [activeTab, setActiveTab] = useState('workplace');
 
   return (
     <>
       <TabButtons activeTab={activeTab} setActiveTab={setActiveTab} />
       <div>
+        {activeTab === 'workplace' && (
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold mb-3">Workplace Timeline</h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                Roles and organizations I am currently working with and have worked with.
+              </p>
+            </div>
+            <div className="border-l border-gray-200 dark:border-gray-800 pl-6 space-y-8">
+              {workplaceEntries.map((entry) => (
+                <div key={entry.company} className="relative">
+                  <div className="absolute -left-[9px] top-2 h-3 w-3 rounded-full bg-blue-600" />
+                  <div className="bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 transition-all duration-300 hover:border-blue-500/30 hover:shadow-lg">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">{entry.company}</h3>
+                        <p className="text-gray-700 dark:text-gray-300 mt-1">{entry.role}</p>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm text-gray-500 dark:text-gray-400">{entry.range}</span>
+                        {entry.logo && (
+                          <a
+                            href="https://ifacbd.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="IFA Consultancy website"
+                            title="IFA Consultancy"
+                            className="h-20 w-20 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-800/60 p-3 transition-transform duration-300 hover:scale-[1.03]"
+                          >
+                            <Image
+                              src={entry.logo.src}
+                              alt={entry.logo.alt}
+                              width={80}
+                              height={80}
+                              className="h-full w-full rounded-xl object-contain"
+                            />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    {entry.summary && (
+                      <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
+                        {entry.summary}
+                      </p>
+                    )}
+                    <a
+                      href={entry.link}
+                      target="_blank"
+                      rel="me noopener noreferrer"
+                      aria-label="IFA Consultancy profile for Md Al Shahoriar Hossain"
+                      title="IFA Consultancy profile"
+                      className="inline-flex flex-wrap items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold transition-colors duration-300 mt-4 text-sm"
+                    >
+                      <span>IFA Consultancy profile</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">ifacbd.com/shahoriar</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         {activeTab === 'skills' && (
           <>
             <div className="mb-16">

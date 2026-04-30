@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import HeroSection from './components/HeroSection';
 import FeaturedAreas from './components/FeaturedAreas';
 import FeaturedPress from './components/FeaturedPress';
@@ -10,6 +11,15 @@ const FeaturedProjects = dynamic(() => import('./components/FeaturedProjects'), 
 const GetStarted = dynamic(() => import('./components/GetStarted'), {
   loading: () => <div className="h-100" />,
 });
+
+export const metadata: Metadata = {
+  title: 'Md. Al Shahoriar Hossain | Finance Student & Data Analyst',
+  description:
+    'Finance & Banking student at BUP and CA candidate skilled in Power BI, financial modeling, and data analysis, with experience in research and business development.',
+  alternates: {
+    canonical: '/',
+  },
+};
 
 export default function Page() {
   return (

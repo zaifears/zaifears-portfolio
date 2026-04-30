@@ -130,6 +130,7 @@ export default function RootLayout({
                 "https://bup.edu.bd/news/details/944",
                 "https://bup.edu.bd/news/details/936",
                 "https://businessinspection.com.bd/finact-brac-university-hosts-excelerate-2025-excel-competition/",
+                "https://ifacbd.com/shahoriar",
                 "https://www.linkedin.com/in/shahoriarhossain/"
               ]
             }),

@@ -12,7 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/zakat-calculation', '/zakat-report'],
       },
     ],
-    sitemap: 'https://zaifears.vercel.app/sitemap.xml',
+    sitemap: 'https://shahoriar.me/sitemap.xml',
     host: 'shahoriar.me',
   }
 }

@@ -75,9 +75,9 @@ export default function HeroSection() {
             {/* Fan blade 1 */}
             <div className="absolute inset-0 rounded-full border-t-4 border-blue-500/40" />
             {/* Fan blade 2 */}
-            <div className="absolute inset-0 rounded-full border-r-4 border-purple-500/40" style={{ transform: "rotate(120deg)" }} />
+            <div className="absolute inset-0 rounded-full border-r-4 border-purple-500/40 rotate-120" />
             {/* Fan blade 3 */}
-            <div className="absolute inset-0 rounded-full border-b-4 border-pink-500/40" style={{ transform: "rotate(240deg)" }} />
+            <div className="absolute inset-0 rounded-full border-b-4 border-pink-500/40 rotate-240" />
           </motion.div>
 
           {/* Rotating gradient glow background */}
@@ -89,7 +89,7 @@ export default function HeroSection() {
           
           <Image
             src="/Shahoriar_hero.png"
-            alt="Shahoriar Hossain"
+            alt="Md Al Shahoriar Hossain portrait"
             fill
             className="object-cover relative z-10"
             priority={true}
@@ -100,7 +100,7 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Left side - Name & text (Mobile: centered, Desktop: flex-1) */}
-        <div className="flex-1 w-full md:w-auto flex flex-col items-center md:items-start text-center md:text-left order-2">
+        <header className="flex-1 w-full md:w-auto flex flex-col items-center md:items-start text-center md:text-left order-2">
           {/* Main headline */}
           <motion.div variants={itemVariants} initial="visible" animate={animationsEnabled ? "visible" : "hidden"} className="mb-8">
             <h1 className="font-black leading-[0.9] tracking-tighter bg-clip-text text-transparent bg-linear-to-r from-gray-900 via-gray-900 to-gray-900/50 dark:from-white dark:via-white dark:to-white/50 mb-6">
@@ -149,7 +149,7 @@ export default function HeroSection() {
               </motion.button>
             </Link>
           </motion.div>
-        </div>
+        </header>
 
         {/* Desktop only: Photo on right */}
         <motion.div
@@ -167,9 +167,9 @@ export default function HeroSection() {
             {/* Fan blade 1 */}
             <div className="absolute inset-0 rounded-full border-t-4 border-blue-500/40" />
             {/* Fan blade 2 */}
-            <div className="absolute inset-0 rounded-full border-r-4 border-purple-500/40" style={{ transform: "rotate(120deg)" }} />
+            <div className="absolute inset-0 rounded-full border-r-4 border-purple-500/40 rotate-120" />
             {/* Fan blade 3 */}
-            <div className="absolute inset-0 rounded-full border-b-4 border-pink-500/40" style={{ transform: "rotate(240deg)" }} />
+            <div className="absolute inset-0 rounded-full border-b-4 border-pink-500/40 rotate-240" />
           </motion.div>
 
           {/* Rotating gradient glow background */}
@@ -181,7 +181,7 @@ export default function HeroSection() {
           
           <Image
             src="/Shahoriar_hero.png"
-            alt="Shahoriar Hossain"
+            alt="Md Al Shahoriar Hossain portrait"
             fill
             className="object-cover relative z-10"
             priority={true}
