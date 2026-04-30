@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { contentfulClient } from '@/lib/contentfulClient';
+import { getContentfulEntries } from '@/lib/contentfulClient';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
@@ -34,7 +34,7 @@ interface LifeEvent {
 // Function to fetch a single life event by its slug
 async function getLifeEvent(slug: string): Promise<LifeEvent | null> {
   try {
-    const response = await contentfulClient.getEntries({
+    const response = await getContentfulEntries({
       content_type: 'zaifearsBlogPost',
       'fields.slug': slug,
       limit: 1,
@@ -49,7 +49,7 @@ async function getLifeEvent(slug: string): Promise<LifeEvent | null> {
 // Generate static params for faster loading
 export async function generateStaticParams() {
   try {
-    const response = await contentfulClient.getEntries({
+    const response = await getContentfulEntries({
       content_type: 'zaifearsBlogPost',
       select: ['fields.slug'],
       limit: 1000,

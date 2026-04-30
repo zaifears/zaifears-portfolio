@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -119,6 +119,21 @@ const initialPortfolioData: Record<string, Portfolio> = {
     }
 };
 
+const ASSET_COLOR_CLASSES: Record<string, { text: string; accent: string }> = {
+    '#2563EB': { text: 'text-blue-600', accent: 'accent-blue-600' },
+    '#059669': { text: 'text-emerald-600', accent: 'accent-emerald-600' },
+    '#D97706': { text: 'text-amber-600', accent: 'accent-amber-600' },
+    '#10B981': { text: 'text-emerald-500', accent: 'accent-emerald-500' },
+    '#F59E0B': { text: 'text-amber-500', accent: 'accent-amber-500' },
+    '#8B5CF6': { text: 'text-violet-500', accent: 'accent-violet-500' },
+    '#EF4444': { text: 'text-red-500', accent: 'accent-red-500' },
+    '#3B82F6': { text: 'text-blue-500', accent: 'accent-blue-500' },
+};
+
+const DEFAULT_ASSET_COLOR_CLASSES = { text: 'text-gray-900', accent: 'accent-blue-600' };
+
+const getAssetColorClasses = (color: string) => ASSET_COLOR_CLASSES[color] ?? DEFAULT_ASSET_COLOR_CLASSES;
+
 const CustomBarTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
         return (
@@ -147,8 +162,13 @@ const CustomPieTooltip = ({ active, payload }: any) => {
 export default function FinancialDashboard() {
     const [portfolios, setPortfolios] = useState(initialPortfolioData);
     const [activePortfolioKey, setActivePortfolioKey] = useState("Overview");
+    const [isMounted, setIsMounted] = useState(false);
     
     const activePortfolio = portfolios[activePortfolioKey];
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const calculatedWeightedReturn = useMemo(() => {
         if (activePortfolio.allocation.length === 0) return "0.00";
@@ -183,6 +203,10 @@ export default function FinancialDashboard() {
         { name: 'FDR', value: 1000000, fill: '#10B981' },
         { name: 'Gold', value: 4000000, fill: '#F59E0B' },
     ];
+
+    const chartPlaceholder = (
+        <div className="h-full w-full rounded-xl bg-gray-100" />
+    );
 
     const doughnutData = {
         labels: activePortfolio.allocation.map(a => a.name),
@@ -406,28 +430,32 @@ export default function FinancialDashboard() {
                                 <span className="text-3xl">💰</span> Income & Expenses
                             </h3>
                             <div className="h-80">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart data={incomeExpenseData} margin={{ top: 20, right: 20, left: 10, bottom: 30 }}>
-                                        <XAxis 
-                                            dataKey="name" 
-                                            tick={{ fill: '#000000', fontSize: 14, fontWeight: 'bold' }}
-                                            stroke="#000000"
-                                            strokeWidth={2}
-                                        />
-                                        <YAxis 
-                                            tick={{ fill: '#000000', fontSize: 14, fontWeight: 'bold' }}
-                                            stroke="#000000"
-                                            strokeWidth={2}
-                                            tickFormatter={(value) => `৳${(value / 1000).toFixed(0)}K`}
-                                        />
-                                        <RechartsTooltip content={<CustomBarTooltip />} />
-                                        <Bar dataKey="value" radius={[10, 10, 0, 0]} barSize={70}>
-                                            {incomeExpenseData.map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={entry.fill} />
-                                            ))}
-                                        </Bar>
-                                    </BarChart>
-                                </ResponsiveContainer>
+                                {isMounted ? (
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <BarChart data={incomeExpenseData} margin={{ top: 20, right: 20, left: 10, bottom: 30 }}>
+                                            <XAxis 
+                                                dataKey="name" 
+                                                tick={{ fill: '#000000', fontSize: 14, fontWeight: 'bold' }}
+                                                stroke="#000000"
+                                                strokeWidth={2}
+                                            />
+                                            <YAxis 
+                                                tick={{ fill: '#000000', fontSize: 14, fontWeight: 'bold' }}
+                                                stroke="#000000"
+                                                strokeWidth={2}
+                                                tickFormatter={(value) => `৳${(value / 1000).toFixed(0)}K`}
+                                            />
+                                            <RechartsTooltip content={<CustomBarTooltip />} />
+                                            <Bar dataKey="value" radius={[10, 10, 0, 0]} barSize={70}>
+                                                {incomeExpenseData.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                                                ))}
+                                            </Bar>
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                ) : (
+                                    chartPlaceholder
+                                )}
                             </div>
                         </div>
 
@@ -436,35 +464,39 @@ export default function FinancialDashboard() {
                                 <span className="text-3xl">🏦</span> Current Assets
                             </h3>
                             <div className="h-80">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <PieChart>
-                                        <Pie
-                                            data={assetsChartData}
-                                            cx="50%"
-                                            cy="50%"
-                                            labelLine={{
-                                                stroke: '#000000',
-                                                strokeWidth: 2
-                                            }}
-                                            label={(entry: any) => {
-                                                const percent = entry.percent as number;
-                                                return `${entry.name}: ${(percent * 100).toFixed(0)}%`;
-                                            }}
-                                            outerRadius={110}
-                                            dataKey="value"
-                                        >
-                                            {assetsChartData.map((entry, index) => (
-                                                <Cell 
-                                                    key={`cell-${index}`} 
-                                                    fill={entry.fill} 
-                                                    stroke="#fff" 
-                                                    strokeWidth={4} 
-                                                />
-                                            ))}
-                                        </Pie>
-                                        <RechartsTooltip content={<CustomPieTooltip />} />
-                                    </PieChart>
-                                </ResponsiveContainer>
+                                {isMounted ? (
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <PieChart>
+                                            <Pie
+                                                data={assetsChartData}
+                                                cx="50%"
+                                                cy="50%"
+                                                labelLine={{
+                                                    stroke: '#000000',
+                                                    strokeWidth: 2
+                                                }}
+                                                label={(entry: any) => {
+                                                    const percent = entry.percent as number;
+                                                    return `${entry.name}: ${(percent * 100).toFixed(0)}%`;
+                                                }}
+                                                outerRadius={110}
+                                                dataKey="value"
+                                            >
+                                                {assetsChartData.map((entry, index) => (
+                                                    <Cell 
+                                                        key={`cell-${index}`} 
+                                                        fill={entry.fill} 
+                                                        stroke="#fff" 
+                                                        strokeWidth={4} 
+                                                    />
+                                                ))}
+                                            </Pie>
+                                            <RechartsTooltip content={<CustomPieTooltip />} />
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                ) : (
+                                    chartPlaceholder
+                                )}
                             </div>
                         </div>
                     </div>
@@ -509,43 +541,49 @@ export default function FinancialDashboard() {
 
                             <div className="flex items-center justify-center">
                                 <div className="h-full w-full">
-                                    <ResponsiveContainer width="100%" height={400}>
-                                        <BarChart 
-                                            data={[
-                                                { name: 'Emergency', value: 500000, fill: '#8B5CF6' },
-                                                { name: 'Car', value: 3450000, fill: '#EC4899' },
-                                                { name: 'Home Down', value: 7940490, fill: '#F59E0B' }
-                                            ]}
-                                            layout="vertical"
-                                            margin={{ top: 5, right: 30, left: 100, bottom: 5 }}
-                                        >
-                                            <XAxis 
-                                                type="number" 
-                                                tick={{ fill: '#000000', fontSize: 13, fontWeight: 'bold' }}
-                                                stroke="#000000"
-                                                strokeWidth={2}
-                                                tickFormatter={(value) => `৳${(value / 1000000).toFixed(1)}M`}
-                                            />
-                                            <YAxis 
-                                                type="category" 
-                                                dataKey="name" 
-                                                tick={{ fill: '#000000', fontSize: 14, fontWeight: 'bold' }}
-                                                stroke="#000000"
-                                                strokeWidth={2}
-                                                width={90}
-                                            />
-                                            <RechartsTooltip content={<CustomBarTooltip />} />
-                                            <Bar dataKey="value" radius={[0, 10, 10, 0]} barSize={40}>
-                                                {[
+                                    {isMounted ? (
+                                        <ResponsiveContainer width="100%" height={400}>
+                                            <BarChart 
+                                                data={[
                                                     { name: 'Emergency', value: 500000, fill: '#8B5CF6' },
                                                     { name: 'Car', value: 3450000, fill: '#EC4899' },
                                                     { name: 'Home Down', value: 7940490, fill: '#F59E0B' }
-                                                ].map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                                                ))}
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer>
+                                                ]}
+                                                layout="vertical"
+                                                margin={{ top: 5, right: 30, left: 100, bottom: 5 }}
+                                            >
+                                                <XAxis 
+                                                    type="number" 
+                                                    tick={{ fill: '#000000', fontSize: 13, fontWeight: 'bold' }}
+                                                    stroke="#000000"
+                                                    strokeWidth={2}
+                                                    tickFormatter={(value) => `৳${(value / 1000000).toFixed(1)}M`}
+                                                />
+                                                <YAxis 
+                                                    type="category" 
+                                                    dataKey="name" 
+                                                    tick={{ fill: '#000000', fontSize: 14, fontWeight: 'bold' }}
+                                                    stroke="#000000"
+                                                    strokeWidth={2}
+                                                    width={90}
+                                                />
+                                                <RechartsTooltip content={<CustomBarTooltip />} />
+                                                <Bar dataKey="value" radius={[0, 10, 10, 0]} barSize={40}>
+                                                    {[
+                                                        { name: 'Emergency', value: 500000, fill: '#8B5CF6' },
+                                                        { name: 'Car', value: 3450000, fill: '#EC4899' },
+                                                        { name: 'Home Down', value: 7940490, fill: '#F59E0B' }
+                                                    ].map((entry, index) => (
+                                                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                                                    ))}
+                                                </Bar>
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    ) : (
+                                        <div className="h-100">
+                                            {chartPlaceholder}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -714,75 +752,82 @@ export default function FinancialDashboard() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {activePortfolio.allocation.map((asset, index) => (
-                                            <tr key={asset.name} className="border-b-2 border-gray-200 hover:bg-gray-50 transition-colors">
-                                                <td className="p-4 border-r-2 border-gray-200">
-                                                    <input
-                                                        type="text"
-                                                        value={asset.name}
-                                                        onChange={(e) => {
-                                                            setPortfolios(prev => {
-                                                                const newAllocations = [...prev[activePortfolioKey].allocation];
-                                                                newAllocations[index] = {
-                                                                    ...newAllocations[index],
-                                                                    name: e.target.value
-                                                                };
-                                                                return {
-                                                                    ...prev,
-                                                                    [activePortfolioKey]: {
-                                                                        ...prev[activePortfolioKey],
-                                                                        allocation: newAllocations
-                                                                    }
-                                                                };
-                                                            });
-                                                        }}
-                                                        className="w-full bg-transparent font-extrabold text-base border-none focus:outline-none focus:ring-2 focus:ring-blue-300 rounded px-2"
-                                                        style={{color: asset.color}}
-                                                    />
-                                                </td>
-                                                <td className="p-4 border-r-2 border-gray-200">
-                                                    <div className="flex flex-col items-center gap-2">
+                                        {activePortfolio.allocation.map((asset, index) => {
+                                            const assetClasses = getAssetColorClasses(asset.color);
+
+                                            return (
+                                                <tr key={asset.name} className="border-b-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                                                    <td className="p-4 border-r-2 border-gray-200">
                                                         <input
-                                                            type="range"
-                                                            min="0"
-                                                            max="100"
-                                                            value={asset.value}
-                                                            onChange={(e) => handleAllocationChange(index, 'value', Number(e.target.value))}
-                                                            className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
-                                                            style={{ accentColor: asset.color }}
+                                                            type="text"
+                                                            value={asset.name}
+                                                            onChange={(e) => {
+                                                                setPortfolios(prev => {
+                                                                    const newAllocations = [...prev[activePortfolioKey].allocation];
+                                                                    newAllocations[index] = {
+                                                                        ...newAllocations[index],
+                                                                        name: e.target.value
+                                                                    };
+                                                                    return {
+                                                                        ...prev,
+                                                                        [activePortfolioKey]: {
+                                                                            ...prev[activePortfolioKey],
+                                                                            allocation: newAllocations
+                                                                        }
+                                                                    };
+                                                                });
+                                                            }}
+                                                            aria-label={`Instrument name for ${asset.name}`}
+                                                            className={`w-full bg-transparent font-extrabold text-base border-none focus:outline-none focus:ring-2 focus:ring-blue-300 rounded px-2 ${assetClasses.text}`}
                                                         />
+                                                    </td>
+                                                    <td className="p-4 border-r-2 border-gray-200">
+                                                        <div className="flex flex-col items-center gap-2">
+                                                            <input
+                                                                type="range"
+                                                                min="0"
+                                                                max="100"
+                                                                value={asset.value}
+                                                                onChange={(e) => handleAllocationChange(index, 'value', Number(e.target.value))}
+                                                                aria-label={`Allocation percentage slider for ${asset.name}`}
+                                                                className={`w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer ${assetClasses.accent}`}
+                                                            />
+                                                            <input
+                                                                type="number"
+                                                                step="0.1"
+                                                                value={asset.value.toFixed(1)}
+                                                                onChange={(e) => handleAllocationChange(index, 'value', parseFloat(e.target.value) || 0)}
+                                                                onFocus={(e) => e.target.select()}
+                                                                aria-label={`Allocation percentage for ${asset.name}`}
+                                                                className="w-20 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-300 px-2 py-1 text-base font-extrabold text-center focus:ring-2 focus:ring-blue-500"
+                                                            />
+                                                        </div>
+                                                    </td>
+                                                    <td className="p-4 border-r-2 border-gray-200">
                                                         <input
                                                             type="number"
-                                                            step="0.1"
-                                                            value={asset.value.toFixed(1)}
-                                                            onChange={(e) => handleAllocationChange(index, 'value', parseFloat(e.target.value) || 0)}
+                                                            step="0.01"
+                                                            value={asset.returnRate}
+                                                            onChange={(e) => handleAllocationChange(index, 'returnRate', parseFloat(e.target.value) || 0)}
                                                             onFocus={(e) => e.target.select()}
-                                                            className="w-20 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-300 px-2 py-1 text-base font-extrabold text-center focus:ring-2 focus:ring-blue-500"
+                                                            aria-label={`Return rate percent for ${asset.name}`}
+                                                            className="w-24 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 mx-auto block text-center"
                                                         />
-                                                    </div>
-                                                </td>
-                                                <td className="p-4 border-r-2 border-gray-200">
-                                                    <input
-                                                        type="number"
-                                                        step="0.01"
-                                                        value={asset.returnRate}
-                                                        onChange={(e) => handleAllocationChange(index, 'returnRate', parseFloat(e.target.value) || 0)}
-                                                        onFocus={(e) => e.target.select()}
-                                                        className="w-24 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 mx-auto block text-center"
-                                                    />
-                                                </td>
-                                                <td className="p-4 text-right">
-                                                    <input
-                                                        type="number"
-                                                        step="1000"
-                                                        value={asset.amount}
-                                                        onChange={(e) => handleAllocationChange(index, 'amount', parseFloat(e.target.value) || 0)}
-                                                        onFocus={(e) => e.target.select()}
-                                                        className="w-40 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 text-right"
-                                                    />
-                                                </td>
-                                            </tr>
-                                        ))}
+                                                    </td>
+                                                    <td className="p-4 text-right">
+                                                        <input
+                                                            type="number"
+                                                            step="1000"
+                                                            value={asset.amount}
+                                                            onChange={(e) => handleAllocationChange(index, 'amount', parseFloat(e.target.value) || 0)}
+                                                            onFocus={(e) => e.target.select()}
+                                                            aria-label={`Amount for ${asset.name}`}
+                                                            className="w-40 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 text-right"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
                                         <tr className="bg-linear-to-r from-gray-100 to-gray-200 font-extrabold border-t-4 border-gray-400">
                                             <td className="p-4 text-lg border-r-2 border-gray-300">Total</td>
                                             <td className="p-4 text-center text-lg border-r-2 border-gray-300">100%</td>
@@ -797,7 +842,7 @@ export default function FinancialDashboard() {
                         {/* Donut Chart - Right Side */}
                         <div className="lg:col-span-1 bg-white p-7 rounded-2xl shadow-xl border-2 border-gray-300 flex flex-col items-center justify-center">
                             <h3 className="text-2xl font-extrabold mb-6 text-gray-900">Distribution</h3>
-                            <div className="relative w-full" style={{ height: '450px' }}>
+                            <div className="relative w-full h-112.5">
                                 <Doughnut data={doughnutData} options={doughnutOptions} />
                             </div>
                         </div>
@@ -849,11 +894,12 @@ export default function FinancialDashboard() {
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
-                                <label className="block text-base font-extrabold text-gray-900 mb-2">
+                                <label htmlFor="home-initial-investment" className="block text-base font-extrabold text-gray-900 mb-2">
                                     Year 0 Investment (৳)
                                 </label>
                                 <input
                                     type="text"
+                                    id="home-initial-investment"
                                     name="initialInvestment"
                                     value={activePortfolio.initialInvestment}
                                     onChange={handlePortfolioChange}
@@ -900,75 +946,82 @@ export default function FinancialDashboard() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {activePortfolio.allocation.map((asset, index) => (
-                                        <tr key={asset.name} className="border-b-2 border-gray-200 hover:bg-gray-50 transition-colors">
-                                            <td className="p-4 border-r-2 border-gray-200">
-                                                <input
-                                                    type="text"
-                                                    value={asset.name}
-                                                    onChange={(e) => {
-                                                        setPortfolios(prev => {
-                                                            const newAllocations = [...prev[activePortfolioKey].allocation];
-                                                            newAllocations[index] = {
-                                                                ...newAllocations[index],
-                                                                name: e.target.value
-                                                            };
-                                                            return {
-                                                                ...prev,
-                                                                [activePortfolioKey]: {
-                                                                    ...prev[activePortfolioKey],
-                                                                    allocation: newAllocations
-                                                                }
-                                                            };
-                                                        });
-                                                    }}
-                                                    className="w-full bg-transparent font-extrabold text-base border-none focus:outline-none focus:ring-2 focus:ring-blue-300 rounded px-2"
-                                                    style={{color: asset.color}}
-                                                />
-                                            </td>
-                                            <td className="p-4 border-r-2 border-gray-200">
-                                                <div className="flex flex-col items-center gap-2">
+                                    {activePortfolio.allocation.map((asset, index) => {
+                                        const assetClasses = getAssetColorClasses(asset.color);
+
+                                        return (
+                                            <tr key={asset.name} className="border-b-2 border-gray-200 hover:bg-gray-50 transition-colors">
+                                                <td className="p-4 border-r-2 border-gray-200">
                                                     <input
-                                                        type="range"
-                                                        min="0"
-                                                        max="100"
-                                                        value={asset.value}
-                                                        onChange={(e) => handleAllocationChange(index, 'value', Number(e.target.value))}
-                                                        className="w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer"
-                                                        style={{ accentColor: asset.color }}
+                                                        type="text"
+                                                        value={asset.name}
+                                                        onChange={(e) => {
+                                                            setPortfolios(prev => {
+                                                                const newAllocations = [...prev[activePortfolioKey].allocation];
+                                                                newAllocations[index] = {
+                                                                    ...newAllocations[index],
+                                                                    name: e.target.value
+                                                                };
+                                                                return {
+                                                                    ...prev,
+                                                                    [activePortfolioKey]: {
+                                                                        ...prev[activePortfolioKey],
+                                                                        allocation: newAllocations
+                                                                    }
+                                                                };
+                                                            });
+                                                        }}
+                                                        aria-label={`Instrument name for ${asset.name}`}
+                                                        className={`w-full bg-transparent font-extrabold text-base border-none focus:outline-none focus:ring-2 focus:ring-blue-300 rounded px-2 ${assetClasses.text}`}
                                                     />
+                                                </td>
+                                                <td className="p-4 border-r-2 border-gray-200">
+                                                    <div className="flex flex-col items-center gap-2">
+                                                        <input
+                                                            type="range"
+                                                            min="0"
+                                                            max="100"
+                                                            value={asset.value}
+                                                            onChange={(e) => handleAllocationChange(index, 'value', Number(e.target.value))}
+                                                            aria-label={`Allocation percentage slider for ${asset.name}`}
+                                                            className={`w-full h-3 bg-gray-300 rounded-lg appearance-none cursor-pointer ${assetClasses.accent}`}
+                                                        />
+                                                        <input
+                                                            type="number"
+                                                            step="0.1"
+                                                            value={asset.value.toFixed(1)}
+                                                            onChange={(e) => handleAllocationChange(index, 'value', parseFloat(e.target.value) || 0)}
+                                                            onFocus={(e) => e.target.select()}
+                                                            aria-label={`Allocation percentage for ${asset.name}`}
+                                                            className="w-20 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-300 px-2 py-1 text-base font-extrabold text-center focus:ring-2 focus:ring-blue-500"
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td className="p-4 border-r-2 border-gray-200">
                                                     <input
                                                         type="number"
-                                                        step="0.1"
-                                                        value={asset.value.toFixed(1)}
-                                                        onChange={(e) => handleAllocationChange(index, 'value', parseFloat(e.target.value) || 0)}
+                                                        step="0.01"
+                                                        value={asset.returnRate}
+                                                        onChange={(e) => handleAllocationChange(index, 'returnRate', parseFloat(e.target.value) || 0)}
                                                         onFocus={(e) => e.target.select()}
-                                                        className="w-20 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-300 px-2 py-1 text-base font-extrabold text-center focus:ring-2 focus:ring-blue-500"
+                                                        aria-label={`Return rate percent for ${asset.name}`}
+                                                        className="w-24 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 mx-auto block text-center"
                                                     />
-                                                </div>
-                                            </td>
-                                            <td className="p-4 border-r-2 border-gray-200">
-                                                <input
-                                                    type="number"
-                                                    step="0.01"
-                                                    value={asset.returnRate}
-                                                    onChange={(e) => handleAllocationChange(index, 'returnRate', parseFloat(e.target.value) || 0)}
-                                                    onFocus={(e) => e.target.select()}
-                                                    className="w-24 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 mx-auto block text-center"
-                                                />
-                                            </td>
-                                            <td className="p-4 text-right">
-                                                <input
-                                                    type="number"
-                                                    step="1000"
-                                                    value={asset.amount}
-                                                    onChange={(e) => handleAllocationChange(index, 'amount', parseFloat(e.target.value) || 0)}
-                                                    onFocus={(e) => e.target.select()}
-                                                    className="w-40 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 text-right"
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
+                                                </td>
+                                                <td className="p-4 text-right">
+                                                    <input
+                                                        type="number"
+                                                        step="1000"
+                                                        value={asset.amount}
+                                                        onChange={(e) => handleAllocationChange(index, 'amount', parseFloat(e.target.value) || 0)}
+                                                        onFocus={(e) => e.target.select()}
+                                                        aria-label={`Amount for ${asset.name}`}
+                                                        className="w-40 bg-gray-50 text-gray-900 rounded-lg border-2 border-gray-400 px-3 py-2 text-base font-extrabold focus:ring-2 focus:ring-blue-500 text-right"
+                                                    />
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                     <tr className="bg-linear-to-r from-gray-100 to-gray-200 font-extrabold border-t-4 border-gray-400">
                                         <td className="p-4 text-lg border-r-2 border-gray-300">Total</td>
                                         <td className="p-4 text-center text-lg border-r-2 border-gray-300">100%</td>
@@ -984,7 +1037,7 @@ export default function FinancialDashboard() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div className="bg-white p-7 rounded-2xl shadow-xl border-2 border-gray-300 flex flex-col items-center justify-center">
                             <h3 className="text-2xl font-extrabold mb-6 text-gray-900">Visual Distribution</h3>
-                            <div className="relative w-full" style={{ height: '400px' }}>
+                            <div className="relative w-full h-100">
                                 <Doughnut data={doughnutData} options={doughnutOptions} />
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { contentfulClient } from '@/lib/contentfulClient';
+import { getContentfulEntries } from '@/lib/contentfulClient';
 import SkillsTabs from './SkillsTabs';
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ interface Certificate {
 // Function to fetch certificates
 async function getCertificates(): Promise<Certificate[]> {
   try {
-    const response = await contentfulClient.getEntries({
+    const response = await getContentfulEntries({
       content_type: 'certificate',
       order: ['-fields.date'],
     });

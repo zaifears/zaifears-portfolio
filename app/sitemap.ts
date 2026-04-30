@@ -1,4 +1,4 @@
-import { contentfulClient } from '@/lib/contentfulClient';
+import { getContentfulEntries } from '@/lib/contentfulClient';
 
 // --- UPDATED: The correct URL for your live website (canonical domain for SEO) ---
 export const baseUrl = 'https://shahoriar.me';
@@ -37,7 +37,7 @@ export default async function sitemap() {
 
   // 2. Fetch all your dynamic "Life Journey" posts from Contentful
   try {
-    const response = await contentfulClient.getEntries({
+    const response = await getContentfulEntries({
       content_type: 'zaifearsBlogPost',
     });
     const lifePosts = response.items as unknown as LifeEvent[];

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { contentfulClient } from '@/lib/contentfulClient';
+import { getContentfulEntries } from '@/lib/contentfulClient';
 import Image from 'next/image';
 import Link from 'next/link';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
@@ -32,7 +32,7 @@ interface LifeEvent {
 // Function to fetch all life events from Contentful
 async function getLifeEvents(): Promise<LifeEvent[]> {
   try {
-    const response = await contentfulClient.getEntries({
+    const response = await getContentfulEntries({
       content_type: 'zaifearsBlogPost',
       order: ['-fields.date'],   // Order by date, newest first
       limit: 1000,
