@@ -88,7 +88,7 @@ export default function HeroSection() {
           />
           
           <Image
-            src="/Shahoriar_hero.png"
+            src="/shahoriar_hero.png"
             alt="Md Al Shahoriar Hossain portrait"
             fill
             className="object-cover relative z-10"
@@ -180,7 +180,7 @@ export default function HeroSection() {
           />
           
           <Image
-            src="/Shahoriar_hero.png"
+            src="/shahoriar_hero.png"
             alt="Md Al Shahoriar Hossain portrait"
             fill
             className="object-cover relative z-10"
