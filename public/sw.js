@@ -1,7 +1,7 @@
 // Service Worker - zaifears.vercel.app
 // Minimal SW to enable PWA installability without causing load stalls
 
-const CACHE_NAME = 'zaifears-v1';
+const CACHE_NAME = 'zaifears-v2';
 
 // Only cache these static assets
 const STATIC_ASSETS = [
