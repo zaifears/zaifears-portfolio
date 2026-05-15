@@ -18,7 +18,7 @@ export default function BtmIutLayout({ children }: { children: React.ReactNode }
     return (
         <div className={`min-h-screen w-full bg-black text-white flex flex-col font-sans overflow-x-hidden ${mobileMenuOpen ? 'h-screen overflow-hidden' : ''}`}>
             {/* Top Banner */}
-            <div className="w-full text-center py-2 text-[10px] md:text-sm bg-black text-white font-bold tracking-widest border-b border-gray-900/50 z-[60]">
+            <div className="w-full text-center py-2 text-[10px] md:text-sm bg-black text-white font-bold tracking-widest border-b border-gray-900/50 z-60">
                 FREE SHIPPING ON ORDERS OVER 2026 BDT
             </div>
 
@@ -86,10 +86,10 @@ export default function BtmIutLayout({ children }: { children: React.ReactNode }
                         <Link href="#" className="hidden md:block text-sm font-bold hover:text-[#59b345] transition-colors">
                             SIGN IN
                         </Link>
-                        <button className="hover:text-[#59b345] transition-colors">
+                        <button className="hover:text-[#59b345] transition-colors" aria-label="Account">
                             <User className="w-6 h-6" />
                         </button>
-                        <button className="hover:text-[#59b345] transition-colors relative">
+                        <button className="hover:text-[#59b345] transition-colors relative" aria-label="Shopping bag">
                             <ShoppingBag className="w-6 h-6" />
                             <span className="absolute -top-1 -right-1 bg-[#59b345] text-black text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
                                 0
@@ -100,7 +100,7 @@ export default function BtmIutLayout({ children }: { children: React.ReactNode }
 
                 {/* Mobile Menu Drawer Overlay */}
                 {mobileMenuOpen && (
-                    <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-lg flex flex-col animate-in fade-in duration-300">
+                    <div className="fixed inset-0 z-100 bg-black/80 backdrop-blur-lg flex flex-col animate-in fade-in duration-300">
                         {/* Drawer Header */}
                         <div className="flex items-center justify-between px-6 py-4 h-16 shrink-0">
                             <div className="relative w-28 h-8 opacity-40">

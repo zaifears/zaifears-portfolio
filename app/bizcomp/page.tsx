@@ -85,6 +85,24 @@ export default function BizCompPage() {
           </div>
         </div>
 
+        {/* Capitalizer Section */}
+        <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border-2 border-gray-200 mb-8">
+          <SectionHeader 
+            title="Capitalizer"
+            subtitle="Round 2 dashboard"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CompetitionCard
+              href="/bizcomp/capitalizer/r2"
+              title="Round 2"
+              subtitle="Capitalizer Analysis"
+              emoji="💼"
+              colors="bg-linear-to-br from-indigo-500 to-blue-600"
+            />
+          </div>
+        </div>
+
         {/* Excelerate Section */}
         <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border-2 border-gray-200 mb-8">
           <SectionHeader 
