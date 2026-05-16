@@ -54,18 +54,20 @@ const BUCKET_KEYS = {
     long: "Bucket 3: Long Horizon",
 };
 
+const INSURANCE_TAB = "Insurance";
+
 const initialPortfolioData: Record<string, Portfolio> = {
     [BUCKET_KEYS.emergency]: {
-        goal: "Liquid Buffer for Rashida's Surgery",
+        goal: "Emergency Buffer (stock only)",
         timeframe: "0 to 24 Months",
-        justification: "Liquidity-first reserve for Rashida's cataract surgery and emergency shocks. No market risk in this bucket.",
+        justification: "Emergency bucket held as stock only with no ongoing cashflow.",
         expectedReturn: "3.50",
         allocation: [
             { name: "Cash / Savings (Emergency Reserve)", value: 100, color: "#1E3A8A", returnRate: 3.5, amount: 200000 }
         ],
         target: 200000,
-        monthlyFlow: 5000,
-        additionalInfo: "Flow: BDT 5,000/month to sustain the 12-month floor. Zero equity exposure by design."
+        monthlyFlow: 0,
+        additionalInfo: "Stocked at BDT 200,000 with zero monthly flow."
     },
     [BUCKET_KEYS.education]: {
         goal: "Mahira's Education (Scenario B)",
@@ -73,14 +75,13 @@ const initialPortfolioData: Record<string, Portfolio> = {
         justification: "Mahira's education buffer (Scenario B worst-case) with staggered maturities and fixed-income dominance to reduce drawdown risk.",
         expectedReturn: "9.80",
         allocation: [
-            { name: "FDR (Bank A)", value: 18.9, color: "#0F766E", returnRate: 9.0, amount: 200000 },
-            { name: "FDR (Bank B)", value: 18.9, color: "#0D9488", returnRate: 9.0, amount: 200000 },
-            { name: "Govt T-Bills / Bonds", value: 5.7, color: "#475569", returnRate: 7.0, amount: 60000 },
-            { name: "Family Sanchayapatra", value: 56.5, color: "#2563EB", returnRate: 11.93, amount: 600000 }
+            { name: "Govt T-Bills / Bonds", value: 47.2, color: "#475569", returnRate: 7.0, amount: 500000 },
+            { name: "FDR", value: 18.9, color: "#0F766E", returnRate: 9.0, amount: 200000 },
+            { name: "Cash / Savings Buffer", value: 33.9, color: "#0D9488", returnRate: 3.5, amount: 360000 }
         ],
         target: 1060000,
-        monthlyFlow: 10000,
-        additionalInfo: "Flow: BDT 10,000/month split across two banks. Caps respected: 2L per bank and 30% Sanchayapatra tier."
+        monthlyFlow: 15000,
+        additionalInfo: "Flow: BDT 15,000/month as DPS split across two banks (BDT 7,500 each)."
     },
     [BUCKET_KEYS.long]: {
         goal: "Retirement & Rifat's Education",
@@ -88,13 +89,13 @@ const initialPortfolioData: Record<string, Portfolio> = {
         justification: "Long-horizon compounding bucket for Rifat's education and retirement runway with equity capped at 25% of the total portfolio.",
         expectedReturn: "11.40",
         allocation: [
-            { name: "Open-End Mutual Fund", value: 54.1, color: "#0369A1", returnRate: 12.0, amount: 400000 },
-            { name: "Digital Gold", value: 32.4, color: "#D97706", returnRate: 6.0, amount: 240000 },
-            { name: "Direct DSE Equity", value: 13.5, color: "#1D4ED8", returnRate: 14.0, amount: 100000 }
+            { name: "Family Sanchayapatra", value: 48.4, color: "#2563EB", returnRate: 11.93, amount: 600000 },
+            { name: "Open-End Mutual Fund", value: 32.3, color: "#0369A1", returnRate: 12.0, amount: 400000 },
+            { name: "Digital Gold", value: 19.3, color: "#D97706", returnRate: 6.0, amount: 240000 }
         ],
-        target: 740000,
+        target: 1240000,
         monthlyFlow: 12000,
-        additionalInfo: "Flow: BDT 12,000/month (BDT 10,000 MF + BDT 2,000 direct equity). Gold holds the inflation hedge."
+        additionalInfo: "Flow: BDT 12,000/month allocated to long-horizon growth."
     }
 };
 
@@ -117,7 +118,9 @@ const getAssetColorClasses = (color: string) => ASSET_COLOR_CLASSES[color] ?? DE
 
 export default function App() {
     const [portfolios, setPortfolios] = useState(initialPortfolioData);
-    const [activePortfolioKey, setActivePortfolioKey] = useState(BUCKET_KEYS.emergency);
+    const [activeTab, setActiveTab] = useState<string>(BUCKET_KEYS.emergency);
+    const isInsuranceTab = activeTab === INSURANCE_TAB;
+    const activePortfolioKey = isInsuranceTab ? BUCKET_KEYS.emergency : activeTab;
     
     const activePortfolio = portfolios[activePortfolioKey];
 
@@ -483,6 +486,44 @@ export default function App() {
         </div>
     );
 
+    const insuranceInputs = [
+        { parameter: "Age (Current)", imran: "44", sabrina: "39", notes: "Primary pricing driver" },
+        { parameter: "Sum Assured (SA)", imran: "13,200,000", sabrina: "4,620,000", notes: "From Needs Analysis" },
+        { parameter: "Policy Term", imran: "20", sabrina: "20", notes: "Coverage duration" },
+        { parameter: "Base Rate (per 1k SA)", imran: "3.85", sabrina: "3.10", notes: "Estimated for 20-year term" },
+        { parameter: "Health Loading", imran: "10%", sabrina: "0%", notes: "Extra charge for medical history" },
+        { parameter: "Payment Frequency Disc.", imran: "2%", sabrina: "2%", notes: "Discount for annual vs monthly" },
+        { parameter: "Tax Rebate Rate (78A)", imran: "15%", sabrina: "15%", notes: "Per Bangladesh Tax Law" }
+    ];
+
+    const termInsuranceRows = [
+        {
+            person: "Imran",
+            multiple: "10x",
+            annualIncome: 1320000,
+            requiredCoverage: 13200000,
+            basePremium: 50820,
+            loadedPremium: 55902,
+            annualOutflow: 54783.96
+        },
+        {
+            person: "Sabrina",
+            multiple: "7x",
+            annualIncome: 660000,
+            requiredCoverage: 4620000,
+            basePremium: 14322,
+            loadedPremium: 14322,
+            annualOutflow: 14035.56
+        }
+    ];
+
+    const insuranceTotals = {
+        healthAnnual: 63180.48,
+        annualTotal: 132000,
+        monthlyTotal: 11000,
+        rebateAnnual: 10800
+    };
+
     return (
         <div className="bg-slate-50 text-slate-800 p-6 md:p-10 min-h-screen font-sans">
             <header className="max-w-7xl mx-auto mb-8 border-b border-slate-200 pb-6">
@@ -506,7 +547,8 @@ export default function App() {
                 </p>
             </header>
 
-            <section className="max-w-7xl mx-auto mb-10">
+            {!isInsuranceTab && (
+                <section className="max-w-7xl mx-auto mb-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div className="bg-white p-5 rounded-lg shadow-sm border border-slate-200 flex flex-col justify-center">
                         <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total Investable Stock</p>
@@ -548,17 +590,18 @@ export default function App() {
                         </div>
                     ))}
                 </div>
-            </section>
+                </section>
+            )}
 
             <div className="max-w-7xl mx-auto mb-8 border-b border-slate-200">
                 <div className="flex items-center gap-4 py-2">
                     <nav className="flex flex-wrap gap-6" aria-label="Tabs">
-                        {Object.keys(portfolios).map(name => (
+                        {[...Object.keys(portfolios), INSURANCE_TAB].map(name => (
                             <button
                                 key={name}
-                                onClick={() => setActivePortfolioKey(name)}
+                                onClick={() => setActiveTab(name)}
                                 className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                                    activePortfolioKey === name 
+                                    activeTab === name 
                                         ? 'border-blue-600 text-blue-700' 
                                         : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
                                 }`}
@@ -570,116 +613,256 @@ export default function App() {
                 </div>
             </div>
 
-            <div className="space-y-6 max-w-7xl mx-auto pb-12">
-                <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                    <div className="mb-6">
-                        <h2 className="text-xl font-bold text-slate-900">{activePortfolioKey} Configurator</h2>
-                    </div>
-                    
-                    <div className="mb-6 bg-slate-50 rounded-md border-l-4 border-blue-600 p-4">
-                        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Strategic Goal</h3>
-                        <p className="text-sm font-medium text-slate-800 mb-2">{activePortfolio.goal} ({activePortfolio.timeframe})</p>
-                        <p className="text-sm text-slate-600 leading-relaxed">
-                            {activePortfolio.justification}
-                        </p>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div>
-                            <label htmlFor="portfolio-target" className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
-                                Target Objective (৳)
-                            </label>
-                            <input
-                                type="number"
-                                name="target"
-                                id="portfolio-target"
-                                value={activePortfolio.target}
-                                onChange={handlePortfolioChange}
-                                className="w-full bg-white text-slate-900 rounded-md border border-slate-300 p-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
-                            />
-                        </div>
+            {isInsuranceTab ? (
+                        <section className="space-y-6 max-w-7xl mx-auto pb-12">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">💰 Monthly Insurance Cost</p>
+                                    <p className="text-2xl font-bold text-blue-700">৳{insuranceTotals.monthlyTotal.toLocaleString()}</p>
+                                    <p className="text-xs text-slate-500 mt-2">Term life + family health (4 members)</p>
+                                </div>
+                                <div className="bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">📆 Annual Outflow</p>
+                                    <p className="text-2xl font-bold text-blue-700">৳{insuranceTotals.annualTotal.toLocaleString()}</p>
+                                    <p className="text-xs text-slate-500 mt-2">Includes health floating annual outflow</p>
+                                </div>
+                                <div className="bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">🏷️ 78A Rebate</p>
+                                    <p className="text-2xl font-bold text-emerald-600">৳{insuranceTotals.rebateAnnual.toLocaleString()}/year</p>
+                                    <p className="text-xs text-slate-500 mt-2">Combined premium rebate estimate</p>
+                                </div>
+                            </div>
 
-                        <div>
-                            <label htmlFor="portfolio-monthly-flow" className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
-                                Monthly Flow (৳/mo)
-                            </label>
-                            <input
-                                type="number"
-                                name="monthlyFlow"
-                                id="portfolio-monthly-flow"
-                                value={activePortfolio.monthlyFlow}
-                                onChange={handlePortfolioChange}
-                                className="w-full bg-white text-slate-900 rounded-md border border-slate-300 p-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
-                            />
-                        </div>
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div className="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                                    <h2 className="text-lg font-bold text-slate-900 mb-4">🧾 Insurance Inputs</h2>
+                                    <div className="overflow-x-auto rounded-lg border border-slate-200">
+                                        <table className="w-full text-sm text-left">
+                                            <thead className="bg-slate-50 border-b border-slate-200">
+                                                <tr>
+                                                    <th className="p-3 font-semibold text-slate-600">Parameter</th>
+                                                    <th className="p-3 font-semibold text-slate-600">Input Value (Imran)</th>
+                                                    <th className="p-3 font-semibold text-slate-600">Input Value (Sabrina)</th>
+                                                    <th className="p-3 font-semibold text-slate-600">Notes</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-slate-100">
+                                                {insuranceInputs.map((row) => (
+                                                    <tr key={row.parameter}>
+                                                        <td className="p-3 font-medium text-slate-700">{row.parameter}</td>
+                                                        <td className="p-3 text-slate-600">{row.imran}</td>
+                                                        <td className="p-3 text-slate-600">{row.sabrina}</td>
+                                                        <td className="p-3 text-slate-500">{row.notes}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                                    <h2 className="text-lg font-bold text-slate-900 mb-4">🧮 Premium Formulae</h2>
+                                    <div className="space-y-3 text-sm text-slate-600">
+                                        <p><span className="font-semibold text-slate-700">Base Premium</span> = (Sum Assured / 1000) × Base Rate</p>
+                                        <p><span className="font-semibold text-slate-700">Loaded Premium</span> = Base Premium × (1 + Health Loading)</p>
+                                        <p><span className="font-semibold text-slate-700">Net Annual Outflow</span> = Loaded Premium × (1 − Discount)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                                <h2 className="text-lg font-bold text-slate-900 mb-4">🛡️ Term Insurance Calculation</h2>
+                                <div className="overflow-x-auto rounded-lg border border-slate-200">
+                                    <table className="w-full text-sm text-left">
+                                        <thead className="bg-slate-50 border-b border-slate-200">
+                                            <tr>
+                                                <th className="p-3 font-semibold text-slate-600">Person</th>
+                                                <th className="p-3 font-semibold text-slate-600">Coverage Multiple</th>
+                                                <th className="p-3 font-semibold text-slate-600">Annual Net Income</th>
+                                                <th className="p-3 font-semibold text-slate-600">Required Coverage</th>
+                                                <th className="p-3 font-semibold text-slate-600">Base Premium</th>
+                                                <th className="p-3 font-semibold text-slate-600">Loaded Premium</th>
+                                                <th className="p-3 font-semibold text-slate-600">Annual Outflow</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            {termInsuranceRows.map((row) => (
+                                                <tr key={row.person}>
+                                                    <td className="p-3 font-medium text-slate-700">{row.person}</td>
+                                                    <td className="p-3 text-slate-600">{row.multiple}</td>
+                                                    <td className="p-3 text-slate-600">৳{row.annualIncome.toLocaleString()}</td>
+                                                    <td className="p-3 text-slate-600">৳{row.requiredCoverage.toLocaleString()}</td>
+                                                    <td className="p-3 text-slate-600">৳{row.basePremium.toLocaleString()}</td>
+                                                    <td className="p-3 text-slate-600">৳{row.loadedPremium.toLocaleString()}</td>
+                                                    <td className="p-3 text-slate-600">৳{row.annualOutflow.toFixed(2)}</td>
+                                                </tr>
+                                            ))}
+                                            <tr className="bg-slate-50">
+                                                <td className="p-3 font-medium text-slate-700">Health Floating</td>
+                                                <td className="p-3 text-slate-500" colSpan={5}>Family health annual outflow</td>
+                                                <td className="p-3 text-slate-700">৳{insuranceTotals.healthAnnual.toFixed(2)}</td>
+                                            </tr>
+                                            <tr className="bg-slate-100 font-semibold">
+                                                <td className="p-3 text-slate-700" colSpan={6}>Total Annual Outflow</td>
+                                                <td className="p-3 text-slate-900">৳{insuranceTotals.annualTotal.toLocaleString()}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                                    <h2 className="text-lg font-bold text-slate-900 mb-3">🧑‍💼 Term Life: Imran</h2>
+                                    <ul className="text-sm text-slate-600 space-y-2">
+                                        <li>✅ Required cover: 10x annual take-home = BDT 1.32 crore.</li>
+                                        <li>✅ Term: 20 years (covers Rifat's education window).</li>
+                                        <li>✅ Estimated premium: BDT 45k–55k/year (use BDT 50k for planning).</li>
+                                        <li>✅ Monthly cost: BDT 4,167.</li>
+                                    </ul>
+                                </div>
+                                <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                                    <h2 className="text-lg font-bold text-slate-900 mb-3">👩‍💼 Term Life: Sabrina</h2>
+                                    <ul className="text-sm text-slate-600 space-y-2">
+                                        <li>✅ Required cover: 7x annual take-home = BDT 46.2 lakh.</li>
+                                        <li>✅ Term: 20 years.</li>
+                                        <li>✅ Estimated premium: BDT 20k–25k/year (use BDT 22k).</li>
+                                        <li>✅ Monthly cost: BDT 1,833.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                                    <h2 className="text-lg font-bold text-slate-900 mb-3">🏥 Health Insurance (Urgent)</h2>
+                                    <ul className="text-sm text-slate-600 space-y-2">
+                                        <li>✅ Family floater: Imran, Sabrina, Mahira, Rifat — BDT 5 lakh sum insured.</li>
+                                        <li>✅ Annual premium: BDT 45k–60k (use BDT 5,000/month for planning).</li>
+                                        <li>✅ Rashida (68): seek separate senior plan (BDT 25k–40k/year) or maintain medication budget at BDT 12k/month.</li>
+                                        <li>✅ Cataract surgery (BDT 1.8L) cannot be insured retroactively — fund directly.</li>
+                                    </ul>
+                                </div>
+                                <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                                    <h2 className="text-lg font-bold text-slate-900 mb-3">🧯 Critical Protection</h2>
+                                    <ul className="text-sm text-slate-600 space-y-2">
+                                        <li>✅ Check employer group life/health coverage.</li>
+                                        <li>✅ If group cover exists, supplement rather than replace personal term.</li>
+                                        <li>✅ Prioritize disability income cover where available.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 text-sm text-slate-600">
+                                <p className="font-semibold text-slate-700 mb-1">📉 Cashflow Impact</p>
+                                <p>
+                                    Insurance reduces investable monthly flow from BDT 22,000 to BDT 11,000 (after DPS BDT 5,000 and insurance BDT 11,000).
+                                    As salaries grow at ~8%/year, Year 1 increment adds approximately BDT 8,800/month of take-home capacity.
+                                </p>
+                            </div>
+                        </section>
+                    ) : (
+                        <div className="space-y-6 max-w-7xl mx-auto pb-12">
+                            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                                <div className="mb-6">
+                                    <h2 className="text-xl font-bold text-slate-900">{activePortfolioKey} Configurator</h2>
+                                </div>
                         
-                        <div>
-                            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
-                                Est. Blended Yield (%)
-                            </label>
-                            <div className="w-full bg-blue-50 text-blue-800 rounded-md border border-blue-200 p-2.5 text-sm font-semibold text-center">
-                                {calculatedWeightedReturn}%
+                                <div className="mb-6 bg-slate-50 rounded-md border-l-4 border-blue-600 p-4">
+                                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Strategic Goal</h3>
+                                    <p className="text-sm font-medium text-slate-800 mb-2">{activePortfolio.goal} ({activePortfolio.timeframe})</p>
+                                    <p className="text-sm text-slate-600 leading-relaxed">
+                                        {activePortfolio.justification}
+                                    </p>
+                                </div>
+                        
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div>
+                                        <label htmlFor="portfolio-target" className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
+                                            Target Objective (৳)
+                                        </label>
+                                        <input
+                                            type="number"
+                                            name="target"
+                                            id="portfolio-target"
+                                            value={activePortfolio.target}
+                                            onChange={handlePortfolioChange}
+                                            className="w-full bg-white text-slate-900 rounded-md border border-slate-300 p-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="portfolio-monthly-flow" className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
+                                            Monthly Flow (৳/mo)
+                                        </label>
+                                        <input
+                                            type="number"
+                                            name="monthlyFlow"
+                                            id="portfolio-monthly-flow"
+                                            value={activePortfolio.monthlyFlow}
+                                            onChange={handlePortfolioChange}
+                                            className="w-full bg-white text-slate-900 rounded-md border border-slate-300 p-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                                        />
+                                    </div>
+                            
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">
+                                            Est. Blended Yield (%)
+                                        </label>
+                                        <div className="w-full bg-blue-50 text-blue-800 rounded-md border border-blue-200 p-2.5 text-sm font-semibold text-center">
+                                            {calculatedWeightedReturn}%
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {activePortfolio.additionalInfo && (
+                                    <div className="mt-5 p-3 bg-slate-50 rounded-md border border-slate-200">
+                                        <p className="text-slate-600 text-xs flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-slate-400 block"></span>
+                                            {activePortfolio.additionalInfo}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div className="lg:col-span-2">
+                                    {renderAllocationTable()}
+                                </div>
+                                <div className="lg:col-span-1 bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex flex-col">
+                                    <h3 className="text-sm font-semibold text-slate-900 mb-6 border-b border-slate-100 pb-3">Distribution Breakdown</h3>
+                                    <div className="relative w-full grow min-h-70">
+                                        <Doughnut data={doughnutData} options={doughnutOptions} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                                <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
+                                    <h2 className="text-lg font-bold text-slate-900">Capital Growth Projection</h2>
+                                    <div className="text-right">
+                                        <p className="text-xs font-medium text-slate-500 uppercase">Target Horizon</p>
+                                        <p className="text-sm font-bold text-slate-800">
+                                            Year {activePortfolioKey === BUCKET_KEYS.emergency ? "2" : activePortfolioKey === BUCKET_KEYS.education ? "5" : "16"}
+                                        </p>
+                                    </div>
+                                </div>
+                        
+                                <div className="h-80 relative mb-6">
+                                    <Line data={lineData} options={lineOptions} />
+                                </div>
+
+                                <div className="mt-6 pt-6 border-t border-slate-100 flex flex-wrap justify-start items-center gap-6">
+                                    <div>
+                                        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1">
+                                            Projected Value (Yr {activePortfolioKey === BUCKET_KEYS.emergency ? "2" : activePortfolioKey === BUCKET_KEYS.education ? "5" : "16"})
+                                        </span>
+                                        <span className="text-3xl font-bold text-blue-700">
+                                            ৳{calculatedProjection[activePortfolioKey === BUCKET_KEYS.emergency ? 2 : activePortfolioKey === BUCKET_KEYS.education ? 5 : 16][1].toLocaleString()}
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    {activePortfolio.additionalInfo && (
-                        <div className="mt-5 p-3 bg-slate-50 rounded-md border border-slate-200">
-                            <p className="text-slate-600 text-xs flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400 block"></span>
-                                {activePortfolio.additionalInfo}
-                            </p>
-                        </div>
                     )}
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="lg:col-span-2">
-                        {renderAllocationTable()}
-                    </div>
-                    <div className="lg:col-span-1 bg-white p-6 rounded-lg shadow-sm border border-slate-200 flex flex-col">
-                        <h3 className="text-sm font-semibold text-slate-900 mb-6 border-b border-slate-100 pb-3">Distribution Breakdown</h3>
-                        <div className="relative w-full grow min-h-70">
-                            <Doughnut data={doughnutData} options={doughnutOptions} />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                    <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
-                        <h2 className="text-lg font-bold text-slate-900">Capital Growth Projection</h2>
-                        <div className="text-right">
-                            <p className="text-xs font-medium text-slate-500 uppercase">Target Horizon</p>
-                            <p className="text-sm font-bold text-slate-800">
-                                Year {activePortfolioKey === BUCKET_KEYS.emergency ? "2" : activePortfolioKey === BUCKET_KEYS.education ? "5" : "16"}
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div className="h-80 relative mb-6">
-                        <Line data={lineData} options={lineOptions} />
-                    </div>
-
-                    <div className="mt-6 pt-6 border-t border-slate-100 flex flex-wrap justify-between items-center gap-6">
-                        <div>
-                            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1">
-                                Projected Value (Yr {activePortfolioKey === BUCKET_KEYS.emergency ? "2" : activePortfolioKey === BUCKET_KEYS.education ? "5" : "16"})
-                            </span>
-                            <span className="text-3xl font-bold text-blue-700">
-                                ৳{calculatedProjection[activePortfolioKey === BUCKET_KEYS.emergency ? 2 : activePortfolioKey === BUCKET_KEYS.education ? 5 : 16][1].toLocaleString()}
-                            </span>
-                        </div>
-                        <div className="text-left sm:text-right">
-                            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide block mb-1">
-                                Objective Liability Target
-                            </span>
-                            <span className="text-xl font-semibold text-slate-800">
-                                ৳{activePortfolio.target.toLocaleString()}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 }
