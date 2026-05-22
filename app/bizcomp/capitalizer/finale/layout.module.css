@@ -1,0 +1,47 @@
+:global(:root) {
+  --brand-primary: #00285a;
+  --brand-secondary: #ffffff;
+  --brand-ink: #0b1a2b;
+  --brand-muted: #5f6f86;
+  --brand-card: #ffffff;
+  --brand-border: #d7e1f2;
+  --brand-soft: #f4f7fd;
+  --brand-accent: #1d5da5;
+  --brand-accent-soft: rgba(29, 93, 165, 0.12);
+  --brand-warn: #c16a1b;
+  --brand-danger: #8c2a2a;
+  --brand-success: #1b6a5a;
+}
+
+:global(*) {
+  box-sizing: border-box;
+}
+
+:global(*::before) {
+  box-sizing: border-box;
+}
+
+:global(*::after) {
+  box-sizing: border-box;
+}
+
+:global(body) {
+  margin: 0;
+  font-family: var(--font-body), sans-serif;
+  color: var(--brand-ink);
+  background: var(--brand-soft);
+}
+
+.finaleBg {
+  min-height: 100vh;
+  background-image:
+    radial-gradient(1200px 700px at 5% -10%, rgba(0, 40, 90, 0.14), transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, rgba(29, 93, 165, 0.18), transparent 60%),
+    linear-gradient(180deg, #eef3fb 0%, #f9fbff 100%);
+}
+
+.finaleShell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 20px 64px;
+}

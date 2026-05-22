@@ -100,6 +100,13 @@ export default function BizCompPage() {
               emoji="💼"
               colors="bg-linear-to-br from-indigo-500 to-blue-600"
             />
+            <CompetitionCard
+              href="/bizcomp/capitalizer/finale"
+              title="Grand Finale"
+              subtitle="Investor Dashboard"
+              emoji="🏁"
+              colors="bg-linear-to-br from-slate-700 to-blue-800"
+            />
           </div>
         </div>
 
