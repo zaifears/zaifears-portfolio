@@ -4,45 +4,79 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Chart from "chart.js/auto";
 
-const bestRev = [128.25, 169.29, 216.6912, 270.864, 330.45408];
-const worstRev = [104.5, 112.86, 126.4032, 145.36368, 171.5291424];
+const bestRev = [34.97, 61.2, 83.85, 100.62, 110.68];
+const worstRev = [7.19, 12.58, 17.23, 20.68, 22.75];
 const years = ["Yr 6", "Yr 7", "Yr 8", "Yr 9", "Yr 10"];
 
 const revenueMix = [
-	{ label: "Cashout fee", value: 38.3, className: "dot-cashout" },
-	{ label: "API scoring", value: 33.4, className: "dot-api" },
-	{ label: "Revenue share", value: 15.6, className: "dot-share" },
-	{ label: "Loan processing", value: 11.9, className: "dot-loan" },
-	{ label: "In-house lending", value: 0.8, className: "dot-lending" },
+	{ label: "Cashout fee", value: 38.04, className: "dot-cashout" },
+	{ label: "API/Scoring fees", value: 32.89, className: "dot-api" },
+	{ label: "Revenue share", value: 16.39, className: "dot-share" },
+	{ label: "Loan processing", value: 11.81, className: "dot-loan" },
+	{ label: "In-house lending", value: 0.88, className: "dot-lending" },
 ];
 
-const revenueMixColors = ["#0b3b76", "#1d5da5", "#1b6a5a", "#c16a1b", "#6c7b93"];
+const revenueMixColors = [
+	"#0b3b76",
+	"#1d5da5",
+	"#1b6a5a",
+	"#c16a1b",
+	"#6c7b93",
+];
+
+const exitValuationRange = { best: 5525.45, worst: 522.38 };
 
 const exitRows = [
 	{
-		priority: "Best case",
-		best: "Structured secondary sale (11.2% to domestic growth equity/strategic)",
-		worst: "Carve-out and strategic demerger (20-25% HoldCo stake to DFI/ICT fund)",
-		moicBest: 1.99,
-		moicWorst: 1.12,
+		priority: "1st",
+		best: "Premium cross-border strategic secondary sale (growth equity)",
+		bestDetails: [
+			"Sell 11.2% to growth equity/strategic investor",
+			"Preserve founder control and long-term upside",
+		],
+		worst: "Structured consolidation / domestic asset purchase",
+		worstDetails: [
+			"Phase 1: Domestic asset purchase with valuation reset",
+			"Phase 2: Regulatory + tax clearances and integration",
+		],
+		moicBest: 8.6,
+		moicWorst: 0.81,
 		status: "Preferred",
 	},
 	{
-		priority: "Backup",
-		best: "Leveraged share buyback (bank syndicate term loan)",
-		worst: "Perpetual exclusive IP license to winning bank (retain IP ownership)",
-		moicBest: 1.87,
-		moicWorst: 1.0,
+		priority: "2nd",
+		best: "Structured share buyback via SPV (scheme of arrangement)",
+		bestDetails: [
+			"Scheme of arrangement with staged repurchase",
+			"Maintain regulatory standing and avoid forced IPO",
+		],
+		worst: "Local consortia management buyout (MBO)",
+		worstDetails: [
+			"Phase 1: Bank-led financing + ownership transition",
+			"Phase 2: Governance stabilization + runway extension",
+		],
+		moicBest: 5.13,
+		moicWorst: 0.81,
 		status: "Fallback",
+	},
+	{
+		priority: "Last",
+		best: "Fair market value forced drag-along sale",
+		bestDetails: ["Only if all preferred options fail"],
+		worst: "Sum-of-the-parts IP asset liquidation",
+		worstDetails: ["License handback and IP disposal"],
+		moicBest: null,
+		moicWorst: null,
+		status: "Last resort",
 	},
 ];
 
 const kpis = [
 	{ label: "Active merchants", value: "400K", sub: "Tier 2 and 3 cities" },
-	{ label: "Avg loan disbursed", value: "BDT 12.88K", sub: "Range BDT 5K-50K" },
-	{ label: "API hits today", value: "--", sub: "Live counter" },
-	{ label: "Implied valuation", value: "BDT 2,000 Cr", sub: "+211% vs entry" },
-	{ label: "IPO floor (2.5x)", value: "BDT 1,607 Cr", sub: "Already exceeded" },
+	{ label: "Monthly transaction", value: "BDT 180 Cr", sub: "As of year 5" },
+	{ label: "End borrowers", value: "2.1M+", sub: "Reached via partners" },
+	{ label: "Banking/NBFI partners", value: "3", sub: "Live partners" },
+	{ label: "IPO floor (2.5x)", value: "BDT 1,607 Cr", sub: "Clause threshold" },
 	{ label: "MAGF investment", value: "BDT 180 Cr", sub: "28% stake" },
 ];
 
@@ -54,13 +88,8 @@ function formatCrore(value: number) {
 	return `BDT ${value.toFixed(1)} Cr`;
 }
 
-function formatWhole(value: number) {
-	return value.toLocaleString("en-US");
-}
-
 export default function FinaleDashboardPage() {
 	const [scenarioPct, setScenarioPct] = useState(50);
-	const [apiHits, setApiHits] = useState(1242);
 
 	const revenueChartRef = useRef<HTMLCanvasElement | null>(null);
 	const donutChartRef = useRef<HTMLCanvasElement | null>(null);
@@ -75,21 +104,13 @@ export default function FinaleDashboardPage() {
 			Number(lerp(worstRev[i], bestRev[i], t).toFixed(2))
 		);
 		const rev10 = series[series.length - 1];
-		const ebitdaMargin = lerp(0.1, 0.28, t);
+		const ebitdaMargin = lerp(0.12, 0.28, t);
 		const ebitda = rev10 * ebitdaMargin;
-		const exitMultiple = lerp(10, 17, t);
-		const valuation = ebitda * exitMultiple;
-		const magfProceeds = valuation * 0.28 * 0.4;
+		const valuation = lerp(exitValuationRange.worst, exitValuationRange.best, t);
+		const magfProceeds = valuation * 0.28;
 		const moic = magfProceeds / 180;
 		return { series, rev10, ebitda, valuation, moic };
 	}, [scenarioPct]);
-
-	useEffect(() => {
-		const timer = setInterval(() => {
-			setApiHits((prev) => prev + 5);
-		}, 2000);
-		return () => clearInterval(timer);
-	}, []);
 
 	useEffect(() => {
 		if (!revenueChartRef.current || !donutChartRef.current || !moicChartRef.current) {
@@ -173,25 +194,12 @@ export default function FinaleDashboardPage() {
 		moicChart.current = new Chart(moicChartRef.current, {
 			type: "bar",
 			data: {
-				labels: [
-					"Sec. sale",
-					"Vol. IPO",
-					"Drag-along",
-					"IP carve",
-					"Str. merger",
-					"Drag-along",
-				],
+				labels: ["Best", "Base", "Worst"],
 				datasets: [
 					{
-						label: "Best case",
-						data: [1.99, 1.87, 3.11, null, null, null],
+						label: "Scenario MOIC",
+						data: [8.6, 5.13, 0.81],
 						backgroundColor: "#1d5da5",
-						borderRadius: 4,
-					},
-					{
-						label: "Worst case",
-						data: [null, null, null, 1.12, 1.0, 3.14],
-						backgroundColor: "#c16a1b",
 						borderRadius: 4,
 					},
 				],
@@ -204,7 +212,7 @@ export default function FinaleDashboardPage() {
 					x: { grid: { display: false }, ticks: { color: "#5f6f86", font: { size: 10 } } },
 					y: {
 						min: 0,
-						max: 3.5,
+						max: 9.5,
 						grid: { color: "rgba(0, 40, 90, 0.08)" },
 						ticks: { color: "#5f6f86", callback: (value) => `${value}x` },
 					},
@@ -259,15 +267,15 @@ export default function FinaleDashboardPage() {
 					<div key={kpi.label} className="kpi-card">
 						<p className="kpi-label">{kpi.label}</p>
 						<p className="kpi-value">
-							{kpi.label === "API hits today" ? formatWhole(apiHits) : kpi.value}
+							{kpi.value}
 						</p>
 						<p className="kpi-sub">{kpi.sub}</p>
 					</div>
 				))}
 			</section>
 
-			<section className="card">
-				<div className="section-title">Scenario slider - revenue projection</div>
+			<section className="card matrix-card">
+				<div className="section-title">Scenario slider - revenue and valuation</div>
 				<div className="slider-row">
 					<span>Worst</span>
 					<label className="sr-only" htmlFor="scenario-slider">
@@ -299,7 +307,7 @@ export default function FinaleDashboardPage() {
 						<div className="scenario-value">{formatCrore(scenarioData.valuation)}</div>
 					</div>
 					<div>
-						<div className="scenario-label">MAGF MOIC</div>
+						<div className="scenario-label">MAGF MOIC (full stake)</div>
 						<div className="scenario-value">{scenarioData.moic.toFixed(2)}x</div>
 					</div>
 				</div>
@@ -334,15 +342,11 @@ export default function FinaleDashboardPage() {
 				</div>
 
 				<div className="card">
-					<div className="section-title">Exit path MOIC comparison</div>
+					<div className="section-title">Scenario MOIC comparison</div>
 					<div className="legend">
 						<span>
 							<span className="legend-dot dot-api" />
-							Best case
-						</span>
-						<span>
-							<span className="legend-dot dot-loan" />
-							Worst case
+							Scenario MOIC
 						</span>
 					</div>
 					<div className="chart-wrap chart-sm">
@@ -358,12 +362,12 @@ export default function FinaleDashboardPage() {
 			<section className="card">
 				<div className="section-title">Exit priority matrix</div>
 				<div className="table-wrap">
-					<table>
+					<table className="matrix-table">
 						<thead>
 							<tr>
 								<th>Priority</th>
-								<th>Best case path</th>
-								<th>Worst case path</th>
+								<th className="matrix-col">Best case path</th>
+								<th className="matrix-col">Worst case path</th>
 								<th>MOIC (BC)</th>
 								<th>MOIC (WC)</th>
 								<th>Status</th>
@@ -373,8 +377,22 @@ export default function FinaleDashboardPage() {
 							{exitRows.map((row) => (
 								<tr key={row.priority}>
 									<td>{row.priority}</td>
-									<td>{row.best}</td>
-									<td>{row.worst}</td>
+									<td className="matrix-cell">
+										<div className="matrix-head">{row.best}</div>
+										<ul className="matrix-list">
+											{row.bestDetails.map((detail) => (
+												<li key={detail}>{detail}</li>
+											))}
+										</ul>
+									</td>
+									<td className="matrix-cell">
+										<div className="matrix-head">{row.worst}</div>
+										<ul className="matrix-list">
+											{row.worstDetails.map((detail) => (
+												<li key={detail}>{detail}</li>
+											))}
+										</ul>
+									</td>
 									<td>{row.moicBest ? `${row.moicBest.toFixed(2)}x` : "-"}</td>
 									<td>{row.moicWorst ? `${row.moicWorst.toFixed(2)}x` : "-"}</td>
 									<td>
@@ -559,6 +577,21 @@ export default function FinaleDashboardPage() {
 					color: var(--brand-muted);
 				}
 
+				.matrix-head {
+					font-weight: 600;
+					color: var(--brand-primary);
+					margin-bottom: 6px;
+					font-size: 13px;
+				}
+
+				.matrix-list {
+					margin: 0;
+					padding-left: 16px;
+					color: var(--brand-muted);
+					font-size: 12px;
+					line-height: 1.4;
+				}
+
 				.legend-dot {
 					width: 10px;
 					height: 10px;
@@ -587,6 +620,7 @@ export default function FinaleDashboardPage() {
 					background: #6c7b93;
 				}
 
+
 				.sr-only {
 					position: absolute;
 					width: 1px;
@@ -601,20 +635,29 @@ export default function FinaleDashboardPage() {
 
 				.table-wrap {
 					overflow-x: auto;
+					border-radius: 18px;
+					border: 1px solid var(--brand-border);
+					background: rgba(11, 59, 118, 0.04);
+					box-shadow: inset 0 0 0 1px rgba(11, 59, 118, 0.03);
 				}
 
 				table {
 					width: 100%;
 					border-collapse: collapse;
-					font-size: 12px;
+					font-size: 12.5px;
 					color: var(--brand-ink);
+				}
+
+				.matrix-table {
+					min-width: 860px;
 				}
 
 				th,
 				td {
 					text-align: left;
-					padding: 10px 8px;
-					border-bottom: 1px solid var(--brand-border);
+					padding: 14px 14px;
+					border-bottom: 1px solid rgba(13, 42, 92, 0.08);
+					vertical-align: top;
 				}
 
 				th {
@@ -623,6 +666,33 @@ export default function FinaleDashboardPage() {
 					font-size: 11px;
 					text-transform: uppercase;
 					letter-spacing: 0.04em;
+					background: rgba(11, 59, 118, 0.06);
+				}
+
+				.matrix-table tbody tr:nth-child(odd) {
+					background: rgba(255, 255, 255, 0.55);
+				}
+
+				.matrix-table tbody tr:hover {
+					background: rgba(11, 59, 118, 0.08);
+				}
+
+				.matrix-table th:nth-child(4),
+				.matrix-table th:nth-child(5),
+				.matrix-table th:nth-child(6),
+				.matrix-table td:nth-child(4),
+				.matrix-table td:nth-child(5),
+				.matrix-table td:nth-child(6) {
+					text-align: center;
+					white-space: nowrap;
+				}
+
+				.matrix-col {
+					width: 36%;
+				}
+
+				.matrix-cell {
+					background: rgba(255, 255, 255, 0.65);
 				}
 
 				.pill {
@@ -642,6 +712,11 @@ export default function FinaleDashboardPage() {
 				.pill-floor {
 					background: rgba(193, 106, 27, 0.15);
 					color: var(--brand-warn);
+				}
+
+				.pill-last-resort {
+					background: rgba(140, 42, 42, 0.15);
+					color: var(--brand-danger);
 				}
 
 				.pill-avoid {
