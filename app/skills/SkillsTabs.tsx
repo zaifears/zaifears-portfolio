@@ -28,13 +28,33 @@ interface SkillsTabsProps {
 
 const workplaceEntries = [
   {
+    company: 'bKash',
+    role: 'Intern | AML & CFT Department, External and Corporate Affairs',
+    range: 'May 2026 - Present',
+    link: 'mailto:shahoriar.int.ecad@bKash.com',
+    linkLabel: 'shahoriar.int.ecad@bKash.com',
+    logo: {
+      src: '/skills/bkash.png',
+      alt: 'bKash logo',
+      logoLink: 'https://www.bkash.com',
+      width: 120,
+      height: 60,
+    },
+    summary:
+      'Monitoring financial transactions to mitigate risks and ensure strict AML/CFT compliance while supporting regulatory reporting and data analysis utilizing Excel and Power BI. Streamlining corporate affairs workflows, utilizing advanced data tools to enhance departmental risk management efficiency and reporting accuracy.',
+  },
+  {
     company: 'IFA Consultancy',
     role: 'Intern - Business Development',
-    range: 'December 01, 2025 - Now',
+    range: 'December 01, 2025 - May 2026',
     link: 'https://ifacbd.com/shahoriar',
+    linkLabel: 'IFA Consultancy profile',
     logo: {
       src: '/skills/ifac-logo-job.png',
       alt: 'IFA Consultancy logo',
+      logoLink: 'https://ifacbd.com',
+      width: 80,
+      height: 80,
     },
     summary:
       'Collaborate with cross-functional teams on high-ROI advisory and corporate compliance projects for enterprise and banking clients. Assist the commercialization of 25+ professional programs, leveraging AI-driven tools to solve operational bottlenecks and drive business development outcomes.',
@@ -126,18 +146,22 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
                         <span className="text-sm text-gray-500 dark:text-gray-400">{entry.range}</span>
                         {entry.logo && (
                           <a
-                            href="https://ifacbd.com"
+                            href={entry.logo.logoLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label="IFA Consultancy website"
-                            title="IFA Consultancy"
-                            className="h-20 w-20 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-800/60 p-3 transition-transform duration-300 hover:scale-[1.03]"
+                            aria-label={`${entry.company} website`}
+                            title={entry.company}
+                            style={{
+                              width: `${entry.logo.width}px`,
+                              height: `${entry.logo.height}px`,
+                            }}
+                            className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white p-3 transition-transform duration-300 hover:scale-[1.03] flex items-center justify-center flex-shrink-0"
                           >
                             <Image
                               src={entry.logo.src}
                               alt={entry.logo.alt}
-                              width={80}
-                              height={80}
+                              width={entry.logo.width}
+                              height={entry.logo.height}
                               className="h-full w-full rounded-xl object-contain"
                             />
                           </a>
@@ -151,14 +175,16 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
                     )}
                     <a
                       href={entry.link}
-                      target="_blank"
-                      rel="me noopener noreferrer"
-                      aria-label="IFA Consultancy profile for Md Al Shahoriar Hossain"
-                      title="IFA Consultancy profile"
+                      target={entry.link.startsWith('mailto:') ? undefined : '_blank'}
+                      rel={entry.link.startsWith('mailto:') ? undefined : 'me noopener noreferrer'}
+                      aria-label={`${entry.company} ${entry.linkLabel}`}
+                      title={entry.linkLabel}
                       className="inline-flex flex-wrap items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold transition-colors duration-300 mt-4 text-sm"
                     >
-                      <span>IFA Consultancy profile</span>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">ifacbd.com/shahoriar</span>
+                      <span>{entry.linkLabel}</span>
+                      {!entry.link.startsWith('mailto:') && (
+                        <span className="text-xs text-gray-500 dark:text-gray-400">{new URL(entry.link).hostname.replace('www.', '')}</span>
+                      )}
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                     </a>
                   </div>
