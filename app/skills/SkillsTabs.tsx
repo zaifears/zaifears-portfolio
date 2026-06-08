@@ -29,7 +29,7 @@ interface SkillsTabsProps {
 const workplaceEntries = [
   {
     company: 'bKash',
-    role: 'Intern | AML & CFT Department, External and Corporate Affairs',
+    role: 'bnext Intern | AML & CFT Department, External and Corporate Affairs',
     range: 'May 2026 - Present',
     link: 'mailto:shahoriar.int.ecad@bKash.com',
     linkLabel: 'shahoriar.int.ecad@bKash.com',
