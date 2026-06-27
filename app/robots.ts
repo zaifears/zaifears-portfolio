@@ -1,14 +1,13 @@
 import { MetadataRoute } from 'next'
 
-// robots.txt generation for SEO and LLM friendliness. We also provide a
-// companion `llm.txt` file in the public folder with instructions for
-// language models and crawlers.
+// robots.txt generation for SEO and LLM friendliness. We also provide
+// /llms.txt, /llms-full.txt, /ai, and /resume.md for language models.
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', '/ai', '/resume.md', '/llms.txt', '/llms-full.txt'],
         disallow: ['/zakat-calculation', '/zakat-report'],
       },
     ],

@@ -75,6 +75,30 @@ export default async function LifePage() {
 
   return (
     <section className="max-w-6xl mx-auto">
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://shahoriar.bd"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Life",
+                "item": "https://shahoriar.bd/life"
+              }
+            ]
+          })
+        }}
+      />
       <div className="mb-10 lg:mb-14">
         <h1 className="font-bold text-4xl md:text-5xl tracking-tight mb-4 text-gray-900 dark:text-white">
           Life Journey

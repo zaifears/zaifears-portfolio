@@ -24,6 +24,33 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
+      {/* SoftwareApplication Schema for StockSimulatorBD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "StockSimulatorBD — DSE Paper Trading Simulator",
+            "url": "https://stocksimulator.tech",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "description": "A Dhaka Stock Exchange paper trading simulator for learning stock market dynamics with dummy currency.",
+            "author": {
+              "@type": "Person",
+              "@id": "https://shahoriar.bd/#person",
+              "name": "Md Al Shahoriar Hossain",
+              "url": "https://shahoriar.bd"
+            },
+            "creator": {
+              "@type": "Person",
+              "@id": "https://shahoriar.bd/#person",
+              "name": "Md Al Shahoriar Hossain"
+            }
+          })
+        }}
+      />
+
       {/* Animated gradient background */}
       <div className="fixed inset-0 md:left-64 z-0">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob will-change-transform" />

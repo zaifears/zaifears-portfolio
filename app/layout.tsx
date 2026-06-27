@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     'Finance Professional',
     'Web Developer',
     'bKash',
-    'SkillDash',
+    'StockSimulatorBD',
     'Next.js Developer',
     'Bangladesh',
     'zaifears',

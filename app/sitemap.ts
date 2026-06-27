@@ -19,6 +19,7 @@ export default async function sitemap() {
   const excludedRoutes = new Set(['/zakat-calculation', '/zakat-report']);
   const priorityMap: Record<string, number> = {
     '': 1,
+    '/ai': 1,
     '/life': 1,
     '/skills': 0.7,
     '/education': 0.6,
@@ -27,7 +28,7 @@ export default async function sitemap() {
     '/design-portfolio': 0.5,
   };
 
-  const routes = ['', '/education', '/skills', '/techtips', '/contact', '/life', '/design-portfolio']
+  const routes = ['','/ai', '/education', '/skills', '/techtips', '/contact', '/life', '/design-portfolio']
     .filter((route) => !excludedRoutes.has(route))
     .map((route) => ({
       url: `${baseUrl}${route}`,

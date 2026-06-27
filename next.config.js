@@ -16,18 +16,26 @@ const nextConfig = {
       },
     ],
   },
-  // previously we added aggressive cache headers for some routes to avoid stale data,
-  // but this causes cold-start delays on Vercel Hobby tier. ISR is preferred instead.
-  // async headers() {
-  //   return [ /* removed */ ];
-  // },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'Link', value: '</llms.txt>; rel="llms-txt", </llms-full.txt>; rel="llms-full-txt"' },
+        ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      { source: '/llm.txt', destination: '/llms.txt', permanent: true },
+    ];
+  },
   productionBrowserSourceMaps: false,
   typescript: {
-    tsconfigPath: './tsconfig.json'
+    tsconfigPath: './tsconfig.json',
   },
-  // Enable compression for better delivery
   compress: true,
-  // Turbopack configuration for Next.js 16+
   turbopack: {},
 };
 

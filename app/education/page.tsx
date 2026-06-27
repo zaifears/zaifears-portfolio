@@ -65,7 +65,31 @@ const educationEntries = [
 export default function EducationPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://shahoriar.bd"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Education",
+                "item": "https://shahoriar.bd/education"
+              }
+            ]
+          })
+        }}
+      />
       {/* Animated gradient background */}
+      
       <div className="fixed inset-0 md:left-64 z-0">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />

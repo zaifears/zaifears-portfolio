@@ -14,6 +14,9 @@ export const revalidate = 60;
 
 // Define the type for a single Life Event
 interface LifeEvent {
+  sys: {
+    updatedAt: string;
+  };
   fields: {
     title: string;
     date: string;
@@ -46,6 +49,7 @@ async function getLifeEvent(slug: string): Promise<LifeEvent | null> {
     return null;
   }
 }
+
 // Generate static params for faster loading
 export async function generateStaticParams() {
   try {
@@ -63,6 +67,7 @@ export async function generateStaticParams() {
     return [];
   }
 }
+
 // Generate dynamic metadata for SEO and prefetching
 export async function generateMetadata({
   params,
@@ -178,20 +183,25 @@ export default async function LifePostPage({
   const wordCount = plainText ? plainText.trim().split(/\s+/).length : 0;
   const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
-  const jsonLd = {
+  // 1. Updated BlogPosting Schema
+  const blogPostingSchema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: event.fields.title,
     description,
     datePublished: event.fields.date,
-    dateModified: event.fields.date,
+    dateModified: event.sys?.updatedAt || event.fields.date,
     author: {
       '@type': 'Person',
+      '@id': 'https://shahoriar.bd/#person',
       name: 'Md Al Shahoriar Hossain',
+      url: 'https://shahoriar.bd'
     },
     publisher: {
       '@type': 'Person',
+      '@id': 'https://shahoriar.bd/#person',
       name: 'Md Al Shahoriar Hossain',
+      url: 'https://shahoriar.bd'
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -202,12 +212,43 @@ export default async function LifePostPage({
       : {}),
   };
 
+  // 2. Added BreadcrumbList Schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://shahoriar.bd'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Life',
+        item: 'https://shahoriar.bd/life'
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: event.fields.title,
+        item: `${baseUrl}/life/${slug}`
+      }
+    ]
+  };
+
   return (
     <article className="max-w-4xl mx-auto overflow-x-hidden">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      
       {/* Back navigation */}
       <Link 
         href="/life" 
