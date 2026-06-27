@@ -3,55 +3,57 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
-import type { Metadata, Viewport } from 'next'; // Import Viewport type
+import type { Metadata, Viewport } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
-// import { Navbar } from './components/nav'; // This is no longer needed here
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Script from 'next/script';
-import LayoutWrapper from './LayoutWrapper'; // Import our new component using alias
+import LayoutWrapper from './LayoutWrapper';
 import { ClarityInitializer } from './components/ClarityInitializer';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://shahoriar.me'),
+  metadataBase: new URL('https://shahoriar.bd'),
   title: {
     default: 'Md Al Shahoriar Hossain | Portfolio & Projects',
     template: '%s | Md Al Shahoriar Hossain',
   },
-  description: 'Professional portfolio of Md Al Shahoriar Hossain (Shahoriar Hossain). Currently at IFA Consultancy. Explore projects in tech, finance, Islamic finance, and software development.',
+  description: 'Professional portfolio of Md Al Shahoriar Hossain. Finance and Banking graduate from BUP, software developer, and founder of StockSimulatorBD. Previously worked in IFA Consultancy, currently working at bKash.',
   keywords: [
     'Md Al Shahoriar Hossain',
     'Shahoriar Hossain',
     'Shahoriar BUP',
-    'Md Al Shahoriar Hossain BUP',
-    'Md Al Shahoriar Hossain Finance',
     'Finance Professional',
     'Web Developer',
+    'bKash',
+    'SkillDash',
+    'Next.js Developer',
     'Bangladesh',
     'zaifears',
     'IFA Consultancy'
   ],
+  authors: [{ name: 'Md Al Shahoriar Hossain', url: 'https://shahoriar.bd' }],
+  creator: 'Md Al Shahoriar Hossain',
   openGraph: {
-    title: 'Md Al Shahoriar Hossain',
-    description: 'Professional portfolio of Md Al Shahoriar Hossain.',
-    url: 'https://shahoriar.me',
+    title: 'Md Al Shahoriar Hossain | Portfolio',
+    description: 'Professional portfolio showcasing projects in tech, financial analysis, and software development. Currently at bKash.',
+    url: 'https://shahoriar.bd',
     siteName: 'Md Al Shahoriar Hossain',
     locale: 'en_US',
-    type: 'website',
+    type: 'profile',
     images: [
       {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Shahoriar Hossain - Personal Portfolio',
+        alt: 'Md Al Shahoriar Hossain - Personal Portfolio',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Md Al Shahoriar Hossain',
-    description: 'Md Al Shahoriar Hossain\'s personal portfolio - finance expertise, web development, graphic design, and professional insights. Explore his work and connect today.',
+    description: 'Finance expertise, web development, and professional insights. Founder of StockSimulatorBD and currently at bKash. Explore my work.',
     images: ['/opengraph-image.png'],
   },
   robots: {
@@ -80,12 +82,10 @@ export const metadata: Metadata = {
   },
 };
 
-// --- VIEWPORT MOVED HERE ---
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  // maximumScale and userScalable intentionally omitted for accessibility
 };
 
 const cx = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(' ');
@@ -107,25 +107,34 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Shahoriar Hossain" />
-        {/* icons are already emitted by the metadata API */}
-        {/* JSON‑LD for structured data */}
+        
+        {/* Enhanced JSON-LD for LLMs and Search Engines */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
+              "@id": "https://shahoriar.bd/#person",
               "name": "Md Al Shahoriar Hossain",
-              "alternateName": "Shahoriar Hossain",
-              "url": "https://shahoriar.me/",
+              "alternateName": ["Shahoriar Hossain", "zaifears"],
+              "url": "https://shahoriar.bd/",
+              "jobTitle": "Finance Professional & Web Developer",
               "worksFor": {
                 "@type": "Organization",
-                "name": "IFA Consultancy"
+                "name": "bKash"
               },
               "alumniOf": {
                 "@type": "CollegeOrUniversity",
                 "name": "Bangladesh University of Professionals"
               },
+              "knowsAbout": [
+                "Finance and Banking",
+                "Web Development",
+                "TypeScript",
+                "Next.js",
+                "Financial Modeling"
+              ],
               "sameAs": [
                 "https://bup.edu.bd/news/details/944",
                 "https://bup.edu.bd/news/details/936",
@@ -146,21 +155,16 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      {/* RESTORED: dark:bg-black and dark:text-white classes */}
       <body className="antialiased bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
-        {/* Initialize Clarity for analytics tracking */}
         <ClarityInitializer />
         
-        {/* The LayoutWrapper now handles showing/hiding the navbar */}
         <LayoutWrapper>
           {children}
         </LayoutWrapper>
 
-        {/* These are now outside the main wrapper to apply to all pages */}
         <Analytics />
         <SpeedInsights />
       </body>
     </html>
   );
 }
-

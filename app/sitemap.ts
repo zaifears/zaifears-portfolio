@@ -1,7 +1,7 @@
 import { getContentfulEntries } from '@/lib/contentfulClient';
 
 // --- UPDATED: The correct URL for your live website (canonical domain for SEO) ---
-export const baseUrl = 'https://shahoriar.me';
+export const baseUrl = 'https://shahoriar.bd';
 
 // Define the structure of a blog post for fetching
 interface LifeEvent {

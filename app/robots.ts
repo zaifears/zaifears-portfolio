@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
- 
+
 // robots.txt generation for SEO and LLM friendliness. We also provide a
 // companion `llm.txt` file in the public folder with instructions for
 // language models and crawlers.
@@ -12,7 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/zakat-calculation', '/zakat-report'],
       },
     ],
-    sitemap: 'https://shahoriar.me/sitemap.xml',
-    host: 'shahoriar.me',
+    sitemap: 'https://shahoriar.bd/sitemap.xml',
+    host: 'shahoriar.bd',
   }
 }

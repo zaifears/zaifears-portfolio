@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, CalendarDays, Clock } from 'lucide-react';
 
-const baseUrl = 'https://shahoriar.me';
+const baseUrl = 'https://shahoriar.bd';
 
 // ISR: revalidate every 60 seconds instead of hitting Contentful on every request
 export const revalidate = 60;

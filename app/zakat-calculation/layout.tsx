@@ -47,7 +47,7 @@ export default function ZakatCalculationLayout({
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'Any',
     description: 'Internal tool for Zakat calculation and reporting.',
-    url: 'https://shahoriar.me/zakat-calculation',
+    url: 'https://shahoriar.bd/zakat-calculation',
     creator: {
       '@type': 'Organization',
       name: 'IFA Consultancy',

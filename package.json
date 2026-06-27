@@ -24,6 +24,7 @@
     "bn-ansi-to-unicode": "^1.0.1",
     "chart.js": "^4.5.1",
     "contentful": "^11.10.5",
+    "docx": "^9.7.1",
     "docxtemplater": "^3.68.4",
     "exceljs": "^4.4.0",
     "framer-motion": "^12.34.3",
