@@ -56,7 +56,7 @@ export default function FeaturedProjects() {
               className="relative h-64 md:h-auto order-2 md:order-1 overflow-hidden cursor-pointer"
             >
               <Image
-                src="/stocksimbd-banner-updated.png"
+                src="/stocksimbd-banner.png"
                 alt="StockSimulatorBD - DSE Stock Simulator"
                 fill
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"

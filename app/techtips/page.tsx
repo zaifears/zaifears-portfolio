@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 // Note: Metadata cannot be exported in 'use client' components
@@ -100,6 +100,31 @@ export default function TechTipsPage() {
   const [activeTab, setActiveTab] = useState('apps');
   const [uBlockExpanded, setUBlockExpanded] = useState(false);
 
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      const validTabs = ['apps', 'powershell', 'browserExtensions', 'websites'];
+      if (validTabs.includes(hash)) {
+        setActiveTab(hash);
+      } else if (!window.location.hash) {
+        setActiveTab('apps');
+      }
+    };
+
+    // Run once on initial load
+    handleHashChange();
+
+    // Listen for browser back/forward navigation
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    window.history.pushState(null, '', `#${tab}`);
+    window.dispatchEvent(new Event('hashchange'));
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
       {/* Animated gradient background */}
@@ -116,55 +141,67 @@ export default function TechTipsPage() {
           <p className="text-gray-600 dark:text-gray-400 text-lg">A curated list of my favorite apps, scripts, and tools to enhance your digital experience.</p>
         </div>
 
-        <div className="flex flex-wrap justify-center mb-12 bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm rounded-2xl p-2 max-w-fit mx-auto border border-gray-200 dark:border-gray-800">
+        {/* TAB BUTTONS CONTAINER */}
+        <div
+          role="tablist"
+          className="flex flex-wrap justify-center mb-12 bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm rounded-2xl p-2 gap-2 sm:gap-4 w-full sm:max-w-fit mx-auto border border-gray-200 dark:border-gray-800"
+        >
           <button 
-            onClick={() => setActiveTab('apps')} 
-            className={`flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
+            role="tab"
+            aria-selected={activeTab === 'apps'}
+            onClick={() => handleTabChange('apps')} 
+            className={`flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
               activeTab === 'apps' 
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' 
                 : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
             }`}
           >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
             </svg>
             Apps
           </button>
           <button 
-            onClick={() => setActiveTab('powershell')} 
-            className={`flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
+            role="tab"
+            aria-selected={activeTab === 'powershell'}
+            onClick={() => handleTabChange('powershell')} 
+            className={`flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
               activeTab === 'powershell' 
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' 
                 : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
             }`}
           >
-             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+             <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 3a1 1 0 000 2h6a1 1 0 100-2H5zm0 4a1 1 0 100 2h3a1 1 0 100-2H5z" clipRule="evenodd"/>
             </svg>
             Powershell
           </button>
           <button 
-            onClick={() => setActiveTab('browserExtensions')} 
-            className={`flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
+            role="tab"
+            aria-selected={activeTab === 'browserExtensions'}
+            onClick={() => handleTabChange('browserExtensions')} 
+            className={`flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
               activeTab === 'browserExtensions' 
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' 
                 : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
             }`}
           >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd"/>
             </svg>
             Browser Extensions
           </button>
           <button 
-            onClick={() => setActiveTab('websites')} 
-            className={`flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
+            role="tab"
+            aria-selected={activeTab === 'websites'}
+            onClick={() => handleTabChange('websites')} 
+            className={`flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
               activeTab === 'websites' 
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25' 
                 : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
             }`}
           >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z" clipRule="evenodd"/>
             </svg>
             Websites
