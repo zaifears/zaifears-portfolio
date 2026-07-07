@@ -11,14 +11,20 @@ export default function FeaturedPress() {
     {
       id: 2,
       publisher: "Bangladesh University of Professionals (BUP)",
-      title: "BUP News & Achievements - Feature 944",
+      title: "A Team from the Department of Finance & Banking, BUP Secures First Runner-Up Position at Accolyze 2025",
       url: "https://bup.edu.bd/news/details/944"
     },
     {
       id: 3,
       publisher: "Bangladesh University of Professionals (BUP)",
-      title: "BUP News & Achievements - Feature 936",
+      title: "BUP Finance and Banking Student Secures The First Runner-Up Position at Gigalogy Technopreneurship 2026",
       url: "https://bup.edu.bd/news/details/936"
+    },
+    {
+      id: 4,
+      publisher: "Bangladesh University of Professionals (BUP)",
+      title: "Department of Finance & Banking Demonstrates Continued Excellence at Capitalizer 2026 with Second Runner-Up Achievement",
+      url: "https://bup.edu.bd/news/details/1029"
     }
   ];
 

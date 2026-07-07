@@ -3,9 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Education',
-  description: 'Md Al Shahoriar Hossain\'s educational background including BBA Finance & Banking from Bangladesh University of Professionals and Chartered Accountancy from ICAB. Learn about academic achievements.',
-};
+  title: 'Education | Md Al Shahoriar Hossain',
+  description: 'Academic background of Md Al Shahoriar Hossain, including BBA in Finance & Banking at BUP, CA candidacy at ICAB, Notre Dame College, and Ideal School.',
+  alternates: {
+    canonical: 'https://shahoriar.bd/education',
+  },
+}
 
 const educationEntries = [
   {

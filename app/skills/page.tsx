@@ -6,6 +6,9 @@ import SkillsTabs from './SkillsTabs';
 export const metadata: Metadata = {
   title: 'Skills & Certifications',
   description: 'Explore Md Al Shahoriar Hossain\'s professional skills, certifications, and workplace timeline, covering finance, web development, programming languages, and CA Certificate Level credentials.',
+  alternates: {
+    canonical: 'https://shahoriar.bd/skills',
+  },
 };
 
 export const revalidate = 60;

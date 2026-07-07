@@ -6,6 +6,9 @@ import { faEnvelope, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Get in touch with Md Al Shahoriar Hossain via email, LinkedIn, Facebook, or YouTube. Available for professional inquiries, collaborations, and networking opportunities.',
+  alternates: {
+    canonical: 'https://shahoriar.bd/contact',
+  },
 };
 
 const contactMethods = [

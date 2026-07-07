@@ -8,6 +8,9 @@ import { CalendarDays, ArrowRight, Star } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Life & Blog',
   description: 'Read Md Al Shahoriar Hossain\'s personal blog and life updates. Explore insights, experiences, and stories from his professional and personal journey in Bangladesh.',
+  alternates: {
+    canonical: 'https://shahoriar.bd/life',
+  },
 };
 
 // ISR: revalidate every 60 seconds in the background instead of hitting Contentful on every request

@@ -13,6 +13,10 @@ import LayoutWrapper from './LayoutWrapper';
 import { ClarityInitializer } from './components/ClarityInitializer';
 
 export const metadata: Metadata = {
+  other: {
+    "citation_author": "Md Al Shahoriar Hossain",
+    "DC.creator": "Md Al Shahoriar Hossain",
+  },
   metadataBase: new URL('https://shahoriar.bd'),
   title: {
     default: 'Md Al Shahoriar Hossain | Portfolio & Projects',
@@ -104,6 +108,7 @@ export default function RootLayout({
       )}
     >
       <head>
+  <link rel="me" href="/ai" aria-label="AI-readable profile" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Shahoriar Hossain" />

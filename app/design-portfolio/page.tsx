@@ -4,6 +4,9 @@ import PortfolioContent from './PortfolioContent';
 export const metadata: Metadata = {
   title: 'Design Portfolio',
   description: 'Md Al Shahoriar Hossain\'s design portfolio showcasing graphic design projects, UI/UX work, and creative design solutions. View his creative works and design expertise.',
+  alternates: {
+    canonical: 'https://shahoriar.bd/design-portfolio',
+  },
 };
 
 // This page now simply displays the shared PortfolioContent component.
