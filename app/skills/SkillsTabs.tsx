@@ -109,7 +109,7 @@ const TechSkillItem = ({
           title={logo.alt}
           className="transition-opacity hover:opacity-75"
         >
-          <div className="relative h-12 w-12">
+          <div className="relative h-12 w-20 min-w-18">
             <Image src={`/${logo.src}`} alt={logo.alt} fill className="object-contain" />
           </div>
         </a>
@@ -324,7 +324,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
               <TechSkillItem
                 title="Financial Modeling"
                 logos={[
-                  { src: 'skills/business-modeling.jfif', alt: 'Financial Modeling', href: '#' },
+                  { src: 'skills/financial_modeling.png', alt: 'Financial Modeling', href: '#' },
                 ]}
                 names="Valuation models, forecasting, budgeting, NPV, DCF, sensitivity analysis, and scenario analysis."
               />
