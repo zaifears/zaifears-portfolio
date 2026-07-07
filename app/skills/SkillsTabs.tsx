@@ -299,38 +299,34 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
           className={activeTab === 'skills' ? 'block' : 'hidden'}
         >
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-8">Core Competencies</h2>
-            <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <SkillItem icon="skills/problem.png" name="Problem-Solving" />
-              <SkillItem icon="skills/entrepreneurial.png" name="Entrepreneurial Mindset" />
-              <SkillItem icon="skills/analysis.png" name="Analysis & Research" />
-              <SkillItem icon="skills/financial.png" name="Financial & Economic Analysis" />
-              <SkillItem icon="skills/leadership.png" name="Leadership & Collaboration" />
-              <SkillItem icon="skills/presentation.png" name="Presentation & Communication" />
-            </div>
-          </div>
-          <div className="mb-16">
             <h2 className="text-3xl font-bold text-center mb-8">Technical Skills</h2>
             <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="md:col-span-2">
-                <TechSkillItem
-                  title="Proficient Use of AI"
-                  logos={[
-                    { src: 'skills/chatgpt.png', alt: 'ChatGPT', href: 'https://openai.com/chatgpt' },
-                    { src: 'skills/claude.png', alt: 'Claude AI', href: 'https://www.claude.ai/' },
-                    { src: 'skills/gemini.png', alt: 'Google Gemini', href: 'https://gemini.google.com/' },
-                    { src: 'skills/grok.png', alt: 'Grok AI', href: 'https://grok.x.ai/' },
-                  ]}
-                  names="I leverage various AI tools to accelerate my development workflow, from code generation to research and analysis."
-                />
-              </div>
               <TechSkillItem
-                title="Design"
+                title="AI Workflow Automation"
                 logos={[
-                  { src: 'skills/canva.png', alt: 'Canva', href: 'https://www.canva.com' },
-                  { src: 'skills/figma.png', alt: 'Figma', href: 'https://www.figma.com' },
+                  { src: 'skills/chatgpt.png', alt: 'ChatGPT', href: 'https://openai.com/chatgpt' },
+                  { src: 'skills/claude.png', alt: 'Claude AI', href: 'https://www.claude.ai/' },
+                  { src: 'skills/gemini.png', alt: 'Google Gemini', href: 'https://gemini.google.com/' },
                 ]}
-                names="Canva, Figma"
+                names="Using AI to streamline development, research, documentation, and productivity workflows."
+              />
+              <TechSkillItem
+                title="Data Visualization & Business Intelligence"
+                logos={[
+                  {
+                    src: 'skills/powerbi.png',
+                    alt: 'Power BI',
+                    href: 'https://www.microsoft.com/en-us/power-platform/products/power-bi',
+                  },
+                ]}
+                names="Power BI dashboards, KPIs, and actionable business insights"
+              />
+              <TechSkillItem
+                title="Financial Modeling"
+                logos={[
+                  { src: 'skills/business-modeling.jfif', alt: 'Financial Modeling', href: '#' },
+                ]}
+                names="Valuation models, forecasting, budgeting, NPV, DCF, sensitivity analysis, and scenario analysis."
               />
               <TechSkillItem
                 title="Office & Productivity"
@@ -341,14 +337,6 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
                 names="Microsoft Office Suite, Google Workspace"
               />
               <TechSkillItem
-                title="Web Development"
-                logos={[
-                  { src: 'skills/wordpress.png', alt: 'WordPress', href: 'https://wordpress.org' },
-                  { src: 'skills/nextjs.png', alt: 'Next.js', href: 'https://nextjs.org' },
-                ]}
-                names="WordPress, Next.js"
-              />
-              <TechSkillItem
                 title="Data Analysis"
                 logos={[
                   { src: 'skills/stata.png', alt: 'Stata', href: 'https://en.wikipedia.org/wiki/Stata' },
@@ -357,21 +345,37 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
                 names="Stata, SPSS"
               />
               <TechSkillItem
-                title="Data Visualization"
-                logos={[
-                  {
-                    src: 'skills/powerbi.png',
-                    alt: 'Power BI',
-                    href: 'https://www.microsoft.com/en-us/power-platform/products/power-bi',
-                  },
-                ]}
-                names="Power BI"
-              />
-              <TechSkillItem
                 title="IT Support"
                 logos={[{ src: 'skills/computer.png', alt: 'Computer Hardware', href: '#' }]}
                 names="Proficient in building computers from scratch and disassembling hardware components. Skilled at diagnosing and resolving both hardware and software issues."
               />
+              <TechSkillItem
+                title="Web Development"
+                logos={[
+                  { src: 'skills/wordpress.png', alt: 'WordPress', href: 'https://wordpress.org' },
+                  { src: 'skills/nextjs.png', alt: 'Next.js', href: 'https://nextjs.org' },
+                ]}
+                names="WordPress, Next.js"
+              />
+              <TechSkillItem
+                title="Design"
+                logos={[
+                  { src: 'skills/canva.png', alt: 'Canva', href: 'https://www.canva.com' },
+                  { src: 'skills/figma.png', alt: 'Figma', href: 'https://www.figma.com' },
+                ]}
+                names="Canva, Figma"
+              />
+            </div>
+          </div>
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-center mb-8">Core Competencies</h2>
+            <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <SkillItem icon="skills/problem.png" name="Problem-Solving" />
+              <SkillItem icon="skills/entrepreneurial.png" name="Entrepreneurial Mindset" />
+              <SkillItem icon="skills/analysis.png" name="Analysis & Research" />
+              <SkillItem icon="skills/financial.png" name="Financial & Economic Analysis" />
+              <SkillItem icon="skills/leadership.png" name="Leadership & Collaboration" />
+              <SkillItem icon="skills/presentation.png" name="Presentation & Communication" />
             </div>
           </div>
         </div>
