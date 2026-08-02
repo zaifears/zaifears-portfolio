@@ -1,45 +1,71 @@
-# Shahoriar Hossain's Portfolio
+<div align="center">
 
-Welcome! This is the source code for my personal portfolio website, a project I built to showcase my profile, education, and skills.
+  <img src="public/shahoriar_portfolio.png" alt="Shahoriar Hossain Portfolio" width="140" />
 
-This site was built in Visual Studio Code through a collaboration with AI. It's based on a Vercel Next.js template and has been heavily customized.
+  <h1>Shahoriar Hossain</h1>
 
----
+  <h3>Portfolio • Education • Skills • Projects</h3>
 
-## 🚀 Live Site
+  <br/>
 
-You can view the live website at:
+  <a href="https://shahoriar.bd"><img src="https://img.shields.io/badge/🌐_Live_Site-shahoriar.bd-8b5cf6?style=for-the-badge" alt="Live Site" /></a>
+  <a href="https://shahoriar.bd/contact"><img src="https://img.shields.io/badge/💬_Contact-Get_in_Touch-34D399?style=for-the-badge" alt="Contact" /></a>
 
-- **Primary Domain:** [zaifears.vercel.app](https://zaifears.vercel.app)
-- **Vercel URL:** [shahoriar.vercel.app](https://shahoriar.vercel.app)
+  <br/><br/>
 
----
+  <img src="https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Contentful-CMS-8A2BE2?style=flat-square&logo=contentful&logoColor=white" alt="Contentful" />
+  <img src="https://img.shields.io/badge/Vercel-Deploy-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel" />
+  <img src="https://img.shields.io/github/license/zaifears/zaifears-portfolio?style=flat-square&color=green" alt="License" />
 
-## ✨ Core Technologies
+  <br/><br/>
 
-This site is built with a modern, serverless stack. We use `pnpm` for dependency management––`npm` artifacts like `package-lock.json` are intentionally absent.
+  <em>Building a modern digital portfolio that blends design, technology, and personal storytelling.</em>
 
-- **Framework:** [Next.js](https://nextjs.org/) (React)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **CMS (Content Management):** [Contentful](https://www.contentful.com/) for the "Life Journey" blog and "Certifications" sections.
-- **Deployment & Hosting:** [Vercel](https://vercel.com/), utilizing Serverless Functions, Web Analytics, and Speed Insights.
-- **LLM Guidance:** see `/llm.txt` for instructions tailored to language models.
+</div>
 
----
-
-## 💬 Get in Touch
-
-If you'd like to connect or discuss a project, feel free to reach out via the [contact page on my website](https://zaifears.vercel.app/contact).
+<br/>
 
 ---
 
-### 🛠 Development
+<br/>
 
-This project uses `pnpm`; run the following to install and develop:
+This repository contains the source code for my personal portfolio website — a custom Next.js experience designed to showcase my academic background, skills, projects, and professional journey.
+
+It is built with a modern serverless architecture and tailored for a fast, clean, and elegant browsing experience.
+
+## ✨ Highlights
+
+- A polished personal brand homepage
+- Dedicated sections for education, skills, and projects
+- Content-driven storytelling with CMS integration
+- Responsive design and optimized front-end performance
+- AI-assisted development workflow in VS Code
+
+## 🛠 Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org/)
+- **UI:** [React](https://react.dev/) + [Tailwind CSS](https://tailwindcss.com/)
+- **Content Management:** [Contentful](https://www.contentful.com/)
+- **Hosting:** [Vercel](https://vercel.com/)
+- **Package Manager:** `pnpm`
+
+## 🚀 Run Locally
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Avoid using `npm install` or generation of `package-lock.json`—they’re not used here and may cause conflicts.
+> Use `pnpm` for dependency management. Avoid `npm install` and generated `package-lock.json` files in this repository.
+
+## 📬 Connect
+
+If you'd like to collaborate or discuss a project, visit the [contact page](https://shahoriar.bd/contact).
+
+---
+
+Built with care for a more expressive, modern online presence.
