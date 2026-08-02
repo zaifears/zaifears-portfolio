@@ -43,14 +43,14 @@ const workplaceEntries = [
       containerClass: 'w-[120px] h-[60px]',
     },
     summary:
-      'Monitoring financial transactions to mitigate risks and ensure strict AML/CFT compliance while supporting regulatory reporting and data analysis utilizing Excel and Power BI. Streamlining corporate affairs workflows, utilizing advanced data tools to enhance departmental risk management efficiency and reporting accuracy.',
+      'Monitoring financial transactions to mitigate risks and ensure strict AML/CFT compliance while supporting regulatory reporting and data analysis utilizing Excel and Python. Streamlining corporate affairs workflows, utilizing advanced data tools to enhance departmental risk management efficiency and reporting accuracy.',
   },
   {
     company: 'IFA Consultancy',
     role: 'Intern - Business Development',
     range: 'December 01, 2025 - May 2026',
-    link: 'https://ifacbd.com/shahoriar',
-    linkLabel: 'IFA Consultancy profile',
+    link: 'mailto:shahoriar@ifacbd.com',
+    linkLabel: 'shahoriar@ifacbd.com',
     logo: {
       src: '/skills/ifac-logo-job.png',
       alt: 'IFA Consultancy logo',

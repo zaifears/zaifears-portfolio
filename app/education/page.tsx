@@ -12,19 +12,6 @@ export const metadata: Metadata = {
 
 const educationEntries = [
   {
-    id: 'chartered-accountancy',
-    title: 'CHARTERED ACCOUNTANCY (CA) - CERTIFICATE LEVEL PASSED',
-    institution: 'Institute of Chartered Accountants of Bangladesh',
-    period: 'January 2025 - June 2025',
-    description: 'By successfully completing the Certificate Level of Chartered Accountancy, I have gained a robust understanding of financial reporting, auditing principles, and domestic tax laws. This qualification directly supplements my academic studies, equipping me with the practical expertise needed to effectively manage accounts and ensure regulatory compliance. My background provides a comprehensive view of business operations, from strategic planning to detailed financial oversight.',
-    website: 'https://www.icab.org.bd',
-    image: '/education/icab.png',
-    imageAlt: 'Institute of Chartered Accountants of Bangladesh',
-    link: 'https://www.icab.org.bd/',
-    imagePosition: 'left',
-    borderColor: 'hover:border-blue-500/50'
-  },
-  {
     id: 'university',
     title: 'Bangladesh University of Professionals',
     institution: 'BBA in Finance & Banking',
@@ -62,6 +49,19 @@ const educationEntries = [
     link: 'https://en.wikipedia.org/wiki/Ideal_School_and_College',
     imagePosition: 'right',
     borderColor: 'hover:border-orange-500/50'
+  },
+  {
+    id: 'chartered-accountancy',
+    title: 'CHARTERED ACCOUNTANCY (CA) - CERTIFICATE LEVEL PASSED',
+    institution: 'Institute of Chartered Accountants of Bangladesh',
+    period: 'January 2025 - June 2025',
+    description: 'By successfully completing the Certificate Level of Chartered Accountancy, I have gained a robust understanding of financial reporting, auditing principles, and domestic tax laws. This qualification directly supplements my academic studies, equipping me with the practical expertise needed to effectively manage accounts and ensure regulatory compliance. My background provides a comprehensive view of business operations, from strategic planning to detailed financial oversight.',
+    website: 'https://www.icab.org.bd',
+    image: '/education/icab.png',
+    imageAlt: 'Institute of Chartered Accountants of Bangladesh',
+    link: 'https://www.icab.org.bd/',
+    imagePosition: 'left',
+    borderColor: 'hover:border-blue-500/50'
   }
 ];
 
