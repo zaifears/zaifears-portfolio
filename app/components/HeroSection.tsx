@@ -104,9 +104,10 @@ export default function HeroSection() {
           {/* Main headline */}
           <motion.div variants={itemVariants} initial="visible" animate={animationsEnabled ? "visible" : "hidden"} className="mb-8">
             <h1 className="font-black leading-[0.9] tracking-tighter bg-clip-text text-transparent bg-linear-to-r from-gray-900 via-gray-900 to-gray-900/50 dark:from-white dark:via-white dark:to-white/50 mb-6">
-              <span className="block text-2xl sm:text-3xl md:text-4xl">MD AL</span>
-              <span className="block text-4xl sm:text-5xl md:text-6xl">SHAHORIAR</span>
-              <span className="block text-3xl sm:text-4xl md:text-5xl">Hossain</span>
+              <span className="sr-only">Md Al Shahoriar Hossain</span>
+              <span aria-hidden="true" className="block text-2xl sm:text-3xl md:text-4xl">MD AL</span>
+              <span aria-hidden="true" className="block text-4xl sm:text-5xl md:text-6xl">SHAHORIAR</span>
+              <span aria-hidden="true" className="block text-3xl sm:text-4xl md:text-5xl">Hossain</span>
             </h1>
             
             {/* Rotating Skills Section */}

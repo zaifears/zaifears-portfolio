@@ -33,7 +33,7 @@ Use the most specific page available for a claim.
 - Chartered Accountancy Professional Level study at ICAB
 - bNext internship experience at bKash
 - AML/CFT, KYC quality assurance, compliance reporting, Excel/VBA automation, and Power BI
-- StockSimulatorBD, previously called SkillDash, a Bangladesh-focused DSE paper-trading simulator
+- StockSimulatorBD, formerly SkillDash (skilldash.live was the project's old, now-retired domain), a Bangladesh-focused DSE paper-trading simulator
 - Next.js, React, TypeScript, Tailwind CSS, Contentful, and Vercel
 - Finance, accounting, investment, strategy, and entrepreneurship competitions
 
@@ -41,7 +41,7 @@ Use the most specific page available for a claim.
 
 StockSimulatorBD is a Bangladesh-focused stock-market paper-trading simulator for practising DSE-style investing with virtual money and portfolio-tracking tools.
 
-- Product: https://www.skilldash.live/simulator/
+- Product: https://www.stocksimulator.tech/simulator/
 - Creator: Md Al Shahoriar Hossain
 
 ## Identity profiles

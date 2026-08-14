@@ -1,5 +1,3 @@
-/* app/globals.css */
-
 @import 'tailwindcss';
 
 ::selection {
@@ -19,18 +17,15 @@
   --sh-entity: #e25a1c;
 }
 
-/* This block is for the dark theme specifically */
 .dark:root {
   --sh-class: #4c97f8;
-  --sh-identifier: white;
+  --sh-identifier: #ffffff;
   --sh-keyword: #f47067;
   --sh-string: #0fa295;
 }
 
 html {
   scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
@@ -42,146 +37,177 @@ body {
   user-select: text;
 }
 
-/* Prevent zoom on input focus (mobile) */
+/* Prevent mobile browsers from zooming when inputs receive focus. */
 input,
 textarea,
 select {
   font-size: 16px !important;
 }
 
-/* Custom Scrollbar Styling (applied only to elements with these classes) */
-/* For Webkit browsers (Chrome, Safari, Edge) */
+/* Custom scrollbars: Chromium, Edge, and Safari. */
 .custom-scrollbar::-webkit-scrollbar,
 .right-column-dots-scrollbar::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
-  height: 8px; /* Height for horizontal scrollbars */
+  width: 8px;
+  height: 8px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track,
 .right-column-dots-scrollbar::-webkit-scrollbar-track {
-  background: transparent; /* Transparent track */
+  background: transparent;
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.5); /* Blue shade (e.g., Tailwind blue-500 with 50% opacity) */
+  background: rgba(59, 130, 246, 0.5);
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.7); /* Slightly darker blue on hover */
+  background: rgba(59, 130, 246, 0.7);
 }
 
-/* Specific styling for the "dot dot dot" effect on the right column */
 .right-column-dots-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.1); /* Very subtle blue for dots */
-  border-radius: 50%; /* Make it circular */
-  border: 2px solid transparent; /* Create space between dots */
-  background-clip: padding-box; /* Ensure border doesn't fill the space */
-  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.3); /* Inner shadow for dot effect */
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.1);
+  background-clip: padding-box;
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.3);
 }
 
 .right-column-dots-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.3); /* Slightly more visible on hover */
+  background: rgba(59, 130, 246, 0.3);
 }
 
-
-/* For Firefox */
-.custom-scrollbar {
-  scrollbar-width: thin; /* "auto" or "thin" */
-  scrollbar-color: rgba(59, 130, 246, 0.5) transparent; /* thumb color track color */
-}
-
-.right-column-dots-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(59, 130, 246, 0.1) transparent; /* Very subtle blue for Firefox dots */
-}
-
+/* Blog and MDX typography. */
 
 .prose .anchor {
-  @apply absolute invisible no-underline;
-
-  margin-left: -1em;
-  padding-right: 0.5em;
+  position: absolute;
+  visibility: hidden;
   width: 80%;
   max-width: 700px;
+  margin-left: -1em;
+  padding-right: 0.5em;
+  color: inherit;
+  text-decoration: none;
   cursor: pointer;
 }
 
-.anchor:hover {
-  @apply visible;
+.anchor:hover,
+.prose *:hover > .anchor {
+  visibility: visible;
 }
 
 .prose a {
-  @apply underline transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+  text-decoration-line: underline;
+  text-decoration-color: #a3a3a3;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.125em;
+  transition: all 150ms ease;
 }
 
-.prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
+.dark .prose a {
+  text-decoration-color: #525252;
+}
+
+.prose .anchor::after {
+  color: #d4d4d4;
   content: '#';
 }
 
-.prose *:hover > .anchor {
-  @apply visible;
+.dark .prose .anchor::after {
+  color: #404040;
 }
 
 .prose pre {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
+  overflow-x: auto;
+  border: 1px solid #e5e5e5;
+  border-radius: 0.5rem;
+  background: #fafafa;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.dark .prose pre {
+  border-color: #171717;
+  background: #171717;
 }
 
 .prose code {
-  @apply px-1 py-0.5 rounded-lg;
+  border-radius: 0.5rem;
+  padding: 0.125rem 0.25rem;
 }
 
 .prose pre code {
-  @apply p-0;
   border: initial;
+  padding: 0;
   line-height: 1.5;
 }
 
 .prose code span {
-  @apply font-medium;
+  font-weight: 500;
 }
 
 .prose img {
-  /* Don't apply styles to next/image */
-  @apply m-0;
+  margin: 0;
 }
 
 .prose p {
-  @apply my-4 text-neutral-800 dark:text-neutral-200;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: #262626;
+}
+
+.dark .prose p {
+  color: #e5e5e5;
 }
 
 .prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 2.25rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
 }
 
 .prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
 }
 
 .prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
 }
 
 .prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
 }
 
 .prose strong {
-  @apply font-medium;
+  font-weight: 500;
 }
 
 .prose ul {
-  @apply list-disc pl-6;
+  list-style-type: disc;
+  padding-left: 1.5rem;
 }
 
 .prose ol {
-  @apply list-decimal pl-6;
+  list-style-type: decimal;
+  padding-left: 1.5rem;
 }
 
 .prose > :first-child {
-  /* Override removing top margin, causing layout shift */
   margin-top: 1.25em !important;
   margin-bottom: 1.25em !important;
 }
@@ -191,15 +217,11 @@ pre::-webkit-scrollbar {
 }
 
 pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
 }
 
-/* Remove Safari input shadow on mobile */
 input[type='text'],
 input[type='email'] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
 }
 
@@ -210,16 +232,12 @@ table {
   white-space: nowrap;
 }
 
-.title {
-  text-wrap: balance;
-}
-
-/* --- NEW ANIMATION CODE --- */
 @keyframes fade-in-down {
   from {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -229,30 +247,36 @@ table {
 .animate-fade-in-down {
   animation: fade-in-down 0.5s ease-out forwards;
 }
-/* -------------------------- */
 
 @keyframes spin-gradient {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.outline-container::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  background: conic-gradient(from 180deg at 50% 50%, #3b82f6, #000, #000, #3b82f6);
-  clip-path: url(#blob-shape);
-  animation: spin-gradient 6s linear infinite;
-  z-index: -1;
-  will-change: transform;
-}
-
 .outline-container {
   contain: layout style paint;
+}
+
+.outline-container::before {
+  position: absolute;
+  z-index: -1;
+  inset: -3px;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    #3b82f6,
+    #000000,
+    #000000,
+    #3b82f6
+  );
+  clip-path: url(#blob-shape);
+  content: '';
+  animation: spin-gradient 6s linear infinite;
+  will-change: transform;
 }
 
 @keyframes scroll-words-step {
@@ -260,26 +284,32 @@ table {
   14% {
     transform: translateY(0);
   }
+
   16%,
   30% {
     transform: translateY(-14.28%);
   }
+
   32%,
   46% {
     transform: translateY(-28.57%);
   }
+
   48%,
   62% {
     transform: translateY(-42.85%);
   }
+
   64%,
   78% {
     transform: translateY(-57.14%);
   }
+
   80%,
   94% {
     transform: translateY(-71.42%);
   }
+
   96%,
   100% {
     transform: translateY(-85.71%);
@@ -291,28 +321,38 @@ table {
 }
 
 .scrolling-text-mask {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 10%, black 20%, black 80%, transparent 90%);
-  mask-image: linear-gradient(to bottom, transparent 10%, black 20%, black 80%, transparent 90%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 10%,
+    #000000 20%,
+    #000000 80%,
+    transparent 90%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 10%,
+    #000000 20%,
+    #000000 80%,
+    transparent 90%
+  );
 }
 
-
-/* Custom style to move the Typebot bubble up on mobile */
 @media (max-width: 768px) {
   typebot-bubble::part(button) {
     bottom: 45px;
   }
 }
 
-/* --- GLASSMORPHISM & BENTO GRID STYLES --- */
-
-/* Blob animation for hero background */
 @keyframes blob {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
+
   33% {
     transform: translate(30px, -50px) scale(1.1);
   }
+
   66% {
     transform: translate(-20px, 20px) scale(0.9);
   }
@@ -330,25 +370,23 @@ table {
   animation-delay: 4s;
 }
 
-/* Enhanced backdrop blur for cards */
-@supports (backdrop-filter: blur(20px)) {
+@supports ((-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px))) {
   .glass-effect {
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
   }
 }
 
-/* Smooth transitions for Bento cards */
 @keyframes bento-hover {
-  0% {
-    transform: translateY(0px);
+  from {
+    transform: translateY(0);
   }
-  100% {
+
+  to {
     transform: translateY(-4px);
   }
 }
 
-/* Optimize for mobile performance */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

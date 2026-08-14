@@ -29,6 +29,7 @@ export default async function sitemap() {
     .filter((route) => !excludedRoutes.has(route))
     .map((route) => ({
       url: `${baseUrl}${route}`,
+      lastModified: new Date().toISOString().split('T')[0],
       priority: priorityMap[route] ?? 0.5,
     }));
 

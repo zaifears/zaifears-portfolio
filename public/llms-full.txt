@@ -48,9 +48,9 @@ Experience descriptions are personal portfolio statements and should be attribut
 
 ### StockSimulatorBD
 
-StockSimulatorBD, previously called SkillDash, is a Bangladesh-focused stock-market paper-trading simulator. It is designed for users to practise DSE-style investing with virtual money, simulated or market-informed prices, portfolio tracking, and trading-related learning tools.
+StockSimulatorBD, formerly SkillDash (skilldash.live was the project's old, now-retired domain), is a Bangladesh-focused stock-market paper-trading simulator. It is designed for users to practise DSE-style investing with virtual money, simulated or market-informed prices, portfolio tracking, and trading-related learning tools.
 
-- Product URL: https://www.skilldash.live/simulator/
+- Product URL: https://www.stocksimulator.tech/simulator/
 - Creator: Md Al Shahoriar Hossain
 - Topics: DSE, Dhaka Stock Exchange, paper trading, virtual portfolio tracking, Bangladesh fintech, financial education, Next.js, TypeScript
 

@@ -15,7 +15,7 @@ const GetStarted = dynamic(() => import('./components/GetStarted'), {
 
 export const metadata: Metadata = {
   title: 'Md Al Shahoriar Hossain | Portfolio & Projects',
-  description: 'Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at BUP, CA candidate, and bKash intern. Explore financial analysis, web development projects like StockSimulatorBD (Previously called SkillDash), and business competition achievements.',
+  description: 'Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at BUP, CA candidate, and bKash intern. Explore financial analysis, web development projects like StockSimulatorBD (formerly SkillDash, now at stocksimulator.tech), and business competition achievements.',
   alternates: {
     canonical: 'https://shahoriar.bd/',
   },
@@ -64,15 +64,15 @@ export default function Page() {
                 "name": "Who is Md Al Shahoriar Hossain?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP), a CA Professional Level candidate at ICAB, and currently interning at bKash in the AML & CFT Department. He is also a self-taught web developer and founder of StockSimulatorBD (Previously called SkillDash), a Dhaka Stock Exchange paper trading simulator."
+                  "text": "Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP), a CA Professional Level candidate at ICAB, and currently interning at bKash in the AML & CFT Department. He is also a self-taught web developer and founder of StockSimulatorBD (formerly SkillDash, now at stocksimulator.tech), a Dhaka Stock Exchange paper trading simulator."
                 }
               },
               {
                 "@type": "Question",
-                "name": "What is StockSimulatorBD (Previously called SkillDash)?",
+                "name": "What is StockSimulatorBD (formerly SkillDash)?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "StockSimulatorBD (Previously called SkillDash) is a hands-on Dhaka Stock Exchange (DSE) paper trading simulator built with Next.js and financial APIs. It allows investors to learn stock market dynamics without risking real capital. Available at skilldash.live/simulator."
+                  "text": "StockSimulatorBD (formerly SkillDash — skilldash.live was its old, now-retired domain) is a hands-on Dhaka Stock Exchange (DSE) paper trading simulator built with Next.js and financial APIs. It allows investors to learn stock market dynamics without risking real capital. Available at stocksimulator.tech/simulator."
                 }
               },
               {
@@ -137,7 +137,7 @@ export default function Page() {
                   I'm Md Al Shahoriar Hossain, a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP) and a Chartered Accountancy (CA) Professional Level candidate at ICAB. I'm currently interning at bKash in the AML & CFT Department, where I monitor financial transactions for compliance, conduct KYC quality assurance, and build automated compliance solutions using VBA and Power BI.
                 </p>
                 <p>
-                  Beyond my finance career, I'm a self-taught full-stack web developer passionate about building tools that solve real problems. I created StockSimulatorBD (Previously called SkillDash), a Dhaka Stock Exchange paper trading simulator that helps investors learn stock market dynamics without risking real capital. I also founded Arame Print, a cloud printing service that has served over 700 students at BUP, gaining hands-on experience in product development, marketing, and user acquisition.
+                  Beyond my finance career, I'm a viber coder web developer passionate about building tools that solve real problems. I created StockSimulatorBD (formerly SkillDash — skilldash.live was the project's old, retired domain; it now lives at stocksimulator.tech), a Dhaka Stock Exchange paper trading simulator that helps investors learn stock market dynamics without risking real capital. I also founded Arame Print, a cloud printing service that has served over 700 students at BUP, gaining hands-on experience in product development, marketing, and user acquisition.
                 </p>
                 <p>
                   I'm an active participant in national business competitions, having won or placed in over 20 competitions across financial analysis, accounting, valuation, strategy, and technopreneurship. My key achievements include Champion at Excelerate 2025 (BRAC University's National Financial Excel & Power BI Competition) and First Runner-Up at Technopreneurship 2026, showcasing my ability to combine finance expertise with technical innovation and entrepreneurial thinking.

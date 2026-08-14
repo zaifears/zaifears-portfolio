@@ -60,7 +60,7 @@ export default function AiPage() {
                   Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP) and a Chartered Accountancy (CA) Professional Level candidate at ICAB. He is currently interning at bKash in the AML & CFT Department, where he works on financial transaction monitoring, KYC quality assurance, and compliance reporting.
                 </p>
                 <p>
-                  Beyond finance, Shahoriar is a self-taught web developer who built StockSimulatorBD (Previously called SkillDash) — a Dhaka Stock Exchange paper trading simulator at skilldash.live — and founded Arame Print, a cloud printing service serving over 700 student stakeholders at BUP.
+                  Beyond finance, Shahoriar is a self-taught web developer who built StockSimulatorBD (formerly SkillDash — skilldash.live is the project's old, retired domain) — a Dhaka Stock Exchange paper trading simulator now at stocksimulator.tech — and founded Arame Print, a cloud printing service serving over 700 student stakeholders at BUP.
                 </p>
                 <p>
                   He is an active business competition participant, having won or placed in over 20 national competitions across financial analysis, accounting, valuation, strategy, and technopreneurship — including Champion at Excelerate 2025 (BRAC University) and First Runner-Up at Technopreneurship 2026.
@@ -132,10 +132,10 @@ export default function AiPage() {
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Projects</h2>
               <ul className="space-y-5 text-gray-700 dark:text-gray-300">
                 <li>
-                  <p className="font-bold text-gray-900 dark:text-white">StockSimulatorBD (Previously called SkillDash) — DSE Paper Trading Simulator</p>
+                  <p className="font-bold text-gray-900 dark:text-white">StockSimulatorBD (formerly SkillDash, at the now-retired skilldash.live domain) — DSE Paper Trading Simulator</p>
                   <p className="mb-1">A hands-on Dhaka Stock Exchange paper trading simulator for learning stock market dynamics with dummy currency.</p>
                   <p><span className="text-gray-400 dark:text-gray-500">Creator:</span> Md Al Shahoriar Hossain</p>
-                  <p><span className="text-gray-400 dark:text-gray-500">URL:</span> <a href="https://www.skilldash.live/simulator/" className="text-blue-600 dark:text-blue-400 hover:underline">https://www.skilldash.live/simulator/</a></p>
+                  <p><span className="text-gray-400 dark:text-gray-500">URL:</span> <a href="https://www.stocksimulator.tech/simulator/" className="text-blue-600 dark:text-blue-400 hover:underline">https://www.stocksimulator.tech/simulator/</a></p>
                   <p><span className="text-gray-400 dark:text-gray-500">Technologies:</span> Next.js, TypeScript, financial data APIs</p>
                 </li>
                 <li>
@@ -217,7 +217,7 @@ export default function AiPage() {
                 <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">Website</span><a href="https://shahoriar.bd" className="text-blue-600 dark:text-blue-400 hover:underline">https://shahoriar.bd</a></li>
                 <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">LinkedIn</span><a href="https://linkedin.com/in/shahoriarhossain" className="text-blue-600 dark:text-blue-400 hover:underline">linkedin.com/in/shahoriarhossain</a></li>
                 <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">GitHub</span><a href="https://github.com/zaifears" className="text-blue-600 dark:text-blue-400 hover:underline">github.com/zaifears</a></li>
-                <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">StockSimulatorBD</span><a href="https://www.skilldash.live/simulator/" className="text-blue-600 dark:text-blue-400 hover:underline">skilldash.live/simulator</a></li>
+                <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">StockSimulatorBD</span><a href="https://www.stocksimulator.tech/simulator/" className="text-blue-600 dark:text-blue-400 hover:underline">stocksimulator.tech/simulator</a></li>
                 <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">Resume (MD)</span><a href="/resume.md" className="text-blue-600 dark:text-blue-400 hover:underline">shahoriar.bd/resume.md</a></li>
                 <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">Email</span><a href="mailto:alshahoriar.hossain@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">alshahoriar.hossain@gmail.com</a></li>
               </ul>
