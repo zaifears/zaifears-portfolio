@@ -59,6 +59,7 @@ export default function FeaturedProjects() {
                 src="/stocksimbd-banner.png"
                 alt="StockSimulatorBD - DSE Stock Simulator"
                 fill
+                sizes="(max-width: 768px) 100vw, 608px"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
               />
             </Link>
@@ -105,6 +106,7 @@ export default function FeaturedProjects() {
                 src="/bizcomp.png"
                 alt="Business Competition Projects"
                 fill
+                sizes="(max-width: 768px) 100vw, 608px"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
               />
             </Link>

@@ -50,6 +50,7 @@ export default function GetStarted() {
                 src="/techtips.png"
                 alt="Tech Tips"
                 fill
+                sizes="(max-width: 768px) 100vw, 600px"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
               />
             </div>
@@ -63,6 +64,7 @@ export default function GetStarted() {
                 src="/designbox.png"
                 alt="Design Portfolio"
                 fill
+                sizes="(max-width: 768px) 100vw, 600px"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
               />
             </div>
