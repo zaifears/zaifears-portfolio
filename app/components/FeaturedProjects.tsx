@@ -64,9 +64,9 @@ export default function FeaturedProjects() {
               />
             </Link>
             <div className="p-8 flex flex-col justify-center order-1 md:order-2">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">StockSimBD Simulator</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">StockSimulatorBD</h3>
               <p className="text-gray-600 dark:text-white/70 mb-4 leading-relaxed">
-                Bangladesh&apos;s DSE Stock Simulator. Practice Dhaka Stock Exchange trading without risk using our paper trading simulator. The DSE module replicates live market conditions.
+                Bangladesh&apos;s DSE paper trading simulator. Replicates live market conditions so investors can learn the Dhaka Stock Exchange without risking real capital.
               </p>
               <Link
                 href="https://stocksimulator.tech/simulator"
@@ -74,7 +74,7 @@ export default function FeaturedProjects() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-gray-500 dark:text-white/60 group-hover:text-gray-900 dark:group-hover:text-white transition-colors w-fit"
               >
-                Visit StockSimBD <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+                Open StockSimulatorBD <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -89,7 +89,7 @@ export default function FeaturedProjects() {
             <div className="p-8 flex flex-col justify-center">
               <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Business Competition Projects</h3>
               <p className="text-gray-600 dark:text-white/70 mb-4 leading-relaxed">
-                Strategic Solutions & Market Analysis. National competition winning strategies, financial models, and market research. Explore innovative business proposals.
+                20+ national business competitions. Financial models, market analyses, and strategic proposals from winning cases at Excelerate, Accolyze, Technopreneurship, and more.
               </p>
               <Link
                 href="/bizcomp"

@@ -60,7 +60,7 @@ export default async function LifePage() {
             Life Journey
           </h1>
           <p className="text-lg text-gray-600 dark:text-neutral-400 max-w-2xl">
-            Welcome to my digital garden. Here I share life updates, professional insights, and personal stories.
+            Updates from my internship, competition work, and things I find interesting.
           </p>
         </div>
         <div className="p-8 text-center bg-gray-50 dark:bg-neutral-900/50 rounded-2xl border border-dashed border-gray-200 dark:border-neutral-800">
@@ -107,7 +107,7 @@ export default async function LifePage() {
           Life Journey
         </h1>
         <p className="text-lg text-gray-600 dark:text-neutral-400 max-w-2xl">
-          Welcome to my digital garden. Here I share life updates, professional insights, and personal stories from my journey.
+          Updates from my internship, competition work, and things I find interesting.
         </p>
       </div>
       
@@ -141,8 +141,8 @@ export default async function LifePage() {
               <p className="text-lg text-gray-600 dark:text-neutral-300 mb-8 line-clamp-3 md:line-clamp-4 wrap-break-word">
                 {latestEvent.fields.content ? documentToPlainTextString(latestEvent.fields.content).substring(0, 300) : ''}
               </p>
-              <div className="mt-auto inline-flex items-center w-fit px-5 py-2.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium rounded-full group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                Read full story <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <div className="mt-auto inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
+                Read full story <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </div>
             </div>
           </Link>

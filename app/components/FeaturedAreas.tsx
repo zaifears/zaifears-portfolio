@@ -60,7 +60,7 @@ export default function FeaturedAreas() {
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Skills</h3>
                   <p className="text-gray-600 dark:text-white/50 text-sm grow mb-4">
-                    Technical expertise and professional certifications showcasing my capabilities in modern technologies and frameworks
+                    Finance modeling, Next.js, TypeScript, Power BI, and CA Certificate Level — see the full stack.
                   </p>
                   <div className="flex items-center gap-2 text-gray-500 dark:text-white/60 group-hover:text-gray-700 dark:group-hover:text-white/80 transition-colors duration-300">
                     <span className="text-sm font-medium">View skills</span>
@@ -83,7 +83,8 @@ export default function FeaturedAreas() {
             title="Projects & Work"
             description="Professional projects"
             icon={faBriefcase}
-            href="/bizcomp"
+            href="/projects"
+            ctaText="View projects"
           />
         </motion.div>
 
@@ -94,6 +95,7 @@ export default function FeaturedAreas() {
             description="Academic background"
             icon={faLightbulb}
             href="/education"
+            ctaText="See my path"
           />
         </motion.div>
 
@@ -104,6 +106,7 @@ export default function FeaturedAreas() {
             description="Personal insights"
             icon={faUsers}
             href="/life"
+            ctaText="Read the blog"
           />
         </motion.div>
 
@@ -114,6 +117,7 @@ export default function FeaturedAreas() {
             description="Let's connect"
             icon={faArrowRight}
             href="/contact"
+            ctaText="Send a message"
           />
         </motion.div>
       </div>

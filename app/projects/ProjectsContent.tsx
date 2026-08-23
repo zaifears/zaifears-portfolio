@@ -65,10 +65,10 @@ export default function ProjectsContent() {
       className="max-w-5xl mx-auto space-y-8"
     >
       {/* Section header */}
-      <motion.div variants={itemVariants} className="text-center mb-10">
-        <h2 className="text-3xl font-bold mb-3">Featured Projects</h2>
+      <motion.div variants={itemVariants} className="mb-10">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3">Projects</h1>
         <p className="text-gray-600 dark:text-gray-400">
-          A showcase of my recent technical and business projects.
+          A selection of technical and business projects — shipped tools, automation scripts, and competition work.
         </p>
       </motion.div>
 
@@ -306,11 +306,11 @@ export default function ProjectsContent() {
       {/* ── AML/CFT Scraper Utility card ── */}
       <motion.div
         variants={itemVariants}
-        className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-emerald-500/30 hover:shadow-lg"
+        className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-blue-500/30 hover:shadow-lg"
       >
 
         {/* ── TOP: LinkedIn Post Embedded Preview ── */}
-        <div className="relative w-full bg-[#f3f2ef] dark:bg-[#1d2226] border-b border-gray-200 dark:border-gray-800/50" style={{ height: "500px" }}>
+        <div className="relative w-full bg-[#f3f2ef] dark:bg-[#1d2226] border-b border-gray-200 dark:border-gray-800/50" style={{ minHeight: "500px" }}>
           <iframe
             className="absolute inset-0 w-full h-full"
             src="https://www.linkedin.com/embed/feed/update/urn:li:share:7489378616720670721"
@@ -326,10 +326,10 @@ export default function ProjectsContent() {
           {/* Left col — title + story */}
           <div className="p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
             <div>
-              <span className="inline-block text-xs font-semibold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/40 px-3 py-1 rounded-full mb-3">
+              <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/40 px-3 py-1 rounded-full mb-3">
                 Python · Automation
               </span>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                 AML/CFT Scraper Utility
               </h3>
             </div>

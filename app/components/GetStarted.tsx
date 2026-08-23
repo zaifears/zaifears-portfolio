@@ -39,34 +39,46 @@ export default function GetStarted() {
         variants={itemVariants}
         className="text-4xl md:text-5xl font-black mb-12 text-gray-900 dark:text-white text-center"
       >
-        Get Started
+        Explore More
       </motion.h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <motion.div variants={itemVariants}>
           <Link href="/techtips">
-            <div className="relative h-56 rounded-2xl border border-gray-200 dark:border-white/10 backdrop-blur-xl overflow-hidden group cursor-pointer hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300">
-              <Image
-                src="/techtips.png"
-                alt="Tech Tips"
-                fill
-                sizes="(max-width: 768px) 100vw, 600px"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
+            <div className="rounded-2xl border border-gray-200 dark:border-white/10 backdrop-blur-xl overflow-hidden group cursor-pointer hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300">
+              <div className="relative h-44 overflow-hidden">
+                <Image
+                  src="/techtips.png"
+                  alt="Tech Tips"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 600px"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="font-semibold text-gray-900 dark:text-white">Tech Tips</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Quick guides and technical notes</p>
+              </div>
             </div>
           </Link>
         </motion.div>
 
         <motion.div variants={itemVariants}>
           <Link href="/design-portfolio">
-            <div className="relative h-56 rounded-2xl border border-gray-200 dark:border-white/10 backdrop-blur-xl overflow-hidden group cursor-pointer hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300">
-              <Image
-                src="/designbox.png"
-                alt="Design Portfolio"
-                fill
-                sizes="(max-width: 768px) 100vw, 600px"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
+            <div className="rounded-2xl border border-gray-200 dark:border-white/10 backdrop-blur-xl overflow-hidden group cursor-pointer hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300">
+              <div className="relative h-44 overflow-hidden">
+                <Image
+                  src="/designbox.png"
+                  alt="Design Portfolio"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 600px"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="font-semibold text-gray-900 dark:text-white">Design Portfolio</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Graphic design and visual work</p>
+              </div>
             </div>
           </Link>
         </motion.div>

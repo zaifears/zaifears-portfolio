@@ -13,6 +13,7 @@ export default function BentoCard({
   href,
   className = "col-span-1 row-span-1",
   children,
+  ctaText = 'Explore',
 }: {
   title: string;
   description: string;
@@ -20,6 +21,7 @@ export default function BentoCard({
   href: string;
   className?: string;
   children?: React.ReactNode;
+  ctaText?: string;
 }) {
   return (
     <motion.div
@@ -42,7 +44,7 @@ export default function BentoCard({
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{title}</h3>
                 <p className="text-gray-600 dark:text-white/50 text-sm grow">{description}</p>
                 <div className="mt-4 flex items-center gap-2 text-gray-500 dark:text-white/60 group-hover:text-gray-700 dark:group-hover:text-white/80 transition-colors duration-300">
-                  <span className="text-sm font-medium">Explore</span>
+                  <span className="text-sm font-medium">{ctaText}</span>
                   <motion.span
                     className="inline-block"
                     whileHover={{ x: 4 }}

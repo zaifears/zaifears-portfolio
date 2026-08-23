@@ -22,7 +22,7 @@ const educationEntries = [
     imageAlt: 'Bangladesh University of Professionals',
     link: 'https://en.wikipedia.org/wiki/Bangladesh_University_of_Professionals',
     imagePosition: 'right',
-    borderColor: 'hover:border-green-500/50'
+    borderColor: 'hover:border-blue-500/50'
   },
   {
     id: 'college',
@@ -35,7 +35,7 @@ const educationEntries = [
     imageAlt: 'Notre Dame College',
     link: 'https://en.wikipedia.org/wiki/Notre_Dame_College,_Dhaka',
     imagePosition: 'left',
-    borderColor: 'hover:border-purple-500/50'
+    borderColor: 'hover:border-blue-500/50'
   },
   {
     id: 'school',
@@ -48,11 +48,11 @@ const educationEntries = [
     imageAlt: 'Ideal School & College',
     link: 'https://en.wikipedia.org/wiki/Ideal_School_and_College',
     imagePosition: 'right',
-    borderColor: 'hover:border-orange-500/50'
+    borderColor: 'hover:border-blue-500/50'
   },
   {
     id: 'chartered-accountancy',
-    title: 'CHARTERED ACCOUNTANCY (CA) - CERTIFICATE LEVEL PASSED',
+    title: 'Chartered Accountancy (CA) — Certificate Level Passed',
     institution: 'Institute of Chartered Accountants of Bangladesh',
     period: 'January 2025 - June 2025',
     description: 'By successfully completing the Certificate Level of Chartered Accountancy, I have gained a robust understanding of financial reporting, auditing principles, and domestic tax laws. This qualification directly supplements my academic studies, equipping me with the practical expertise needed to effectively manage accounts and ensure regulatory compliance. My background provides a comprehensive view of business operations, from strategic planning to detailed financial oversight.',
@@ -94,16 +94,16 @@ export default function EducationPage() {
       {/* Animated gradient background */}
       
       <div className="fixed inset-0 md:left-64 z-0">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob will-change-transform" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 will-change-transform" />
       </div>
 
       {/* Content */}
       <div className="relative z-10">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Education</h1>
+        <div className="mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Education</h1>
           <p className="text-gray-600 dark:text-gray-400 text-lg">My academic journey and qualifications</p>
         </div>
 
@@ -147,7 +147,7 @@ export default function EducationPage() {
                     rel="noopener noreferrer" 
                     className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold transition-colors duration-300"
                   >
-                    Visit Website
+                    Visit {entry.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                     </svg>
@@ -159,29 +159,29 @@ export default function EducationPage() {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-20">
+        <div className="mt-20">
           <div className="bg-gray-100 dark:bg-gray-900/30 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">Want to Learn More?</h3>
+            <h3 className="text-2xl font-bold mb-4">Finance background, technical execution.</h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-              Explore my skills, certifications, and technical expertise to see how my educational background translates into practical capabilities.
+              My CA training and BUP degree pair directly with the tools I build. See the skills and projects.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/skills"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-300 hover:transform hover:scale-105 shadow-lg hover:shadow-blue-600/25"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105"
               >
-                View Skills
+                View skills
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                 </svg>
               </Link>
               <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white font-semibold rounded-xl border border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600 transition-all duration-300 hover:transform hover:scale-105"
+                href="/projects"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors"
               >
-                Get in Touch
+                See projects
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                 </svg>
               </Link>
             </div>

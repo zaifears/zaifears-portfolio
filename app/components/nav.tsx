@@ -44,6 +44,10 @@ export function Navbar() {
     <>
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:z-40 w-64 p-6 bg-transparent text-gray-600 dark:text-gray-400 font-mono justify-center md:h-screen md:overflow-y-auto">
+        <div className="mb-8 px-2">
+          <p className="font-mono text-xs text-gray-500 dark:text-gray-400 uppercase tracking-widest">zaifears</p>
+          <p className="text-sm font-medium text-gray-900 dark:text-white mt-1">Md Al Shahoriar</p>
+        </div>
         <nav>
           <ul>
             {navItems.map((item) => {

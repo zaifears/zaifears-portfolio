@@ -29,8 +29,8 @@ export default function FeaturedPress() {
   ];
 
   return (
-    <section className="py-12 border-t border-neutral-200 dark:border-neutral-800">
-      <h2 className="text-2xl font-bold tracking-tight mb-6 text-neutral-900 dark:text-neutral-100">
+    <section className="px-4 md:px-8 max-w-7xl mx-auto py-20 border-t border-gray-200 dark:border-gray-800">
+      <h2 className="text-2xl font-bold tracking-tight mb-6 text-gray-900 dark:text-white">
         In the Press
       </h2>
       <ul className="flex flex-col gap-4">
@@ -40,9 +40,9 @@ export default function FeaturedPress() {
               href={mention.url} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="block p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
+              className="block p-4 rounded-lg border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
             >
-              <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">
+              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
                 {mention.publisher}
               </div>
               <div className="font-medium text-blue-600 dark:text-blue-400 group-hover:underline">

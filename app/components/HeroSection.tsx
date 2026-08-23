@@ -75,14 +75,14 @@ export default function HeroSection() {
             {/* Fan blade 1 */}
             <div className="absolute inset-0 rounded-full border-t-4 border-blue-500/40" />
             {/* Fan blade 2 */}
-            <div className="absolute inset-0 rounded-full border-r-4 border-purple-500/40 rotate-120" />
+            <div className="absolute inset-0 rounded-full border-r-4 border-blue-300/30 rotate-120" />
             {/* Fan blade 3 */}
-            <div className="absolute inset-0 rounded-full border-b-4 border-pink-500/40 rotate-240" />
+            <div className="absolute inset-0 rounded-full border-b-4 border-blue-600/20 rotate-240" />
           </motion.div>
 
           {/* Rotating gradient glow background */}
           <motion.div
-            className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/20 to-purple-500/20 blur-2xl will-change-transform"
+            className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/20 to-blue-400/10 blur-2xl will-change-transform"
             animate={animationsEnabled ? { rotate: 360 } : { rotate: 0 }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
@@ -125,11 +125,11 @@ export default function HeroSection() {
                   className="flex flex-col items-center sm:items-start will-change-transform"
                 >
                   <span className="h-7 md:h-8 flex items-center justify-center sm:justify-start text-lg md:text-xl font-light text-blue-600 dark:text-blue-400">Financial Analysis</span>
-                  <span className="h-7 md:h-8 flex items-center justify-center sm:justify-start text-lg md:text-xl font-light text-purple-600 dark:text-purple-400">Web Development</span>
-                  <span className="h-7 md:h-8 flex items-center justify-center sm:justify-start text-lg md:text-xl font-light text-pink-600 dark:text-pink-400">Graphic Design</span>
+                  <span className="h-7 md:h-8 flex items-center justify-center sm:justify-start text-lg md:text-xl font-light text-blue-600 dark:text-blue-400">Web Development</span>
+                  <span className="h-7 md:h-8 flex items-center justify-center sm:justify-start text-lg md:text-xl font-light text-blue-600 dark:text-blue-400">AML &amp; Compliance</span>
                   <span className="h-7 md:h-8 flex items-center justify-center sm:justify-start text-lg md:text-xl font-light text-blue-600 dark:text-blue-400">Data Visualization</span>
-                  <span className="h-7 md:h-8 flex items-center justify-center sm:justify-start text-lg md:text-xl font-light text-purple-600 dark:text-purple-400">Problem Solving</span>
-                  <span className="h-7 md:h-8 flex items-center justify-center sm:justify-start text-lg md:text-xl font-light text-blue-600 dark:text-blue-400">Financial Analysis</span>
+                  <span className="h-7 md:h-8 flex items-center justify-center sm:justify-start text-lg md:text-xl font-light text-blue-600 dark:text-blue-400">Financial Modeling</span>
+                  <span className="h-7 md:h-8 flex items-center justify-center sm:justify-start text-lg md:text-xl font-light text-blue-600 dark:text-blue-400">Business Competition</span>
                 </motion.div>
               </div>
             </div>
@@ -141,7 +141,7 @@ export default function HeroSection() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gray-900/10 dark:bg-white/10 border border-gray-900/20 dark:border-white/20 rounded-xl text-gray-900 dark:text-white font-semibold backdrop-blur-xl hover:bg-gray-900/20 dark:hover:bg-white/20 transition-all duration-300 flex items-center gap-3 group"
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white border border-transparent rounded-xl font-semibold transition-all duration-300 flex items-center gap-3 group"
               >
                 Get in touch
                 <motion.span whileHover={{ x: 4 }}>
@@ -168,14 +168,14 @@ export default function HeroSection() {
             {/* Fan blade 1 */}
             <div className="absolute inset-0 rounded-full border-t-4 border-blue-500/40" />
             {/* Fan blade 2 */}
-            <div className="absolute inset-0 rounded-full border-r-4 border-purple-500/40 rotate-120" />
+            <div className="absolute inset-0 rounded-full border-r-4 border-blue-300/30 rotate-120" />
             {/* Fan blade 3 */}
-            <div className="absolute inset-0 rounded-full border-b-4 border-pink-500/40 rotate-240" />
+            <div className="absolute inset-0 rounded-full border-b-4 border-blue-600/20 rotate-240" />
           </motion.div>
 
           {/* Rotating gradient glow background */}
           <motion.div
-            className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/20 to-purple-500/20 blur-2xl will-change-transform"
+            className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/20 to-blue-400/10 blur-2xl will-change-transform"
             animate={animationsEnabled ? { rotate: 360 } : { rotate: 0 }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
