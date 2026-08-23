@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import PortfolioContent from '../design-portfolio/PortfolioContent';
-import ProjectsContent from './ProjectsContent';
 
 // Define the structure for a single Certificate
 interface Certificate {
@@ -64,7 +63,7 @@ const workplaceEntries = [
   },
 ];
 
-const VALID_TABS = ['workplace', 'projects', 'skills', 'certificates', 'designPortfolio'] as const;
+const VALID_TABS = ['workplace', 'skills', 'certificates', 'designPortfolio'] as const;
 type Tab = (typeof VALID_TABS)[number];
 
 const SkillItem = ({ icon, name }: { icon: string; name: string }) => (
@@ -128,7 +127,6 @@ const TabButtons = ({
 }) => {
   const tabs: { id: Tab; label: string }[] = [
     { id: 'workplace', label: 'Workplace' },
-    { id: 'projects', label: 'Projects' },
     { id: 'skills', label: 'Skills' },
     { id: 'certificates', label: 'Certifications' },
     { id: 'designPortfolio', label: 'Design Portfolio' },
@@ -138,8 +136,8 @@ const TabButtons = ({
     <div
       role="tablist"
       aria-label="Skills sections"
-      // Removed horizontal scrolling and forced wrapping for mobile
-      className="flex flex-wrap justify-center mb-12 bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm rounded-2xl p-2 gap-2 sm:gap-4 max-w-fit mx-auto border border-gray-200 dark:border-gray-800"
+      // Grid on mobile so both columns line up evenly; flex-wrap once there's room for all tabs in a row
+      className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center mb-12 bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm rounded-2xl p-2 gap-2 sm:gap-4 sm:max-w-fit mx-auto border border-gray-200 dark:border-gray-800"
     >
       {tabs.map(({ id, label }) => (
         <button
@@ -148,7 +146,7 @@ const TabButtons = ({
           aria-selected={activeTab === id ? 'true' : 'false'}
           aria-controls={`tabpanel-${id}`}
           onClick={() => onTabChange(id)}
-          className={`whitespace-nowrap px-4 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
+          className={`whitespace-nowrap text-center px-4 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
             activeTab === id
               ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
               : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
@@ -279,16 +277,6 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Projects */}
-        <div
-          id="tabpanel-projects"
-          role="tabpanel"
-          aria-label="Projects"
-          className={activeTab === 'projects' ? 'block' : 'hidden'}
-        >
-          <ProjectsContent />
         </div>
 
         {/* Skills */}

@@ -9,8 +9,8 @@ import {
   faCogs,
   faEnvelope,
   faFlag,
-  faCalendarAlt,
-  faMicrochip
+  faMicrochip,
+  faFolderOpen
 } from '@fortawesome/free-solid-svg-icons';
 
 interface NavItem {
@@ -24,15 +24,10 @@ const navItems: NavItem[] = [
   { href: '/', name: 'Home', icon: faHome },
   { href: '/life', name: 'Life', icon: faFlag },
   { href: '/skills', name: 'Skills', icon: faCogs },
+  { href: '/projects', name: 'Projects', icon: faFolderOpen },
   { href: '/techtips', name: 'Tech Tips', icon: faMicrochip },
   { href: '/education', name: 'Education', icon: faUserGraduate },
   { href: '/contact', name: 'Contact', icon: faEnvelope },
-  {
-    href: 'https://cal.com/zaifears',
-    name: 'Schedule a Meeting',
-    icon: faCalendarAlt,
-    desktopOnly: true
-  },
 ];
 
 const isNavItemActive = (itemHref: string, pathname: string): boolean => {
@@ -103,14 +98,14 @@ export function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative flex flex-1 flex-col items-center justify-center gap-1 py-2 px-0.5 rounded-lg transition-all duration-300 text-center ${
+                  className={`relative flex flex-1 min-w-0 flex-col items-center justify-center gap-1 py-2 px-0.5 rounded-lg transition-all duration-300 text-center ${
                     isActive
                       ? 'text-white bg-blue-700 dark:bg-blue-600 shadow-md shadow-blue-500/30'
-                      : 'text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-white/10'
+                      : 'text-gray-500 dark:text-gray-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-white/10'
                   }`}
                 >
                   <FontAwesomeIcon icon={item.icon} className="w-4 h-4 mx-auto" />
-                  <span className="text-[10px] font-semibold whitespace-nowrap leading-none text-center w-full">{item.name}</span>
+                  <span className="text-[9px] font-semibold tracking-tight whitespace-nowrap overflow-hidden text-ellipsis leading-none text-center w-full">{item.name}</span>
                 </Link>
               );
             })}

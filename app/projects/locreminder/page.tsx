@@ -116,7 +116,7 @@ export default function LocReminderPage() {
             '@type': 'BreadcrumbList',
             itemListElement: [
               { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
-              { '@type': 'ListItem', position: 2, name: 'Skills', item: `${baseUrl}/skills` },
+              { '@type': 'ListItem', position: 2, name: 'Projects', item: `${baseUrl}/projects` },
               {
                 '@type': 'ListItem',
                 position: 3,
@@ -136,7 +136,7 @@ export default function LocReminderPage() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-12">
         <Link
-          href="/skills#projects"
+          href="/projects"
           className="group inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-10"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
@@ -232,7 +232,7 @@ export default function LocReminderPage() {
             {['1', '2', '3'].map((n) => (
               <div
                 key={n}
-                className="relative w-48 shrink-0 aspect-[9/19.5] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800"
+                className="relative w-48 shrink-0 aspect-9/19.5 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800"
               >
                 <Image
                   src={`/projects/locreminder/screenshots/${n}.jpg`}
