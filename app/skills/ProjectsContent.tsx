@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
@@ -68,6 +70,130 @@ export default function ProjectsContent() {
         <p className="text-gray-600 dark:text-gray-400">
           A showcase of my recent technical and business projects.
         </p>
+      </motion.div>
+
+      {/* ── LocReminder card ── */}
+      <motion.div
+        variants={itemVariants}
+        className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-blue-500/30 hover:shadow-lg"
+      >
+        {/* ── TOP: screenshot strip ── */}
+        <Link href="/projects/locreminder" className="block">
+          <div className="flex items-center justify-center gap-4 w-full bg-gray-100 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800/50 py-6 px-4">
+            {["1", "2", "3"].map((n) => (
+              <div
+                key={n}
+                className="relative w-24 sm:w-32 aspect-[9/19.5] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm shrink-0"
+              >
+                <Image
+                  src={`/projects/locreminder/screenshots/${n}.jpg`}
+                  alt={`LocReminder screenshot ${n}`}
+                  fill
+                  className="object-cover"
+                  sizes="128px"
+                />
+              </div>
+            ))}
+          </div>
+        </Link>
+
+        {/* ── MIDDLE: title + story + tools in a two-col layout on desktop ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-gray-200 dark:border-gray-800/50">
+          {/* Left col — title + story */}
+          <div className="p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 shrink-0 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800">
+                <Image
+                  src="/projects/locreminder/icon.png"
+                  alt="LocReminder app icon"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/40 px-3 py-1 rounded-full mb-1">
+                  Flutter · Android
+                </span>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                  LocReminder
+                </h3>
+              </div>
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
+              <p>
+                I kept missing my stop on long bus rides in Dhaka, and a normal alarm cannot help
+                with that since you never know exactly when you will arrive.
+              </p>
+              <p>
+                LocReminder rings a real alarm when you reach a place you pinned, not at a set
+                time. Sound, vibration and a full screen alert, even on silent and a locked
+                screen.
+              </p>
+              <p>
+                No accounts, no analytics, no server. Every release is signed and scanned by
+                VirusTotal before it ships.
+              </p>
+            </div>
+            <Link
+              href="/projects/locreminder"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-white/60 group-hover:text-gray-900 dark:group-hover:text-white transition-colors w-fit mt-auto"
+            >
+              View Project
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-3 h-3" />
+            </Link>
+          </div>
+
+          {/* Right col — tool tags + feature list */}
+          <div className="p-6 md:p-8 flex flex-col gap-5">
+            {/* Tools */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+                Tools used
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {["Flutter", "Dart", "Kotlin", "OpenStreetMap", "GitHub Actions"].map((tool) => (
+                  <span
+                    key={tool}
+                    className="text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Features */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+                What it does
+              </p>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { icon: "🔔", text: "Wakes you with a real alarm, not a quiet notification" },
+                  { icon: "🗺️", text: "Runs on OpenStreetMap, no API key or Google account" },
+                  { icon: "🔋", text: "Battery-aware polling so a long trip won't drain your phone" },
+                  { icon: "🔒", text: "Your location never leaves your device" },
+                ].map((f) => (
+                  <div
+                    key={f.text}
+                    className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    <span className="mt-0.5 shrink-0">{f.icon}</span>
+                    <span className="leading-snug">{f.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── BOTTOM: footer note ── */}
+        <div className="px-6 md:px-8 py-4 border-t border-gray-200 dark:border-gray-800/50">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            Published on GitHub Releases, with an F-Droid submission in progress.
+          </p>
+        </div>
       </motion.div>
 
       {/* ── Leave Tracker Pro card ── */}

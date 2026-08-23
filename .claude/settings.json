@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx --no-install tsc --noEmit *)",
+      "Bash(gh run watch *)",
+      "mcp__Claude_Browser__read_console_messages",
+      "mcp__Claude_Browser__get_page_text",
+      "mcp__Claude_Browser__read_network_requests",
+      "mcp__Claude_Browser__preview_logs",
+      "mcp__Claude_Browser__read_page",
+      "mcp__0bdf9d1e-76de-43ff-8aa8-3232d43ddedd__get_runtime_logs"
+    ]
+  }
+}
