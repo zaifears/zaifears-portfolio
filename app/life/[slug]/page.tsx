@@ -396,10 +396,10 @@ export default async function LifePostPage({
               alt={imageTitle}
               width={file.details?.image?.width || 1200}
               height={file.details?.image?.height || 675}
-              className="h-auto w-full rounded-xl border border-gray-200 dark:border-neutral-800"
+              className="h-auto w-full rounded-xl border border-gray-200 dark:border-gray-800"
             />
             {target.fields?.title && (
-              <figcaption className="mt-3 text-center text-sm text-gray-400 dark:text-neutral-500">
+              <figcaption className="mt-3 text-center text-sm text-gray-400 dark:text-gray-500">
                 {target.fields.title}
               </figcaption>
             )}
@@ -529,7 +529,7 @@ export default async function LifePostPage({
 
       <nav
         aria-label="Breadcrumb"
-        className="mb-6 text-sm text-gray-500 dark:text-neutral-400"
+        className="mb-6 text-sm text-gray-500 dark:text-gray-400"
       >
         <ol className="flex flex-wrap items-center gap-2">
           <li>
@@ -555,7 +555,7 @@ export default async function LifePostPage({
           <li aria-hidden="true">/</li>
 
           <li
-            className="max-w-[18rem] truncate text-gray-700 dark:text-neutral-200"
+            className="max-w-[18rem] truncate text-gray-700 dark:text-gray-200"
             aria-current="page"
           >
             {event.fields.title}
@@ -565,7 +565,7 @@ export default async function LifePostPage({
 
       <Link
         href="/life"
-        className="group mb-10 inline-flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-blue-600 dark:text-neutral-400 dark:hover:text-blue-400"
+        className="group mb-10 inline-flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
       >
         <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
         Back to Life Journey
@@ -577,12 +577,12 @@ export default async function LifePostPage({
         </h1>
 
         {event.fields.excerpt && (
-          <p className="mx-auto mb-6 max-w-3xl text-lg leading-relaxed text-gray-600 dark:text-neutral-300 md:mx-0">
+          <p className="mx-auto mb-6 max-w-3xl text-lg leading-relaxed text-gray-600 dark:text-gray-300 md:mx-0">
             {event.fields.excerpt}
           </p>
         )}
 
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-gray-500 dark:text-neutral-400 md:justify-start">
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-gray-500 dark:text-gray-400 md:justify-start">
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays className="h-4 w-4" />
             <time dateTime={event.fields.date}>
@@ -591,7 +591,7 @@ export default async function LifePostPage({
           </span>
 
           {isUpdatedAfterPublished(event) && (
-            <span className="text-gray-400 dark:text-neutral-500">
+            <span className="text-gray-400 dark:text-gray-500">
               Updated {formatDate(event.sys.updatedAt)}
             </span>
           )}
@@ -605,7 +605,7 @@ export default async function LifePostPage({
 
       {imageUrl && (
         <figure className="mb-12">
-          <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-neutral-800">
+          <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800">
             <Image
               src={imageUrl}
               alt={event.fields.coverImage?.fields.title || event.fields.title}
@@ -617,7 +617,7 @@ export default async function LifePostPage({
           </div>
 
           {event.fields.coverImage?.fields.title && (
-            <figcaption className="mt-3 text-center text-sm text-gray-400 dark:text-neutral-500">
+            <figcaption className="mt-3 text-center text-sm text-gray-400 dark:text-gray-500">
               {event.fields.coverImage.fields.title}
             </figcaption>
           )}
@@ -625,13 +625,13 @@ export default async function LifePostPage({
       )}
 
       <div
-        className="prose prose-lg prose-gray max-w-none text-justify dark:prose-invert
+        className="prose prose-lg prose-gray max-w-none dark:prose-invert
           prose-headings:text-left prose-headings:font-bold prose-headings:tracking-tight
           prose-h2:mb-4 prose-h2:mt-12 prose-h2:text-2xl
           prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-xl
-          prose-p:leading-relaxed prose-p:text-gray-700 dark:prose-p:text-neutral-300
+          prose-p:leading-relaxed prose-p:text-gray-700 dark:prose-p:text-gray-300
           prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline dark:prose-a:text-blue-400
-          prose-img:h-auto prose-img:max-w-full prose-img:rounded-xl prose-img:border prose-img:border-gray-200 dark:prose-img:border-neutral-800
+          prose-img:h-auto prose-img:max-w-full prose-img:rounded-xl prose-img:border prose-img:border-gray-200 dark:prose-img:border-gray-800
           prose-blockquote:rounded-r-lg prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50/50 prose-blockquote:py-1 prose-blockquote:not-italic dark:prose-blockquote:bg-blue-900/10
           prose-li:marker:text-blue-500
           [&_iframe]:max-w-full [&_pre]:overflow-x-auto [&_table]:overflow-x-auto"
@@ -642,7 +642,7 @@ export default async function LifePostPage({
       {relatedPosts.length > 0 && (
         <section
           aria-labelledby="related-posts-heading"
-          className="mt-16 border-t border-gray-200 pt-10 dark:border-neutral-800"
+          className="mt-16 border-t border-gray-200 pt-10 dark:border-gray-800"
         >
           <h2
             id="related-posts-heading"
@@ -656,9 +656,9 @@ export default async function LifePostPage({
               <Link
                 key={post.fields.slug}
                 href={`/life/${post.fields.slug}`}
-                className="group rounded-xl border border-gray-200 p-5 transition-colors hover:border-blue-400 hover:bg-blue-50/50 dark:border-neutral-800 dark:hover:border-blue-700 dark:hover:bg-blue-900/10"
+                className="group rounded-xl border border-gray-200 p-5 transition-colors hover:border-blue-400 hover:bg-blue-50/50 dark:border-gray-800 dark:hover:border-blue-700 dark:hover:bg-blue-900/10"
               >
-                <p className="text-xs text-gray-500 dark:text-neutral-400">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {formatDate(post.fields.date)}
                 </p>
 
@@ -667,7 +667,7 @@ export default async function LifePostPage({
                 </h3>
 
                 {post.fields.excerpt && (
-                  <p className="mt-2 line-clamp-3 text-sm text-gray-600 dark:text-neutral-300">
+                  <p className="mt-2 line-clamp-3 text-sm text-gray-600 dark:text-gray-300">
                     {post.fields.excerpt}
                   </p>
                 )}
@@ -679,7 +679,7 @@ export default async function LifePostPage({
 
       <aside
         aria-label="About the author"
-        className="mt-16 rounded-2xl border border-gray-200 bg-gray-50 p-6 dark:border-neutral-800 dark:bg-neutral-900/50"
+        className="mt-16 rounded-2xl border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-900/50"
       >
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
           <Image
@@ -699,7 +699,7 @@ export default async function LifePostPage({
               Md Al Shahoriar Hossain
             </h2>
 
-            <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-neutral-300">
+            <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
               Finance professional, CA candidate, and developer building
               practical digital products, fintech projects, and
               portfolio-driven experiences.
@@ -735,10 +735,10 @@ export default async function LifePostPage({
         </div>
       </aside>
 
-      <div className="mb-16 mt-16 border-t border-gray-200 pt-8 dark:border-neutral-800 md:mb-0">
+      <div className="mb-16 mt-16 border-t border-gray-200 pt-8 dark:border-gray-800 md:mb-0">
         <Link
           href="/life"
-          className="group inline-flex items-center gap-2 rounded-full bg-gray-100 px-5 py-2.5 text-gray-700 transition-all hover:bg-blue-50 hover:text-blue-600 dark:bg-neutral-800 dark:text-gray-300 dark:hover:bg-blue-900/20 dark:hover:text-blue-400"
+          className="group inline-flex items-center gap-2 rounded-full bg-gray-100 px-5 py-2.5 text-gray-700 transition-all hover:bg-blue-50 hover:text-blue-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-blue-900/20 dark:hover:text-blue-400"
         >
           <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
           All posts

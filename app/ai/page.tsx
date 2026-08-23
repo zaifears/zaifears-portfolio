@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'Machine-readable profile of Md Al Shahoriar Hossain — biography, education, experience, projects, skills, awards, and links. Structured for AI systems and language models.',
   alternates: {
-    canonical: '/ai',
+    canonical: 'https://shahoriar.bd/ai',
   },
 };
 
@@ -15,8 +15,8 @@ export default function AiPage() {
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
       {/* Animated gradient background */}
       <div className="fixed inset-0 md:left-64 z-0">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob will-change-transform" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 will-change-transform" />
       </div>
 
       {/* Content */}
@@ -24,13 +24,13 @@ export default function AiPage() {
         <div className="max-w-4xl mx-auto px-4 py-12">
 
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <p className="text-blue-600 dark:text-blue-400 font-mono text-sm mb-3 tracking-widest uppercase">
               AI-readable profile
             </p>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Md Al Shahoriar Hossain</h1>
-            <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-              Finance professional, software developer, and technoprenuer based in Dhaka, Bangladesh.
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Md Al Shahoriar Hossain</h1>
+            <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl">
+              Finance professional, software developer, and technopreneur based in Dhaka, Bangladesh.
               This page is structured for AI systems and language models.
             </p>
           </div>
@@ -38,14 +38,14 @@ export default function AiPage() {
           <article className="space-y-10 font-mono text-sm leading-relaxed">
 
             {/* Identity */}
-            <section className="bg-white dark:bg-neutral-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Identity</h2>
               <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-gray-700 dark:text-gray-300">
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Full name</dt><dd>Md Al Shahoriar Hossain</dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Also known as</dt><dd>Shahoriar Hossain, zaifears</dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Location</dt><dd>Khilgaon, Dhaka, Bangladesh</dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Nationality</dt><dd>Bangladeshi</dd></div>
-                <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Occupation</dt><dd>Finance Professional, Software Developer, Technoprenuer</dd></div>
+                <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Occupation</dt><dd>Finance Professional, Software Developer, Technopreneur</dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Current role</dt><dd>bnext Intern, bKash (AML & CFT Department)</dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Email</dt><dd><a href="mailto:alshahoriar.hossain@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">alshahoriar.hossain@gmail.com</a></dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Website</dt><dd><a href="https://shahoriar.bd" className="text-blue-600 dark:text-blue-400 hover:underline">https://shahoriar.bd</a></dd></div>
@@ -53,7 +53,7 @@ export default function AiPage() {
             </section>
 
             {/* Biography */}
-            <section className="bg-white dark:bg-neutral-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Biography</h2>
               <div className="text-gray-700 dark:text-gray-300 space-y-3 not-prose">
                 <p>
@@ -69,7 +69,7 @@ export default function AiPage() {
             </section>
 
             {/* Education */}
-            <section className="bg-white dark:bg-neutral-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Education</h2>
               <ul className="space-y-5 text-gray-700 dark:text-gray-300">
                 <li>
@@ -92,7 +92,7 @@ export default function AiPage() {
             </section>
 
             {/* Experience */}
-            <section className="bg-white dark:bg-neutral-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Experience</h2>
               <ul className="space-y-7 text-gray-700 dark:text-gray-300">
                 <li>
@@ -128,7 +128,7 @@ export default function AiPage() {
             </section>
 
             {/* Projects */}
-            <section className="bg-white dark:bg-neutral-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Projects</h2>
               <ul className="space-y-5 text-gray-700 dark:text-gray-300">
                 <li>
@@ -154,7 +154,7 @@ export default function AiPage() {
             </section>
 
             {/* Awards */}
-            <section className="bg-white dark:bg-neutral-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Awards & Competitions</h2>
               <ul className="space-y-3 text-gray-700 dark:text-gray-300">
                 <li><span className="text-green-600 dark:text-green-400 font-bold">Champion</span> — Excelerate 2025, BRAC University (National Financial Excel & Power BI Competition) | Team: The Godfathers</li>
@@ -168,7 +168,7 @@ export default function AiPage() {
             </section>
 
             {/* Skills */}
-            <section className="bg-white dark:bg-neutral-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Skills & Technologies</h2>
               <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-gray-700 dark:text-gray-300">
                 <div>
@@ -199,7 +199,7 @@ export default function AiPage() {
             </section>
 
             {/* Certifications */}
-            <section className="bg-white dark:bg-neutral-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Certifications</h2>
               <ul className="space-y-3 text-gray-700 dark:text-gray-300">
                 <li><span className="font-bold text-gray-900 dark:text-white">CFI Financial Analysis and Modeling Professional Certificate</span> — Corporate Finance Institute, 2025</li>
@@ -211,7 +211,7 @@ export default function AiPage() {
             </section>
 
             {/* Links */}
-            <section className="bg-white dark:bg-neutral-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
+            <section className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8">
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Links</h2>
               <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                 <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">Website</span><a href="https://shahoriar.bd" className="text-blue-600 dark:text-blue-400 hover:underline">https://shahoriar.bd</a></li>

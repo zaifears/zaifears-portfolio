@@ -195,7 +195,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
           aria-label="Workplace"
           className={`max-w-5xl mx-auto ${activeTab === 'workplace' ? 'block' : 'hidden'}`}
         >
-          <div className="text-center mb-10">
+          <div className="mb-10">
             <h2 className="text-3xl font-bold mb-3">Workplace Timeline</h2>
             <p className="text-gray-600 dark:text-gray-400">
               Roles and organizations I am currently working with and have worked with.
@@ -287,7 +287,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
           className={activeTab === 'skills' ? 'block' : 'hidden'}
         >
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-8">Technical Skills</h2>
+            <h2 className="text-3xl font-bold mb-8">Technical Skills</h2>
             <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
               <TechSkillItem
                 title="AI Workflow Automation"
@@ -356,7 +356,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
             </div>
           </div>
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-8">Core Competencies</h2>
+            <h2 className="text-3xl font-bold mb-8">Core Competencies</h2>
             <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <SkillItem icon="skills/problem.png" name="Problem-Solving" />
               <SkillItem icon="skills/entrepreneurial.png" name="Entrepreneurial Mindset" />
@@ -409,7 +409,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
                     aria-label={`View credential for ${cert.fields.title}`}
                     className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold transition-colors duration-300 mt-4 text-sm"
                   >
-                    View Credential
+                    Verify credential
                     <svg
                       className="w-4 h-4"
                       fill="none"

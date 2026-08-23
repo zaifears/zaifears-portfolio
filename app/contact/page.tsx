@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 };
 
 const contactMethods = [
-    { name: 'Email', href: 'mailto:alshahoriar.hossain@gmail.com', icon: faEnvelope, color: 'text-red-500 dark:text-red-400', hoverColor: 'hover:border-red-500', description: 'Send me an email for professional inquiries' },
-    { name: 'Facebook', href: 'https://facebook.com/alshahoriar.hossain', icon: faFacebook, color: 'text-blue-600 dark:text-blue-500', hoverColor: 'hover:border-blue-500', description: 'Connect with me on Facebook' },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/shahoriarhossain/', icon: faLinkedin, color: 'text-blue-700 dark:text-blue-600', hoverColor: 'hover:border-blue-600', description: 'Professional networking and career updates' },
-    { name: 'YouTube', href: 'https://www.youtube.com/@takatunes', icon: faYoutube, color: 'text-red-600 dark:text-red-500', hoverColor: 'hover:border-red-500', description: 'Check out my video content' },
+  { name: 'Email', href: 'mailto:alshahoriar.hossain@gmail.com', icon: faEnvelope, color: 'text-blue-600 dark:text-blue-400', hoverColor: 'hover:border-blue-500/50', description: 'Send an email for professional inquiries' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/shahoriarhossain/', icon: faLinkedin, color: 'text-blue-600 dark:text-blue-400', hoverColor: 'hover:border-blue-500/50', description: 'Professional networking and career updates' },
+  { name: 'Facebook', href: 'https://facebook.com/alshahoriar.hossain', icon: faFacebook, color: 'text-blue-600 dark:text-blue-400', hoverColor: 'hover:border-blue-500/50', description: 'Personal updates and messaging' },
+  { name: 'YouTube', href: 'https://www.youtube.com/@takatunes', icon: faYoutube, color: 'text-blue-600 dark:text-blue-400', hoverColor: 'hover:border-blue-500/50', description: 'Educational video content & walkthroughs' },
 ];
 
 export default function ContactPage() {
@@ -23,71 +23,74 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
       {/* Animated gradient background */}
       <div className="fixed inset-0 md:left-64 z-0">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob will-change-transform" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 will-change-transform" />
       </div>
 
       {/* Content */}
       <div className="relative z-10">
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Me</h1>
-          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-            Want to connect? Feel free to reach out via any platform. I'm always open to new opportunities and collaborations.
+        <div className="mb-14">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Contact</h1>
+          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl">
+            Want to connect? Feel free to reach out via any platform. Available for professional inquiries, collaborations, and discussions.
           </p>
         </div>
 
-        {/* Schedule Meeting Card - Featured (Gradient Removed) */}
-        <div className="mb-12 max-w-4xl mx-auto">
+        {/* Schedule Meeting Card - Featured */}
+        <div className="mb-12 max-w-4xl">
           <a
             href="https://cal.com/zaifears"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 md:p-8 hover:border-blue-500/50 dark:hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-600/10"
+            className="group block bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 md:p-8 hover:border-blue-500/50 dark:hover:border-blue-500 transition-all duration-300 hover:scale-[1.01] hover:shadow-xl hover:shadow-blue-600/10"
           >
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+            <div className="flex flex-col md:flex-row items-center gap-6">
               <div className="shrink-0">
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-800 transition-colors duration-300">
-                  <FontAwesomeIcon icon={faCalendarAlt} className="w-8 h-8 md:w-10 md:h-10 text-blue-500 dark:text-blue-400" />
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors duration-300">
+                  <FontAwesomeIcon icon={faCalendarAlt} className="w-8 h-8 md:w-10 md:h-10 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
-              <div className="text-center">
+              <div className="text-center md:text-left flex-1">
                 <h2 className="text-xl md:text-2xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">Schedule an Online Meeting</h2>
-                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors duration-300">
-                  Book a time that works for both of us to discuss opportunities, projects, or just to chat
+                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
+                  Book a time to discuss finance opportunities, software projects, or collaboration.
                 </p>
               </div>
-              <div className="hidden md:block shrink-0">
-                <svg className="w-6 h-6 text-gray-500 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-all duration-300 group-hover:transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                </svg>
+              <div className="shrink-0">
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                  Book on Cal.com
+                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                  </svg>
+                </span>
               </div>
             </div>
           </a>
         </div>
 
         {/* Contact Methods Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {contactMethods.map((method) => (
             <a
               key={method.name}
               href={method.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-4 md:p-6 hover:bg-gray-200 dark:hover:bg-gray-800/50 ${method.hoverColor} transition-all duration-300 hover:transform hover:scale-[1.05] hover:shadow-2xl text-center`}
+              className={`group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 ${method.hoverColor} transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
             >
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-gray-200 dark:bg-gray-800/50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-gray-300 dark:group-hover:bg-gray-700/50 transition-colors duration-300">
-                  <FontAwesomeIcon icon={method.icon} className={`w-8 h-8 ${method.color} transition-transform duration-300 group-hover:scale-110`} />
+              <div className="flex flex-col h-full">
+                <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800/50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors duration-300">
+                  <FontAwesomeIcon icon={method.icon} className={`w-5 h-5 ${method.color}`} />
                 </div>
-                <h3 className="text-base md:text-xl font-bold mb-1 md:mb-2 group-hover:text-black dark:group-hover:text-white transition-colors duration-300">{method.name}</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
+                <h3 className="text-lg font-bold mb-1 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{method.name}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed grow">
                   {method.description}
                 </p>
-                <div className="mt-3 flex items-center text-blue-500 dark:text-blue-400 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:transform group-hover:translate-y-0 translate-y-2">
-                  Get in touch
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="mt-4 flex items-center text-blue-600 dark:text-blue-400 text-sm font-semibold">
+                  <span>Connect</span>
+                  <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                   </svg>
                 </div>
@@ -97,11 +100,11 @@ export default function ContactPage() {
         </div>
 
         {/* Additional Contact Info */}
-        <div className="mt-16 text-center">
-          <div className="bg-gray-100 dark:bg-gray-900/30 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">Let's Work Together</h3>
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              Whether you're looking for collaboration on a project, need technical assistance, or just want to have a conversation about finance, technology, or entrepreneurship, I'd love to hear from you. Don't hesitate to reach out through any of the channels above!
+        <div className="mt-16">
+          <div className="bg-gray-50 dark:bg-gray-900/30 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-8 max-w-2xl">
+            <h3 className="text-2xl font-bold mb-3">Let&apos;s Work Together</h3>
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm md:text-base">
+              Whether you&apos;re looking to discuss finance and risk advisory, explore software development projects, or talk about technopreneurship in Bangladesh, I&apos;m always glad to connect.
             </p>
           </div>
         </div>

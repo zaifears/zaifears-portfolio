@@ -129,16 +129,16 @@ export default function TechTipsPage() {
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
       {/* Animated gradient background */}
       <div className="fixed inset-0 md:left-64 z-0">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob will-change-transform" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 will-change-transform" />
       </div>
 
       {/* Content */}
       <div className="relative z-10">
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Tech Tips & Utilities</h1>
-          <p className="text-gray-600 dark:text-gray-400 text-lg">A curated list of my favorite apps, scripts, and tools to enhance your digital experience.</p>
+        <div className="mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Tech Tips & Utilities</h1>
+          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl">A curated list of favorite apps, scripts, and tools to enhance productivity and workflow efficiency.</p>
         </div>
 
         {/* TAB BUTTONS CONTAINER */}

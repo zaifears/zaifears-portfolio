@@ -80,34 +80,33 @@ const projects = [
 export default function PortfolioContent() {
   return (
     <div>
-      <div className="text-center mb-12">
+      <div className="mb-12">
         <h2 className="text-3xl font-bold mb-2">Design Portfolio</h2>
-        <p className="text-gray-600 dark:text-gray-400">A selection of my recent design work.</p>
-        <p className="text-blue-600 dark:text-blue-400 text-sm mt-4">Click on any project below to view the design or video.</p>
+        <p className="text-gray-600 dark:text-gray-400">A selection of graphic design, presentation pitchdecks, and visual work.</p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         {projects.map((project, index) => (
           <a
             key={index}
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="group block bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-blue-500/30 hover:transform hover:scale-[1.02] hover:shadow-2xl"
+            className="group block bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-blue-500/30 hover:scale-[1.02] hover:shadow-xl"
           >
             <div className="relative aspect-video">
               <Image
                 src={project.imageUrl}
                 alt={project.title}
                 fill
-                className="object-cover object-center transition-transform duration-300 group-hover:scale-105" // <-- object-cover and object-center added here
+                className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = 'https://placehold.co/800x450/171717/FFFFFF?text=Image+Not+Found';
                 }}
               />
             </div>
-            <div className="p-4 bg-white dark:bg-gray-900">
-              <h3 className="font-bold text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+            <div className="p-4 md:p-5 bg-white dark:bg-gray-900/50">
+              <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                 {project.title}
               </h3>
             </div>
