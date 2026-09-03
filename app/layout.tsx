@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Md Al Shahoriar Hossain | Portfolio',
     description:
-      'Professional portfolio showcasing finance, technology, software development, projects, and professional insights.',
+      'Professional portfolio of Md Al Shahoriar Hossain, an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), covering finance, technology, software development, and professional insights.',
     url: baseUrl,
     siteName: authorName,
     locale: 'en_US',
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Md Al Shahoriar Hossain — Finance Professional and Developer',
+        alt: 'Md Al Shahoriar Hossain — Audit Associate and Web Developer',
       },
     ],
   },
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Md Al Shahoriar Hossain | Portfolio',
     description:
-      'Finance, technology, web development, and professional insights from Md Al Shahoriar Hossain.',
+      'Finance, technology, web development, and professional insights from Md Al Shahoriar Hossain, Audit Associate at EY Bangladesh.',
     images: ['/opengraph-image.png'],
   },
 
