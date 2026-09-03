@@ -28,9 +28,26 @@ interface SkillsTabsProps {
 
 const workplaceEntries = [
   {
+    company: 'EY Bangladesh',
+    role: 'Audit Associate | Islam Hoque Hanif & Co. (EY Member Firm in Bangladesh)',
+    range: 'September 2026 - Present',
+    link: 'mailto:shahoriar.hossain@bd.ey.com',
+    linkLabel: 'shahoriar.hossain@bd.ey.com',
+    logo: {
+      src: 'https://i.ibb.co.com/xtF7LGKn/EY-logo.png',
+      alt: 'EY logo',
+      logoLink: 'https://www.ey.com/en_bd',
+      width: 120,
+      height: 60,
+      containerClass: 'w-[120px] h-[60px]',
+    },
+    summary:
+      'Supporting statutory audit and assurance engagements as an Audit Associate at Islam Hoque Hanif & Co., the EY member firm in Bangladesh.',
+  },
+  {
     company: 'bKash',
     role: 'bnext Intern | AML & CFT Department, External and Corporate Affairs',
-    range: 'May 2026 - Present',
+    range: 'May 2026 - August 2026',
     link: 'mailto:shahoriar.int.ecad@bKash.com',
     linkLabel: 'shahoriar.int.ecad@bKash.com',
     logo: {
@@ -42,7 +59,7 @@ const workplaceEntries = [
       containerClass: 'w-[120px] h-[60px]',
     },
     summary:
-      'Monitoring financial transactions to mitigate risks and ensure strict AML/CFT compliance while supporting regulatory reporting and data analysis utilizing Excel and Python. Streamlining corporate affairs workflows, utilizing advanced data tools to enhance departmental risk management efficiency and reporting accuracy.',
+      'Monitored financial transactions to mitigate risks and ensure strict AML/CFT compliance while supporting regulatory reporting and data analysis utilizing Excel and Python. Streamlined corporate affairs workflows, utilizing advanced data tools to enhance departmental risk management efficiency and reporting accuracy.',
   },
   {
     company: 'IFA Consultancy',

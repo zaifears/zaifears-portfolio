@@ -26,14 +26,19 @@ SSC, Business Studies | Dhaka Board | GPA: 4.50 | 2010 – 2019
 
 ## Experience
 
-**bnext Intern | bKash | AML & CFT Department, External and Corporate Affairs**
-May 2026 – Present
+**Audit Associate | Islam Hoque Hanif & Co. (EY Bangladesh)**
+September 2026 – Present
 
-- Monitoring financial transactions to mitigate risks and ensure strict AML/CFT compliance while supporting regulatory reporting and data analysis utilizing Excel and Power BI.
+- Supporting statutory audit and assurance engagements as part of Islam Hoque Hanif & Co., the EY member firm in Bangladesh.
+
+**bnext Intern | bKash | AML & CFT Department, External and Corporate Affairs**
+May 2026 – August 2026
+
+- Monitored financial transactions to mitigate risks and ensure strict AML/CFT compliance while supporting regulatory reporting and data analysis utilizing Excel and Power BI.
 - Built a Suspicious Transaction Report (STR) and Suspicious Activity Report (SAR) module using VBA macros in Excel, automating report generation for the compliance team.
 - Conducted quality checks on eKYC and Manual KYC submissions for both personal and non-personal accounts, ensuring data accuracy and regulatory compliance.
 - Investigated websites flagged for potential online gambling and money laundering activities as part of transaction monitoring and due diligence workflows.
-- Streamlining corporate affairs workflows, utilizing advanced data tools to enhance departmental risk management efficiency and reporting accuracy.
+- Streamlined corporate affairs workflows, utilizing advanced data tools to enhance departmental risk management efficiency and reporting accuracy.
 
 **Business Development Intern | IFA Consultancy**
 December 2025 – May 2026

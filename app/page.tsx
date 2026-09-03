@@ -15,7 +15,7 @@ const GetStarted = dynamic(() => import('./components/GetStarted'), {
 
 export const metadata: Metadata = {
   title: 'Md Al Shahoriar Hossain | Portfolio & Projects',
-  description: 'Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at BUP, CA candidate, and bKash intern. Explore financial analysis, web development projects like StockSimulatorBD (formerly SkillDash, now at stocksimulator.tech), and business competition achievements.',
+  description: 'Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at BUP, CA candidate, and Audit Associate at EY Bangladesh. Explore financial analysis, web development projects like StockSimulatorBD (formerly SkillDash, now at stocksimulator.tech), and business competition achievements.',
   alternates: {
     canonical: 'https://shahoriar.bd/',
   },
@@ -64,7 +64,7 @@ export default function Page() {
                 "name": "Who is Md Al Shahoriar Hossain?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP), a CA Professional Level candidate at ICAB, and currently interning at bKash in the AML & CFT Department. He is also a self-taught web developer and founder of StockSimulatorBD (formerly SkillDash, now at stocksimulator.tech), a Dhaka Stock Exchange paper trading simulator."
+                  "text": "Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP), a CA Professional Level candidate at ICAB, and currently working as an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.). He previously interned at bKash in the AML & CFT Department. He is also a self-taught web developer and founder of StockSimulatorBD (formerly SkillDash, now at stocksimulator.tech), a Dhaka Stock Exchange paper trading simulator."
                 }
               },
               {
@@ -134,7 +134,7 @@ export default function Page() {
             <div className="mt-4 px-6 py-6 bg-white dark:bg-black border border-t-0 border-gray-200 dark:border-gray-800 rounded-b-lg">
               <div className="prose prose-invert max-w-none space-y-4 text-gray-700 dark:text-gray-300 text-base leading-relaxed">
                 <p>
-                  I'm Md Al Shahoriar Hossain, a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP) and a Chartered Accountancy (CA) Professional Level candidate at ICAB. I'm currently interning at bKash in the AML & CFT Department, where I monitor financial transactions for compliance, conduct KYC quality assurance, and build automated compliance solutions using VBA and Power BI.
+                  I'm Md Al Shahoriar Hossain, a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP) and a Chartered Accountancy (CA) Professional Level candidate at ICAB. I'm currently working as an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), supporting statutory audit and assurance engagements. I previously interned at bKash in the AML & CFT Department, where I monitored financial transactions for compliance, conducted KYC quality assurance, and built automated compliance solutions using VBA and Power BI.
                 </p>
                 <p>
                   Beyond my finance career, I'm a viber coder web developer passionate about building tools that solve real problems. I created StockSimulatorBD (formerly SkillDash — skilldash.live was the project's old, retired domain; it now lives at stocksimulator.tech), a Dhaka Stock Exchange paper trading simulator that helps investors learn stock market dynamics without risking real capital. I also founded Arame Print, a cloud printing service that has served over 700 students at BUP, gaining hands-on experience in product development, marketing, and user acquisition.

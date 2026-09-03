@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    'Professional portfolio of Md Al Shahoriar Hossain, a Finance and Banking graduate from BUP, software developer, and founder of StockSimulatorBD. Currently a bNext intern at bKash.',
+    'Professional portfolio of Md Al Shahoriar Hossain, a Finance and Banking graduate from BUP, software developer, and founder of StockSimulatorBD. Currently an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.).',
 
   keywords: [
     'Md Al Shahoriar Hossain',
@@ -36,6 +36,9 @@ export const metadata: Metadata = {
     'Finance and Banking',
     'Web Developer',
     'Next.js Developer',
+    'EY Bangladesh',
+    'Islam Hoque Hanif & Co.',
+    'Audit Associate',
     'bKash',
     'bNext Intern',
     'StockSimulatorBD',
@@ -133,9 +136,9 @@ const personSchema = {
   alternateName: ['Shahoriar Hossain', 'zaifears'],
   url: `${baseUrl}/`,
   image: `${baseUrl}/images/shahoriar-author.jpg`,
-  jobTitle: 'Finance Professional and Web Developer',
+  jobTitle: 'Audit Associate and Web Developer',
   description:
-    'Md Al Shahoriar Hossain is a finance professional, bNext intern at bKash, Chartered Accountancy candidate, and self-taught web developer based in Dhaka, Bangladesh.',
+    'Md Al Shahoriar Hossain is an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), Chartered Accountancy candidate, and self-taught web developer based in Dhaka, Bangladesh.',
   email: 'alshahoriar.hossain@gmail.com',
   address: {
     '@type': 'PostalAddress',
@@ -144,7 +147,9 @@ const personSchema = {
   },
   worksFor: {
     '@type': 'Organization',
-    name: 'bKash',
+    name: 'Islam Hoque Hanif & Co.',
+    alternateName: 'EY Bangladesh',
+    url: 'https://www.ey.com/en_bd',
   },
   alumniOf: {
     '@type': 'CollegeOrUniversity',

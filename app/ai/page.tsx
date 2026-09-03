@@ -45,8 +45,8 @@ export default function AiPage() {
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Also known as</dt><dd>Shahoriar Hossain, zaifears</dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Location</dt><dd>Khilgaon, Dhaka, Bangladesh</dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Nationality</dt><dd>Bangladeshi</dd></div>
-                <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Occupation</dt><dd>Finance Professional, Software Developer, Technopreneur</dd></div>
-                <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Current role</dt><dd>bnext Intern, bKash (AML & CFT Department)</dd></div>
+                <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Occupation</dt><dd>Audit Associate, Software Developer, Technopreneur</dd></div>
+                <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Current role</dt><dd>Audit Associate, EY Bangladesh (Islam Hoque Hanif & Co.)</dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Email</dt><dd><a href="mailto:alshahoriar.hossain@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">alshahoriar.hossain@gmail.com</a></dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Website</dt><dd><a href="https://shahoriar.bd" className="text-blue-600 dark:text-blue-400 hover:underline">https://shahoriar.bd</a></dd></div>
               </dl>
@@ -57,7 +57,7 @@ export default function AiPage() {
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Biography</h2>
               <div className="text-gray-700 dark:text-gray-300 space-y-3 not-prose">
                 <p>
-                  Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP) and a Chartered Accountancy (CA) Professional Level candidate at ICAB. He is currently interning at bKash in the AML & CFT Department, where he works on financial transaction monitoring, KYC quality assurance, and compliance reporting.
+                  Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP) and a Chartered Accountancy (CA) Professional Level candidate at ICAB. He currently works as an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), supporting statutory audit and assurance engagements. He previously interned at bKash in the AML & CFT Department, where he worked on financial transaction monitoring, KYC quality assurance, and compliance reporting.
                 </p>
                 <p>
                   Beyond finance, Shahoriar is a self-taught web developer who built StockSimulatorBD (formerly SkillDash — skilldash.live is the project's old, retired domain) — a Dhaka Stock Exchange paper trading simulator now at stocksimulator.tech — and founded Arame Print, a cloud printing service serving over 700 student stakeholders at BUP.
@@ -96,8 +96,15 @@ export default function AiPage() {
               <h2 className="text-lg font-bold mb-5 text-blue-600 dark:text-blue-400">Experience</h2>
               <ul className="space-y-7 text-gray-700 dark:text-gray-300">
                 <li>
+                  <p className="font-bold text-gray-900 dark:text-white">Audit Associate — EY Bangladesh (Islam Hoque Hanif & Co.)</p>
+                  <p className="text-gray-500 dark:text-gray-400 mb-2">September 2026 – Present</p>
+                  <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400">
+                    <li>Supporting statutory audit and assurance engagements as part of Islam Hoque Hanif & Co., the EY member firm in Bangladesh</li>
+                  </ul>
+                </li>
+                <li>
                   <p className="font-bold text-gray-900 dark:text-white">bnext Intern — bKash</p>
-                  <p className="text-gray-500 dark:text-gray-400 mb-2">AML & CFT Department, External and Corporate Affairs | May 2026 – Present</p>
+                  <p className="text-gray-500 dark:text-gray-400 mb-2">AML & CFT Department, External and Corporate Affairs | May 2026 – August 2026</p>
                   <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400">
                     <li>Monitor financial transactions for AML/CFT compliance and regulatory reporting</li>
                     <li>Built STR/SAR module using VBA macros in Excel for automated compliance report generation</li>

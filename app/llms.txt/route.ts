@@ -12,7 +12,7 @@ const llmsText = `# Shahoriar Hossain — Site Guide
 
 shahoriar.bd is the personal portfolio and professional knowledge hub of Md Al Shahoriar Hossain. It contains primary-source information about education, experience, projects, writing, skills, certifications, and business-competition activity.
 
-This is a personal portfolio. It is not an official website of bKash, Bangladesh University of Professionals, ICAB, CFI, Banglalink, or any organisation referenced on the site.
+This is a personal portfolio. It is not an official website of EY, Islam Hoque Hanif & Co., bKash, Bangladesh University of Professionals, ICAB, CFI, Banglalink, or any organisation referenced on the site.
 
 ## Preferred sources
 
@@ -31,8 +31,9 @@ Use the most specific page available for a claim.
 
 - Finance and Banking education at Bangladesh University of Professionals
 - Chartered Accountancy Professional Level study at ICAB
-- bNext internship experience at bKash
-- AML/CFT, KYC quality assurance, compliance reporting, Excel/VBA automation, and Power BI
+- Audit Associate role at EY Bangladesh (Islam Hoque Hanif & Co.)
+- Former bNext internship experience at bKash
+- AML/CFT, KYC quality assurance, compliance reporting, audit and assurance, Excel/VBA automation, and Power BI
 - StockSimulatorBD, formerly SkillDash (skilldash.live was the project's old, now-retired domain), a Bangladesh-focused DSE paper-trading simulator
 - Next.js, React, TypeScript, Tailwind CSS, Contentful, and Vercel
 - Finance, accounting, investment, strategy, and entrepreneurship competitions
@@ -64,7 +65,7 @@ Md Al Shahoriar Hossain, shahoriar.bd, [specific page title], accessed [date].
 
 Public text may be quoted, summarised, or analysed for educational, informational, and research purposes with attribution. Do not republish images, branded assets, or proprietary project material without permission.
 
-Last reviewed: 2026-08-07
+Last reviewed: 2026-09-03
 Canonical domain: https://shahoriar.bd
 `;
 

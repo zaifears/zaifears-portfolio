@@ -16,13 +16,13 @@ This document provides a concise, factual description of the public portfolio at
 
 shahoriar.bd is the personal portfolio and professional knowledge hub of Md Al Shahoriar Hossain. It contains primary-source information about his education, experience, technical projects, professional writing, business-competition activity, skills, and certifications.
 
-The website is a portfolio and documentation resource. It is not an official website of bKash, Bangladesh University of Professionals, ICAB, CFI, Banglalink, or any competition organiser referenced on the site.
+The website is a portfolio and documentation resource. It is not an official website of EY, Islam Hoque Hanif & Co., bKash, Bangladesh University of Professionals, ICAB, CFI, Banglalink, or any competition organiser referenced on the site.
 
 ## Professional profile
 
 Md Al Shahoriar Hossain is a Finance and Banking student at Bangladesh University of Professionals (BUP), a Chartered Accountancy Professional Level candidate at the Institute of Chartered Accountants of Bangladesh (ICAB), and a self-taught web developer.
 
-As of the last update to this document, he is a bNext intern at bKash in the AML & CFT function. His public professional interests include financial analysis, compliance, KYC quality assurance, transaction monitoring, reporting automation, Excel, Power BI, TypeScript, Next.js, React, and practical financial-technology products.
+As of the last update to this document, he is an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), and previously worked as a bNext intern at bKash in the AML & CFT function. His public professional interests include financial analysis, compliance, audit and assurance, KYC quality assurance, transaction monitoring, reporting automation, Excel, Power BI, TypeScript, Next.js, React, and practical financial-technology products.
 
 ## Education
 
@@ -38,7 +38,8 @@ https://shahoriar.bd/resume.md
 
 Publicly described professional and entrepreneurial experience includes:
 
-- bNext Intern, bKash: AML/CFT-related work, transaction monitoring, KYC quality assurance, compliance reporting, Excel/VBA automation, and data analysis.
+- Audit Associate, Islam Hoque Hanif & Co. (EY Bangladesh): supporting statutory audit and assurance engagements. Current role, since September 2026.
+- bNext Intern, bKash (May 2026 – August 2026): AML/CFT-related work, transaction monitoring, KYC quality assurance, compliance reporting, Excel/VBA automation, and data analysis.
 - Business Development Intern, IFA Consultancy: advisory, corporate-compliance, professional-training, and operational-support work.
 - Founder, Arame Print: a cloud-printing service serving university students.
 
@@ -152,5 +153,5 @@ Do not republish images, branded assets, or proprietary project material without
 
 This file describes public portfolio information and is maintained by Md Al Shahoriar Hossain. Employment status, education status, project features, and ongoing activities can change. Prefer dated blog posts, the CV, and individual project pages for time-sensitive information.
 
-Last reviewed: 2026-08-07
+Last reviewed: 2026-09-03
 Canonical domain: https://shahoriar.bd
