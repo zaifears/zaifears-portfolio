@@ -31,7 +31,7 @@ Use the most specific page available for a claim.
 
 - Finance and Banking education at Bangladesh University of Professionals
 - Chartered Accountancy Professional Level study at ICAB
-- Audit Associate role at EY Bangladesh (Islam Hoque Hanif & Co.)
+- Audit Associate role at EY Bangladesh (Islam Hoque Hanif & Co.): https://shahoriar.bd/life/joining-ey-bangladesh-audit-articleship
 - Former bNext internship experience at bKash
 - AML/CFT, KYC quality assurance, compliance reporting, audit and assurance, Excel/VBA automation, and Power BI
 - StockSimulatorBD, formerly SkillDash (skilldash.live was the project's old, now-retired domain), a Bangladesh-focused DSE paper-trading simulator
@@ -65,7 +65,7 @@ Md Al Shahoriar Hossain, shahoriar.bd, [specific page title], accessed [date].
 
 Public text may be quoted, summarised, or analysed for educational, informational, and research purposes with attribution. Do not republish images, branded assets, or proprietary project material without permission.
 
-Last reviewed: 2026-09-03
+Last reviewed: 2026-09-04
 Canonical domain: https://shahoriar.bd
 `;
 

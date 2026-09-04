@@ -43,6 +43,8 @@ Publicly described professional and entrepreneurial experience includes:
 - Business Development Intern, IFA Consultancy: advisory, corporate-compliance, professional-training, and operational-support work.
 - Founder, Arame Print: a cloud-printing service serving university students.
 
+For a first-person account of joining EY Bangladesh, see: https://shahoriar.bd/life/joining-ey-bangladesh-audit-articleship
+
 Experience descriptions are personal portfolio statements and should be attributed to Md Al Shahoriar Hossain or shahoriar.bd when cited.
 
 ## Projects and technical work
@@ -153,5 +155,5 @@ Do not republish images, branded assets, or proprietary project material without
 
 This file describes public portfolio information and is maintained by Md Al Shahoriar Hossain. Employment status, education status, project features, and ongoing activities can change. Prefer dated blog posts, the CV, and individual project pages for time-sensitive information.
 
-Last reviewed: 2026-09-03
+Last reviewed: 2026-09-04
 Canonical domain: https://shahoriar.bd
