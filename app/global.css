@@ -17,7 +17,17 @@
   --sh-entity: #e25a1c;
 }
 
-.dark:root {
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sh-class: #4c97f8;
+    --sh-identifier: #ffffff;
+    --sh-keyword: #f47067;
+    --sh-string: #0fa295;
+  }
+}
+
+:is(.dark, [data-theme='dark']) :root,
+:root.dark {
   --sh-class: #4c97f8;
   --sh-identifier: #ffffff;
   --sh-keyword: #f47067;
@@ -98,24 +108,22 @@ select {
 }
 
 .prose a {
+  color: #2563eb;
   text-decoration-line: underline;
-  text-decoration-color: #a3a3a3;
+  text-decoration-color: #93c5fd;
   text-decoration-thickness: 0.1em;
   text-underline-offset: 0.125em;
   transition: all 150ms ease;
 }
 
-.dark .prose a {
-  text-decoration-color: #525252;
+.prose a:hover {
+  color: #1d4ed8;
+  text-decoration-color: #2563eb;
 }
 
 .prose .anchor::after {
   color: #d4d4d4;
   content: '#';
-}
-
-.dark .prose .anchor::after {
-  color: #404040;
 }
 
 .prose pre {
@@ -125,22 +133,21 @@ select {
   background: #fafafa;
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
-}
-
-.dark .prose pre {
-  border-color: #171717;
-  background: #171717;
+  color: #1f2937;
 }
 
 .prose code {
-  border-radius: 0.5rem;
-  padding: 0.125rem 0.25rem;
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.375rem;
+  background-color: #f3f4f6;
+  color: #1f2937;
 }
 
 .prose pre code {
   border: initial;
   padding: 0;
   line-height: 1.5;
+  background: transparent;
 }
 
 .prose code span {
@@ -154,62 +161,186 @@ select {
 .prose p {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  color: #262626;
-}
-
-.dark .prose p {
-  color: #e5e5e5;
+  color: #374151;
 }
 
 .prose h1 {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   font-size: 2.25rem;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: -0.025em;
+  color: #111827;
 }
 
 .prose h2 {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-  font-size: 1.25rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: 700;
   letter-spacing: -0.025em;
+  color: #111827;
 }
 
 .prose h3 {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.025em;
+  color: #111827;
 }
 
 .prose h4 {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.025em;
+  color: #111827;
 }
 
-.prose strong {
-  font-weight: 500;
+.prose strong,
+.prose b {
+  font-weight: 600;
+  color: #111827;
+}
+
+.prose blockquote {
+  border-left: 4px solid #3b82f6;
+  background-color: rgba(239, 246, 255, 0.5);
+  padding: 0.5rem 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #374151;
 }
 
 .prose ul {
   list-style-type: disc;
   padding-left: 1.5rem;
+  color: #374151;
 }
 
 .prose ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
+  color: #374151;
+}
+
+.prose li::marker {
+  color: #3b82f6;
 }
 
 .prose > :first-child {
   margin-top: 1.25em !important;
   margin-bottom: 1.25em !important;
+}
+
+/* Dark mode typography: handles both prefers-color-scheme AND .dark / [data-theme="dark"] class */
+@media (prefers-color-scheme: dark) {
+  .prose a {
+    color: #60a5fa;
+    text-decoration-color: #1e40af;
+  }
+
+  .prose a:hover {
+    color: #93c5fd;
+    text-decoration-color: #60a5fa;
+  }
+
+  .prose .anchor::after {
+    color: #404040;
+  }
+
+  .prose pre {
+    border-color: #1f2937;
+    background: #111827;
+    color: #f3f4f6;
+  }
+
+  .prose code {
+    background-color: #1f2937;
+    color: #e5e7eb;
+  }
+
+  .prose p {
+    color: #d1d5db;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    color: #ffffff;
+  }
+
+  .prose strong,
+  .prose b {
+    color: #ffffff;
+  }
+
+  .prose blockquote {
+    border-color: #3b82f6;
+    background-color: rgba(30, 58, 138, 0.15);
+    color: #d1d5db;
+  }
+
+  .prose ul,
+  .prose ol {
+    color: #d1d5db;
+  }
+}
+
+:is(.dark, [data-theme='dark']) .prose a {
+  color: #60a5fa;
+  text-decoration-color: #1e40af;
+}
+
+:is(.dark, [data-theme='dark']) .prose a:hover {
+  color: #93c5fd;
+  text-decoration-color: #60a5fa;
+}
+
+:is(.dark, [data-theme='dark']) .prose .anchor::after {
+  color: #404040;
+}
+
+:is(.dark, [data-theme='dark']) .prose pre {
+  border-color: #1f2937;
+  background: #111827;
+  color: #f3f4f6;
+}
+
+:is(.dark, [data-theme='dark']) .prose code {
+  background-color: #1f2937;
+  color: #e5e7eb;
+}
+
+:is(.dark, [data-theme='dark']) .prose p {
+  color: #d1d5db;
+}
+
+:is(.dark, [data-theme='dark']) .prose h1,
+:is(.dark, [data-theme='dark']) .prose h2,
+:is(.dark, [data-theme='dark']) .prose h3,
+:is(.dark, [data-theme='dark']) .prose h4 {
+  color: #ffffff;
+}
+
+:is(.dark, [data-theme='dark']) .prose strong,
+:is(.dark, [data-theme='dark']) .prose b {
+  color: #ffffff;
+}
+
+:is(.dark, [data-theme='dark']) .prose blockquote {
+  border-color: #3b82f6;
+  background-color: rgba(30, 58, 138, 0.15);
+  color: #d1d5db;
+}
+
+:is(.dark, [data-theme='dark']) .prose ul,
+:is(.dark, [data-theme='dark']) .prose ol {
+  color: #d1d5db;
 }
 
 pre::-webkit-scrollbar {

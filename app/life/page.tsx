@@ -138,7 +138,7 @@ export default async function LifePage() {
               <h3 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 mb-4 md:mb-6 line-clamp-3">
                 {latestEvent.fields.title}
               </h3>
-              <p className="text-lg text-gray-600 dark:text-neutral-300 mb-8 line-clamp-3 md:line-clamp-4 wrap-break-word">
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 line-clamp-3 md:line-clamp-4 break-words">
                 {latestEvent.fields.content ? documentToPlainTextString(latestEvent.fields.content).substring(0, 300) : ''}
               </p>
               <div className="mt-auto inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
@@ -181,10 +181,10 @@ export default async function LifePage() {
                         {new Date(event.fields.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                       </time>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 mb-3 line-clamp-2 wrap-break-word">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 mb-3 line-clamp-2 break-words">
                        {event.fields.title}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-neutral-400 line-clamp-3 mb-6 flex-1 wrap-break-word">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 mb-6 flex-1 break-words">
                       {event.fields.content ? documentToPlainTextString(event.fields.content).substring(0, 200) : ''}
                     </p>
                     <div className="flex items-center text-sm text-blue-600 dark:text-blue-400 font-semibold group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">

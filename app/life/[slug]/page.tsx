@@ -7,6 +7,7 @@ import { documentToPlainTextString } from '@contentful/rich-text-plain-text-rend
 import {
   BLOCKS,
   INLINES,
+  MARKS,
   type Document,
   type Node,
 } from '@contentful/rich-text-types';
@@ -332,7 +333,120 @@ export default async function LifePostPage({
     event.fields.coverImage?.fields.file?.details?.image?.height || 630;
 
   const renderOptions = {
+    renderMark: {
+      [MARKS.BOLD]: (text: ReactNode) => (
+        <strong className="font-semibold text-gray-900 dark:text-white">
+          {text}
+        </strong>
+      ),
+      [MARKS.ITALIC]: (text: ReactNode) => (
+        <em className="italic">{text}</em>
+      ),
+      [MARKS.UNDERLINE]: (text: ReactNode) => (
+        <u className="underline">{text}</u>
+      ),
+      [MARKS.CODE]: (text: ReactNode) => (
+        <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+          {text}
+        </code>
+      ),
+    },
+
     renderNode: {
+      [BLOCKS.PARAGRAPH]: (_node: Node, children: ReactNode) => (
+        <p className="my-4 leading-relaxed text-gray-700 dark:text-gray-300">
+          {children}
+        </p>
+      ),
+
+      [BLOCKS.HEADING_1]: (_node: Node, children: ReactNode) => (
+        <h1 className="mb-4 mt-12 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+          {children}
+        </h1>
+      ),
+
+      [BLOCKS.HEADING_2]: (_node: Node, children: ReactNode) => (
+        <h2 className="mb-4 mt-12 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          {children}
+        </h2>
+      ),
+
+      [BLOCKS.HEADING_3]: (_node: Node, children: ReactNode) => (
+        <h3 className="mb-3 mt-8 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+          {children}
+        </h3>
+      ),
+
+      [BLOCKS.HEADING_4]: (_node: Node, children: ReactNode) => (
+        <h4 className="mb-2 mt-6 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+          {children}
+        </h4>
+      ),
+
+      [BLOCKS.HEADING_5]: (_node: Node, children: ReactNode) => (
+        <h5 className="mb-2 mt-4 text-base font-bold tracking-tight text-gray-900 dark:text-white">
+          {children}
+        </h5>
+      ),
+
+      [BLOCKS.HEADING_6]: (_node: Node, children: ReactNode) => (
+        <h6 className="mb-2 mt-4 text-sm font-bold tracking-tight text-gray-900 dark:text-white">
+          {children}
+        </h6>
+      ),
+
+      [BLOCKS.UL_LIST]: (_node: Node, children: ReactNode) => (
+        <ul className="my-4 list-disc space-y-2 pl-6 text-gray-700 marker:text-blue-500 dark:text-gray-300">
+          {children}
+        </ul>
+      ),
+
+      [BLOCKS.OL_LIST]: (_node: Node, children: ReactNode) => (
+        <ol className="my-4 list-decimal space-y-2 pl-6 text-gray-700 marker:text-blue-500 dark:text-gray-300">
+          {children}
+        </ol>
+      ),
+
+      [BLOCKS.LIST_ITEM]: (_node: Node, children: ReactNode) => (
+        <li className="leading-relaxed">{children}</li>
+      ),
+
+      [BLOCKS.QUOTE]: (_node: Node, children: ReactNode) => (
+        <blockquote className="my-6 rounded-r-lg border-l-4 border-blue-500 bg-blue-50/50 py-2 pl-4 text-gray-700 not-italic dark:border-blue-400 dark:bg-blue-900/15 dark:text-gray-300">
+          {children}
+        </blockquote>
+      ),
+
+      [BLOCKS.HR]: () => (
+        <hr className="my-8 border-gray-200 dark:border-gray-800" />
+      ),
+
+      [BLOCKS.TABLE]: (_node: Node, children: ReactNode) => (
+        <div className="my-6 overflow-x-auto">
+          <table className="w-full border-collapse border border-gray-200 text-left text-sm text-gray-700 dark:border-gray-800 dark:text-gray-300">
+            {children}
+          </table>
+        </div>
+      ),
+
+      [BLOCKS.TABLE_ROW]: (_node: Node, children: ReactNode) => (
+        <tr className="border-b border-gray-200 dark:border-gray-800">
+          {children}
+        </tr>
+      ),
+
+      [BLOCKS.TABLE_HEADER_CELL]: (_node: Node, children: ReactNode) => (
+        <th className="border border-gray-200 bg-gray-50 p-3 font-semibold text-gray-900 dark:border-gray-800 dark:bg-gray-800/60 dark:text-white">
+          {children}
+        </th>
+      ),
+
+      [BLOCKS.TABLE_CELL]: (_node: Node, children: ReactNode) => (
+        <td className="border border-gray-200 p-3 text-gray-700 dark:border-gray-800 dark:text-gray-300">
+          {children}
+        </td>
+      ),
+
       [BLOCKS.EMBEDDED_ENTRY]: (node: Node) => {
         const target = node.data?.target;
 
@@ -399,7 +513,7 @@ export default async function LifePostPage({
               className="h-auto w-full rounded-xl border border-gray-200 dark:border-gray-800"
             />
             {target.fields?.title && (
-              <figcaption className="mt-3 text-center text-sm text-gray-400 dark:text-gray-500">
+              <figcaption className="mt-3 text-center text-sm text-gray-400 dark:text-gray-400">
                 {target.fields.title}
               </figcaption>
             )}
@@ -422,6 +536,7 @@ export default async function LifePostPage({
         return (
           <a
             href={uri}
+            className="font-medium text-blue-600 underline underline-offset-2 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
             {...(!isInternalLink
               ? {
                   target: '_blank',
@@ -617,7 +732,7 @@ export default async function LifePostPage({
           </div>
 
           {event.fields.coverImage?.fields.title && (
-            <figcaption className="mt-3 text-center text-sm text-gray-400 dark:text-gray-500">
+            <figcaption className="mt-3 text-center text-sm text-gray-400 dark:text-gray-400">
               {event.fields.coverImage.fields.title}
             </figcaption>
           )}
@@ -625,15 +740,7 @@ export default async function LifePostPage({
       )}
 
       <div
-        className="prose prose-lg prose-gray max-w-none dark:prose-invert
-          prose-headings:text-left prose-headings:font-bold prose-headings:tracking-tight
-          prose-h2:mb-4 prose-h2:mt-12 prose-h2:text-2xl
-          prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-xl
-          prose-p:leading-relaxed prose-p:text-gray-700 dark:prose-p:text-gray-300
-          prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline dark:prose-a:text-blue-400
-          prose-img:h-auto prose-img:max-w-full prose-img:rounded-xl prose-img:border prose-img:border-gray-200 dark:prose-img:border-gray-800
-          prose-blockquote:rounded-r-lg prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50/50 prose-blockquote:py-1 prose-blockquote:not-italic dark:prose-blockquote:bg-blue-900/10
-          prose-li:marker:text-blue-500
+        className="prose max-w-none text-gray-700 dark:text-gray-300 leading-relaxed
           [&_iframe]:max-w-full [&_pre]:overflow-x-auto [&_table]:overflow-x-auto"
       >
         {documentToReactComponents(event.fields.content, renderOptions)}
