@@ -121,6 +121,9 @@ export default function ProjectsContent() {
               </div>
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
+              <p className="font-medium text-gray-800 dark:text-gray-200">
+                A location-based alarm for Android, which helps you wake up at the right place.
+              </p>
               <p>
                 I kept missing my stop on long bus rides in Dhaka, and a normal alarm cannot help
                 with that since you never know exactly when you will arrive.

@@ -7,7 +7,7 @@ const baseUrl = 'https://shahoriar.bd';
 export const metadata: Metadata = {
   title: 'LocReminder Privacy Policy',
   description:
-    'Privacy policy for the LocReminder Android app: what data it stores, why each permission is needed, and why none of it ever leaves your phone.',
+    'Privacy policy for LocReminder — a location-based alarm for Android, which helps you wake up at the right place. Learn what data is stored on-device, why permissions are needed, and why none of it ever leaves your phone.',
   alternates: {
     canonical: `${baseUrl}/projects/locreminder/policy`,
   },
@@ -19,29 +19,57 @@ const storedData: { item: string; why: string }[] = [
   { item: 'Theme preference', why: 'To remember light or dark mode' },
 ];
 
-const permissions: { name: string; why: string }[] = [
+const permissions: { name: string; code: string; why: string }[] = [
   {
-    name: 'Location (fine and coarse)',
-    why: 'To measure the distance between you and your saved destination',
+    name: 'Location',
+    code: 'ACCESS_FINE_LOCATION / ACCESS_COARSE_LOCATION',
+    why: 'Measure distance to your destination',
   },
   {
     name: 'Background location',
-    why: 'So the alarm keeps working while the app is closed and your screen is off',
+    code: 'ACCESS_BACKGROUND_LOCATION',
+    why: 'Let the alarm work while the app is closed',
   },
   {
-    name: 'Foreground service, location and media playback',
-    why: 'Keeps the watcher running and the alarm sound playing without being killed',
+    name: 'Foreground service',
+    code: 'FOREGROUND_SERVICE + _LOCATION + _MEDIA_PLAYBACK',
+    why: 'Keep watching, and play the alarm, without being killed',
   },
-  { name: 'Notifications', why: 'To show the alarm and the "watching" status' },
-  { name: 'Full screen intent', why: 'To show the alarm over your lock screen' },
-  { name: 'Wake lock', why: 'Keeps the phone awake long enough to ring' },
-  { name: 'Vibrate', why: 'Vibrates along with the alarm' },
-  { name: 'Receive boot completed', why: 'Restores your alarms after the phone restarts' },
   {
-    name: 'Ignore battery optimizations',
-    why: 'Asks to be exempt from battery limits so alarms are not delayed',
+    name: 'Notifications',
+    code: 'POST_NOTIFICATIONS',
+    why: 'Show the alarm and the "watching" status',
   },
-  { name: 'Internet', why: 'To download map tiles and search for places' },
+  {
+    name: 'Full screen intent',
+    code: 'USE_FULL_SCREEN_INTENT',
+    why: 'Show the alarm over your lock screen',
+  },
+  {
+    name: 'Wake lock',
+    code: 'WAKE_LOCK',
+    why: 'Stay awake long enough to ring',
+  },
+  {
+    name: 'Vibrate',
+    code: 'VIBRATE',
+    why: 'Vibrate with the alarm',
+  },
+  {
+    name: 'Receive boot completed',
+    code: 'RECEIVE_BOOT_COMPLETED',
+    why: 'Restore your alarms after a restart',
+  },
+  {
+    name: 'Battery optimizations',
+    code: 'REQUEST_IGNORE_BATTERY_OPTIMIZATIONS',
+    why: 'Ask to be exempt so alarms are not delayed',
+  },
+  {
+    name: 'Internet',
+    code: 'INTERNET',
+    why: 'Download map tiles and search for places',
+  },
 ];
 
 function Card({ children }: { children: React.ReactNode }) {
@@ -75,7 +103,10 @@ export default function LocReminderPolicyPage() {
             LocReminder
           </p>
           <h1 className="text-3xl md:text-4xl font-bold mb-3">Privacy Policy</h1>
-          <p className="text-gray-500 dark:text-gray-400">Last updated 15 August 2026</p>
+          <p className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+            LocReminder is a location-based alarm for Android, which helps you wake up at the right place.
+          </p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">Last updated 9 September 2026</p>
         </div>
 
         <div className="space-y-6">
@@ -91,8 +122,8 @@ export default function LocReminderPolicyPage() {
           <Card>
             <CardHeading>What the app stores</CardHeading>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-              Everything below is stored only on your device, inside the app&apos;s private
-              storage, and is deleted the moment you uninstall it.
+              Everything below is stored <strong className="text-gray-900 dark:text-white">only on your device</strong>, inside the app&apos;s private
+              storage, and is deleted the moment you uninstall it:
             </p>
             <div className="divide-y divide-gray-200 dark:divide-gray-800">
               {storedData.map((row) => (
@@ -107,18 +138,18 @@ export default function LocReminderPolicyPage() {
           <Card>
             <CardHeading>Location</CardHeading>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
-              LocReminder uses your location solely to work out how far you are from a
+              LocReminder uses your location <strong className="text-gray-900 dark:text-white">solely</strong> to work out how far you are from a
               destination you have saved, and to ring an alarm when you arrive.
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-              <li>Your location is processed on your device and is never sent anywhere.</li>
+              <li>Your location is processed on your device and is <strong className="text-gray-900 dark:text-white">never transmitted</strong> anywhere.</li>
               <li>
-                It is not stored. Each position is compared against your saved destinations and
+                It is <strong className="text-gray-900 dark:text-white">not stored</strong> — each position is compared against your saved destinations and
                 then discarded.
               </li>
               <li>
-                Background access is needed because the whole point of the alarm is to work while
-                the app is closed and the screen is off.
+                Background location access is required because the alarm&apos;s entire purpose is to work while
+                the app is closed and your screen is off.
               </li>
               <li>Location access stops entirely once you have no active alarms.</li>
             </ul>
@@ -126,38 +157,110 @@ export default function LocReminderPolicyPage() {
 
           <Card>
             <CardHeading>Network connections</CardHeading>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
-              The app talks to exactly one third party:{' '}
-              <a
-                href="https://osmfoundation.org/wiki/Privacy_Policy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
-              >
-                OpenStreetMap
-              </a>{' '}
-              (<code className="text-xs bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">tile.openstreetmap.org</code>,{' '}
-              <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">nominatim.openstreetmap.org</code>),
-              to download map tiles and to search for places by name. Those requests reveal your
-              IP address and the map area or search term to the OpenStreetMap Foundation, the
-              same as with any map app.
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+              <strong className="text-gray-900 dark:text-white">The alarm makes none.</strong> Working out that you have
+              arrived uses GPS, which is a receive-only radio, and the comparison happens on your phone.
+              It rings with no connection at all.
             </p>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Map tiles are only requested for areas you actually look at, and a search is only
-              sent when you type one. Your saved destinations are never sent. There is no other
-              network connection, and no LocReminder server.
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+              Two parts of the app do use the network, and only while you are using them. Both are free OpenStreetMap-based services run by other people:
             </p>
+
+            <div className="space-y-3 mb-4">
+              <div className="p-4 rounded-xl bg-white/70 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/60">
+                <p className="font-semibold text-gray-900 dark:text-white mb-1 text-sm">
+                  <a
+                    href="https://osmfoundation.org/wiki/Privacy_Policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    OpenStreetMap Foundation
+                  </a>{' '}
+                  <span className="font-mono text-xs text-gray-500 dark:text-gray-400 font-normal">
+                    (tile.openstreetmap.org, nominatim.openstreetmap.org)
+                  </span>
+                </p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  Map images, converting a coordinate you have picked into an address, and place search when Photon is unavailable or finds nothing. See the{' '}
+                  <a
+                    href="https://osmfoundation.org/wiki/Privacy_Policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    OpenStreetMap privacy policy
+                  </a>
+                  .
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-white/70 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/60">
+                <p className="font-semibold text-gray-900 dark:text-white mb-1 text-sm">
+                  <a
+                    href="https://github.com/komoot/photon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    Photon
+                  </a>{' '}
+                  <span className="font-mono text-xs text-gray-500 dark:text-gray-400 font-normal">
+                    (photon.komoot.io)
+                  </span>
+                </p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  Place search as you type. Photon is free software (Apache 2.0) and its public instance is provided by Komoot. See the{' '}
+                  <a
+                    href="https://github.com/komoot/photon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    Photon project
+                  </a>
+                  .
+                </p>
+              </div>
+            </div>
+
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm mb-3">
+              As with any map application, these requests necessarily reveal your IP address to whoever runs the service, along with the map area you are looking at or the words you typed. When you search, the app also sends the approximate centre of the map you are looking at, so that nearby places rank above distant ones with similar names.
+            </p>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm mb-4">
+              Be clear about what that last part means: the map opens centred on you, so if you search without panning first, the coordinate sent as the search bias is roughly where you are. It is sent as a hint for ranking, not stored, and it moves wherever you move the map.
+            </p>
+
+            <div className="border-t border-gray-200 dark:border-gray-800 pt-4 space-y-3">
+              <p className="font-semibold text-gray-900 dark:text-white text-sm">
+                What is <span className="underline">not</span> sent, to either of them or anywhere else:
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                <li>Your saved destinations</li>
+                <li>Your GPS position itself, at any point, to anybody</li>
+                <li>Anything at all once a search is over</li>
+              </ul>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
+                Map images are only requested for areas you actually look at, and are then kept on your phone for a month so the same ones are not fetched again. A search is only sent while you are typing one. Typing coordinates directly sends nothing at all.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm font-medium">
+                There is no LocReminder server, and no other network connection is made.
+              </p>
+            </div>
           </Card>
 
           <Card>
             <CardHeading>Permissions and why each is needed</CardHeading>
             <div className="divide-y divide-gray-200 dark:divide-gray-800">
               {permissions.map((p) => (
-                <div key={p.name} className="py-3 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4">
-                  <p className="font-medium text-gray-900 dark:text-white sm:w-2/5 shrink-0">
-                    {p.name}
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{p.why}</p>
+                <div key={p.code} className="py-3 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4">
+                  <div className="sm:w-1/2 shrink-0">
+                    <p className="font-medium text-gray-900 dark:text-white">{p.name}</p>
+                    <code className="text-xs text-blue-600 dark:text-blue-400 font-mono">
+                      {p.code}
+                    </code>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 sm:w-1/2">{p.why}</p>
                 </div>
               ))}
             </div>
@@ -173,8 +276,8 @@ export default function LocReminderPolicyPage() {
           <Card>
             <CardHeading>Changes to this policy</CardHeading>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Any change to this policy will appear on this page, and the history of it is public
-              in the project&apos;s{' '}
+              Any change to this policy will appear in this file and on this page, which is public in the
+              project&apos;s{' '}
               <a
                 href="https://github.com/zaifears/locreminder/commits/main/PRIVACY.md"
                 target="_blank"
@@ -220,6 +323,27 @@ export default function LocReminderPolicyPage() {
                   OpenStreetMap
                 </a>{' '}
                 contributors, under the Open Database License.
+              </p>
+              <p>
+                <span className="font-medium text-gray-900 dark:text-white">Search service:</span>{' '}
+                <a
+                  href="https://github.com/komoot/photon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Photon
+                </a>{' '}
+                (Apache 2.0), public instance hosted by{' '}
+                <a
+                  href="https://www.komoot.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Komoot
+                </a>
+                .
               </p>
             </div>
           </Card>
