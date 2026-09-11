@@ -1,15 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Confetti from 'react-confetti';
-
-const luckOptions = [
-  "Love you more (⁠づ⁠｡⁠◕⁠‿⁠‿⁠◕⁠｡⁠)⁠づ",
-  "Hug you (⁠つ⁠≧⁠▽⁠≦⁠)⁠つ",
-  "Smooch you (⁠つ⁠✧⁠ω⁠✧⁠)⁠つ",
-  "Eat you (⁠/⁠･⁠ω⁠･⁠(⁠-⁠ω⁠-⁠)",
-];
 
 const slideshowImages = [
   '/shoily/we.jpg',
@@ -17,9 +10,10 @@ const slideshowImages = [
   '/shoily/we3.jpg',
 ];
 
+type Screen = 'question' | 'rejected' | 'revealed';
+
 export default function SecretBirthdayPage() {
-  const [isRevealed, setIsRevealed] = useState(false);
-  const [luckyChoice, setLuckyChoice] = useState('');
+  const [screen, setScreen] = useState<Screen>('question');
   const [isClient, setIsClient] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -27,48 +21,55 @@ export default function SecretBirthdayPage() {
   useEffect(() => {
     setIsClient(true);
 
-    if (isRevealed) {
-      const slideshowInterval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) =>
-          (prevIndex + 1) % slideshowImages.length
-        );
-      }, 5000); // Change image every 5 seconds
+    if (screen !== 'revealed') return;
 
-      return () => clearInterval(slideshowInterval);
-    }
-  }, [isRevealed]);
+    const slideshowInterval = setInterval(() => {
+      setCurrentImageIndex((previousIndex) =>
+        (previousIndex + 1) % slideshowImages.length
+      );
+    }, 4000);
 
-  const handleRevealClick = () => {
-    setIsRevealed(true);
-    if (audioRef.current) {
-      audioRef.current.play().catch(error => {
-        console.error("Audio playback error:", error);
-      });
-    }
-  };
+    return () => clearInterval(slideshowInterval);
+  }, [screen]);
 
-  const handleTryLuck = () => {
-    const randomIndex = Math.floor(Math.random() * luckOptions.length);
-    setLuckyChoice(luckOptions[randomIndex]);
+  const handleYes = () => {
+    setScreen('revealed');
+    audioRef.current?.play().catch((error) => {
+      console.error('Audio playback error:', error);
+    });
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center p-4 bg-pink-50 dark:bg-gray-900">
       <audio ref={audioRef} src="/shoily/happy-birthday.mp3" loop />
 
-      {!isRevealed ? (
+      {screen === 'question' && (
         <div className="text-center">
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-6">
-            A Special Surprise for Shoily
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-8">
+            Will you marry me?
           </h1>
-          <button
-            onClick={handleRevealClick}
-            className="px-8 py-4 bg-pink-500 text-white font-bold rounded-full shadow-lg hover:bg-pink-600 transition-transform transform hover:scale-105 text-xl"
-          >
-            Click to Open Your Gift 💝
-          </button>
+          <div className="flex flex-wrap justify-center gap-4">
+            <button
+              onClick={handleYes}
+              className="px-10 py-4 bg-pink-500 text-white font-bold rounded-full shadow-lg hover:bg-pink-600 transition-transform hover:scale-105 text-xl"
+            >
+              Yes 💖
+            </button>
+            <button
+              onClick={() => setScreen('rejected')}
+              className="px-10 py-4 bg-gray-700 text-white font-bold rounded-full shadow-lg hover:bg-gray-800 transition-transform hover:scale-105 text-xl"
+            >
+              No
+            </button>
+          </div>
         </div>
-      ) : (
+      )}
+
+      {screen === 'rejected' && (
+        <h1 className="text-5xl md:text-7xl font-bold text-pink-600">Fuck You</h1>
+      )}
+
+      {screen === 'revealed' && (
         <>
           {isClient && (
             <Confetti
@@ -80,50 +81,33 @@ export default function SecretBirthdayPage() {
             />
           )}
           <div className="animate-fade-in-down w-full max-w-4xl">
-            <h1 className="text-4xl md:text-6xl font-bold text-pink-500 mb-4">
-              Happy Birthday, Shoily!
+            <h1 className="text-4xl md:text-6xl font-bold text-pink-500 mb-8">
+              Happy Birthday Shoily
             </h1>
-            <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-8">
-              This is just a small secret page to show you how much you mean to me.
-            </p>
-            
-            {/* --- UPDATED Slideshow Section --- */}
             <div className="mb-8 flex justify-center">
-              <div className="relative h-80 w-full max-w-md rounded-lg overflow-hidden shadow-2xl">
+              <div className="relative h-80 w-full max-w-md overflow-hidden rounded-lg shadow-2xl">
                 {slideshowImages.map((src, index) => (
                   <Image
                     key={src}
                     src={src}
                     alt={`Lovely memory ${index + 1} of us`}
                     fill
-                    className={`
-                      object-cover
-                      transition-opacity duration-1000 ease-in-out
-                      ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}
-                    `}
+                    className={`object-cover transition-opacity duration-1000 ease-in-out ${
+                      index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
                   />
                 ))}
               </div>
             </div>
-            
-            <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-inner mb-12">
-              <h2 className="text-2xl font-semibold mb-3 text-pink-500">A Note For You</h2>
+            <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-inner">
+              <h2 className="text-2xl font-semibold mb-3 text-pink-500">A Special Note For You</h2>
               <p className="text-left text-gray-800 dark:text-gray-200">
-                My dearest Shoily, every day with you is a gift. You bring so much joy and light into my life, like sunshine breaking through the clouds. You are my greatest adventure and my calmest harbor all at once. Thank you for being the wonderful, kind, and brilliant person you are. I hope your birthday is as beautiful as you. I love you more every single day.
+                On this occassion I want to let you know that I truely love you and dearly want to make you mine as my precious wife,
               </p>
-            </div>
-            
-            <div className="max-w-md mx-auto bg-gray-100 dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">I want to...</h3>
-              <div className="text-3xl font-bold text-purple-500 mb-6 h-12 flex items-center justify-center">
-                {luckyChoice}
-              </div>
-              <button 
-                onClick={handleTryLuck}
-                className="px-6 py-3 bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-600 transition-all transform hover:scale-105"
-              >
-                Try Your Luck! ✨
-              </button>
+              <p className="text-left text-gray-800 dark:text-gray-200 mt-4">
+                please accept my request on your precious day as your only guy
+              </p>
+              <p className="text-left text-gray-800 dark:text-gray-200 mt-4">Love you a lot &lt;3</p>
             </div>
           </div>
         </>
