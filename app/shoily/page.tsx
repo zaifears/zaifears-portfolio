@@ -17,6 +17,7 @@ type Screen = 'question' | 'rejected' | 'revealed';
 export default function SecretBirthdayPage() {
   const [screen, setScreen] = useState<Screen>('question');
   const [isClient, setIsClient] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loveAmount, setLoveAmount] = useState(0);
   const [isScratching, setIsScratching] = useState(false);
@@ -31,7 +32,16 @@ export default function SecretBirthdayPage() {
   useEffect(() => {
     setIsClient(true);
 
-    if (screen !== 'revealed') return;
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMotionPreference = () => setPrefersReducedMotion(motionQuery.matches);
+    updateMotionPreference();
+    motionQuery.addEventListener('change', updateMotionPreference);
+
+    return () => motionQuery.removeEventListener('change', updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    if (screen !== 'revealed' || prefersReducedMotion) return;
 
     const slideshowInterval = setInterval(() => {
       setCurrentImageIndex((previousIndex) =>
@@ -40,7 +50,7 @@ export default function SecretBirthdayPage() {
     }, 4000);
 
     return () => clearInterval(slideshowInterval);
-  }, [screen]);
+  }, [screen, prefersReducedMotion]);
 
   useEffect(() => {
     if (screen !== 'revealed' || !scratchCanvasRef.current) return;
@@ -92,6 +102,12 @@ export default function SecretBirthdayPage() {
     if (scratchCountRef.current >= 14) setScratchComplete(true);
   };
 
+  const revealScratch = () => {
+    scratchCountRef.current = 14;
+    setIsScratching(false);
+    setScratchComplete(true);
+  };
+
   const spinWheel = () => {
     if (isSpinning) return;
 
@@ -102,11 +118,11 @@ export default function SecretBirthdayPage() {
     window.setTimeout(() => {
       setWheelResult(prize);
       setIsSpinning(false);
-    }, 3000);
+    }, prefersReducedMotion ? 0 : 3000);
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center p-4 bg-pink-50 dark:bg-gray-900">
+    <main className="min-h-screen flex flex-col items-center justify-center text-center p-4 bg-pink-50 dark:bg-gray-900">
       <audio ref={audioRef} src="/shoily/happy-birthday.mp3" loop />
 
       {screen === 'question' && (
@@ -116,12 +132,14 @@ export default function SecretBirthdayPage() {
           </h1>
           <div className="flex flex-wrap justify-center gap-4">
             <button
+              type="button"
               onClick={handleYes}
               className="px-10 py-4 bg-pink-500 text-white font-bold rounded-full shadow-lg hover:bg-pink-600 transition-transform hover:scale-105 text-xl"
             >
               Yes 💖
             </button>
             <button
+              type="button"
               onClick={() => setScreen('rejected')}
               className="px-10 py-4 bg-gray-700 text-white font-bold rounded-full shadow-lg hover:bg-gray-800 transition-transform hover:scale-105 text-xl"
             >
@@ -137,7 +155,7 @@ export default function SecretBirthdayPage() {
 
       {screen === 'revealed' && (
         <>
-          {isClient && (
+          {isClient && !prefersReducedMotion && (
             <Confetti
               recycle={false}
               numberOfPieces={500}
@@ -158,7 +176,8 @@ export default function SecretBirthdayPage() {
                     src={src}
                     alt={`Lovely memory ${index + 1} of us`}
                     fill
-                    className={`object-cover transition-opacity duration-1000 ease-in-out ${
+                    sizes="(max-width: 768px) 100vw, 448px"
+                    className={`object-cover transition-opacity duration-1000 ease-in-out motion-reduce:transition-none ${
                       index === currentImageIndex ? 'opacity-100' : 'opacity-0'
                     }`}
                   />
@@ -176,21 +195,27 @@ export default function SecretBirthdayPage() {
               <p className="text-left text-gray-800 dark:text-gray-200 mt-4">Love you a lot &lt;3</p>
             </div>
 
-            <section className="max-w-2xl mx-auto mt-8 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
-              <h2 className="text-2xl font-semibold text-pink-500">How much I love you</h2>
+            <section aria-labelledby="love-meter-title" className="max-w-2xl mx-auto mt-8 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+              <h2 id="love-meter-title" className="text-2xl font-semibold text-pink-500">How much I love you</h2>
               <p className="mt-2 text-gray-700 dark:text-gray-300">Tap the heart and find out.</p>
               <button
+                type="button"
                 onClick={addLove}
                 className="mt-5 text-6xl transition-transform hover:scale-125 active:scale-90"
                 aria-label="Add more love"
               >
                 ❤️
               </button>
-              <p className="mt-3 text-3xl font-bold text-pink-500">{loveAmount}%</p>
+              <p aria-live="polite" className="mt-3 text-3xl font-bold text-pink-500">{loveAmount}%</p>
               <div className="mt-4 h-5 w-full overflow-hidden rounded-full bg-pink-100 dark:bg-gray-700">
                 <div
                   className="h-full rounded-full bg-gradient-to-r from-pink-400 to-rose-600 transition-all duration-500"
                   style={{ width: `${Math.min(loveAmount, 100)}%` }}
+                  role="progressbar"
+                  aria-label="Love meter"
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={Math.min(loveAmount, 100)}
                 />
               </div>
               {loveAmount >= 100 && (
@@ -198,8 +223,8 @@ export default function SecretBirthdayPage() {
               )}
             </section>
 
-            <section className="max-w-2xl mx-auto mt-8 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
-              <h2 className="text-2xl font-semibold text-pink-500">A surprise for you</h2>
+            <section aria-labelledby="scratch-card-title" className="max-w-2xl mx-auto mt-8 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+              <h2 id="scratch-card-title" className="text-2xl font-semibold text-pink-500">A surprise for you</h2>
               <p className="mt-2 mb-5 text-gray-700 dark:text-gray-300">Scratch the pink card with your finger.</p>
               <div className="relative mx-auto h-[220px] w-full max-w-sm overflow-hidden rounded-xl bg-gradient-to-br from-rose-500 to-pink-300 shadow-inner">
                 <div className="absolute inset-0 flex items-center justify-center px-6 text-center text-xl font-bold text-white">
@@ -222,16 +247,21 @@ export default function SecretBirthdayPage() {
                   />
                 )}
               </div>
-              {scratchComplete && <p className="mt-4 font-semibold text-pink-500">Surprise unlocked! ✨</p>}
+              {!scratchComplete && (
+                <button type="button" onClick={revealScratch} className="mt-4 text-sm font-semibold text-pink-600 underline underline-offset-4">
+                  Reveal the surprise instead
+                </button>
+              )}
+              {scratchComplete && <p aria-live="polite" className="mt-4 font-semibold text-pink-500">Surprise unlocked! ✨</p>}
             </section>
 
-            <section className="max-w-2xl mx-auto mt-8 mb-8 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
-              <h2 className="text-2xl font-semibold text-pink-500">Spin the romance wheel</h2>
+            <section aria-labelledby="romance-wheel-title" className="max-w-2xl mx-auto mt-8 mb-8 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+              <h2 id="romance-wheel-title" className="text-2xl font-semibold text-pink-500">Spin the romance wheel</h2>
               <p className="mt-2 text-gray-700 dark:text-gray-300">Your next little gift from me is one spin away.</p>
               <div className="relative mx-auto mt-6 w-64 max-w-full">
                 <div className="absolute left-1/2 top-[-10px] z-10 -translate-x-1/2 text-3xl text-pink-600">▼</div>
                 <div
-                  className="aspect-square rounded-full border-8 border-pink-200 shadow-xl transition-transform duration-[3000ms] ease-out"
+                  className={`aspect-square rounded-full border-8 border-pink-200 shadow-xl transition-transform duration-[3000ms] ease-out ${prefersReducedMotion ? 'transition-none' : ''}`}
                   style={{
                     transform: `rotate(${wheelRotation}deg)`,
                     background: 'conic-gradient(#f43f5e 0deg 90deg, #f9a8d4 90deg 180deg, #ec4899 180deg 270deg, #fbcfe8 270deg 360deg)',
@@ -245,17 +275,20 @@ export default function SecretBirthdayPage() {
                 </div>
               </div>
               <button
+                type="button"
                 onClick={spinWheel}
                 disabled={isSpinning}
                 className="mt-6 rounded-full bg-pink-500 px-8 py-3 font-bold text-white shadow-md transition-transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSpinning ? 'Spinning...' : 'Spin the wheel 🎡'}
               </button>
-              {wheelResult && <p className="mt-4 text-xl font-bold text-pink-500">You won: {wheelResult} 💝</p>}
+              <p aria-live="polite" className="mt-4 text-xl font-bold text-pink-500">
+                {wheelResult && `You won: ${wheelResult} 💝`}
+              </p>
             </section>
           </div>
         </>
       )}
-    </div>
+    </main>
   );
 }
