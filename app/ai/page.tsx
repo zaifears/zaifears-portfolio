@@ -270,7 +270,7 @@ export default function AiPage() {
             "@context": "https://schema.org",
             "@type": "ProfilePage",
             "mainEntity": { "@id": "https://shahoriar.bd/#person" },
-            "dateModified": new Date().toISOString().split('T')[0]
+            "dateModified": new Date().toISOString()
           }) }} />
 
         </div>
