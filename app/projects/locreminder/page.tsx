@@ -17,9 +17,9 @@ import {
   ExternalLink,
   Sparkles,
   CheckCircle2,
-  AlertTriangle,
   Smartphone,
-  HelpCircle,
+  RefreshCw,
+  CalendarOff,
 } from 'lucide-react';
 import ScreenshotsGallery from './ScreenshotsGallery';
 
@@ -58,23 +58,23 @@ const howToSteps = [
   {
     step: '1',
     icon: <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true" />,
-    title: 'Search your destination',
+    title: 'Search for where you are going',
     description:
-      'Type a place name, paste GPS coordinates, or drag the map under the pin. Works online or with cached offline maps. No account required.',
+      'Type a place name, paste coordinates, or drag the map under the pin. Works online or with cached offline maps. No account needed.',
   },
   {
     step: '2',
     icon: <Compass className="w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true" />,
     title: 'Choose wake radius',
     description:
-      'Set how early you want to be alerted — anywhere from 100 m to 3 km out — giving you ample time to gather your belongings.',
+      'Anywhere from 100 m to 3 km out. A bigger radius gives you more time to gather your things before arrival.',
   },
   {
     step: '3',
     icon: <Bell className="w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true" />,
-    title: 'Put your phone away & rest',
+    title: 'Put your phone away',
     description:
-      'Sleep on the bus or train. When you arrive, LocReminder rings a real looping alarm with vibration and a full-screen alert over your lock screen.',
+      'When you arrive, the alarm rings — looping sound that plays even on silent, vibration, and a full-screen alert over your lock screen.',
   },
 ];
 
@@ -82,17 +82,27 @@ const useCases = [
   {
     emoji: '😴',
     title: 'Long bus or train rides',
-    text: 'Actually sleep and recover instead of spending the whole journey half-watching for your stop.',
+    text: 'Actually sleep and rest instead of half-watching for your stop the entire journey.',
   },
   {
     emoji: '🌏',
-    title: 'Unfamiliar cities & transit',
-    text: "When you don't know what your landmark or bus stop looks like, let your phone alert you automatically.",
+    title: 'An unfamiliar city',
+    text: 'You do not know what your stop looks like, so let the phone know for you.',
   },
   {
     emoji: '📚',
-    title: 'Commuters & readers',
-    text: 'Read, work, or listen to podcasts without constantly glancing out the window at traffic.',
+    title: 'Commuters',
+    text: 'Read, work, or listen to something without keeping one anxious eye on the route.',
+  },
+  {
+    emoji: '🚗',
+    title: 'Passengers on road trips',
+    text: 'Get woken before the highway turn-off instead of 20 km past it.',
+  },
+  {
+    emoji: '📦',
+    title: 'Pickups and errands',
+    text: 'A nudge when you are near the shop, the post office, or a friend’s place.',
   },
 ];
 
@@ -129,36 +139,68 @@ const features = [
   },
 ];
 
+const architectureLayers = [
+  {
+    icon: <Compass className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
+    title: 'Foreground Location Watcher',
+    text: 'Holds an Android foreground service to stay out of the idle state that defers background tasks. Ignores imprecise fixes so coarse cell tower triangulation cannot ring the alarm kilometres early.',
+  },
+  {
+    icon: <BatteryCharging className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
+    title: 'Adaptive Polling Interval',
+    text: 'Derived continuously rather than tabulated: interval is calculated from remaining distance and travel speed (10s on final approach, 15 minutes when 200 km out). On Android 12+, requests cheaper location tiers when far away.',
+  },
+  {
+    icon: <CalendarOff className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
+    title: 'Zero-Overhead Days Off',
+    text: 'On days when armed alarms are set for other days of the week, the location watcher requests zero GPS fixes, leaving the battery untouched until your active scheduled days.',
+  },
+  {
+    icon: <Bell className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
+    title: 'Native Kotlin Alarm Service',
+    text: 'Loops USAGE_ALARM audio, vibration, wake lock, and full-screen activity over the lock screen. Operates autonomously without needing the Flutter UI engine in memory and auto-stops after 10 minutes.',
+  },
+  {
+    icon: <RefreshCw className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
+    title: 'Watchdog & Boot Recovery',
+    text: 'An inexact allow-while-idle alarm restarts the watcher if aggressive vendor power managers kill it, while a boot receiver restores all alarms after device restarts or app updates.',
+  },
+  {
+    icon: <MapPin className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
+    title: 'Offline Map Caching & Search',
+    text: 'Tiles are cached locally on device for a month, streets around an alarm are saved the moment you set it, and coordinates can be typed directly into search with zero internet connection.',
+  },
+];
+
 const securityTrustPoints = [
   {
     icon: <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
     title: 'Scanned by VirusTotal',
-    text: 'Every APK release is checked by around 70 commercial antivirus engines before publication.',
+    text: 'Every release gets checked by around 70 antivirus engines before it is published, ensuring clean, verifiable builds.',
   },
   {
     icon: <CheckCircle2 className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
     title: 'Signed and verifiable checksums',
-    text: 'Each release carries LocReminder’s cryptographic signature with public SHA-256 hashes to verify file integrity.',
+    text: 'Each release carries LocReminder’s cryptographic signature with published SHA-256 hashes so you can verify download integrity.',
   },
   {
     icon: <Github className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
-    title: '100% Free and Open Source (FOSS)',
-    text: 'Licensed under MIT. Every line of Dart and Kotlin is publicly inspectable and reproducible.',
+    title: 'Open source, all of it (MIT)',
+    text: 'Every line is public and MIT licensed. Nothing is hidden, and you can build the app yourself directly from source.',
   },
   {
     icon: <Lock className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
     title: 'No tracking, no accounts, no server',
-    text: 'No signup, no advertising SDKs, and nowhere for location data to go — it never leaves your phone.',
+    text: 'No analytics, no ads, no sign-up. There is nowhere for your locations to go, so they never leave your phone.',
   },
   {
     icon: <Smartphone className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />,
-    title: 'Works without Google Play Services',
-    text: 'Runs natively on de-Googled devices, LineageOS, Huawei, and Honor phones using OpenStreetMap.',
+    title: 'No Google Play Services required',
+    text: 'Runs natively on de-Googled devices, LineageOS, Huawei, and Honor phones. Map data comes from OpenStreetMap.',
   },
 ];
 
 const badges = [
-  'Latest: v1.9.6',
   'Android 6.0+',
   '100% FOSS · MIT',
   'No ads · No tracking',
@@ -166,7 +208,17 @@ const badges = [
   'OpenStreetMap Offline',
 ];
 
-const techStack = ['Flutter 3.x', 'Dart', 'Kotlin 2.0', 'OpenStreetMap', 'Foreground Service', 'Gradle', 'GitHub Actions'];
+const techStack = [
+  'Flutter 3 · Dart 3',
+  'Native Kotlin Engine',
+  'Material 3',
+  'OpenStreetMap (flutter_map)',
+  'Nominatim Geocoding',
+  'Platform LocationManager',
+  'SharedPreferences',
+  'Gradle 9 · R8 Shrinking',
+  'GitHub Actions CI/CD',
+];
 
 export default function LocReminderPage() {
   return (
@@ -181,7 +233,6 @@ export default function LocReminderPage() {
             url: `${baseUrl}/projects/locreminder`,
             applicationCategory: 'TravelApplication',
             operatingSystem: 'Android 6.0+',
-            softwareVersion: '1.9.6',
             offers: {
               '@type': 'Offer',
               price: '0',
@@ -253,15 +304,12 @@ export default function LocReminderPage() {
               <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
                 LocReminder
               </h1>
-              <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50">
-                v1.9.6
-              </span>
             </div>
             <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold mb-2">
-              Reminds you at the right place
+              Never miss your stop again
             </p>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-2xl leading-relaxed">
-              Sleep on the bus. Remember the errand. It goes off when you arrive.
+              Sleep on the bus. Remember the errand. Drop a pin on your destination and put your phone away — it goes off when you arrive.
             </p>
             <div className="flex flex-wrap justify-center sm:justify-start gap-2">
               {badges.map((b) => (
@@ -285,7 +333,7 @@ export default function LocReminderPage() {
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-md shadow-blue-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
             <Download className="w-4 h-4" aria-hidden="true" />
-            <span>Download APK (53 MB)</span>
+            <span>Download APK (Universal)</span>
             <span className="sr-only">(opens in new tab)</span>
           </a>
 
@@ -376,10 +424,10 @@ export default function LocReminderPage() {
             <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" aria-hidden="true" />
             <div>
               <p className="font-semibold text-gray-900 dark:text-white mb-1">
-                Tip before your first journey
+                Do this before your first real journey
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                Open <strong>Menu &rarr; Alarm reliability</strong> and tap <strong>Run alarm test</strong>. It rings the alarm after 15 seconds so you can lock your screen and confirm audio override gets through. Much better to verify at home than on a train!
+                Open <strong>Menu &rarr; Alarm reliability</strong> and tap <strong>Run alarm test</strong>. It rings the alarm after 15 seconds, so you can lock your phone and confirm it gets through. Much better to find out at home than on a train!
               </p>
             </div>
           </div>
@@ -390,7 +438,7 @@ export default function LocReminderPage() {
           <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">
             Why it exists
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
             {useCases.map((u) => (
               <div
                 key={u.title}
@@ -408,10 +456,10 @@ export default function LocReminderPage() {
           </div>
           <div className="text-gray-700 dark:text-gray-300 leading-relaxed space-y-3 text-sm sm:text-base">
             <p>
-              You know roughly where you are going, but not exactly when you will get there. In congested transit systems like Dhaka, traffic jams and delays make arrival times unpredictable, rendering standard clock alarms useless.
+              You know roughly where you are going, but not exactly when you will get there. Traffic, delays and unfamiliar routes make arrival times impossible to predict, so a normal clock alarm is useless. Instead, passengers spend journeys constantly glancing out the window, unable to properly rest or focus.
             </p>
             <p>
-              LocReminder flips the alarm paradigm: you drop a pin on your destination, set your wake radius, and put your phone away. When you arrive, it rings a real looping alarm with vibration and a full-screen alert over your lock screen.
+              LocReminder fixes that: drop a pin on your destination, choose how close you want to get, and put your phone away. When you arrive, it rings a real alarm with looping audio, vibration, and a full-screen alert over your lock screen.
             </p>
           </div>
         </section>
@@ -433,6 +481,31 @@ export default function LocReminderPage() {
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                   {f.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Architecture & How it works under the hood */}
+        <section className="mb-14">
+          <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+            How it works under the hood
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            {architectureLayers.map((layer) => (
+              <div
+                key={layer.title}
+                className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-5"
+              >
+                <div className="flex items-center gap-2.5 mb-2">
+                  {layer.icon}
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base">
+                    {layer.title}
+                  </h3>
+                </div>
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {layer.text}
                 </p>
               </div>
             ))}
@@ -461,24 +534,6 @@ export default function LocReminderPage() {
           </div>
         </section>
 
-        {/* What's New in v1.9.6 */}
-        <section className="mb-14">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-            What&apos;s new in v1.9.6
-          </h2>
-          <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-6 text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-3">
-            <p>
-              <strong>Illustrated Onboarding:</strong> Introduces an illustrated welcome guide explaining how LocReminder works on first launch.
-            </p>
-            <p>
-              <strong>Hardened Map Engine:</strong> Eliminates map CDN rate limits during rapid zooming with debounced tile requests, faster offline tile recovery, and refined landscape search layouts.
-            </p>
-            <p>
-              <strong>TalkBack Accessibility:</strong> Adds comprehensive screen reader support for all map controls, virtualizes the alarm destination list, and improves touch targets.
-            </p>
-          </div>
-        </section>
-
         {/* Tech stack */}
         <section className="mb-14">
           <h2 className="text-xl sm:text-2xl font-bold mb-4 text-gray-900 dark:text-white">
@@ -495,7 +550,7 @@ export default function LocReminderPage() {
             ))}
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-            The alarm itself is native Kotlin running as a foreground service with wake-lock support, ensuring it reliably triggers even when the Flutter UI engine is not running in memory. Flutter powers the responsive map, search autocomplete, and settings views.
+            The detection and alarm mechanisms are powered by native Kotlin holding an Android foreground service with wake-lock support. This guarantees that when arrival is detected, the alarm rings even if the Flutter UI engine is not running in memory. Flutter powers the responsive Material 3 map, location search, and user configuration.
           </p>
         </section>
 

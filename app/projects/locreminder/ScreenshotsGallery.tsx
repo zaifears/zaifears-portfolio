@@ -5,12 +5,12 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const screenshots = [
-  { id: '0', title: 'Search & Pin Destination', alt: 'LocReminder destination search and map pin interface' },
-  { id: '1', title: 'Wake Radius & Sound', alt: 'LocReminder wake radius slider and alarm sound configuration' },
-  { id: '2', title: 'Active Alarms', alt: 'LocReminder active alarms and destination management list' },
-  { id: '3', title: 'Reliability Test', alt: 'LocReminder alarm reliability testing screen' },
-  { id: '4', title: 'Lock Screen Alarm', alt: 'LocReminder full screen alarm alert over locked screen' },
-  { id: '5', title: 'Offline Map & Settings', alt: 'LocReminder offline map caching and dark theme settings' },
+  { id: '0', title: 'Welcome & Quick Setup', alt: 'LocReminder welcome and quick setup screen' },
+  { id: '1', title: 'Search for a Location', alt: 'LocReminder search for a location on map' },
+  { id: '2', title: 'Set Your Reminder', alt: 'LocReminder set your reminder with radius and sound' },
+  { id: '3', title: 'Manage Active Alarms', alt: 'LocReminder manage active alarms list' },
+  { id: '4', title: 'Location Alarm Triggered', alt: 'LocReminder location alarm triggered on lock screen' },
+  { id: '5', title: 'Custom Map Styles', alt: 'LocReminder custom map styles and offline settings' },
 ];
 
 export default function ScreenshotsGallery() {
