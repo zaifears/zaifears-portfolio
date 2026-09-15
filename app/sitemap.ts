@@ -25,9 +25,10 @@ export default async function sitemap() {
     '/techtips': 0.6,
     '/contact': 0.5,
     '/design-portfolio': 0.4,
+    '/thanks': 0.6,
   };
 
-  const routes = ['','/ai', '/education', '/skills', '/projects', '/projects/locreminder', '/techtips', '/contact', '/life', '/design-portfolio']
+  const routes = ['','/ai', '/education', '/skills', '/projects', '/projects/locreminder', '/techtips', '/contact', '/life', '/design-portfolio', '/thanks']
     .filter((route) => !excludedRoutes.has(route))
     .map((route) => ({
       url: `${baseUrl}${route}`,
