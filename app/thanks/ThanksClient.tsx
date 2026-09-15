@@ -352,12 +352,17 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
 
             {/* Local Bank Transfer */}
             {localMethod === 'bank' && (
-              <BankDetailsBlock
-                copiedKey={copiedKey}
-                onCopy={handleCopy}
-                onCopyAll={copyAllBank}
-                mode="local"
-              />
+              <div className="space-y-3">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Transfer from any Bangladeshi bank app — choose either BEFTN or NPSB.
+                </p>
+                <BankDetailsBlock
+                  copiedKey={copiedKey}
+                  onCopy={handleCopy}
+                  onCopyAll={copyAllBank}
+                  mode="local"
+                />
+              </div>
             )}
           </div>
         )}
