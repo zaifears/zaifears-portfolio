@@ -306,7 +306,7 @@ export default function LocReminderPage() {
               </h1>
             </div>
             <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold mb-2">
-              Never miss your stop again
+              Reminds you at the right place
             </p>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-2xl leading-relaxed">
               Sleep on the bus. Remember the errand. Drop a pin on your destination and put your phone away — it goes off when you arrive.
