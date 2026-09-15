@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    'Professional portfolio of Md Al Shahoriar Hossain, a Finance and Banking graduate from BUP, software developer, and founder of StockSimulatorBD. Currently an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.).',
+    'Professional portfolio of Md Al Shahoriar Hossain, an Audit Associate at EY Bangladesh, covering finance, technology, and professional insights.',
 
   keywords: [
     'Md Al Shahoriar Hossain',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Md Al Shahoriar Hossain | Portfolio',
     description:
-      'Professional portfolio of Md Al Shahoriar Hossain, an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), covering finance, technology, software development, and professional insights.',
+      'Professional portfolio of Md Al Shahoriar Hossain, an Audit Associate at EY Bangladesh, covering finance, technology, and professional insights.',
     url: baseUrl,
     siteName: authorName,
     locale: 'en_US',
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Md Al Shahoriar Hossain | Portfolio',
     description:
-      'Finance, technology, web development, and professional insights from Md Al Shahoriar Hossain, Audit Associate at EY Bangladesh.',
+      'Professional portfolio of Md Al Shahoriar Hossain, an Audit Associate at EY Bangladesh, covering finance, technology, and professional insights.',
     images: ['/opengraph-image.png'],
   },
 

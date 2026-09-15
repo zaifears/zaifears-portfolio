@@ -79,18 +79,18 @@ export default function ProjectsContent() {
       >
         {/* ── TOP: screenshot strip ── */}
         <Link href="/projects/locreminder" className="block">
-          <div className="flex items-center justify-center gap-4 w-full bg-gray-100 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800/50 py-6 px-4">
-            {["1", "2", "3"].map((n) => (
+          <div className="flex items-center justify-center gap-3 sm:gap-4 w-full bg-gray-100 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800/50 py-6 px-4 overflow-x-auto no-scrollbar">
+            {["0", "1", "2", "4"].map((n) => (
               <div
                 key={n}
-                className="relative w-24 sm:w-32 aspect-[9/19.5] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm shrink-0"
+                className="relative w-20 sm:w-28 md:w-32 aspect-[9/19.5] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm shrink-0"
               >
                 <Image
                   src={`/projects/locreminder/screenshots/${n}.jpg`}
                   alt={`LocReminder screenshot ${n}`}
                   fill
                   className="object-cover"
-                  sizes="128px"
+                  sizes="(max-width: 640px) 80px, 128px"
                 />
               </div>
             ))}

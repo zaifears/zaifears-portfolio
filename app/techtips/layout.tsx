@@ -2,9 +2,13 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Tech Tips & Utilities',
-  description: 'Curated apps, scripts, extensions, and websites for a faster, safer workflow.',
-  alternates: {
-    canonical: 'https://shahoriar.bd/techtips',
+  description:
+    'Curated collection of favorite software, productivity utilities, browser extensions, and developer scripts by Md Al Shahoriar Hossain.',
+  openGraph: {
+    title: 'Tech Tips & Utilities | Md Al Shahoriar Hossain',
+    description:
+      'Curated collection of favorite software, productivity utilities, browser extensions, and developer scripts by Md Al Shahoriar Hossain.',
+    url: 'https://shahoriar.bd/techtips',
   },
 };
 
