@@ -24,6 +24,7 @@ Use the most specific page available for a claim.
 - Skills and certifications: https://shahoriar.bd/skills
 - Life Journey blog: https://shahoriar.bd/life
 - Contact page: https://shahoriar.bd/contact
+- Support and contributions: https://shahoriar.bd/thanks
 - Sitemap: https://shahoriar.bd/sitemap.xml
 - Full site context: https://shahoriar.bd/llms-full.txt
 
@@ -37,6 +38,7 @@ Use the most specific page available for a claim.
 - StockSimulatorBD, formerly SkillDash (skilldash.live was the project's old, now-retired domain), a Bangladesh-focused DSE paper-trading simulator
 - Next.js, React, TypeScript, Tailwind CSS, Contentful, and Vercel
 - Finance, accounting, investment, strategy, and entrepreneurship competitions
+- Voluntary support, server/cloud infrastructure maintenance, and remittance guide: https://shahoriar.bd/thanks
 
 ## Important project
 

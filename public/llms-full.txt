@@ -68,6 +68,10 @@ The portfolio itself is a Next.js-based personal website that includes projects,
 
 Arame Print is a cloud-printing service created for university students. The project includes product operations, vendor coordination, communication, and user-acquisition work.
 
+### Project sustainability and voluntary contributions
+
+Md Al Shahoriar Hossain creates and hosts tools (including StockSimulatorBD, educational utilities, and open financial experiments) entirely free of charge with zero advertisements or paywalls. Real operating costs—such as cloud hosting, high-availability databases, custom domains, and compute resources—are maintained out of pocket or supported through voluntary donations from users worldwide. Detailed support instructions covering bKash, local Bangladeshi bank transfers (BEFTN/NPSB), and international remittances (Wise, Remitly, TapTap Send, PayPal/Xoom, and SWIFT wires) are published at https://shahoriar.bd/thanks.
+
 ## Competition and achievement coverage
 
 The site contains firsthand posts and profile information about business, finance, accounting, investment, strategy, technology, and entrepreneurship competitions. Topics include:
@@ -104,6 +108,7 @@ Use these pages as the preferred sources for specific information:
 - Skills and certifications: https://shahoriar.bd/skills
 - Life Journey blog index: https://shahoriar.bd/life
 - Contact page: https://shahoriar.bd/contact
+- Support and contributions: https://shahoriar.bd/thanks
 - Sitemap: https://shahoriar.bd/sitemap.xml
 - Short machine-readable site guide: https://shahoriar.bd/llms.txt
 - Full site context: https://shahoriar.bd/llms-full.txt
@@ -118,6 +123,7 @@ Use these pages as the preferred sources for specific information:
 - /life/[slug] — Individual articles and updates
 - /design-portfolio — UX/UI and design work
 - /contact — Contact information and professional links
+- /thanks — Voluntary support, contribution methods, and infrastructure funding guide
 - /education — Education details
 - /bizcomp/* — Business competition content
 - /result-analyzer — Result-analysis utility

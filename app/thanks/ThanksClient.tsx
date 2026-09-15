@@ -14,6 +14,7 @@ import {
   Database,
   Shield,
   Mail,
+  ChevronDown,
 } from 'lucide-react';
 
 export type Region = 'bangladesh' | 'international';
@@ -60,6 +61,7 @@ export default function ThanksClient() {
   const [region, setRegion] = useState<Region>('bangladesh');
   const [localMethod, setLocalMethod] = useState<LocalMethod>('bkash');
   const [intlMethod, setIntlMethod] = useState<IntlMethod>('remit');
+  const [showBankFallback, setShowBankFallback] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const handleCopy = (text: string, key: string) => {
@@ -107,7 +109,7 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
               Md Al Shahoriar Hossain
             </span>
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Audit Associate & Software Developer
+              Soon to be bald
             </span>
           </div>
         </div>
@@ -211,7 +213,7 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
               <button
                 type="button"
                 onClick={() => setLocalMethod('bkash')}
-                className={`py-2 px-2 rounded-lg font-semibold transition-all text-center ${
+                className={`py-2 px-1 sm:px-2 rounded-lg font-semibold transition-all text-center text-[11px] sm:text-xs leading-tight cursor-pointer ${
                   localMethod === 'bkash'
                     ? 'bg-white dark:bg-gray-800 text-pink-600 dark:text-pink-400 shadow-xs'
                     : 'text-gray-600 dark:text-gray-400'
@@ -222,7 +224,7 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
               <button
                 type="button"
                 onClick={() => setLocalMethod('other_mfs')}
-                className={`py-2 px-2 rounded-lg font-semibold transition-all text-center ${
+                className={`py-2 px-1 sm:px-2 rounded-lg font-semibold transition-all text-center text-[11px] sm:text-xs leading-tight cursor-pointer ${
                   localMethod === 'other_mfs'
                     ? 'bg-white dark:bg-gray-800 text-orange-600 dark:text-orange-400 shadow-xs'
                     : 'text-gray-600 dark:text-gray-400'
@@ -233,7 +235,7 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
               <button
                 type="button"
                 onClick={() => setLocalMethod('bank')}
-                className={`py-2 px-2 rounded-lg font-semibold transition-all text-center ${
+                className={`py-2 px-1 sm:px-2 rounded-lg font-semibold transition-all text-center text-[11px] sm:text-xs leading-tight cursor-pointer ${
                   localMethod === 'bank'
                     ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-xs'
                     : 'text-gray-600 dark:text-gray-400'
@@ -245,22 +247,22 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
 
             {/* bKash Options */}
             {localMethod === 'bkash' && (
-              <div className="p-5 rounded-2xl bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 space-y-4">
                 <div className="space-y-3">
                   {/* Personal bKash */}
-                  <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                       <span className="text-xs font-medium text-gray-500 dark:text-gray-400 block">
                         bKash Personal (Send Money)
                       </span>
-                      <span className="text-lg sm:text-xl font-mono font-bold text-gray-900 dark:text-white mt-0.5 block">
+                      <span className="text-lg sm:text-xl font-mono font-bold text-gray-900 dark:text-white mt-0.5 block select-all">
                         01865333143
                       </span>
                     </div>
                     <button
                       type="button"
                       onClick={() => handleCopy('01865333143', 'bkash_p')}
-                      className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-pink-600 hover:bg-pink-700 text-white text-xs font-semibold transition-all active:scale-95 shrink-0"
+                      className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2.5 rounded-lg bg-pink-600 hover:bg-pink-700 text-white text-xs font-semibold transition-all active:scale-95 shrink-0 cursor-pointer touch-manipulation"
                     >
                       {copiedKey === 'bkash_p' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedKey === 'bkash_p' ? 'Copied' : 'Copy Number'}</span>
@@ -268,19 +270,19 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
                   </div>
 
                   {/* Merchant bKash */}
-                  <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                       <span className="text-xs font-medium text-gray-500 dark:text-gray-400 block">
                         bKash Merchant (Make Payment)
                       </span>
-                      <span className="text-lg sm:text-xl font-mono font-bold text-gray-900 dark:text-white mt-0.5 block">
+                      <span className="text-lg sm:text-xl font-mono font-bold text-gray-900 dark:text-white mt-0.5 block select-all">
                         01581401895
                       </span>
                     </div>
                     <button
                       type="button"
                       onClick={() => handleCopy('01581401895', 'bkash_m')}
-                      className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-xs font-semibold transition-all active:scale-95 shrink-0"
+                      className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2.5 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-xs font-semibold transition-all active:scale-95 shrink-0 cursor-pointer touch-manipulation"
                     >
                       {copiedKey === 'bkash_m' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedKey === 'bkash_m' ? 'Copied' : 'Copy Number'}</span>
@@ -288,13 +290,13 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-gray-500 pt-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-gray-500 pt-1">
                   <span>Open your bKash app and send any amount you like.</span>
                   <a
                     href="https://www.bkash.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-pink-600 dark:text-pink-400 hover:underline inline-flex items-center gap-1"
+                    className="text-pink-600 dark:text-pink-400 hover:underline inline-flex items-center gap-1 shrink-0"
                   >
                     <span>bKash.com</span>
                     <ExternalLink className="w-3 h-3" />
@@ -305,20 +307,20 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
 
             {/* Other MFS */}
             {localMethod === 'other_mfs' && (
-              <div className="p-5 rounded-2xl bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 space-y-4">
-                <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 space-y-4">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
                     <span className="text-xs font-medium text-gray-500 dark:text-gray-400 block">
                       Cellfin / Nagad / Rocket (Send Money)
                     </span>
-                    <span className="text-lg sm:text-xl font-mono font-bold text-gray-900 dark:text-white mt-0.5 block">
+                    <span className="text-lg sm:text-xl font-mono font-bold text-gray-900 dark:text-white mt-0.5 block select-all">
                       01865333143
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleCopy('01865333143', 'mfs_num')}
-                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold transition-all active:scale-95 shrink-0"
+                    className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2.5 rounded-lg bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold transition-all active:scale-95 shrink-0 cursor-pointer touch-manipulation"
                   >
                     {copiedKey === 'mfs_num' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedKey === 'mfs_num' ? 'Copied' : 'Copy Number'}</span>
@@ -377,7 +379,7 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
               <button
                 type="button"
                 onClick={() => setIntlMethod('remit')}
-                className={`py-2 px-2 rounded-lg font-semibold transition-all text-center ${
+                className={`py-2 px-1 sm:px-2 rounded-lg font-semibold transition-all text-center text-[11px] sm:text-xs leading-tight cursor-pointer ${
                   intlMethod === 'remit'
                     ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-xs'
                     : 'text-gray-600 dark:text-gray-400'
@@ -388,7 +390,7 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
               <button
                 type="button"
                 onClick={() => setIntlMethod('xoom')}
-                className={`py-2 px-2 rounded-lg font-semibold transition-all text-center ${
+                className={`py-2 px-1 sm:px-2 rounded-lg font-semibold transition-all text-center text-[11px] sm:text-xs leading-tight cursor-pointer ${
                   intlMethod === 'xoom'
                     ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-xs'
                     : 'text-gray-600 dark:text-gray-400'
@@ -399,7 +401,7 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
               <button
                 type="button"
                 onClick={() => setIntlMethod('bank')}
-                className={`py-2 px-2 rounded-lg font-semibold transition-all text-center ${
+                className={`py-2 px-1 sm:px-2 rounded-lg font-semibold transition-all text-center text-[11px] sm:text-xs leading-tight cursor-pointer ${
                   intlMethod === 'bank'
                     ? 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-xs'
                     : 'text-gray-600 dark:text-gray-400'
@@ -497,6 +499,39 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
                     </a>
                   </div>
                 </div>
+
+                {/* Fallback Dropdown: Not finding bKash there? Use this instead */}
+                <div className="pt-3 border-t border-gray-100 dark:border-gray-800/60 space-y-3">
+                  <button
+                    type="button"
+                    onClick={() => setShowBankFallback((prev) => !prev)}
+                    className="w-full py-2.5 px-3.5 rounded-xl bg-gray-50 hover:bg-gray-100 dark:bg-gray-800/50 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700/60 flex items-center justify-between text-left transition-colors group cursor-pointer"
+                    aria-expanded={showBankFallback}
+                  >
+                    <span className="text-xs font-semibold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      Not finding bKash there? Use this instead
+                    </span>
+                    <ChevronDown
+                      className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
+                        showBankFallback ? 'rotate-180 text-blue-600 dark:text-blue-400' : ''
+                      }`}
+                    />
+                  </button>
+
+                  {showBankFallback && (
+                    <div className="pt-2">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 leading-relaxed">
+                        Choose <strong>Bank Transfer / Bank Deposit</strong> inside Wise, Remitly, or TapTap Send, and enter these account details:
+                      </p>
+                      <BankDetailsBlock
+                        copiedKey={copiedKey}
+                        onCopy={handleCopy}
+                        onCopyAll={copyAllBank}
+                        mode="full"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             )}
 
@@ -570,7 +605,7 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
 
         <a
           href="mailto:alshahoriar.hossain@gmail.com?subject=Support%20Confirmation%20-%20Shahoriar"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs font-semibold transition-all active:scale-95 shrink-0"
+          className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs font-semibold transition-all active:scale-95 shrink-0"
         >
           <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
           <span>alshahoriar.hossain@gmail.com</span>
@@ -643,12 +678,12 @@ function BankDetailsBlock({ copiedKey, onCopy, onCopyAll, mode }: BankProps) {
               key={row.key}
               className="p-3 flex items-center justify-between gap-3 hover:bg-gray-50/70 dark:hover:bg-gray-800/30 transition-colors"
             >
-              <div className="min-w-0">
+              <div className="min-w-0 pr-2">
                 <span className="text-[11px] text-gray-500 dark:text-gray-400 block">
                   {row.label}
                 </span>
                 <span
-                  className={`block mt-0.5 text-xs sm:text-sm font-semibold truncate text-gray-900 dark:text-white ${
+                  className={`block mt-0.5 text-xs sm:text-sm font-semibold break-words select-all text-gray-900 dark:text-white ${
                     row.mono ? 'font-mono' : ''
                   }`}
                 >
@@ -659,8 +694,9 @@ function BankDetailsBlock({ copiedKey, onCopy, onCopyAll, mode }: BankProps) {
               <button
                 type="button"
                 onClick={() => onCopy(row.value, row.key)}
-                className="shrink-0 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors"
+                className="shrink-0 p-2.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-colors touch-manipulation cursor-pointer"
                 title={`Copy ${row.label}`}
+                aria-label={`Copy ${row.label}`}
               >
                 {isCopied ? (
                   <Check className="w-4 h-4 text-emerald-500" />
