@@ -2,16 +2,16 @@ import { Metadata } from 'next';
 import ThanksClient from './ThanksClient';
 
 export const metadata: Metadata = {
-  title: 'Thank You & Payment Support',
+  title: 'Buy Me a Coffee | Md Al Shahoriar Hossain',
   description:
-    'Support, payment, and international remittance guide for Md Al Shahoriar Hossain. Instructions for bKash, Standard Chartered Bank, Wise, Remitly, PayPal (Xoom), and Revolut.',
+    'Have you used any of my services? If you liked what I do, you can buy me a cup of coffee! Direct support & remittance via bKash, Standard Chartered Bank, Wise, Remitly, PayPal (Xoom), and Revolut.',
   alternates: {
     canonical: 'https://shahoriar.bd/thanks',
   },
   openGraph: {
-    title: 'Thank You & Payment Support | Md Al Shahoriar Hossain',
+    title: 'Buy Me a Coffee | Md Al Shahoriar Hossain',
     description:
-      'Support, payment, and international remittance guide for Md Al Shahoriar Hossain via bKash, Standard Chartered Bank, Wise, Remitly, PayPal (Xoom), and Revolut.',
+      'Have you used any of my services? If you liked what I do, you can buy me a cup of coffee! Direct support & remittance via bKash, Standard Chartered Bank, Wise, Remitly, PayPal (Xoom), and Revolut.',
     url: 'https://shahoriar.bd/thanks',
   },
 };

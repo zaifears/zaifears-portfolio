@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
+  Coffee,
   Copy,
   Check,
   Send,
@@ -20,9 +22,10 @@ import {
   Hash,
   HelpCircle,
   CheckCircle2,
+  MessageSquareHeart,
 } from 'lucide-react';
 
-export type GeoRegion = 'bangladesh' | 'international';
+export type GeoRegion = 'international' | 'bangladesh';
 export type LocalTabId = 'bkash_send' | 'bkash_pay' | 'other';
 export type InternationalTabId = 'wise' | 'paypal' | 'neobank';
 
@@ -62,11 +65,21 @@ export const PAYMENT_CREDENTIALS = {
 
 export default function ThanksClient() {
   const [geoRegion, setGeoRegion] = useState<GeoRegion>('international');
+  const [coffeeCount, setCoffeeCount] = useState<number>(3);
+  const [customCoffee, setCustomCoffee] = useState<string>('');
+  const [supporterMessage, setSupporterMessage] = useState<string>('');
+  const [supporterName, setSupporterName] = useState<string>('');
+
+  // Tab navigation states
   const [localTab, setLocalTab] = useState<LocalTabId>('bkash_send');
   const [localMfsSubTab, setLocalMfsSubTab] = useState<'mfs' | 'bank'>('mfs');
   const [internationalTab, setInternationalTab] = useState<InternationalTabId>('wise');
   const [wiseSubTab, setWiseSubTab] = useState<'bkash' | 'bank'>('bkash');
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
+  const effectiveCoffees = customCoffee ? Math.max(1, parseInt(customCoffee, 10) || 1) : coffeeCount;
+  const calculatedUsd = effectiveCoffees * 3;
+  const calculatedBdt = effectiveCoffees * 350;
 
   const handleCopy = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
@@ -93,51 +106,180 @@ Call Centre: ${b.callCentre}`;
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0B0F17] text-gray-900 dark:text-gray-100 transition-colors">
-      {/* Background ambient lighting */}
+    <div className="min-h-screen bg-[#FFFDF9] dark:bg-[#0B0F17] text-gray-900 dark:text-gray-100 transition-colors">
+      {/* Ambient background glows */}
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10 pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-gradient-to-b from-blue-500/10 via-pink-500/5 to-transparent blur-3xl" />
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-amber-400/15 via-orange-400/5 to-transparent blur-3xl dark:from-amber-600/10 dark:via-blue-600/5" />
         </div>
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
-          {/* Header Hero Section */}
-          <div className="text-center max-w-3xl mx-auto mb-10 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900/60 text-blue-700 dark:text-blue-300 text-xs font-bold tracking-wide">
-              <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-              <span>Direct Support, Projects & Remittance Hub</span>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-20">
+          {/* ========================================================================= */}
+          {/* BUY ME A COFFEE HERO PROFILE CARD */}
+          {/* ========================================================================= */}
+          <div className="bg-white dark:bg-[#131926] rounded-3xl border border-amber-200/80 dark:border-gray-800 shadow-xl shadow-amber-500/5 p-6 sm:p-8 mb-8 relative overflow-hidden">
+            {/* Top decorative badge */}
+            <div className="absolute top-0 right-0 transform translate-x-3 -translate-y-3 w-28 h-28 bg-gradient-to-bl from-amber-300/30 to-transparent rounded-full blur-xl pointer-events-none" />
+
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+              {/* Creator Profile Photo */}
+              <div className="relative shrink-0">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden ring-4 ring-amber-400/40 dark:ring-amber-500/30 shadow-lg relative bg-amber-100 dark:bg-gray-800">
+                  <Image
+                    src="/images/shahoriar-author.jpg"
+                    alt="Md Al Shahoriar Hossain"
+                    fill
+                    sizes="112px"
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+                <div className="absolute -bottom-2 -right-2 bg-amber-400 text-amber-950 p-2 rounded-2xl shadow-md border-2 border-white dark:border-[#131926]">
+                  <Coffee className="w-4 h-4 fill-amber-950" />
+                </div>
+              </div>
+
+              {/* Creator Info & Headline */}
+              <div className="space-y-3 flex-1 min-w-0">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 text-xs font-bold tracking-wide">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                  <span>Creator Support & Remittance</span>
+                </div>
+
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white tracking-tight leading-tight">
+                  Buy Me a Cup of Coffee
+                </h1>
+
+                {/* Prompt as requested */}
+                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+                  Have you used any of my services or tools? If you liked my work, you can buy me a cup of coffee! ☕
+                </p>
+
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-normal">
+                  Created by <strong className="text-gray-900 dark:text-white">Md Al Shahoriar Hossain</strong> — Software Developer & Audit Associate. Founder of StockSimulatorBD & builder of free financial tools.
+                </p>
+
+                {/* Reassurance pills */}
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+                    <ShieldCheck className="w-3 h-3" />
+                    2.5% BD Govt Cash Incentive on Remittance
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-pink-100 dark:bg-pink-950/60 text-pink-800 dark:text-pink-300">
+                    <Smartphone className="w-3 h-3" />
+                    Instant bKash
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300">
+                    <Building2 className="w-3 h-3" />
+                    Standard Chartered Direct
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-              Thank You for Your Support!
-            </h1>
+            {/* ========================================================================= */}
+            {/* INTERACTIVE COFFEE SELECTOR (BUY ME A COFFEE TIER) */}
+            {/* ========================================================================= */}
+            <div className="mt-8 pt-6 border-t border-amber-100 dark:border-gray-800/80">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-10 h-10 rounded-2xl bg-amber-100 dark:bg-amber-950/50 flex items-center justify-center text-amber-600 dark:text-amber-400 font-black">
+                    <Coffee className="w-5 h-5 fill-amber-500/30" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider block">
+                      Choose Your Coffee Treat
+                    </span>
+                    <span className="text-sm font-black text-gray-900 dark:text-white block">
+                      Buy Shahoriar {effectiveCoffees} {effectiveCoffees === 1 ? 'Coffee' : 'Coffees'}
+                    </span>
+                  </div>
+                </div>
 
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto">
-              Whether you are sending a contribution, sponsoring open-source work, paying for project consulting, or sending cross-border remittances from the US, EU, UK, or Bangladesh, follow the step-by-step instructions below.
-            </p>
+                {/* Preset Count Buttons */}
+                <div className="flex items-center gap-2 flex-wrap justify-center">
+                  {[1, 3, 5, 10].map((count) => {
+                    const isSelected = !customCoffee && coffeeCount === count;
+                    return (
+                      <button
+                        key={count}
+                        type="button"
+                        onClick={() => {
+                          setCustomCoffee('');
+                          setCoffeeCount(count);
+                        }}
+                        className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all active:scale-95 ${
+                          isSelected
+                            ? 'bg-amber-400 dark:bg-amber-500 text-amber-950 font-black shadow-sm ring-2 ring-amber-400/50'
+                            : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-gray-700'
+                        }`}
+                      >
+                        <span>☕</span>
+                        <span>{count}</span>
+                      </button>
+                    );
+                  })}
 
-            {/* Reassurance trust badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                2.5% Bangladesh Govt Remittance Incentive
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-pink-50 dark:bg-pink-950/40 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800/60">
-                <Smartphone className="w-3.5 h-3.5" />
-                Instant bKash Credit
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/60">
-                <Building2 className="w-3.5 h-3.5" />
-                Standard Chartered Direct
-              </span>
+                  {/* Custom input */}
+                  <div className="relative">
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="Custom"
+                      value={customCoffee}
+                      onChange={(e) => setCustomCoffee(e.target.value)}
+                      className="w-20 px-2.5 py-2 rounded-xl text-xs font-bold text-center bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border border-transparent focus:border-amber-400 focus:outline-hidden"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Dynamic Suggested Amount Box */}
+              <div className="mt-4 p-4 rounded-2xl bg-amber-500/10 dark:bg-amber-500/5 border border-amber-300/40 dark:border-amber-500/20 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="flex items-center gap-3 text-center sm:text-left">
+                  <span className="text-2xl sm:text-3xl">☕</span>
+                  <div>
+                    <span className="text-xs text-amber-900 dark:text-amber-300 font-bold block">
+                      Suggested Contribution:
+                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg sm:text-xl font-mono font-black text-gray-900 dark:text-white">
+                        ${calculatedUsd} USD
+                      </span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        (or approx <strong className="font-mono text-gray-800 dark:text-gray-200">৳{calculatedBdt.toLocaleString()} BDT</strong>)
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(`${calculatedUsd}`, 'copy_calc_usd')}
+                    className="px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs font-bold transition-all shadow-xs border border-gray-200 dark:border-gray-700 flex items-center gap-1 active:scale-95"
+                  >
+                    {copiedKey === 'copy_calc_usd' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedKey === 'copy_calc_usd' ? 'Copied $' : 'Copy USD'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(`${calculatedBdt}`, 'copy_calc_bdt')}
+                    className="px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-500 text-amber-950 text-xs font-bold transition-all shadow-xs flex items-center gap-1 active:scale-95"
+                  >
+                    {copiedKey === 'copy_calc_bdt' ? <Check className="w-3.5 h-3.5 text-amber-950" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedKey === 'copy_calc_bdt' ? 'Copied ৳' : 'Copy BDT'}</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* ========================================================================= */}
           {/* TOP GEOGRAPHIC MODE SWITCHER */}
           {/* ========================================================================= */}
-          <div className="mb-8">
-            <div className="max-w-xl mx-auto p-1.5 bg-gray-100 dark:bg-[#141B28] rounded-2xl border border-gray-200 dark:border-gray-800 shadow-inner grid grid-cols-2 gap-1.5">
+          <div className="mb-6">
+            <div className="p-1.5 bg-gray-100 dark:bg-[#141B28] rounded-2xl border border-gray-200 dark:border-gray-800 shadow-inner grid grid-cols-2 gap-1.5">
               {/* International Tab */}
               <button
                 type="button"
@@ -150,9 +292,9 @@ Call Centre: ${b.callCentre}`;
               >
                 <Globe className="w-4 h-4 shrink-0 text-blue-600 dark:text-blue-400" />
                 <div className="flex flex-col items-start text-left sm:items-center sm:text-center">
-                  <span>International</span>
+                  <span>International Senders</span>
                   <span className="text-[10px] font-medium text-gray-500 dark:text-gray-400">
-                    US, EU, UK, Global
+                    US, EU, UK, Canada, Global
                   </span>
                 </div>
               </button>
@@ -169,9 +311,9 @@ Call Centre: ${b.callCentre}`;
               >
                 <span className="text-base leading-none">🇧🇩</span>
                 <div className="flex flex-col items-start text-left sm:items-center sm:text-center">
-                  <span>Bangladesh</span>
+                  <span>Bangladesh Senders</span>
                   <span className="text-[10px] font-medium text-gray-500 dark:text-gray-400">
-                    Local bKash & Bank
+                    Local bKash, MFS & Bank
                   </span>
                 </div>
               </button>
@@ -804,7 +946,7 @@ Call Centre: ${b.callCentre}`;
                     <div className="py-3 flex items-center gap-3">
                       <span className="w-2 h-2 rounded-full bg-white/80 shrink-0" />
                       <span className="text-xs sm:text-sm font-medium leading-relaxed">
-                        Enter the desired amount and enter your <strong>bKash PIN</strong> to confirm.
+                        Enter amount <strong className="font-mono">৳{calculatedBdt} BDT</strong> (or your custom amount) and confirm with your <strong>bKash PIN</strong>.
                       </span>
                     </div>
 
@@ -1040,35 +1182,57 @@ Call Centre: ${b.callCentre}`;
           )}
 
           {/* ========================================================================= */}
-          {/* AFTER SENDING / CONFIRMATION SECTION */}
+          {/* SUPPORTER NOTE / MESSAGE BOX (BUY ME A COFFEE STYLE) */}
           {/* ========================================================================= */}
-          <div className="mt-12 p-6 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50/70 dark:bg-[#111622] text-center space-y-4">
-            <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto">
-              <Heart className="w-6 h-6 text-pink-500 fill-pink-500/20" />
-            </div>
-            <div className="space-y-1">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
-                Completed Your Transfer?
-              </h3>
-              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 max-w-xl mx-auto leading-relaxed">
-                Please send a quick confirmation with your name and Transaction ID / Reference code so I can immediately acknowledge your transfer and thank you personally!
-              </p>
+          <div className="mt-8 bg-white dark:bg-[#131926] rounded-3xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 space-y-4 shadow-sm">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+                <MessageSquareHeart className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+                  Say Something Nice or Send Confirmation
+                </h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Let me know your name and which project or service you liked!
+                </p>
+              </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <div className="space-y-3">
+              <input
+                type="text"
+                placeholder="Your Name or Handle (optional)"
+                value={supporterName}
+                onChange={(e) => setSupporterName(e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-[#101520] border border-gray-200 dark:border-gray-800 text-xs sm:text-sm text-gray-900 dark:text-white focus:border-amber-400 focus:outline-hidden"
+              />
+              <textarea
+                rows={3}
+                placeholder="Say something nice or share your transaction reference code... (e.g. Thanks for StockSimulatorBD! TrxID: 9JK81LM)"
+                value={supporterMessage}
+                onChange={(e) => setSupporterMessage(e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-[#101520] border border-gray-200 dark:border-gray-800 text-xs sm:text-sm text-gray-900 dark:text-white focus:border-amber-400 focus:outline-hidden resize-none"
+              />
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <span className="text-xs text-gray-500 dark:text-gray-400">
+                Your support fuels new open-source projects, financial calculators, and guides.
+              </span>
               <a
-                href="mailto:alshahoriar.hossain@gmail.com?subject=Payment%20Confirmation%20-%20Shahoriar"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all shadow-sm active:scale-95"
+                href={`mailto:alshahoriar.hossain@gmail.com?subject=${encodeURIComponent(
+                  `Coffee Support from ${supporterName || 'A Supporter'}`
+                )}&body=${encodeURIComponent(
+                  `Hi Shahoriar,\n\nI supported your work with ${effectiveCoffees} coffee(s)!\n\nMessage:\n${
+                    supporterMessage || 'Keep up the great work!'
+                  }\n\nCheers,\n${supporterName || 'A Supporter'}`
+                )}`}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-amber-950 font-bold text-xs transition-all shadow-sm active:scale-95"
               >
-                <span>Email Confirmation</span>
+                <Heart className="w-3.5 h-3.5 fill-amber-950" />
+                <span>Send Email Note</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 font-bold text-xs transition-all active:scale-95"
-              >
-                <span>Other Contact Channels</span>
               </a>
             </div>
           </div>
