@@ -239,9 +239,9 @@ export default function YouthTaxCalculatorPage() {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-teal-500/10 dark:bg-teal-500/5 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 will-change-transform" />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 py-8 md:py-12">
+      <div className="relative z-10 max-w-4xl mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-12">
         {/* Navigation */}
-        <nav className="mb-8">
+        <nav className="mb-6 sm:mb-8">
           <Link
             href="/projects"
             className="group inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded"
@@ -252,8 +252,8 @@ export default function YouthTaxCalculatorPage() {
         </nav>
 
         {/* Hero Section */}
-        <header className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left mb-8">
-          <div className="w-24 h-24 shrink-0 rounded-2xl overflow-hidden border border-emerald-200 dark:border-emerald-800/80 shadow-md bg-white dark:bg-gray-900 p-1 flex items-center justify-center">
+        <header className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left mb-8">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-2xl overflow-hidden border border-emerald-200 dark:border-emerald-800/80 shadow-md bg-white dark:bg-gray-900 p-1 flex items-center justify-center">
             <Image
               src="/projects/youth-tax-calculator/BD-Logos.webp"
               alt="Bangladesh Youth Tax Calculator logo"
@@ -265,21 +265,21 @@ export default function YouthTaxCalculatorPage() {
           </div>
           <div>
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Bangladesh Youth Tax Calculator
               </h1>
             </div>
-            <p className="text-lg text-emerald-600 dark:text-emerald-400 font-semibold mb-2">
+            <p className="text-base sm:text-lg text-emerald-600 dark:text-emerald-400 font-semibold mb-2">
               AI Agent Skill & Deterministic Engine for NBR e-Return (etaxnbr.gov.bd)
             </p>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-2xl leading-relaxed">
               Made for students, interns, fresh graduates, and first-time filers entering the tax net under the Income Tax Act 2023. Helps you keep tax expense at minimum, claim eligible TDS refunds, and achieve zero-difference balance sheet reconciliation.
             </p>
-            <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+            <div className="flex flex-wrap justify-center sm:justify-start gap-1.5 sm:gap-2">
               {badges.map((b) => (
                 <span
                   key={b}
-                  className="text-xs font-medium bg-gray-100 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/60 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full"
+                  className="text-[11px] sm:text-xs font-medium bg-gray-100 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/60 text-gray-700 dark:text-gray-300 px-2.5 sm:px-3 py-1 rounded-full"
                 >
                   {b}
                 </span>
@@ -289,12 +289,12 @@ export default function YouthTaxCalculatorPage() {
         </header>
 
         {/* Action Buttons (Human-relevant only) */}
-        <div className="flex flex-wrap items-center gap-3 mb-12">
+        <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3 mb-10 sm:mb-12">
           <a
             href={repoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-md shadow-emerald-500/20 text-sm"
+            className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-md shadow-emerald-500/20 text-xs sm:text-sm"
           >
             <Github className="w-4 h-4" />
             <span>GitHub Repository</span>
@@ -305,7 +305,7 @@ export default function YouthTaxCalculatorPage() {
             href={`${rawBase}/skills/youth-tax-calculator/SKILL.md`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-sm"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-xs sm:text-sm"
           >
             <BookOpen className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>SKILL.md Spec</span>
@@ -315,7 +315,7 @@ export default function YouthTaxCalculatorPage() {
             href={`${rawBase}/calculator.py`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-sm"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-xs sm:text-sm"
           >
             <Code className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>calculator.py Engine</span>
@@ -323,8 +323,8 @@ export default function YouthTaxCalculatorPage() {
         </div>
 
         {/* ── THE STORY / LINKEDIN ORIGIN (FIRST PERSON) ── */}
-        <section className="mb-14">
-          <div className="p-6 sm:p-7 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 bg-emerald-50/40 dark:bg-emerald-950/20 backdrop-blur-sm relative">
+        <section className="mb-10 sm:mb-14">
+          <div className="p-4 sm:p-6 md:p-7 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 bg-emerald-50/40 dark:bg-emerald-950/20 backdrop-blur-sm relative">
             <div className="flex items-center gap-2 mb-3">
               <Sparkles className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               <h2 className="text-lg font-bold text-gray-900 dark:text-white">
@@ -353,15 +353,15 @@ export default function YouthTaxCalculatorPage() {
         <TaxSkillClient />
 
         {/* ── STATUTORY FOUNDATIONS (INCOME TAX ACT 2023) ── */}
-        <section className="my-14">
-          <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+        <section className="my-10 sm:my-14">
+          <h2 className="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 text-gray-900 dark:text-white">
             Key Statutory Rules for Young Taxpayers
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
             {statutoryPillars.map((pillar) => (
               <div
                 key={pillar.title}
-                className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-5 flex flex-col justify-between"
+                className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 sm:p-5 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
@@ -383,24 +383,24 @@ export default function YouthTaxCalculatorPage() {
         </section>
 
         {/* ── FREQUENTLY ASKED QUESTIONS (SEO & LEGAL GUIDANCE) ── */}
-        <section className="mb-14">
-          <div className="flex items-center gap-2 mb-6">
+        <section className="mb-10 sm:mb-14">
+          <div className="flex items-center gap-2 mb-5 sm:mb-6">
             <HelpCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
               Frequently Asked Questions & Legal Guidance
             </h2>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3.5 sm:space-y-4">
             {faqItems.map((item) => (
               <div
                 key={item.question}
-                className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-5 sm:p-6"
+                className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 sm:p-5 md:p-6"
               >
                 <h3 className="font-semibold text-gray-900 dark:text-white text-base sm:text-lg mb-2">
                   {item.question}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                   {item.answer}
                 </p>
               </div>

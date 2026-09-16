@@ -35,7 +35,7 @@ export default function ProjectsPage() {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 will-change-transform" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-12">
         <ProjectsContent />
       </div>
     </div>

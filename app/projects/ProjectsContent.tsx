@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { Check, Copy } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -57,18 +59,26 @@ const amlTools: string[] = [
 ];
 
 export default function ProjectsContent() {
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const copyCode = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
   return (
     <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="max-w-5xl mx-auto space-y-8"
+      className="max-w-5xl mx-auto space-y-6 sm:space-y-8"
     >
       {/* Section header */}
-      <motion.div variants={itemVariants} className="mb-10">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3">Projects</h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          A selection of technical and business projects — shipped tools, automation scripts, and competition work.
+      <motion.div variants={itemVariants} className="mb-8 sm:mb-10 px-1">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-2 sm:mb-3">Projects</h1>
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+          A selection of technical and business projects - shipped tools, automation scripts, and competition work.
         </p>
       </motion.div>
 
@@ -79,27 +89,37 @@ export default function ProjectsContent() {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
           {/* Left col — title + story */}
-          <div className="p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 shrink-0 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-0.5 shadow-sm">
-                <Image
-                  src="/projects/youth-tax-calculator/BD-Logos.webp"
-                  alt="Bangladesh Youth Tax Calculator logo"
-                  width={40}
-                  height={40}
-                  className="w-full h-full object-cover rounded-lg"
-                />
-              </div>
+              <Link
+                href="/projects/youth-tax-calculator"
+                className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-xl"
+              >
+                <div className="w-10 h-10 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-0.5 shadow-sm hover:scale-105 transition-transform">
+                  <Image
+                    src="/projects/youth-tax-calculator/BD-Logos.webp"
+                    alt="Bangladesh Youth Tax Calculator logo"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+              </Link>
               <div>
-                <span className="inline-block text-xs font-semibold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/40 px-3 py-1 rounded-full mb-1">
+                <span className="inline-block text-xs font-semibold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/40 px-2.5 sm:px-3 py-1 rounded-full mb-1">
                   AI Skill · Tax Tech
                 </span>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
-                  Bangladesh Youth Tax Calculator
-                </h3>
+                <Link
+                  href="/projects/youth-tax-calculator"
+                  className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded block"
+                >
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
+                    Bangladesh Youth Tax Calculator
+                  </h3>
+                </Link>
               </div>
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
               <p className="font-medium text-gray-800 dark:text-gray-200">
                 An AI Agent Skill and deterministic statutory engine made for students, interns, and young professionals filing on etaxnbr.gov.bd.
               </p>
@@ -119,14 +139,14 @@ export default function ProjectsContent() {
             </Link>
           </div>
 
-          {/* Right col — tool tags + feature list */}
-          <div className="p-6 md:p-8 flex flex-col gap-5">
+          {/* Right col — tool tags + feature list + python snippet */}
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col justify-between gap-5">
             {/* Tools */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
                 Tools & Standards
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {[
                   "AI Agent Skill",
                   "Python 3 Engine",
@@ -137,7 +157,7 @@ export default function ProjectsContent() {
                 ].map((tool) => (
                   <span
                     key={tool}
-                    className="text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
+                    className="text-[11px] sm:text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
                   >
                     {tool}
                   </span>
@@ -147,7 +167,7 @@ export default function ProjectsContent() {
 
             {/* Features */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
                 Core Outcomes
               </p>
               <div className="flex flex-col gap-2.5">
@@ -155,11 +175,11 @@ export default function ProjectsContent() {
                   { icon: "⚖️", text: "Keeps tax expense at minimum (0 BDT floor under 3,50,000 BDT)" },
                   { icon: "💵", text: "100% bank TDS refund with direct claiming guidance" },
                   { icon: "📑", text: "Zero-difference balance sheet math via Section 56(g)" },
-                  { icon: "🛡️", text: "Prevents NBR e-Return portal UI errors & audit traps" },
+                  { icon: "🛡️", text: "Prevents NBR e-Return portal errors & audit flags" },
                 ].map((f) => (
                   <div
                     key={f.text}
-                    className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400"
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-400"
                   >
                     <span className="mt-0.5 shrink-0">{f.icon}</span>
                     <span className="leading-snug">{f.text}</span>
@@ -167,11 +187,33 @@ export default function ProjectsContent() {
                 ))}
               </div>
             </div>
+
+            {/* Quick Run / Python Engine snippet (Yellow highlighted position) */}
+            <div className="mt-auto pt-2">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">
+                Standalone Engine
+              </p>
+              <div className="flex items-center justify-between gap-2.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-gray-900 dark:bg-black border border-gray-800 font-mono text-xs shadow-inner">
+                <div className="flex items-center gap-2 text-emerald-400 min-w-0 overflow-x-auto no-scrollbar">
+                  <span className="text-gray-500 select-none">$</span>
+                  <span className="text-gray-100 font-semibold truncate">python calculator.py</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyCode("python calculator.py", "tax-cli")}
+                  aria-label="Copy python command"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition-colors shrink-0 text-[11px] font-sans font-medium"
+                >
+                  {copiedId === "tax-cli" ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedId === "tax-cli" ? "Copied!" : "Copy"}</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* BOTTOM: footer note */}
-        <div className="px-6 md:px-8 py-4 border-t border-gray-200 dark:border-gray-800/50 flex flex-wrap items-center justify-between gap-2">
+        <div className="px-5 sm:px-6 md:px-8 py-3.5 sm:py-4 border-t border-gray-200 dark:border-gray-800/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <p className="text-xs text-gray-400 dark:text-gray-500">
             Open source on GitHub with 1-click installation for Windows and macOS.
           </p>
@@ -194,7 +236,7 @@ export default function ProjectsContent() {
       >
         {/* ── TOP: screenshot strip ── */}
         <Link href="/projects/locreminder" className="block">
-          <div className="flex items-center justify-center gap-3 sm:gap-4 w-full bg-gray-100 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800/50 py-6 px-4 overflow-x-auto no-scrollbar">
+          <div className="flex items-center justify-start sm:justify-center gap-3 sm:gap-4 w-full bg-gray-100 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800/50 py-5 sm:py-6 px-4 overflow-x-auto no-scrollbar">
             {["0", "1", "2", "4"].map((n) => (
               <div
                 key={n}
@@ -215,27 +257,37 @@ export default function ProjectsContent() {
         {/* ── MIDDLE: title + story + tools in a two-col layout on desktop ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-gray-200 dark:border-gray-800/50">
           {/* Left col — title + story */}
-          <div className="p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 shrink-0 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800">
-                <Image
-                  src="/projects/locreminder/icon.png"
-                  alt="LocReminder app icon"
-                  width={40}
-                  height={40}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <Link
+                href="/projects/locreminder"
+                className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-xl"
+              >
+                <div className="w-10 h-10 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:scale-105 transition-transform">
+                  <Image
+                    src="/projects/locreminder/icon.png"
+                    alt="LocReminder app icon"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </Link>
               <div>
-                <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/40 px-3 py-1 rounded-full mb-1">
+                <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/40 px-2.5 sm:px-3 py-1 rounded-full mb-1">
                   Flutter · Android
                 </span>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                  LocReminder
-                </h3>
+                <Link
+                  href="/projects/locreminder"
+                  className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded block"
+                >
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                    LocReminder
+                  </h3>
+                </Link>
               </div>
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
               <p className="font-medium text-gray-800 dark:text-gray-200">
                 A location-based alarm for Android, which helps you wake up at the right place.
               </p>
@@ -255,7 +307,7 @@ export default function ProjectsContent() {
             </div>
             <Link
               href="/projects/locreminder"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-white/60 group-hover:text-gray-900 dark:group-hover:text-white transition-colors w-fit mt-auto"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-white/60 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors w-fit mt-auto"
             >
               View Project
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-3 h-3" />
@@ -263,17 +315,17 @@ export default function ProjectsContent() {
           </div>
 
           {/* Right col — tool tags + feature list */}
-          <div className="p-6 md:p-8 flex flex-col gap-5">
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-5">
             {/* Tools */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
                 Tools used
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {["Flutter", "Dart", "Kotlin", "OpenStreetMap", "GitHub Actions"].map((tool) => (
                   <span
                     key={tool}
-                    className="text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
+                    className="text-[11px] sm:text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
                   >
                     {tool}
                   </span>
@@ -283,7 +335,7 @@ export default function ProjectsContent() {
 
             {/* Features */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
                 What it does
               </p>
               <div className="flex flex-col gap-2.5">
@@ -295,7 +347,7 @@ export default function ProjectsContent() {
                 ].map((f) => (
                   <div
                     key={f.text}
-                    className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400"
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-400"
                   >
                     <span className="mt-0.5 shrink-0">{f.icon}</span>
                     <span className="leading-snug">{f.text}</span>
@@ -307,7 +359,7 @@ export default function ProjectsContent() {
         </div>
 
         {/* ── BOTTOM: footer note ── */}
-        <div className="px-6 md:px-8 py-4 border-t border-gray-200 dark:border-gray-800/50">
+        <div className="px-5 sm:px-6 md:px-8 py-3.5 sm:py-4 border-t border-gray-200 dark:border-gray-800/50">
           <p className="text-xs text-gray-400 dark:text-gray-500">
             Published on GitHub Releases, with an F-Droid submission in progress.
           </p>
@@ -319,7 +371,6 @@ export default function ProjectsContent() {
         variants={itemVariants}
         className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-blue-500/30 hover:shadow-lg"
       >
-
         {/* ── TOP: 16:9 video full width ── */}
         <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
           <iframe
@@ -335,18 +386,24 @@ export default function ProjectsContent() {
 
         {/* ── MIDDLE: title + story + tools in a two-col layout on desktop ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-gray-200 dark:border-gray-800/50">
-
           {/* Left col — title + story */}
-          <div className="p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
             <div>
-              <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/40 px-3 py-1 rounded-full mb-3">
+              <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/40 px-2.5 sm:px-3 py-1 rounded-full mb-2 sm:mb-3">
                 Excel VBA · HR Automation
               </span>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                I Built a Full Leave Tracker System in Excel
-              </h3>
+              <a
+                href="https://www.youtube.com/watch?v=cPi_UGe0LQE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded block"
+              >
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                  I Built a Full Leave Tracker System in Excel
+                </h3>
+              </a>
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
               <p>
                 Our department was tracking absences for 9 teams in a single
                 shared spreadsheet, no access control, no validation, pure chaos.
@@ -372,18 +429,17 @@ export default function ProjectsContent() {
           </div>
 
           {/* Right col — tool tags + feature list */}
-          <div className="p-6 md:p-8 flex flex-col gap-5">
-
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-5">
             {/* Tools */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
                 Tools used
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {tools.map((tool) => (
                   <span
                     key={tool}
-                    className="text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
+                    className="text-[11px] sm:text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
                   >
                     {tool}
                   </span>
@@ -393,14 +449,14 @@ export default function ProjectsContent() {
 
             {/* Features */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
                 What it does
               </p>
               <div className="flex flex-col gap-2.5">
                 {features.map((f) => (
                   <div
                     key={f.text}
-                    className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400"
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-400"
                   >
                     <span className="mt-0.5 shrink-0">{f.icon}</span>
                     <span className="leading-snug">{f.text}</span>
@@ -408,17 +464,15 @@ export default function ProjectsContent() {
                 ))}
               </div>
             </div>
-
           </div>
         </div>
 
         {/* ── BOTTOM: footer note ── */}
-        <div className="px-6 md:px-8 py-4 border-t border-gray-200 dark:border-gray-800/50">
+        <div className="px-5 sm:px-6 md:px-8 py-3.5 sm:py-4 border-t border-gray-200 dark:border-gray-800/50">
           <p className="text-xs text-gray-400 dark:text-gray-500">
-            Built entirely in Microsoft Excel VBA — no database, no server, no paid tools.
+            Built entirely in Microsoft Excel VBA - no database, no server, no paid tools.
           </p>
         </div>
-
       </motion.div>
 
       {/* ── AML/CFT Scraper Utility card ── */}
@@ -426,7 +480,6 @@ export default function ProjectsContent() {
         variants={itemVariants}
         className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-blue-500/30 hover:shadow-lg"
       >
-
         {/* ── TOP: LinkedIn Post Embedded Preview ── */}
         <div className="relative w-full bg-[#f3f2ef] dark:bg-[#1d2226] border-b border-gray-200 dark:border-gray-800/50" style={{ minHeight: "500px" }}>
           <iframe
@@ -440,18 +493,24 @@ export default function ProjectsContent() {
 
         {/* ── MIDDLE: title + story + tools in a two-col layout on desktop ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-
           {/* Left col — title + story */}
-          <div className="p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
             <div>
-              <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/40 px-3 py-1 rounded-full mb-3">
+              <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/40 px-2.5 sm:px-3 py-1 rounded-full mb-2 sm:mb-3">
                 Python · Automation
               </span>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                AML/CFT Scraper Utility
-              </h3>
+              <a
+                href="https://github.com/zaifears/aml-cft-scraper"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded block"
+              >
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                  AML/CFT Scraper Utility
+                </h3>
+              </a>
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
               <p>
                 Investigating unauthorized &quot;Diamond Top-up&quot; platforms was a highly repetitive task. I had to click through dozens of sketchy e-commerce sites manually just to find which personal bKash accounts were being illicitly used as payment gateways.
               </p>
@@ -474,18 +533,17 @@ export default function ProjectsContent() {
           </div>
 
           {/* Right col — tool tags + feature list */}
-          <div className="p-6 md:p-8 flex flex-col gap-5">
-
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-5">
             {/* Tools */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
                 Tools used
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {amlTools.map((tool) => (
                   <span
                     key={tool}
-                    className="text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
+                    className="text-[11px] sm:text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
                   >
                     {tool}
                   </span>
@@ -495,14 +553,14 @@ export default function ProjectsContent() {
 
             {/* Features */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
                 What it does
               </p>
               <div className="flex flex-col gap-2.5">
                 {amlFeatures.map((f) => (
                   <div
                     key={f.text}
-                    className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400"
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-400"
                   >
                     <span className="mt-0.5 shrink-0">{f.icon}</span>
                     <span className="leading-snug">{f.text}</span>
@@ -510,20 +568,16 @@ export default function ProjectsContent() {
                 ))}
               </div>
             </div>
-
           </div>
         </div>
 
         {/* ── BOTTOM: footer note ── */}
-        <div className="px-6 md:px-8 py-4 border-t border-gray-200 dark:border-gray-800/50">
+        <div className="px-5 sm:px-6 md:px-8 py-3.5 sm:py-4 border-t border-gray-200 dark:border-gray-800/50">
           <p className="text-xs text-gray-400 dark:text-gray-500">
-            Built strictly to optimize personal investigation workflows — standalone Python utility.
+            Built strictly to optimize personal investigation workflows - standalone Python utility.
           </p>
         </div>
-
       </motion.div>
-
-      {/* Add more project cards below here */}
     </motion.div>
   );
 }

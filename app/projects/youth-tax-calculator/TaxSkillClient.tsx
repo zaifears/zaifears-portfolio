@@ -61,7 +61,7 @@ export default function TaxSkillClient() {
   return (
     <div className="space-y-12">
       {/* ── INTERACTIVE INSTALLATION & EXECUTION TABS ── */}
-      <section className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-5 sm:p-7 shadow-sm backdrop-blur-sm">
+      <section className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-4 sm:p-6 md:p-7 shadow-sm backdrop-blur-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-gray-100 dark:border-gray-800">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -76,32 +76,32 @@ export default function TaxSkillClient() {
           </div>
 
           {/* Tab buttons */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-gray-100 dark:bg-gray-800 rounded-xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 p-1 bg-gray-100 dark:bg-gray-800 rounded-xl w-full sm:w-auto">
             <button
               onClick={() => setActiveTab("skill")}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+              className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                 activeTab === "skill"
                   ? "bg-white dark:bg-gray-900 text-emerald-600 dark:text-emerald-400 shadow-sm"
                   : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               <Bot className="w-4 h-4" />
-              <span>1. AI Skill (Primary)</span>
+              <span>1. AI Skill</span>
             </button>
             <button
               onClick={() => setActiveTab("wizard")}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+              className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                 activeTab === "wizard"
                   ? "bg-white dark:bg-gray-900 text-emerald-600 dark:text-emerald-400 shadow-sm"
                   : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               <Terminal className="w-4 h-4" />
-              <span>2. Terminal Wizard</span>
+              <span>2. Terminal</span>
             </button>
             <button
               onClick={() => setActiveTab("cli")}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+              className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                 activeTab === "cli"
                   ? "bg-white dark:bg-gray-900 text-emerald-600 dark:text-emerald-400 shadow-sm"
                   : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -274,7 +274,7 @@ export default function TaxSkillClient() {
       </section>
 
       {/* ── LIVE INTERACTIVE BALANCE SHEET RECONCILIATION SIMULATOR ── */}
-      <section className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-5 sm:p-7 shadow-sm">
+      <section className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 sm:p-6 md:p-7 shadow-sm">
         <div className="mb-6 pb-4 border-b border-gray-100 dark:border-gray-800">
           <div className="flex items-center gap-2 mb-1">
             <Calculator className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
@@ -285,16 +285,16 @@ export default function TaxSkillClient() {
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
             The Zero-Difference Balance Sheet Engine
           </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">
             Adjust the sliders below to see how Form IT-10B keeps tax expense at minimum and automatically solves for parental support under Section 56(g).
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {/* Controls */}
           <div className="space-y-4">
             <div>
-              <div className="flex justify-between text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <div className="flex flex-col sm:flex-row sm:justify-between text-xs font-medium text-gray-700 dark:text-gray-300 gap-0.5 sm:gap-2 mb-1">
                 <span>Annual Internship Salary: <strong>BDT {salary.toLocaleString()}</strong></span>
                 <span className="text-emerald-600 dark:text-emerald-400">1/3rd Auto-Exempt (Sec 32)</span>
               </div>
@@ -305,12 +305,12 @@ export default function TaxSkillClient() {
                 step={5000}
                 value={salary}
                 onChange={(e) => setSalary(Number(e.target.value))}
-                className="w-full accent-emerald-600"
+                className="w-full accent-emerald-600 cursor-pointer"
               />
             </div>
 
             <div>
-              <div className="flex justify-between text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <div className="flex flex-col sm:flex-row sm:justify-between text-xs font-medium text-gray-700 dark:text-gray-300 gap-0.5 sm:gap-2 mb-1">
                 <span>University Stipend / Scholarship: <strong>BDT {stipend.toLocaleString()}</strong></span>
                 <span className="text-emerald-600 dark:text-emerald-400">100% Tax-Free (6th Sch)</span>
               </div>
@@ -321,14 +321,14 @@ export default function TaxSkillClient() {
                 step={5000}
                 value={stipend}
                 onChange={(e) => setStipend(Number(e.target.value))}
-                className="w-full accent-emerald-600"
+                className="w-full accent-emerald-600 cursor-pointer"
               />
             </div>
 
             <div>
-              <div className="flex justify-between text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <div className="flex flex-col sm:flex-row sm:justify-between text-xs font-medium text-gray-700 dark:text-gray-300 gap-0.5 sm:gap-2 mb-1">
                 <span>Annual Living Expenses (IT-10BB): <strong>BDT {livingExpenses.toLocaleString()}</strong></span>
-                <span>Food, rent, tuition</span>
+                <span className="text-gray-500">Food, rent, tuition</span>
               </div>
               <input
                 type="range"
@@ -337,13 +337,13 @@ export default function TaxSkillClient() {
                 step={10000}
                 value={livingExpenses}
                 onChange={(e) => setLivingExpenses(Number(e.target.value))}
-                className="w-full accent-emerald-600"
+                className="w-full accent-emerald-600 cursor-pointer"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-1 sm:pt-2">
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+                <label className="block text-[11px] sm:text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Bank TDS (Credit)
                 </label>
                 <input
@@ -354,7 +354,7 @@ export default function TaxSkillClient() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+                <label className="block text-[11px] sm:text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                   Closing Bank/Cash
                 </label>
                 <input
@@ -368,37 +368,37 @@ export default function TaxSkillClient() {
           </div>
 
           {/* Computed Output Cards */}
-          <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/80 p-5 flex flex-col justify-between space-y-4">
+          <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/80 p-4 sm:p-5 flex flex-col justify-between space-y-4">
             <div className="space-y-3">
-              <div className="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
                 <span className="text-gray-600 dark:text-gray-400">Net Taxable Income</span>
                 <span className="font-mono font-semibold text-gray-900 dark:text-white">
                   BDT {Math.round(netTaxableIncome).toLocaleString()}
                 </span>
               </div>
 
-              <div className="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
                 <span className="text-gray-600 dark:text-gray-400">Tax Payable</span>
                 <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">
                   BDT {taxPayable.toLocaleString()} (Kept at Minimum)
                 </span>
               </div>
 
-              <div className="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
                 <span className="text-gray-600 dark:text-gray-400">Bank TDS Status</span>
                 <span className="font-mono font-semibold text-emerald-600 dark:text-emerald-400">
                   BDT {refundableTds.toLocaleString()} (100% Refundable)
                 </span>
               </div>
 
-              <div className="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
                 <span className="text-gray-600 dark:text-gray-400">Total Fund Outflow</span>
                 <span className="font-mono font-semibold text-gray-900 dark:text-white">
                   BDT {totalOutflow.toLocaleString()}
                 </span>
               </div>
 
-              <div className="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
                 <span className="text-gray-600 dark:text-gray-400">
                   Enter in Other Receipts (Sec 56g)
                 </span>
