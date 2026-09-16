@@ -72,6 +72,121 @@ export default function ProjectsContent() {
         </p>
       </motion.div>
 
+      {/* ── Bangladesh Youth Tax Calculator card ── */}
+      <motion.div
+        variants={itemVariants}
+        className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-emerald-500/30 hover:shadow-lg"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+          {/* Left col — title + story */}
+          <div className="p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 shrink-0 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-0.5 shadow-sm">
+                <Image
+                  src="/projects/youth-tax-calculator/BD-Logos.webp"
+                  alt="Bangladesh Youth Tax Calculator logo"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+              <div>
+                <span className="inline-block text-xs font-semibold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/40 px-3 py-1 rounded-full mb-1">
+                  AI Skill · Tax Tech
+                </span>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
+                  Bangladesh Youth Tax Calculator
+                </h3>
+              </div>
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
+              <p className="font-medium text-gray-800 dark:text-gray-200">
+                An AI Agent Skill and deterministic statutory engine for students, interns, and young professionals filing on etaxnbr.gov.bd.
+              </p>
+              <p>
+                Since it is September, filing tax returns is on all our minds. But being a student with no budget to hire a CA firm, many turn to AI. Generic models struggle with the NBR portal UI and hallucinate balance sheet math.
+              </p>
+              <p>
+                This skill equips your LLM with the Income Tax Act 2023, guides you through every screen, and uses a deterministic Python engine to ensure your balance sheet difference is exactly 0.00 with 0 BDT tax payable.
+              </p>
+            </div>
+            <Link
+              href="/projects/youth-tax-calculator"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-white/60 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors w-fit mt-auto"
+            >
+              View Project
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-3 h-3" />
+            </Link>
+          </div>
+
+          {/* Right col — tool tags + feature list */}
+          <div className="p-6 md:p-8 flex flex-col gap-5">
+            {/* Tools */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+                Tools & Standards
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "AI Agent Skill",
+                  "Python 3 Engine",
+                  "Income Tax Act 2023",
+                  "etaxnbr.gov.bd",
+                  "llms.txt Standard",
+                  "MIT License",
+                ].map((tool) => (
+                  <span
+                    key={tool}
+                    className="text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Features */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3">
+                Core Outcomes
+              </p>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { icon: "⚖️", text: "0 BDT tax payable for income under 3,50,000 BDT" },
+                  { icon: "💵", text: "100% bank TDS refund with direct claiming guidance" },
+                  { icon: "📑", text: "Zero-difference balance sheet math via Section 56(g)" },
+                  { icon: "🤖", text: "Full llms.txt & llms-full.txt support for AI crawlers" },
+                ].map((f) => (
+                  <div
+                    key={f.text}
+                    className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    <span className="mt-0.5 shrink-0">{f.icon}</span>
+                    <span className="leading-snug">{f.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM: footer note */}
+        <div className="px-6 md:px-8 py-4 border-t border-gray-200 dark:border-gray-800/50 flex flex-wrap items-center justify-between gap-2">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            Open source on GitHub with 1-click installation for Windows and macOS.
+          </p>
+          <a
+            href="https://github.com/zaifears/youth-tax-calculator"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+          >
+            <span>github.com/zaifears/youth-tax-calculator</span>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-2.5 h-2.5" />
+          </a>
+        </div>
+      </motion.div>
+
       {/* ── LocReminder card ── */}
       <motion.div
         variants={itemVariants}
