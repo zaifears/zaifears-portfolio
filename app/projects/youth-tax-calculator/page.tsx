@@ -6,7 +6,6 @@ import {
   Github,
   ExternalLink,
   ShieldCheck,
-  AlertTriangle,
   CheckCircle2,
   Sparkles,
   BookOpen,
@@ -16,7 +15,8 @@ import {
   TrendingDown,
   Building2,
   GraduationCap,
-  Code
+  Code,
+  HelpCircle,
 } from "lucide-react";
 import TaxSkillClient from "./TaxSkillClient";
 
@@ -25,16 +25,34 @@ const repoUrl = "https://github.com/zaifears/youth-tax-calculator";
 const rawBase = "https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main";
 
 export const metadata: Metadata = {
-  title: "Bangladesh Youth Tax Calculator — AI Agent Skill & Filing Engine",
+  title: "Bangladesh Youth Tax Calculator - AI Agent Skill & Filing Engine",
   description:
     "An AI Agent Skill and deterministic Python engine made for Bangladeshi students, interns, and young professionals filing on etaxnbr.gov.bd under the Income Tax Act 2023. Keeps tax expense at minimum and automates balance sheet reconciliation.",
+  keywords: [
+    "Bangladeshi tax calculation",
+    "student tax return Bangladesh",
+    "youth tax calculator",
+    "Bangladesh tax calculator",
+    "student tax calculation",
+    "Income Tax Act 2023",
+    "etaxnbr gov bd filing guide",
+    "internship stipend tax exemption",
+    "university scholarship tax exemption",
+    "student tax refund Bangladesh",
+    "bank interest TDS refund",
+    "IT-10B zero difference balance sheet",
+    "Section 56(g) parental support tax",
+    "Schedule 5 tax rebate",
+    "AI tax skill Bangladesh",
+    "first time tax filer Bangladesh",
+  ],
   alternates: {
     canonical: `${baseUrl}/projects/youth-tax-calculator`,
   },
   openGraph: {
     type: "website",
     url: `${baseUrl}/projects/youth-tax-calculator`,
-    title: "Bangladesh Youth Tax Calculator — AI Skill for e-Return Filing",
+    title: "Bangladesh Youth Tax Calculator - AI Skill for e-Return Filing",
     description:
       "AI Agent Skill + deterministic statutory engine made for students and first-time tax filers in Bangladesh. Keeps tax expense at minimum, claims 100% TDS refunds, and achieves zero-difference balance sheets.",
     images: [
@@ -45,6 +63,13 @@ export const metadata: Metadata = {
         alt: "Bangladesh Youth Tax Calculator Logo",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bangladesh Youth Tax Calculator - AI Skill for e-Return Filing",
+    description:
+      "AI Agent Skill and deterministic Python engine made for students and first-time tax filers in Bangladesh under the Income Tax Act 2023.",
+    images: ["/projects/youth-tax-calculator/BD-Logos.png"],
   },
 };
 
@@ -95,21 +120,36 @@ const statutoryPillars = [
   },
 ];
 
-const portalTraps = [
+const faqItems = [
   {
-    step: "01",
-    title: "The Hidden Exemption Toggle (Screen 1)",
-    desc: "On the assessment setup screen, you must explicitly toggle \"Any income which is fully exempted from tax?\" to \"Yes\". If left as \"No\", the portal completely hides the tab required to report tax-free stipends.",
+    question: "Do university students and interns need to pay tax in Bangladesh?",
+    answer:
+      "Under the Income Tax Act 2023, individual male taxpayers have a tax-free annual income threshold of BDT 3,50,000 (BDT 4,00,000 for female taxpayers). If your net taxable income is at or below this threshold, your income tax liability is strictly BDT 0.00. Under Section 163, the minimum tax floor (such as BDT 5,000 in City Corporation areas) does not trigger as long as your taxable income does not exceed the basic exemption limit.",
   },
   {
-    step: "02",
-    title: "The Green Checkmark Requirement (Screen 3)",
-    desc: "In Capital Gains and Financial Assets dropdowns, selecting an entry generates a small green tick button next to it. You must click that tick mark or the input table fields will never appear.",
+    question: "Are university scholarships, student stipends, and academic bursaries taxable?",
+    answer:
+      "No. Under the Sixth Schedule, Part 1, Paragraph 8 of the Income Tax Act 2023, any scholarship, stipend, or grant given to assist a student in meeting education costs is 100% exempt from income tax. On the official e-Return portal (etaxnbr.gov.bd), you declare this under the Tax-Exempted Income tab so it legally accounts for your living expenses and asset growth without incurring tax.",
   },
   {
-    step: "03",
-    title: "The Section 70 PDF Discrepancy (Final Return)",
-    desc: "On the 14-page PDF draft, Line 7 (Gross Wealth) appears smaller than Line 10 (Total Assets) by the exact carried-forward stock loss. This is a known backend reporting artifact in NBR software, fully justified by Page 12.",
+    question: "Can I get a refund for bank account interest TDS on etaxnbr.gov.bd?",
+    answer:
+      "Yes. When banks deduct 10% (with TIN) or 15% (without TIN) under Section 102/138 on savings interest, this Tax Deducted at Source is treated as advance tax. If your total taxable income is within the tax-free limit, your final tax payable is zero. The entire amount deducted by the bank becomes refundable under Section 173, and you can claim this refund directly through your e-Return filing.",
+  },
+  {
+    question: "What is the zero-difference balance sheet rule in Form IT-10B?",
+    answer:
+      "Form IT-10B is the statement of assets and liabilities. The NBR portal validates that Total Outflow (your annual living expenses plus the net change in your bank balance and asset acquisitions) matches your Total Sources of Funds (net taxable income plus exempt receipts and gifts). The difference must equal exactly 0.00. Unexplained gaps can trigger automated review or audit notices under Section 182.",
+  },
+  {
+    question: "How does parental financial support work under Section 56(g)?",
+    answer:
+      "Students and fresh graduates often spend more on tuition and living costs than their internship or freelance income. Under Section 56(g) of the Income Tax Act 2023, money received from parents, spouse, or siblings qualifies as non-taxable capital receipts. Entering this figure under Other Receipts in the portal fund reconciliation tab legally balances the IT-10B balance sheet to exactly zero.",
+  },
+  {
+    question: "How do I instruct ChatGPT, Claude, or Gemini to calculate my Bangladesh taxes accurately?",
+    answer:
+      "Standard LLMs frequently make arithmetic errors on multi-line balance sheets or hallucinate portal menus. You can instruct any AI to load the open-source youth-tax-calculator skill (github.com/zaifears/youth-tax-calculator) or ingest https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/llms-full.txt. The skill injects the statutory clauses of the Income Tax Act 2023 and calls the deterministic Python engine for exact numbers.",
   },
 ];
 
@@ -153,6 +193,7 @@ export default function YouthTaxCalculatorPage() {
         }}
       />
 
+      {/* Schema.org BreadcrumbList JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -169,6 +210,25 @@ export default function YouthTaxCalculatorPage() {
                 item: `${baseUrl}/projects/youth-tax-calculator`,
               },
             ],
+          }),
+        }}
+      />
+
+      {/* Schema.org FAQPage JSON-LD for Google Rich Results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqItems.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+              },
+            })),
           }),
         }}
       />
@@ -277,13 +337,13 @@ export default function YouthTaxCalculatorPage() {
                 Having an e-TIN, filing a tax return is something we all face. But being a student still, with no budget to hire a professional tax consultant or chartered accounting firm, many of us turn to AI.
               </p>
               <p>
-                When I tried doing that myself, I found so many issues along the way. LLMs — especially Gemini, Claude, and GPT models — struggled to understand how the actual NBR e-Return system UI looks like. They missed hidden exemption toggles, forgot the required green tick marks, hallucinated where to enter university scholarships, and repeatedly failed at basic multi-line balance sheet arithmetic.
+                When I tried doing that myself, I found so many issues along the way. LLMs, especially Gemini, Claude, and GPT models, struggled to understand how the actual NBR e-Return system UI looks like. They missed exemption toggles, hallucinated where to enter university scholarships, and repeatedly failed at basic multi-line balance sheet arithmetic.
               </p>
               <p>
                 For that, I built this <strong>SKILL for your LLM</strong>.
               </p>
               <p className="font-medium text-emerald-900 dark:text-emerald-200">
-                No, this does not simply calculate your taxes. By implementing this skill, your AI becomes equipped with the substantive statutory law (Income Tax Act 2023) and the screen-by-screen architecture of Bangladesh&apos;s e-Return system. It walks you through every screen, alerts you to UI traps, and calls a deterministic Python engine so your balance sheet balances to an exact difference of 0.00 while keeping your tax expense at the legal minimum.
+                No, this does not simply calculate your taxes. By implementing this skill, your AI becomes equipped with the substantive statutory law (Income Tax Act 2023) and the screen-by-screen architecture of Bangladesh&apos;s e-Return system. It walks you through every screen and calls a deterministic Python engine so your balance sheet balances to an exact difference of 0.00 while keeping your tax expense at the legal minimum.
               </p>
             </div>
           </div>
@@ -322,32 +382,27 @@ export default function YouthTaxCalculatorPage() {
           </div>
         </section>
 
-        {/* ── PORTAL UI TRAPS & AUDIT DEFENSE ── */}
+        {/* ── FREQUENTLY ASKED QUESTIONS (SEO & LEGAL GUIDANCE) ── */}
         <section className="mb-14">
           <div className="flex items-center gap-2 mb-6">
-            <AlertTriangle className="w-5 h-5 text-amber-500" />
+            <HelpCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-              NBR e-Return Portal Traps & How We Solve Them
+              Frequently Asked Questions & Legal Guidance
             </h2>
           </div>
 
           <div className="space-y-4">
-            {portalTraps.map((trap) => (
+            {faqItems.map((item) => (
               <div
-                key={trap.step}
-                className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-5 flex items-start gap-4"
+                key={item.question}
+                className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-5 sm:p-6"
               >
-                <span className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-mono font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                  {trap.step}
-                </span>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base mb-1">
-                    {trap.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {trap.desc}
-                  </p>
-                </div>
+                <h3 className="font-semibold text-gray-900 dark:text-white text-base sm:text-lg mb-2">
+                  {item.question}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {item.answer}
+                </p>
               </div>
             ))}
           </div>

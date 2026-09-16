@@ -55,6 +55,9 @@ export default function TaxSkillClient() {
     cliCommand: "python calculator.py --salary 35000 --stipend 18000 --interest 228 --bank-tds 31 --bank-balance 34908 --expenses 170000 --opening-wealth 56759",
   };
 
+  const aiPrompt =
+    "I am filing my Bangladesh individual income tax return on etaxnbr.gov.bd under the Income Tax Act 2023. Please load and use the youth-tax-calculator skill (GitHub: https://github.com/zaifears/youth-tax-calculator, or read https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/llms-full.txt) to calculate my tax liability, maximize legal exemptions (Sixth Schedule Part 1 Para 8 stipends, Section 32 salary exemption), claim bank TDS refunds, and reconcile my IT-10B balance sheet to an exact difference of 0.00.";
+
   return (
     <div className="space-y-12">
       {/* ── INTERACTIVE INSTALLATION & EXECUTION TABS ── */}
@@ -176,13 +179,38 @@ export default function TaxSkillClient() {
               </code>
             </div>
 
+            {/* Prompt for Web AI (ChatGPT, Claude, Gemini, Perplexity) */}
+            <div className="rounded-xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-950/30 p-4">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="flex items-center gap-2">
+                  <Bot className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span className="text-xs font-bold text-gray-900 dark:text-white">
+                    Ask Your AI to Calculate (ChatGPT, Claude, Gemini)
+                  </span>
+                </div>
+                <button
+                  onClick={() => copyToClipboard(aiPrompt, "web-ai-prompt")}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg shadow-sm transition-all shrink-0"
+                >
+                  {copiedId === "web-ai-prompt" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedId === "web-ai-prompt" ? "Copied Prompt!" : "Copy Prompt"}</span>
+                </button>
+              </div>
+              <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                Paste this into your AI chat window so it uses the official Income Tax Act 2023 rules and avoids common filing mistakes:
+              </p>
+              <code className="block text-xs font-mono text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 p-3 rounded-lg border border-gray-200 dark:border-gray-800 leading-relaxed overflow-x-auto whitespace-pre-wrap">
+                {aiPrompt}
+              </code>
+            </div>
+
             <div className="p-4 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50">
               <div className="text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-1">
                 What to ask your AI after installation:
               </div>
               <ul className="text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 space-y-1 list-disc list-inside">
-                <li>&quot;I am a university student in Bangladesh with an internship, walk me through my return on etaxnbr.gov.bd&quot;</li>
-                <li>&quot;Calculate my parent support figure under Section 56(g) so my IT-10B difference is exactly 0.00&quot;</li>
+                <li>I am a university student in Bangladesh with an internship, walk me through my return on etaxnbr.gov.bd</li>
+                <li>Calculate my parent support figure under Section 56(g) so my IT-10B difference is exactly 0.00</li>
               </ul>
             </div>
           </div>
@@ -372,7 +400,7 @@ export default function TaxSkillClient() {
 
               <div className="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
                 <span className="text-gray-600 dark:text-gray-400">
-                  Enter in &quot;Other Receipts&quot; (Sec 56g)
+                  Enter in Other Receipts (Sec 56g)
                 </span>
                 <span className="font-mono font-bold text-blue-600 dark:text-blue-400">
                   BDT {parentalSupportNeeded.toLocaleString()}
