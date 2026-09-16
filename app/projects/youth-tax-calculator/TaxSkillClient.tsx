@@ -7,20 +7,14 @@ import {
   Terminal,
   Sparkles,
   Bot,
-  FileCode,
-  ExternalLink,
   Calculator,
-  ShieldCheck,
-  ChevronDown,
-  ChevronUp,
-  FileText
+  ShieldCheck
 } from "lucide-react";
 
-const GITHUB_REPO = "https://github.com/zaifears/youth-tax-calculator";
 const RAW_BASE = "https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main";
 
 export default function TaxSkillClient() {
-  const [activeTab, setActiveTab] = useState<"skill" | "wizard" | "cli" | "llms">("skill");
+  const [activeTab, setActiveTab] = useState<"skill" | "wizard" | "cli">("skill");
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   // Live Balance Sheet Calculator State
@@ -31,10 +25,6 @@ export default function TaxSkillClient() {
   const [livingExpenses, setLivingExpenses] = useState<number>(170000);
   const [closingSavings, setClosingSavings] = useState<number>(63864);
   const [openingWealth, setOpeningWealth] = useState<number>(56759);
-
-  // Expanded LLM context viewer state
-  const [showLlmsPreview, setShowLlmsPreview] = useState<boolean>(false);
-  const [previewFile, setPreviewFile] = useState<"llms.txt" | "llms-full.txt">("llms.txt");
 
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -60,12 +50,9 @@ export default function TaxSkillClient() {
   const installCommands = {
     windows: ".\\install.ps1",
     unix: "chmod +x install.sh && ./install.sh",
-    cursor: `${RAW_BASE}/llms.txt`,
     claude: `curl -s ${RAW_BASE}/llms-full.txt > tax_skill.md`,
     pythonWizard: "python calculator.py",
     cliCommand: "python calculator.py --salary 35000 --stipend 18000 --interest 228 --bank-tds 31 --bank-balance 34908 --expenses 170000 --opening-wealth 56759",
-    llmsTxt: `${RAW_BASE}/llms.txt`,
-    llmsFullTxt: `${RAW_BASE}/llms-full.txt`,
   };
 
   return (
@@ -120,17 +107,6 @@ export default function TaxSkillClient() {
               <Calculator className="w-4 h-4" />
               <span>3. CLI Flags</span>
             </button>
-            <button
-              onClick={() => setActiveTab("llms")}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
-                activeTab === "llms"
-                  ? "bg-white dark:bg-gray-900 text-emerald-600 dark:text-emerald-400 shadow-sm"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-              }`}
-            >
-              <FileCode className="w-4 h-4" />
-              <span>4. llms.txt</span>
-            </button>
           </div>
         </div>
 
@@ -138,7 +114,7 @@ export default function TaxSkillClient() {
         {activeTab === "skill" && (
           <div className="space-y-4">
             <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-              This project is an <strong>AI Skill first</strong>. Instead of asking generic LLMs that hallucinate portal screens, this skill loads the complete statutory rules of the Income Tax Act 2023, the official NBR e-Return portal architecture, and delegates all multi-line arithmetic to Python.
+              This project is an <strong>AI Skill first</strong>. Instead of asking generic LLMs that hallucinate portal screens, this skill loads the complete statutory rules of the Income Tax Act 2023, the official NBR e-Return portal architecture, and delegates all multi-line arithmetic to Python to keep your tax expense at minimum.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -179,6 +155,25 @@ export default function TaxSkillClient() {
                   {installCommands.unix}
                 </code>
               </div>
+            </div>
+
+            {/* Ingestion for Claude Code / Cursor / Terminal Agents */}
+            <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  Direct Ingestion for AI Agents (Claude Code / Cursor / CLI):
+                </span>
+                <button
+                  onClick={() => copyToClipboard(installCommands.claude, "claude-curl")}
+                  className="inline-flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 hover:underline"
+                >
+                  {copiedId === "claude-curl" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedId === "claude-curl" ? "Copied!" : "Copy"}</span>
+                </button>
+              </div>
+              <code className="block text-xs font-mono text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 p-2.5 rounded border border-gray-200 dark:border-gray-800 overflow-x-auto">
+                {installCommands.claude}
+              </code>
             </div>
 
             <div className="p-4 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50">
@@ -248,98 +243,6 @@ export default function TaxSkillClient() {
             </div>
           </div>
         )}
-
-        {/* Tab 4: llms.txt */}
-        {activeTab === "llms" && (
-          <div className="space-y-4">
-            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-              This repository adheres to the open <a href="https://llmstxt.org" target="_blank" rel="noopener noreferrer" className="text-emerald-600 dark:text-emerald-400 underline font-medium">llmstxt.org</a> standard. AI tools like Cursor, Claude Code, and ChatGPT can crawl and ingest this entire repository cleanly.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Endpoint 1: llms.txt */}
-              <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 p-4 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-bold text-gray-900 dark:text-white">/llms.txt</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-mono">Manifest</span>
-                  </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-                    Curated markdown index with core rules, file paths, and statutory boundaries.
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <a
-                    href={installCommands.llmsTxt}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
-                  >
-                    <span>View Raw</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                  <button
-                    onClick={() => copyToClipboard(installCommands.llmsTxt, "llms-txt-url")}
-                    className="text-xs text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 ml-auto flex items-center gap-1"
-                  >
-                    {copiedId === "llms-txt-url" ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                    <span>{copiedId === "llms-txt-url" ? "Copied URL" : "Copy URL"}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Endpoint 2: llms-full.txt */}
-              <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 p-4 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-bold text-gray-900 dark:text-white">/llms-full.txt</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-mono">Complete Bundle</span>
-                  </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-                    64 KB single-file comprehensive context combining the skill, legal codex, and IT-10B math.
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <a
-                    href={installCommands.llmsFullTxt}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
-                  >
-                    <span>View Raw</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                  <button
-                    onClick={() => copyToClipboard(installCommands.llmsFullTxt, "llms-full-url")}
-                    className="text-xs text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 ml-auto flex items-center gap-1"
-                  >
-                    {copiedId === "llms-full-url" ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                    <span>{copiedId === "llms-full-url" ? "Copied URL" : "Copy URL"}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Agent Fetch Snippet */}
-            <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 p-3">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] font-semibold text-gray-700 dark:text-gray-300">
-                  One-shot ingestion in Cursor or Terminal:
-                </span>
-                <button
-                  onClick={() => copyToClipboard(installCommands.claude, "curl-cmd")}
-                  className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
-                >
-                  {copiedId === "curl-cmd" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                  <span>{copiedId === "curl-cmd" ? "Copied!" : "Copy Command"}</span>
-                </button>
-              </div>
-              <code className="block text-xs font-mono text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-2 rounded border border-gray-200 dark:border-gray-800 overflow-x-auto">
-                {installCommands.claude}
-              </code>
-            </div>
-          </div>
-        )}
       </section>
 
       {/* ── LIVE INTERACTIVE BALANCE SHEET RECONCILIATION SIMULATOR ── */}
@@ -355,7 +258,7 @@ export default function TaxSkillClient() {
             The Zero-Difference Balance Sheet Engine
           </h2>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-            Adjust the sliders below to see how Form IT-10B balances your cash flow and automatically solves for parental support under Section 56(g).
+            Adjust the sliders below to see how Form IT-10B keeps tax expense at minimum and automatically solves for parental support under Section 56(g).
           </p>
         </div>
 
@@ -449,7 +352,7 @@ export default function TaxSkillClient() {
               <div className="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-800 text-xs">
                 <span className="text-gray-600 dark:text-gray-400">Tax Payable</span>
                 <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">
-                  BDT {taxPayable.toLocaleString()} (0 BDT Floor)
+                  BDT {taxPayable.toLocaleString()} (Kept at Minimum)
                 </span>
               </div>
 

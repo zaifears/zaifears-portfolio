@@ -101,13 +101,13 @@ export default function ProjectsContent() {
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
               <p className="font-medium text-gray-800 dark:text-gray-200">
-                An AI Agent Skill and deterministic statutory engine for students, interns, and young professionals filing on etaxnbr.gov.bd.
+                An AI Agent Skill and deterministic statutory engine made for students, interns, and young professionals filing on etaxnbr.gov.bd.
               </p>
               <p>
-                Since it is September, filing tax returns is on all our minds. But being a student with no budget to hire a CA firm, many turn to AI. Generic models struggle with the NBR portal UI and hallucinate balance sheet math.
+                Having an e-TIN, filing tax returns is something we all face. But being a student with no budget to hire a CA firm, many turn to AI. Generic models struggle with the NBR portal UI and hallucinate balance sheet math.
               </p>
               <p>
-                This skill equips your LLM with the Income Tax Act 2023, guides you through every screen, and uses a deterministic Python engine to ensure your balance sheet difference is exactly 0.00 with 0 BDT tax payable.
+                This skill equips your LLM with the Income Tax Act 2023, guides you through every screen, and uses a deterministic Python engine to ensure your balance sheet difference is exactly 0.00 while keeping tax expense at minimum.
               </p>
             </div>
             <Link
@@ -132,7 +132,7 @@ export default function ProjectsContent() {
                   "Python 3 Engine",
                   "Income Tax Act 2023",
                   "etaxnbr.gov.bd",
-                  "llms.txt Standard",
+                  "Form IT-10B",
                   "MIT License",
                 ].map((tool) => (
                   <span
@@ -152,10 +152,10 @@ export default function ProjectsContent() {
               </p>
               <div className="flex flex-col gap-2.5">
                 {[
-                  { icon: "⚖️", text: "0 BDT tax payable for income under 3,50,000 BDT" },
+                  { icon: "⚖️", text: "Keeps tax expense at minimum (0 BDT floor under 3,50,000 BDT)" },
                   { icon: "💵", text: "100% bank TDS refund with direct claiming guidance" },
                   { icon: "📑", text: "Zero-difference balance sheet math via Section 56(g)" },
-                  { icon: "🤖", text: "Full llms.txt & llms-full.txt support for AI crawlers" },
+                  { icon: "🛡️", text: "Prevents NBR e-Return portal UI errors & audit traps" },
                 ].map((f) => (
                   <div
                     key={f.text}

@@ -4,20 +4,19 @@ import Link from "next/link";
 import {
   ArrowLeft,
   Github,
-  FileText,
   ExternalLink,
   ShieldCheck,
   AlertTriangle,
   CheckCircle2,
   Sparkles,
   BookOpen,
-  Layers,
   Scale,
   DollarSign,
   HeartHandshake,
   TrendingDown,
   Building2,
-  GraduationCap
+  GraduationCap,
+  Code
 } from "lucide-react";
 import TaxSkillClient from "./TaxSkillClient";
 
@@ -28,7 +27,7 @@ const rawBase = "https://raw.githubusercontent.com/zaifears/youth-tax-calculator
 export const metadata: Metadata = {
   title: "Bangladesh Youth Tax Calculator — AI Agent Skill & Filing Engine",
   description:
-    "An AI Agent Skill and deterministic Python engine designed for Bangladeshi students, interns, and young professionals filing on etaxnbr.gov.bd under the Income Tax Act 2023.",
+    "An AI Agent Skill and deterministic Python engine made for Bangladeshi students, interns, and young professionals filing on etaxnbr.gov.bd under the Income Tax Act 2023. Keeps tax expense at minimum and automates balance sheet reconciliation.",
   alternates: {
     canonical: `${baseUrl}/projects/youth-tax-calculator`,
   },
@@ -37,7 +36,7 @@ export const metadata: Metadata = {
     url: `${baseUrl}/projects/youth-tax-calculator`,
     title: "Bangladesh Youth Tax Calculator — AI Skill for e-Return Filing",
     description:
-      "AI Agent Skill + deterministic statutory engine for students and first-time tax filers in Bangladesh. 0 BDT tax floor, 100% TDS refund, and zero-difference balance sheets.",
+      "AI Agent Skill + deterministic statutory engine made for students and first-time tax filers in Bangladesh. Keeps tax expense at minimum, claims 100% TDS refunds, and achieves zero-difference balance sheets.",
     images: [
       {
         url: "/projects/youth-tax-calculator/BD-Logos.png",
@@ -52,10 +51,9 @@ export const metadata: Metadata = {
 const badges = [
   "Income Tax Act 2023",
   "etaxnbr.gov.bd Verified",
-  "0 BDT Tax Floor",
+  "Minimized Tax Liability",
   "Zero-Difference Balance Sheet",
   "100% Open Source MIT",
-  "llms.txt Standard Compliant",
 ];
 
 const statutoryPillars = [
@@ -87,7 +85,7 @@ const statutoryPillars = [
     icon: <Scale className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
     title: "Minimum Tax Exemption",
     ref: "Section 163 & Finance Act",
-    text: "The BDT 5,000 city minimum tax floor never triggers if taxable income is at or below BDT 3,50,000. Your tax payable is strictly BDT 0.00.",
+    text: "The BDT 5,000 city minimum tax floor never triggers if taxable income is at or below BDT 3,50,000. Your tax payable is kept at the legal minimum (strictly BDT 0.00 if within the threshold).",
   },
   {
     icon: <Building2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
@@ -119,7 +117,6 @@ const techStack = [
   "Python 3.8+ (Zero Dependencies)",
   "Income Tax Act 2023 Statutory Codex",
   "NBR e-Return Portal Architecture",
-  "llms.txt & llms-full.txt Standard",
   "Antigravity / Claude Code / Cursor Protocols",
   "Next.js 16 & React 19",
   "Tailwind CSS 4",
@@ -145,7 +142,7 @@ export default function YouthTaxCalculatorPage() {
               priceCurrency: "BDT",
             },
             description:
-              "AI Agent Skill and deterministic statutory tax engine for Bangladeshi students, interns, and young professionals filing on etaxnbr.gov.bd under the Income Tax Act 2023.",
+              "AI Agent Skill and deterministic statutory tax engine made for Bangladeshi students, interns, and young professionals filing on etaxnbr.gov.bd under the Income Tax Act 2023.",
             author: {
               "@type": "Person",
               "@id": `${baseUrl}/#person`,
@@ -216,7 +213,7 @@ export default function YouthTaxCalculatorPage() {
               AI Agent Skill & Deterministic Engine for NBR e-Return (etaxnbr.gov.bd)
             </p>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-2xl leading-relaxed">
-              Engineered for students, interns, fresh graduates, and first-time filers entering the tax net under the Income Tax Act 2023. Guarantees 0 BDT tax liability, full bank TDS refunds, and zero-difference balance sheet reconciliation.
+              Made for students, interns, fresh graduates, and first-time filers entering the tax net under the Income Tax Act 2023. Helps you keep tax expense at minimum, claim eligible TDS refunds, and achieve zero-difference balance sheet reconciliation.
             </p>
             <div className="flex flex-wrap justify-center sm:justify-start gap-2">
               {badges.map((b) => (
@@ -231,7 +228,7 @@ export default function YouthTaxCalculatorPage() {
           </div>
         </header>
 
-        {/* Action Buttons */}
+        {/* Action Buttons (Human-relevant only) */}
         <div className="flex flex-wrap items-center gap-3 mb-12">
           <a
             href={repoUrl}
@@ -245,26 +242,6 @@ export default function YouthTaxCalculatorPage() {
           </a>
 
           <a
-            href={`${rawBase}/llms.txt`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-sm"
-          >
-            <FileText className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-            <span>llms.txt Manifest</span>
-          </a>
-
-          <a
-            href={`${rawBase}/llms-full.txt`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-sm"
-          >
-            <Layers className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-            <span>llms-full.txt (64 KB)</span>
-          </a>
-
-          <a
             href={`${rawBase}/skills/youth-tax-calculator/SKILL.md`}
             target="_blank"
             rel="noopener noreferrer"
@@ -272,6 +249,16 @@ export default function YouthTaxCalculatorPage() {
           >
             <BookOpen className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>SKILL.md Spec</span>
+          </a>
+
+          <a
+            href={`${rawBase}/calculator.py`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-sm"
+          >
+            <Code className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <span>calculator.py Engine</span>
           </a>
         </div>
 
@@ -287,7 +274,7 @@ export default function YouthTaxCalculatorPage() {
             
             <div className="space-y-3.5 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed font-normal">
               <p>
-                Since it is September, and having an e-TIN, filing tax return is on all of our minds, right? But being a student still, with no budget to hire a professional tax consultant or chartered accounting firm, many of us only have one way to file our taxes: <strong>using AI</strong>.
+                Having an e-TIN, filing a tax return is something we all face. But being a student still, with no budget to hire a professional tax consultant or chartered accounting firm, many of us turn to AI.
               </p>
               <p>
                 When I tried doing that myself, I found so many issues along the way. LLMs — especially Gemini, Claude, and GPT models — struggled to understand how the actual NBR e-Return system UI looks like. They missed hidden exemption toggles, forgot the required green tick marks, hallucinated where to enter university scholarships, and repeatedly failed at basic multi-line balance sheet arithmetic.
@@ -296,7 +283,7 @@ export default function YouthTaxCalculatorPage() {
                 For that, I built this <strong>SKILL for your LLM</strong>.
               </p>
               <p className="font-medium text-emerald-900 dark:text-emerald-200">
-                No, this does not simply calculate your taxes. By implementing this skill, your AI becomes equipped with the substantive statutory law (Income Tax Act 2023) and the screen-by-screen architecture of Bangladesh&apos;s e-Return system. It walks you through every screen, alerts you to UI traps, and calls a deterministic Python engine so your balance sheet balances to an exact difference of 0.00.
+                No, this does not simply calculate your taxes. By implementing this skill, your AI becomes equipped with the substantive statutory law (Income Tax Act 2023) and the screen-by-screen architecture of Bangladesh&apos;s e-Return system. It walks you through every screen, alerts you to UI traps, and calls a deterministic Python engine so your balance sheet balances to an exact difference of 0.00 while keeping your tax expense at the legal minimum.
               </p>
             </div>
           </div>
@@ -440,15 +427,6 @@ export default function YouthTaxCalculatorPage() {
               className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium"
             >
               GitHub Issues
-            </a>{" "}
-            or view the raw project manifests on{" "}
-            <a
-              href={`${rawBase}/llms.txt`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium"
-            >
-              /llms.txt
             </a>.
           </p>
         </footer>

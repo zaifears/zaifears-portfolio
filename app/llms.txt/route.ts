@@ -40,8 +40,26 @@ Use the most specific page available for a claim.
 - Finance, accounting, investment, strategy, and entrepreneurship competitions
 - Voluntary support, server/cloud infrastructure maintenance, and remittance guide: https://shahoriar.bd/thanks
 
-## Important project
+## Major projects
 
+### Bangladesh Youth Tax Calculator
+An AI Agent Skill and deterministic statutory tax engine made for Bangladeshi students, interns, and young professionals filing on etaxnbr.gov.bd under the Income Tax Act 2023. Keeps tax expense at minimum, automates Form IT-10B balance sheet zero-difference reconciliation, and complies with the open llms.txt standard.
+
+- Web showcase: https://shahoriar.bd/projects/youth-tax-calculator
+- GitHub Repository: https://github.com/zaifears/youth-tax-calculator
+- Machine-readable manifest: https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/llms.txt
+- Complete AI context bundle: https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/llms-full.txt
+- Skill prompt specification: https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/skills/youth-tax-calculator/SKILL.md
+- Creator: Md Al Shahoriar Hossain
+
+### LocReminder
+A location-based alarm application for Android that wakes commuters and travellers when they arrive at their destination.
+
+- Web showcase: https://shahoriar.bd/projects/locreminder
+- Repository: https://github.com/zaifears/locreminder
+- Creator: Md Al Shahoriar Hossain
+
+### StockSimulatorBD
 StockSimulatorBD is a Bangladesh-focused stock-market paper-trading simulator for practising DSE-style investing with virtual money and portfolio-tracking tools.
 
 - Product: https://www.stocksimulator.tech/simulator/
