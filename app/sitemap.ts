@@ -21,6 +21,7 @@ export default async function sitemap() {
     '/skills': 0.8,
     '/education': 0.7,
     '/projects': 0.7,
+    '/projects/youth-tax-calculator': 0.8,
     '/projects/locreminder': 0.6,
     '/techtips': 0.6,
     '/contact': 0.5,
@@ -28,7 +29,7 @@ export default async function sitemap() {
     '/thanks': 0.6,
   };
 
-  const routes = ['','/ai', '/education', '/skills', '/projects', '/projects/locreminder', '/techtips', '/contact', '/life', '/design-portfolio', '/thanks']
+  const routes = ['', '/ai', '/education', '/skills', '/projects', '/projects/youth-tax-calculator', '/projects/locreminder', '/techtips', '/contact', '/life', '/design-portfolio', '/thanks']
     .filter((route) => !excludedRoutes.has(route))
     .map((route) => ({
       url: `${baseUrl}${route}`,
