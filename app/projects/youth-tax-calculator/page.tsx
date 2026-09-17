@@ -110,7 +110,7 @@ const statutoryPillars = [
     icon: <Scale className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
     title: "Minimum Tax Exemption",
     ref: "Section 163 & Finance Act",
-    text: "The BDT 5,000 city minimum tax floor never triggers if taxable income is at or below BDT 3,50,000. Your tax payable is kept at the legal minimum (strictly BDT 0.00 if within the threshold).",
+    text: "The BDT 5,000 city minimum tax floor never triggers if taxable income is at or below BDT 4,00,000 (BDT 4,50,000 for female taxpayers). Your tax payable is kept at the legal minimum (strictly BDT 0.00 if within the threshold).",
   },
   {
     icon: <Building2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
@@ -124,7 +124,7 @@ const faqItems = [
   {
     question: "Do university students and interns need to pay tax in Bangladesh?",
     answer:
-      "Under the Income Tax Act 2023, individual male taxpayers have a tax-free annual income threshold of BDT 3,50,000 (BDT 4,00,000 for female taxpayers). If your net taxable income is at or below this threshold, your income tax liability is strictly BDT 0.00. Under Section 163, the minimum tax floor (such as BDT 5,000 in City Corporation areas) does not trigger as long as your taxable income does not exceed the basic exemption limit.",
+      "Under the Income Tax Act 2023 and prevailing rates documented by PwC Bangladesh, individual resident taxpayers have a tax-free annual income threshold of BDT 4,00,000 (BDT 4,50,000 for female taxpayers and senior citizens). If your net taxable income is at or below this threshold, your income tax liability is strictly BDT 0.00. Under Section 163, the minimum tax floor (such as BDT 5,000 in City Corporation areas) does not trigger as long as your taxable income does not exceed the basic exemption limit.",
   },
   {
     question: "Are university scholarships, student stipends, and academic bursaries taxable?",

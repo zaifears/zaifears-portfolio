@@ -36,7 +36,7 @@ export default function TaxSkillClient() {
   const salaryExemption = Math.min(salary / 3, 450000);
   const taxableSalary = Math.max(0, salary - salaryExemption);
   const netTaxableIncome = taxableSalary + bankInterest;
-  const taxPayable = netTaxableIncome <= 350000 ? 0 : Math.round((netTaxableIncome - 350000) * 0.05);
+  const taxPayable = netTaxableIncome <= 400000 ? 0 : Math.round((netTaxableIncome - 400000) * 0.10);
   const refundableTds = taxPayable === 0 ? bankTds : Math.max(0, bankTds - taxPayable);
 
   // Balance Sheet Math (Difference = 0)

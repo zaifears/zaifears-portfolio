@@ -172,7 +172,7 @@ export default function ProjectsContent() {
               </p>
               <div className="flex flex-col gap-2.5">
                 {[
-                  { icon: "⚖️", text: "Keeps tax expense at minimum (0 BDT floor under 3,50,000 BDT)" },
+                  { icon: "⚖️", text: "Keeps tax expense at minimum (0 BDT floor under 4,00,000 BDT)" },
                   { icon: "💵", text: "100% bank TDS refund with direct claiming guidance" },
                   { icon: "📑", text: "Zero-difference balance sheet math via Section 56(g)" },
                   { icon: "🛡️", text: "Prevents NBR e-Return portal errors & audit flags" },
