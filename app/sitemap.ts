@@ -21,7 +21,7 @@ export default async function sitemap() {
     '/skills': 0.8,
     '/education': 0.7,
     '/projects': 0.7,
-    '/projects/youth-tax-calculator': 0.8,
+    '/projects/youth-tax-calculator': 0.9,
     '/projects/locreminder': 0.6,
     '/techtips': 0.6,
     '/contact': 0.5,
