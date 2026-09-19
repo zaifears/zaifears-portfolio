@@ -60,7 +60,7 @@ export default function Page() {
           
           {/* ✅ UPDATED: Email link now uses an inline SVG for reliability */}
           <a
-  href="mailto:alshahoriar.hossain@gmail.com"
+  href="mailto:hello@shahoriar.bd"
   className="text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
 >
   <svg

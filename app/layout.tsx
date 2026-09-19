@@ -139,7 +139,7 @@ const personSchema = {
   jobTitle: 'Audit Associate and Web Developer',
   description:
     'Md Al Shahoriar Hossain is an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), Chartered Accountancy candidate, and self-taught web developer based in Dhaka, Bangladesh.',
-  email: 'alshahoriar.hossain@gmail.com',
+  email: 'hello@shahoriar.bd',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Dhaka',

@@ -604,11 +604,11 @@ Call Centre: ${BANK_DETAILS.callCentre}`;
         </div>
 
         <a
-          href="mailto:alshahoriar.hossain@gmail.com?subject=Support%20Confirmation%20-%20Shahoriar"
+          href="mailto:hello@shahoriar.bd?subject=Support%20Confirmation%20-%20Shahoriar"
           className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs font-semibold transition-all active:scale-95 shrink-0"
         >
           <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-          <span>alshahoriar.hossain@gmail.com</span>
+          <span>hello@shahoriar.bd</span>
         </a>
       </div>
     </div>

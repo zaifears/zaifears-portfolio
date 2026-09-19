@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const contactMethods = [
-  { name: 'Email', href: 'mailto:alshahoriar.hossain@gmail.com', icon: faEnvelope, color: 'text-blue-600 dark:text-blue-400', hoverColor: 'hover:border-blue-500/50', description: 'Send an email for professional inquiries' },
+  { name: 'Email', href: 'mailto:hello@shahoriar.bd', icon: faEnvelope, color: 'text-blue-600 dark:text-blue-400', hoverColor: 'hover:border-blue-500/50', description: 'Send an email for professional inquiries' },
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/shahoriarhossain/', icon: faLinkedin, color: 'text-blue-600 dark:text-blue-400', hoverColor: 'hover:border-blue-500/50', description: 'Professional networking and career updates' },
   { name: 'Facebook', href: 'https://facebook.com/alshahoriar.hossain', icon: faFacebook, color: 'text-blue-600 dark:text-blue-400', hoverColor: 'hover:border-blue-500/50', description: 'Personal updates and messaging' },
   { name: 'YouTube', href: 'https://www.youtube.com/@takatunes', icon: faYoutube, color: 'text-blue-600 dark:text-blue-400', hoverColor: 'hover:border-blue-500/50', description: 'Educational video content & walkthroughs' },

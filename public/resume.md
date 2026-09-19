@@ -1,7 +1,7 @@
 # Md Al Shahoriar Hossain
 
 **Location:** Khilgaon, Dhaka, Bangladesh
-**Email:** alshahoriar.hossain@gmail.com
+**Email:** hello@shahoriar.bd
 **LinkedIn:** https://linkedin.com/in/shahoriarhossain
 **Website:** https://shahoriar.bd
 **Phone:** +8801865333143

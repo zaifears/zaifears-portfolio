@@ -24,10 +24,12 @@ if (!spaceId || !accessToken) {
   console.error('Contentful credentials missing. Check CONTENTFUL_SPACE_ID and CONTENTFUL_ACCESS_TOKEN environment variables.');
 }
 
-export const contentfulClient = createClient({
-  space: spaceId || '',
-  accessToken: accessToken || '',
-});
+export const contentfulClient = spaceId && accessToken
+  ? createClient({
+      space: spaceId,
+      accessToken,
+    })
+  : null;
 
 const RETRYABLE_ERROR_CODES = new Set(['ETIMEDOUT', 'ECONNRESET', 'ENOTFOUND', 'EAI_AGAIN']);
 
@@ -71,6 +73,10 @@ const withRetry = async <T,>(operation: () => Promise<T>, retries = 2, baseDelay
 
 // Helper function to fetch with cache control and retry
 export const getContentfulEntries = async (query: any, bypassCache = false) => {
+  if (!contentfulClient) {
+    return { items: [] };
+  }
+
   const finalQuery = bypassCache
     ? {
         ...query,

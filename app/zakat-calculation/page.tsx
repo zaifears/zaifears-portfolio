@@ -658,7 +658,7 @@ export default function ZakatCalculationPage() {
                 onChange={(event) =>
                   setBusinessInfo((prev) => ({ ...prev, email: event.target.value }))
                 }
-                placeholder='e.g., info@alamintraders.com'
+                placeholder='e.g., hello@shahoriar.bd'
                 className='w-full rounded-md border border-[#C9CFCC] bg-white px-3 py-2 text-sm text-[#1F2937] outline-none transition hover:border-[#A2A2B2] focus:border-[#068C44] focus:ring-2 focus:ring-[#068C44]/30'
               />
             </div>

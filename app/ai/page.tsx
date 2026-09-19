@@ -47,7 +47,7 @@ export default function AiPage() {
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Nationality</dt><dd>Bangladeshi</dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Occupation</dt><dd>Audit Associate, Software Developer, Technopreneur</dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Current role</dt><dd>Audit Associate, EY Bangladesh (Islam Hoque Hanif & Co.)</dd></div>
-                <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Email</dt><dd><a href="mailto:alshahoriar.hossain@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">alshahoriar.hossain@gmail.com</a></dd></div>
+                <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Email</dt><dd><a href="mailto:hello@shahoriar.bd" className="text-blue-600 dark:text-blue-400 hover:underline">hello@shahoriar.bd</a></dd></div>
                 <div><dt className="text-gray-400 dark:text-gray-500 text-xs uppercase tracking-wide mb-1">Website</dt><dd><a href="https://shahoriar.bd" className="text-blue-600 dark:text-blue-400 hover:underline">https://shahoriar.bd</a></dd></div>
               </dl>
             </section>
@@ -226,7 +226,7 @@ export default function AiPage() {
                 <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">GitHub</span><a href="https://github.com/zaifears" className="text-blue-600 dark:text-blue-400 hover:underline">github.com/zaifears</a></li>
                 <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">StockSimulatorBD</span><a href="https://www.stocksimulator.tech/simulator/" className="text-blue-600 dark:text-blue-400 hover:underline">stocksimulator.tech/simulator</a></li>
                 <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">Resume (MD)</span><a href="/resume.md" className="text-blue-600 dark:text-blue-400 hover:underline">shahoriar.bd/resume.md</a></li>
-                <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">Email</span><a href="mailto:alshahoriar.hossain@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">alshahoriar.hossain@gmail.com</a></li>
+                <li><span className="text-gray-400 dark:text-gray-500 w-28 inline-block">Email</span><a href="mailto:hello@shahoriar.bd" className="text-blue-600 dark:text-blue-400 hover:underline">hello@shahoriar.bd</a></li>
               </ul>
             </section>
 

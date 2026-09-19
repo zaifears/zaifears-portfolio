@@ -173,7 +173,7 @@ The user interface follows the **Impeccable Design System** documented in [`DESI
 ## 📬 Contact & Connect
 
 * **Website**: [shahoriar.bd](https://shahoriar.bd)
-* **Email**: [alshahoriar.hossain@gmail.com](mailto:alshahoriar.hossain@gmail.com)
+* **Email**: [hello@shahoriar.bd](mailto:hello@shahoriar.bd)
 * **LinkedIn**: [linkedin.com/in/shahoriarhossain](https://www.linkedin.com/in/shahoriarhossain/)
 * **GitHub**: [@zaifears](https://github.com/zaifears)
 * **YouTube**: [@takatunes](https://www.youtube.com/@takatunes)

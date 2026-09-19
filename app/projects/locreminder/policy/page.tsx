@@ -354,10 +354,10 @@ export default function LocReminderPolicyPage() {
               Md Al Shahoriar Hossain
               <br />
               <a
-                href="mailto:shahoriar.connect@gmail.com"
+                href="mailto:hello@shahoriar.bd"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
-                shahoriar.connect@gmail.com
+                hello@shahoriar.bd
               </a>
               <br />
               <Link href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
