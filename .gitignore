@@ -24,9 +24,18 @@
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
-.env.local
+# environment and secret files
+.env
+.env.*
+!.env.example
+
+# credentials and private keys
+*.key
+*.p12
+*.pfx
+*.jks
+credentials.json
+service-account*.json
 
 # vercel
 .vercel
@@ -34,3 +43,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local security and audit output
+*.log
+*.secretlint*
+.gitleaks*
+
+# pnpm is the repository package manager
+package-lock.json
