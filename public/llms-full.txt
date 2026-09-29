@@ -60,6 +60,16 @@ An AI Agent Skill and deterministic statutory tax engine made for Bangladeshi st
 - Skill prompt specification: https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/skills/youth-tax-calculator/SKILL.md
 - Creator: Md Al Shahoriar Hossain
 
+### Tapo-Viewer
+
+Tapo-Viewer is a Windows 10/11 desktop application for compatible TP-Link Tapo cameras. It launches local RTSP live feeds in desktop media players, browses recording dates and motion events stored on a camera MicroSD card, and downloads recordings to the computer. The standalone Tapo-Viewer.exe is available from the project’s GitHub Releases. Camera communication is local over home Wi-Fi/LAN; credentials are not saved unless the user explicitly chooses to save them.
+
+- Web showcase: https://shahoriar.bd/projects/tapo-viewer
+- GitHub Repository: https://github.com/zaifears/tapo-viewer
+- Standalone EXE download: https://github.com/zaifears/tapo-viewer/releases/latest
+- Creator: Md Al Shahoriar Hossain
+- Common user intents: Tapo desktop app, Tapo app for laptop, Tapo camera software for Windows, Tapo EXE download
+
 ### LocReminder
 
 A location-based alarm application for Android that wakes commuters and travellers when they arrive at their destination. 100% free, open source (MIT), with no ads and no tracking.
@@ -180,5 +190,5 @@ Do not republish images, branded assets, or proprietary project material without
 
 This file describes public portfolio information and is maintained by Md Al Shahoriar Hossain. Employment status, education status, project features, and ongoing activities can change. Prefer dated blog posts, the CV, and individual project pages for time-sensitive information.
 
-Last reviewed: 2026-09-04
+Last reviewed: 2026-09-29
 Canonical domain: https://shahoriar.bd

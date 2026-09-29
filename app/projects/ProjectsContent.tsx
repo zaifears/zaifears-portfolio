@@ -229,6 +229,87 @@ export default function ProjectsContent() {
         </div>
       </motion.div>
 
+      {/* ── Tapo-Viewer card ── */}
+      <motion.div
+        variants={itemVariants}
+        className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-cyan-500/30 hover:shadow-lg"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+          <div className="relative min-h-64 md:min-h-full bg-gray-950 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800/50">
+            <Link href="/projects/tapo-viewer" className="absolute inset-0 block">
+              <Image
+                src="/projects/tapo-viewer/tapo-viewer_logo.png"
+                alt="Tapo-Viewer logo"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain p-8 transition-transform duration-500 group-hover:scale-[1.04] sm:p-10"
+              />
+            </Link>
+          </div>
+
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-5">
+            <div>
+              <span className="inline-block text-xs font-semibold tracking-widest uppercase text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-900/30 border border-cyan-100 dark:border-cyan-800/40 px-2.5 sm:px-3 py-1 rounded-full mb-2.5 sm:mb-3">
+                Windows · Camera Viewer
+              </span>
+              <Link
+                href="/projects/tapo-viewer"
+                className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded block"
+              >
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-300">
+                  Tapo-Viewer
+                </h3>
+              </Link>
+              <p className="mt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                A Windows desktop app for playing live Tapo camera feeds and downloading recorded clips directly from a camera&apos;s MicroSD card.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
+                What it does
+              </p>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { icon: "📺", text: "Launches local RTSP live streams in VLC, mpv.net, PotPlayer, or FFplay" },
+                  { icon: "📅", text: "Browses MicroSD recordings with a calendar and motion-event timeline" },
+                  { icon: "📥", text: "Downloads clips with MP4 conversion and a persistent download manager" },
+                  { icon: "🔒", text: "Communicates directly with the camera over home Wi-Fi/LAN" },
+                ].map((feature) => (
+                  <div key={feature.text} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                    <span className="mt-0.5 shrink-0">{feature.icon}</span>
+                    <span className="leading-snug">{feature.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <Link
+              href="/projects/tapo-viewer"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-white/60 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors w-fit mt-auto"
+            >
+              Tapo desktop app for Windows
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-3 h-3" />
+            </Link>
+          </div>
+        </div>
+
+        <div className="px-5 sm:px-6 md:px-8 py-3.5 sm:py-4 border-t border-gray-200 dark:border-gray-800/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            Windows 10/11 · Python 3.10+ · MIT License · Powered by PyTapo
+          </p>
+          <a
+            href="https://github.com/zaifears/tapo-viewer/releases/latest"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-cyan-600 dark:text-cyan-400 hover:underline inline-flex items-center gap-1"
+          >
+            <span>Download standalone .exe</span>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-2.5 h-2.5" />
+          </a>
+        </div>
+      </motion.div>
+
       {/* ── LocReminder card ── */}
       <motion.div
         variants={itemVariants}
