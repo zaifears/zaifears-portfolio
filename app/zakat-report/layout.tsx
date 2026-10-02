@@ -40,5 +40,9 @@ export default function ZakatReportLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className='min-h-screen bg-[#0A0A0F]'>{children}</div>;
+  return (
+    <div className='min-h-screen bg-[#F8FAF9] dark:bg-[#0B0F0D] text-zinc-900 dark:text-zinc-100 transition-colors selection:bg-emerald-500/20 selection:text-emerald-900 dark:selection:text-emerald-200'>
+      {children}
+    </div>
+  );
 }

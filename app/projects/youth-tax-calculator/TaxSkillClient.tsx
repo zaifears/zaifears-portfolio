@@ -50,6 +50,7 @@ export default function TaxSkillClient() {
   const installCommands = {
     windows: ".\\install.ps1",
     unix: "chmod +x install.sh && ./install.sh",
+    agent: `curl -s ${RAW_BASE}/llms-full.txt > tax_skill.md`,
     claude: `curl -s ${RAW_BASE}/llms-full.txt > tax_skill.md`,
     pythonWizard: "python calculator.py",
     cliCommand: "python calculator.py --salary 35000 --stipend 18000 --interest 228 --bank-tds 31 --bank-balance 34908 --expenses 170000 --opening-wealth 56759",
@@ -160,22 +161,22 @@ export default function TaxSkillClient() {
               </div>
             </div>
 
-            {/* Ingestion for Claude Code / Cursor / Terminal Agents */}
+            {/* Ingestion for AGENT / Cursor / Terminal Agents */}
             <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
-                  Direct Ingestion for AI Agents (Claude Code / Cursor / CLI):
+                  Direct Ingestion for AI Agents (AGENT / Cursor / CLI):
                 </span>
                 <button
-                  onClick={() => copyToClipboard(installCommands.claude, "claude-curl")}
+                  onClick={() => copyToClipboard(installCommands.agent, "agent-curl")}
                   className="inline-flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 hover:underline"
                 >
-                  {copiedId === "claude-curl" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedId === "claude-curl" ? "Copied!" : "Copy"}</span>
+                  {copiedId === "agent-curl" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedId === "agent-curl" ? "Copied!" : "Copy"}</span>
                 </button>
               </div>
               <code className="block text-xs font-mono text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 p-2.5 rounded border border-gray-200 dark:border-gray-800 overflow-x-auto">
-                {installCommands.claude}
+                {installCommands.agent}
               </code>
             </div>
 

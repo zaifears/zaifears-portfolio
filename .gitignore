@@ -49,5 +49,9 @@ next-env.d.ts
 *.secretlint*
 .gitleaks*
 
+# temporary office lockfiles and cache
+~$*
+*.tmp
+
 # pnpm is the repository package manager
 package-lock.json

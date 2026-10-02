@@ -155,9 +155,9 @@ const faqItems = [
 
 const techStack = [
   "Python 3.8+ (Zero Dependencies)",
-  "Income Tax Act 2023 Statutory Codex",
+  "Income Tax Act 2023 Statutory Code",
   "NBR e-Return Portal Architecture",
-  "Antigravity / Claude Code / Cursor Protocols",
+  "Antigravity / AGENT / Cursor Protocols",
   "Next.js 16 & React 19",
   "Tailwind CSS 4",
 ];

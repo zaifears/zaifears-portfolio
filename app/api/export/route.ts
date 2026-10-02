@@ -65,6 +65,15 @@ const generateDebugCode = (): string =>
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
 
+const sanitizeForExcel = (value: string): string => {
+  if (typeof value !== 'string') return '';
+  const trimmed = value.trim();
+  if (/^[=+\-@\t\r]/.test(trimmed)) {
+    return `'${trimmed}`;
+  }
+  return trimmed;
+};
+
 const validateAndNormalizeText = (
   value: unknown,
   field: string,
@@ -90,7 +99,7 @@ const validateAndNormalizeText = (
     return '';
   }
 
-  return normalized;
+  return sanitizeForExcel(normalized);
 };
 
 const validateLineItem = (

@@ -253,19 +253,19 @@ function NumberInput({ value, status, onChange, ariaLabel = 'Amount' }: NumberIn
           const parsed = parseNumericInputDetailed(pastedText);
           onChange(parsed.amount, parsed.status);
         }}
-        className={`w-full rounded-md border bg-white px-3 py-2 pr-8 text-right text-sm text-[#1F2937] outline-none transition focus:ring-2 [font-variant-numeric:tabular-nums] ${
+        className={`h-9.5 w-full rounded-lg border bg-white dark:bg-zinc-900 px-3 pr-8 text-right text-sm font-mono text-zinc-900 dark:text-zinc-100 outline-none transition focus:ring-2 [font-variant-numeric:tabular-nums] ${
           status === 'invalid'
-            ? 'border-[#F87171] focus:border-[#DC2626] focus:ring-[#DC2626]/20'
-            : 'border-[#C9CFCC] focus:border-[#068C44] focus:ring-[#068C44]/30'
+            ? 'border-rose-400 focus:border-rose-600 focus:ring-rose-500/20 dark:border-rose-700 dark:focus:border-rose-500'
+            : 'border-zinc-300 dark:border-zinc-700 focus:border-emerald-600 focus:ring-emerald-600/15 dark:focus:border-emerald-500 dark:focus:ring-emerald-500/20'
         }`}
       />
       {status === 'valid' && (
-        <span className='absolute right-2.5 flex h-4 w-4 items-center justify-center text-[#16A34A]' title="Valid number">
+        <span className='absolute right-2.5 flex h-4 w-4 items-center justify-center text-emerald-600 dark:text-emerald-400' title="Valid number">
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
         </span>
       )}
       {status === 'invalid' && (
-        <span className='absolute right-2.5 flex h-4 w-4 items-center justify-center text-[#DC2626]' title="Invalid format">
+        <span className='absolute right-2.5 flex h-4 w-4 items-center justify-center text-rose-600 dark:text-rose-400' title="Invalid format">
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </span>
       )}
@@ -284,95 +284,120 @@ function LineItemEditor({ title, items, setItems, accent }: LineItemEditorProps)
   const isDeductables = accent === 'red';
 
   return (
-    <section className='rounded-xl border border-[#D4D9D7] bg-white p-4'>
-      <div className='mb-4'>
-        <h2 className={`text-lg font-semibold ${isDeductables ? 'text-[#B42318]' : 'text-[#068C44]'}`}>
+    <section className='rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 p-5 shadow-xs transition-colors'>
+      <div className='mb-4 flex items-center justify-between'>
+        <h2 className={`text-base sm:text-lg font-bold ${isDeductables ? 'text-rose-700 dark:text-rose-400' : 'text-emerald-700 dark:text-emerald-400'}`}>
           {title}
         </h2>
+        <span className='text-xs font-mono font-medium px-2 py-0.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400'>
+          {items.length} {items.length === 1 ? 'item' : 'items'}
+        </span>
       </div>
 
-      <div className='space-y-3'>
+      {/* Ledger Column Headers for Desktop */}
+      <div className='hidden md:grid md:grid-cols-[2.5rem_1.6fr_1.2fr_13rem_2.5rem] md:items-center md:gap-3 px-3.5 pb-2 text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 border-b border-zinc-100 dark:border-zinc-800/60'>
+        <span className='text-center'>#</span>
+        <span>Category / Heading</span>
+        <span>Description (Optional)</span>
+        <span className='text-right pr-3'>Amount (BDT)</span>
+        <span className='text-center'>Action</span>
+      </div>
+
+      <div className='space-y-2.5 mt-2.5'>
         {items.map((item, index) => (
           <div
             key={item.id}
-            className={`group flex flex-col gap-2 rounded-lg border p-3 lg:flex-row lg:items-center lg:gap-3 transition duration-200 hover:shadow-sm ${
+            className={`group rounded-xl border p-3 md:p-2.5 transition-all duration-200 md:grid md:grid-cols-[2.5rem_1.6fr_1.2fr_13rem_2.5rem] md:items-center md:gap-3 flex flex-col gap-2.5 ${
               isDeductables
-                ? 'border-[#F8D3D0] bg-[#FFF8F8] hover:border-[#F2B8B5]'
-                : 'border-[#E5E7EB] bg-[#F9FAF9] hover:border-[#D1D5DB]'
+                ? 'border-rose-100 dark:border-rose-950/40 bg-rose-50/30 dark:bg-rose-950/15 hover:border-rose-200 dark:hover:border-rose-900/40'
+                : 'border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/40 dark:bg-zinc-900/40 hover:border-zinc-300 dark:hover:border-zinc-700'
             }`}
           >
+            {/* Index badge */}
             <div
-              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-md border bg-white px-3 py-2 text-sm font-semibold transition-colors ${
+              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border text-xs font-bold font-mono transition-colors self-start md:self-auto ${
                 isDeductables
-                  ? 'border-[#F2B8B5] text-[#B42318] group-hover:border-[#B42318]/40'
-                  : 'border-[#D1D5DB] text-[#636467] group-hover:border-[#A2A2B2]'
+                  ? 'border-rose-200 dark:border-rose-900/60 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400'
+                  : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300'
               }`}
             >
               {index + 1}
             </div>
-            <input
-              type='text'
-              value={item.label}
-              onChange={(event) =>
-                setItems((prev) =>
-                  prev.map((row) =>
-                    row.id === item.id ? { ...row, label: event.target.value } : row,
-                  ),
-                )
-              }
-              placeholder='Heading'
-              className={`h-9 w-full min-w-0 rounded-md border bg-white px-3 py-1.5 text-sm text-[#1F2937] outline-none focus:ring-2 sm:flex-[1.6] transition-colors ${
-                isDeductables
-                  ? 'border-[#F2B8B5]/60 focus:border-[#B42318] focus:ring-[#B42318]/25 hover:border-[#F2B8B5]'
-                  : 'border-[#C9CFCC]/60 focus:border-[#068C44] focus:ring-[#068C44]/30 hover:border-[#C9CFCC]'
-              }`}
-            />
-            <input
-              type='text'
-              value={item.description}
-              onChange={(event) =>
-                setItems((prev) =>
-                  prev.map((row) =>
-                    row.id === item.id ? { ...row, description: event.target.value } : row,
-                  ),
-                )
-              }
-              placeholder='Description (optional)'
-              className={`h-9 w-full shrink-0 sm:w-32 md:w-40 lg:w-48 min-w-0 rounded-md border bg-white px-3 py-1.5 text-sm text-[#1F2937] outline-none focus:ring-2 transition-colors ${
-                isDeductables
-                  ? 'border-[#F2B8B5]/60 focus:border-[#B42318] focus:ring-[#B42318]/25 hover:border-[#F2B8B5]'
-                  : 'border-[#C9CFCC]/60 focus:border-[#068C44] focus:ring-[#068C44]/30 hover:border-[#C9CFCC]'
-              }`}
-            />
-            <div className='flex w-full items-center gap-2 sm:w-56 md:w-64 lg:w-72'>
-              <div className='min-w-0 flex-1'>
-                <NumberInput
-                  value={item.amount}
-                  status={item.amountStatus ?? null}
-                  ariaLabel={`Amount for ${item.label || `item ${index + 1}`}`}
-                  onChange={(value, status) =>
-                    setItems((prev) =>
-                      prev.map((row) =>
-                        row.id === item.id
-                          ? { ...row, amount: value, amountStatus: status }
-                          : row,
-                      ),
-                    )
-                  }
-                />
-              </div>
+
+            {/* Heading input */}
+            <div className='w-full min-w-0'>
+              <label className='block md:hidden text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1'>Heading</label>
+              <input
+                type='text'
+                value={item.label}
+                onChange={(event) =>
+                  setItems((prev) =>
+                    prev.map((row) =>
+                      row.id === item.id ? { ...row, label: event.target.value } : row,
+                    ),
+                  )
+                }
+                placeholder='Heading'
+                className={`h-9.5 w-full rounded-lg border bg-white dark:bg-zinc-900 px-3 text-sm text-zinc-900 dark:text-zinc-100 outline-none transition focus:ring-2 ${
+                  isDeductables
+                    ? 'border-rose-200/80 dark:border-rose-900/60 focus:border-rose-600 focus:ring-rose-500/15 dark:focus:border-rose-500'
+                    : 'border-zinc-300 dark:border-zinc-700 focus:border-emerald-600 focus:ring-emerald-600/15 dark:focus:border-emerald-500'
+                }`}
+              />
+            </div>
+
+            {/* Description input */}
+            <div className='w-full min-w-0'>
+              <label className='block md:hidden text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1'>Description</label>
+              <input
+                type='text'
+                value={item.description}
+                onChange={(event) =>
+                  setItems((prev) =>
+                    prev.map((row) =>
+                      row.id === item.id ? { ...row, description: event.target.value } : row,
+                    ),
+                  )
+                }
+                placeholder='Description (optional)'
+                className={`h-9.5 w-full rounded-lg border bg-white dark:bg-zinc-900 px-3 text-sm text-zinc-900 dark:text-zinc-100 outline-none transition focus:ring-2 ${
+                  isDeductables
+                    ? 'border-rose-200/80 dark:border-rose-900/60 focus:border-rose-600 focus:ring-rose-500/15 dark:focus:border-rose-500'
+                    : 'border-zinc-300 dark:border-zinc-700 focus:border-emerald-600 focus:ring-emerald-600/15 dark:focus:border-emerald-500'
+                }`}
+              />
+            </div>
+
+            {/* Amount input */}
+            <div className='w-full min-w-0'>
+              <label className='block md:hidden text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1'>Amount (BDT)</label>
+              <NumberInput
+                value={item.amount}
+                status={item.amountStatus ?? null}
+                ariaLabel={`Amount for ${item.label || `item ${index + 1}`}`}
+                onChange={(value, status) =>
+                  setItems((prev) =>
+                    prev.map((row) =>
+                      row.id === item.id
+                        ? { ...row, amount: value, amountStatus: status }
+                        : row,
+                    ),
+                  )
+                }
+              />
+            </div>
+
+            {/* Delete button */}
+            <div className='flex justify-end md:justify-center'>
               <button
                 type='button'
                 onClick={() => setItems((prev) => prev.filter((row) => row.id !== item.id))}
-                title="Remove item"
-                className={`ml-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-md border text-sm outline-none transition-colors ${
-                  isDeductables 
-                    ? 'border-transparent text-[#B91C1C]/60 hover:bg-[#FEE2E2] hover:text-[#B91C1C] focus:bg-[#FEE2E2] focus:text-[#B91C1C]' 
-                    : 'border-transparent text-[#6B7280] hover:bg-[#FEE2E2] hover:text-[#B91C1C] focus:bg-[#FEE2E2] focus:text-[#B91C1C]'
-                }`}
+                title='Remove item'
+                aria-label={`Remove row ${index + 1}`}
+                className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-transparent text-zinc-400 dark:text-zinc-500 hover:border-rose-200 dark:hover:border-rose-900/50 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:text-rose-600 dark:hover:text-rose-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/30 transition-all active:scale-95'
               >
-                <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                <svg className='h-4 w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={1.75}>
+                  <path strokeLinecap='round' strokeLinejoin='round' d='M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16' />
                 </svg>
               </button>
             </div>
@@ -380,7 +405,7 @@ function LineItemEditor({ title, items, setItems, accent }: LineItemEditorProps)
         ))}
       </div>
 
-      <div className='mt-4 flex justify-end'>
+      <div className='mt-3.5 flex justify-end'>
         <button
           type='button'
           onClick={() =>
@@ -395,32 +420,32 @@ function LineItemEditor({ title, items, setItems, accent }: LineItemEditorProps)
               },
             ])
           }
-          className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-semibold transition-all ${
+          className={`inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-xs font-bold transition-all active:scale-95 ${
             isDeductables
-              ? 'border-transparent bg-[#FFF8F8] text-[#B91C1C] hover:border-[#F2B8B5] hover:bg-[#FEE2E2]'
-              : 'border-transparent bg-[#F9FAF9] text-[#068C44] hover:border-[#C9CFCC] hover:bg-[#E8F3EE]'
+              ? 'border-rose-200/80 dark:border-rose-900/60 bg-rose-50/50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400 hover:bg-rose-100/60 dark:hover:bg-rose-900/40'
+              : 'border-emerald-200/80 dark:border-emerald-900/60 bg-emerald-50/50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100/60 dark:hover:bg-emerald-900/40'
           }`}
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          <svg className='h-3.5 w-3.5' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2.5}>
+            <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v6m0 0v6m0-6h6m-6 0H6' />
           </svg>
           Add Item
         </button>
       </div>
 
       <div
-        className={`mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border p-4 transition-colors ${
-          accent === 'gold'
-            ? 'border-[#068C44]/20 bg-[#068C44]/5'
-            : 'border-[#F2B8B5]/50 bg-[#FEF2F2]'
+        className={`mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-xl border p-4 transition-colors ${
+          isDeductables
+            ? 'border-rose-200/80 dark:border-rose-900/50 bg-rose-50/60 dark:bg-rose-950/30'
+            : 'border-emerald-200/80 dark:border-emerald-900/50 bg-emerald-50/60 dark:bg-emerald-950/30'
         }`}
       >
-        <p className={`text-xs font-bold uppercase tracking-widest ${isDeductables ? 'text-[#B42318]' : 'text-[#4B5563]'}`}>
+        <p className={`text-xs font-bold uppercase tracking-wider ${isDeductables ? 'text-rose-800 dark:text-rose-300' : 'text-emerald-800 dark:text-emerald-300'}`}>
           {accent === 'gold' ? 'Total Zakatable Assets' : 'Total Zakatable Liabilities'}
         </p>
         <p
-          className={`mt-1 sm:mt-0 text-xl md:text-2xl font-bold [font-variant-numeric:tabular-nums] ${
-            isDeductables ? 'text-[#B42318]' : 'text-[#1F2937]'
+          className={`mt-1 sm:mt-0 text-xl md:text-2xl font-bold font-mono [font-variant-numeric:tabular-nums] ${
+            isDeductables ? 'text-rose-700 dark:text-rose-400' : 'text-emerald-700 dark:text-emerald-400'
           }`}
         >
           {formatNumber(sumLineItems(items))}
@@ -562,50 +587,54 @@ export default function ZakatCalculationPage() {
   };
 
   return (
-    <main className='w-full h-full min-h-screen bg-[#F4F6F5] pb-16 text-[#1F2937]'>
-      <nav className='sticky top-0 z-40 border-b border-[#D4D9D7] bg-white/95 backdrop-blur'>
-        <div className='mx-auto max-w-350 px-4 sm:px-6 lg:px-10'>
-          <div className='grid min-h-20 grid-cols-[1fr_auto_1fr] items-center gap-2 py-2'>
-            <div />
-            <div className='flex items-center justify-center gap-5'>
+    <main className='w-full h-full min-h-screen bg-[#F8FAF9] dark:bg-[#0B0F0D] pb-20 text-zinc-900 dark:text-zinc-100 transition-colors'>
+      <nav className='sticky top-0 z-40 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/85 dark:bg-[#0B0F0D]/85 backdrop-blur-md transition-colors'>
+        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+          <div className='flex min-h-18 items-center justify-between gap-4 py-3'>
+            <div className='flex items-center gap-4'>
               <a
                 href='https://ifacbd.com'
                 target='_blank'
                 rel='noopener noreferrer'
                 aria-label='Visit IFA Consultancy website'
+                className='flex items-center gap-2 rounded-xl p-1 transition-opacity hover:opacity-90'
               >
-                <Image
-                  src='/ifac-logo.png'
-                  alt='IFA Consultancy logo'
-                  width={140}
-                  height={48}
-                  className='h-10 w-auto shrink-0 object-contain'
-                  priority
-                />
+                <div className='flex h-10 items-center rounded-lg bg-zinc-900/5 dark:bg-white/10 px-2'>
+                  <Image
+                    src='/ifac-logo.png'
+                    alt='IFA Consultancy logo'
+                    width={120}
+                    height={40}
+                    className='h-8 w-auto shrink-0 object-contain dark:brightness-110'
+                    priority
+                  />
+                </div>
               </a>
-              <div className='text-center'>
-                <p className='text-[10px] font-bold uppercase tracking-[0.14em] text-[#636467]'>
-                  Internal Zakat Calculation
-                </p>
-                <h1 className='text-lg font-extrabold tracking-tight text-[#1F2937]'>
-                  Zakat <span className='text-[#068C44]'>Calculator</span>
+              <div className='h-6 w-px bg-zinc-200 dark:bg-zinc-800 hidden sm:block' />
+              <div className='flex items-baseline gap-2'>
+                <h1 className='text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100'>
+                  Zakat Calculator
                 </h1>
+                <span className='hidden sm:inline-flex rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-400'>
+                  Audit Suite
+                </span>
               </div>
             </div>
-            <div className='flex justify-end'>
+
+            <div className='flex items-center gap-3'>
               <QuickCalculator />
             </div>
           </div>
         </div>
       </nav>
 
-      <div className='mx-auto max-w-350 px-4 pb-8 pt-8 sm:px-6 lg:px-10'>
+      <div className='mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 lg:px-8'>
         {exportError && (
-          <section className='mb-6 rounded-xl border border-amber-300 bg-amber-50 p-4'>
+          <section className='mb-6 rounded-2xl border border-amber-300/80 dark:border-amber-700/60 bg-amber-50 dark:bg-amber-950/40 p-4 sm:p-5 shadow-xs'>
             <div className='flex items-start justify-between gap-3'>
               <div>
-                <p className='mb-1 text-sm font-semibold text-amber-900'>Export Issue</p>
-                <p className='text-sm leading-relaxed text-amber-900'>{exportError}</p>
+                <p className='mb-1 text-sm font-bold text-amber-900 dark:text-amber-200'>Export Issue</p>
+                <p className='text-sm leading-relaxed text-amber-900/90 dark:text-amber-200/90'>{exportError}</p>
               </div>
               <button
                 type='button'
@@ -613,17 +642,17 @@ export default function ZakatCalculationPage() {
                   setExportError(null);
                   setExportIssueDebugText(null);
                 }}
-                className='rounded-md border border-amber-400/60 px-2 py-1 text-xs text-amber-900 hover:bg-amber-100'
+                className='rounded-lg border border-amber-400/60 dark:border-amber-700 px-2.5 py-1 text-xs font-semibold text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-colors'
               >
                 Dismiss
               </button>
             </div>
             {exportIssueDebugText && (
-              <div className='mt-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3'>
-                <p className='text-xs font-semibold uppercase tracking-[0.08em] text-amber-900'>
+              <div className='mt-3.5 rounded-xl border border-amber-200 dark:border-amber-800 bg-white/60 dark:bg-black/30 px-4 py-3'>
+                <p className='text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300'>
                   Debug Details (Share With Support)
                 </p>
-                <pre className='mt-2 whitespace-pre-wrap break-all text-xs text-amber-900'>
+                <pre className='mt-2 whitespace-pre-wrap break-all text-xs font-mono text-amber-950 dark:text-amber-200'>
                   {exportIssueDebugText}
                 </pre>
               </div>
@@ -631,11 +660,13 @@ export default function ZakatCalculationPage() {
           </section>
         )}
 
-        <section className='mb-6 rounded-2xl border border-[#D4D9D7] bg-[#FFFFFF] p-4 sm:p-6 shadow-sm'>
-          <h2 className='mb-5 text-lg font-semibold text-[#068C44]'>Client Information</h2>
+        <section className='mb-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 p-5 sm:p-6 shadow-xs transition-colors'>
+          <h2 className='mb-5 text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100'>
+            Client Information
+          </h2>
           <div className='grid gap-5 sm:grid-cols-2'>
             <div>
-              <label className='mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#636467]'>
+              <label className='mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400'>
                 Client / Company Name
               </label>
               <input
@@ -645,11 +676,11 @@ export default function ZakatCalculationPage() {
                   setBusinessInfo((prev) => ({ ...prev, name: event.target.value }))
                 }
                 placeholder='e.g., Al Amin Traders'
-                className='w-full rounded-md border border-[#C9CFCC] bg-white px-3 py-2 text-sm text-[#1F2937] outline-none transition hover:border-[#A2A2B2] focus:border-[#068C44] focus:ring-2 focus:ring-[#068C44]/30'
+                className='h-10 w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3.5 text-sm text-zinc-900 dark:text-zinc-100 outline-none transition hover:border-zinc-400 dark:hover:border-zinc-600 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/15 dark:focus:border-emerald-500'
               />
             </div>
             <div>
-              <label className='mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#636467]'>
+              <label className='mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400'>
                 Email Address
               </label>
               <input
@@ -659,11 +690,11 @@ export default function ZakatCalculationPage() {
                   setBusinessInfo((prev) => ({ ...prev, email: event.target.value }))
                 }
                 placeholder='e.g., hello@shahoriar.bd'
-                className='w-full rounded-md border border-[#C9CFCC] bg-white px-3 py-2 text-sm text-[#1F2937] outline-none transition hover:border-[#A2A2B2] focus:border-[#068C44] focus:ring-2 focus:ring-[#068C44]/30'
+                className='h-10 w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3.5 text-sm text-zinc-900 dark:text-zinc-100 outline-none transition hover:border-zinc-400 dark:hover:border-zinc-600 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/15 dark:focus:border-emerald-500'
               />
             </div>
             <div className='sm:col-span-2'>
-              <label className='mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#636467]'>
+              <label className='mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400'>
                 Address (Optional)
               </label>
               <input
@@ -673,14 +704,14 @@ export default function ZakatCalculationPage() {
                   setBusinessInfo((prev) => ({ ...prev, address: event.target.value }))
                 }
                 placeholder='Full address'
-                className='w-full rounded-md border border-[#C9CFCC] bg-white px-3 py-2 text-sm text-[#1F2937] outline-none transition hover:border-[#A2A2B2] focus:border-[#068C44] focus:ring-2 focus:ring-[#068C44]/30'
+                className='h-10 w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3.5 text-sm text-zinc-900 dark:text-zinc-100 outline-none transition hover:border-zinc-400 dark:hover:border-zinc-600 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/15 dark:focus:border-emerald-500'
               />
             </div>
             <div>
-              <label className='mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#636467]'>
+              <label className='mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400'>
                 Calendar Type
               </label>
-              <div className='flex h-9.5 gap-2'>
+              <div className='flex h-10 gap-1 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100/80 dark:bg-zinc-800/60 p-1'>
                 <button
                   type='button'
                   onClick={() =>
@@ -690,13 +721,13 @@ export default function ZakatCalculationPage() {
                       zakatYear: '1446-47',
                     }))
                   }
-                  className={`flex-1 rounded-md px-3 text-sm font-semibold transition-all ${
+                  className={`flex-1 rounded-lg px-3 text-xs font-bold transition-all ${
                     businessInfo.calendarType === 'hijri'
-                      ? 'border border-[#068C44] bg-[#068C44]/10 text-[#068C44] shadow-sm shadow-[#068C44]/5'
-                      : 'border border-[#C9CFCC] bg-[#F9FAF9] text-[#4B5563] hover:border-[#A2A2B2] hover:bg-white'
+                      ? 'bg-white dark:bg-zinc-900 text-emerald-700 dark:text-emerald-400 shadow-xs'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
                   }`}
                 >
-                  Hijri
+                  Hijri (Lunar)
                 </button>
                 <button
                   type='button'
@@ -707,21 +738,21 @@ export default function ZakatCalculationPage() {
                       zakatYear: '2025-26',
                     }))
                   }
-                  className={`flex-1 rounded-md px-3 text-sm font-semibold transition-all ${
+                  className={`flex-1 rounded-lg px-3 text-xs font-bold transition-all ${
                     businessInfo.calendarType === 'gregorian'
-                      ? 'border border-[#068C44] bg-[#068C44]/10 text-[#068C44] shadow-sm shadow-[#068C44]/5'
-                      : 'border border-[#C9CFCC] bg-[#F9FAF9] text-[#4B5563] hover:border-[#A2A2B2] hover:bg-white'
+                      ? 'bg-white dark:bg-zinc-900 text-emerald-700 dark:text-emerald-400 shadow-xs'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
                   }`}
                 >
-                  Gregorian
+                  Gregorian (Solar)
                 </button>
               </div>
             </div>
             <div>
-              <label className='mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#636467]'>
+              <label className='mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400'>
                 Client Type
               </label>
-              <div className='flex h-11 gap-2'>
+              <div className='flex h-10 gap-1 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100/80 dark:bg-zinc-800/60 p-1'>
                 <button
                   type='button'
                   onClick={() =>
@@ -730,10 +761,10 @@ export default function ZakatCalculationPage() {
                       clientType: 'institution',
                     }))
                   }
-                  className={`flex-1 rounded-md px-3 text-sm font-semibold transition-all ${
+                  className={`flex-1 rounded-lg px-3 text-xs font-bold transition-all ${
                     businessInfo.clientType === 'institution'
-                      ? 'border border-[#068C44] bg-[#068C44]/10 text-[#068C44] shadow-sm shadow-[#068C44]/5'
-                      : 'border border-[#C9CFCC] bg-[#F9FAF9] text-[#4B5563] hover:border-[#A2A2B2] hover:bg-white'
+                      ? 'bg-white dark:bg-zinc-900 text-emerald-700 dark:text-emerald-400 shadow-xs'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
                   }`}
                 >
                   Institution
@@ -746,21 +777,21 @@ export default function ZakatCalculationPage() {
                       clientType: 'person',
                     }))
                   }
-                  className={`flex-1 rounded-md px-3 text-sm font-semibold transition-all ${
+                  className={`flex-1 rounded-lg px-3 text-xs font-bold transition-all ${
                     businessInfo.clientType === 'person'
-                      ? 'border border-[#068C44] bg-[#068C44]/10 text-[#068C44] shadow-sm shadow-[#068C44]/5'
-                      : 'border border-[#C9CFCC] bg-[#F9FAF9] text-[#4B5563] hover:border-[#A2A2B2] hover:bg-white'
+                      ? 'bg-white dark:bg-zinc-900 text-emerald-700 dark:text-emerald-400 shadow-xs'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
                   }`}
                 >
-                  Person
+                  Individual / Person
                 </button>
               </div>
             </div>
             <div>
-              <label className='mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#636467]'>
+              <label className='mb-1.5 block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400'>
                 Zakat Year
               </label>
-              <div className='flex h-9.5 items-center gap-2'>
+              <div className='flex h-10 items-center gap-2'>
                 <button
                   type='button'
                   onClick={() => {
@@ -773,8 +804,9 @@ export default function ZakatCalculationPage() {
                       zakatYear: formatYearRange(next),
                     }));
                   }}
-                  className='flex h-full w-10 shrink-0 items-center justify-center rounded-md border border-[#C9CFCC] bg-[#F9FAF9] text-base font-semibold text-[#4B5563] transition-colors hover:border-[#A2A2B2] hover:bg-white'
+                  className='flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-base font-bold text-zinc-700 dark:text-zinc-200 transition-all hover:bg-white dark:hover:bg-zinc-700 active:scale-95'
                   title="Previous Year"
+                  aria-label="Previous Year"
                 >
                   −
                 </button>
@@ -785,7 +817,7 @@ export default function ZakatCalculationPage() {
                     setBusinessInfo((prev) => ({ ...prev, zakatYear: event.target.value }))
                   }
                   placeholder='Year'
-                  className='h-full flex-1 rounded-md border border-[#C9CFCC] bg-white px-3 text-center text-sm font-semibold text-[#1F2937] outline-none transition hover:border-[#A2A2B2] focus:border-[#068C44] focus:ring-2 focus:ring-[#068C44]/30'
+                  className='h-10 flex-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 text-center text-sm font-bold font-mono text-zinc-900 dark:text-zinc-100 outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/15 dark:focus:border-emerald-500'
                 />
                 <button
                   type='button'
@@ -799,8 +831,9 @@ export default function ZakatCalculationPage() {
                       zakatYear: formatYearRange(next),
                     }));
                   }}
-                  className='flex h-full w-10 shrink-0 items-center justify-center rounded-md border border-[#C9CFCC] bg-[#F9FAF9] text-base font-semibold text-[#4B5563] transition-colors hover:border-[#A2A2B2] hover:bg-white'
+                  className='flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 text-base font-bold text-zinc-700 dark:text-zinc-200 transition-all hover:bg-white dark:hover:bg-zinc-700 active:scale-95'
                   title="Next Year"
+                  aria-label="Next Year"
                 >
                   +
                 </button>
@@ -819,81 +852,107 @@ export default function ZakatCalculationPage() {
           />
         </div>
 
-        <section className='mt-6 grid gap-4 lg:grid-cols-4'>
+        <section className='mt-8 grid gap-4 lg:grid-cols-4'>
           <ResultCard label='Total Zakatable Assets' value={totals.totalAssets} color='gold' prefix='A.' />
           <ResultCard label='Total Zakatable Liabilities' value={totals.totalDebt} color='red' prefix='B.' />
-          <div className='flex flex-col justify-center rounded-2xl border border-[#068C44]/30 bg-linear-to-r from-[#068C44]/10 to-[#068C44]/5 p-5 lg:col-span-2 shadow-sm'>
-            <div className='mb-2 flex items-center justify-between gap-2'>
-              <div className='flex items-center gap-3'>
-                <span className='flex h-6 items-center justify-center rounded-sm bg-[#068C44] px-2 text-xs font-bold text-white'>
-                  A - B
+          <div className='flex flex-col justify-between rounded-2xl border-2 border-emerald-500/40 dark:border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent dark:from-emerald-950/40 dark:via-emerald-900/20 dark:to-transparent p-5 sm:p-6 lg:col-span-2 shadow-sm'>
+            <div className='mb-3 flex items-center justify-between gap-2'>
+              <div className='flex items-center gap-2.5'>
+                <span className='inline-flex h-6 items-center justify-center rounded-md bg-emerald-600 px-2 text-xs font-bold font-mono text-white shadow-xs'>
+                  A − B
                 </span>
-                <p className='text-xs font-bold uppercase tracking-[0.15em] text-[#636467]'>
+                <p className='text-xs font-bold uppercase tracking-widest text-zinc-700 dark:text-zinc-300'>
                   Net Zakatable Asset
                 </p>
               </div>
               <CopyValueButton value={totals.netZakatableAssets} label='Net Zakatable Asset' />
             </div>
-            <p className='text-3xl sm:text-4xl font-extrabold text-[#068C44] [font-variant-numeric:tabular-nums]'>
+            <p className='text-3xl sm:text-4xl lg:text-5xl font-black font-mono text-emerald-700 dark:text-emerald-400 [font-variant-numeric:tabular-nums] tracking-tight'>
               {formatNumber(totals.netZakatableAssets)}
             </p>
           </div>
         </section>
 
-        <section className='mt-6 rounded-2xl border border-[#D4D9D7] bg-white p-4 sm:p-6 shadow-sm'>
-          <h2 className='mb-5 text-lg font-semibold text-[#068C44]'>Zakat Calculation Rates</h2>
+        <section className='mt-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 p-5 sm:p-6 shadow-xs transition-colors'>
+          <div className='mb-5'>
+            <h2 className='text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100'>
+              Zakat Payable by Method
+            </h2>
+            <p className='text-xs text-zinc-500 dark:text-zinc-400 mt-0.5'>
+              Standard calculation variants for Hijri lunar calendar, Gregorian solar year, and commercial rounding.
+            </p>
+          </div>
           <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
-            {(['2.5', '2.577', '2.6'] as const).map((rate) => {
-              const value = rate === '2.5' ? totals.zakat250 : rate === '2.577' ? totals.zakat2577 : totals.zakat260;
+            {([
+              { rate: '2.5', label: 'Lunar (Hijri Year)', desc: 'Standard 354-day lunar calendar' },
+              { rate: '2.577', label: 'Solar (Gregorian Year)', desc: 'Adjusted for 365.25-day solar year' },
+              { rate: '2.6', label: 'Commercial Rounding', desc: 'Standard accounting convention' },
+            ] as const).map(({ rate, label, desc }) => {
+              const value =
+                rate === '2.5'
+                  ? totals.zakat250
+                  : rate === '2.577'
+                    ? totals.zakat2577
+                    : totals.zakat260;
               return (
                 <div
                   key={rate}
-                  className='flex flex-col justify-center rounded-2xl border-2 border-[#E5E7EB] bg-white p-5 text-left'
+                  className='flex flex-col justify-between rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/40 p-4 sm:p-5 text-left transition-colors hover:border-zinc-300 dark:hover:border-zinc-700'
                 >
-                  <div className='mb-1.5 flex items-center justify-between gap-2'>
-                    <p className='flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#636467]'>
-                      Zakat Rate
+                  <div>
+                    <div className='mb-2 flex items-center justify-between gap-2'>
+                      <span className='inline-flex items-center rounded-md bg-zinc-200/60 dark:bg-zinc-800 px-2 py-0.5 text-[11px] font-semibold text-zinc-700 dark:text-zinc-300'>
+                        {label}
+                      </span>
+                      <CopyValueButton value={value} label={`Calculated Zakat ${rate}%`} />
+                    </div>
+                    <p className='text-3xl font-black text-zinc-900 dark:text-zinc-100 tracking-tight'>
+                      {rate}%
                     </p>
-                    <CopyValueButton value={value} label={`Calculated Zakat ${rate}%`} />
+                    <p className='text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 mb-3'>
+                      {desc}
+                    </p>
                   </div>
-                  <p className='mb-3 text-3xl font-black text-[#4B5563]'>
-                    {rate}%
-                  </p>
-                  <p className='text-xl font-bold [font-variant-numeric:tabular-nums] text-[#1F2937]'>
-                    {formatNumber(value)}
-                  </p>
+                  <div className='pt-3 border-t border-zinc-200/80 dark:border-zinc-800/80'>
+                    <span className='block text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-0.5'>
+                      Calculated Amount
+                    </span>
+                    <p className='text-xl sm:text-2xl font-bold font-mono [font-variant-numeric:tabular-nums] text-emerald-700 dark:text-emerald-400'>
+                      {formatNumber(value)}
+                    </p>
+                  </div>
                 </div>
               );
             })}
           </div>
         </section>
 
-        <div className='mt-8 flex flex-col sm:flex-row items-center gap-4 border-t border-[#D4D9D7] pt-6'>
+        <div className='mt-8 flex flex-col sm:flex-row items-center gap-4 border-t border-zinc-200 dark:border-zinc-800 pt-6'>
           <button
             type='button'
             onClick={handleExport}
             disabled={isExporting}
-            className='flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-[#068C44] px-6 py-3.5 text-[15px] font-bold text-white shadow-sm transition-all hover:bg-[#057A3C] hover:shadow-md hover:-translate-y-px disabled:pointer-events-none disabled:opacity-60 disabled:transform-none'
+            className='flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-xl bg-emerald-600 px-7 py-3 text-sm font-bold text-white shadow-xs transition-all hover:bg-emerald-500 hover:shadow-md hover:-translate-y-px active:translate-y-0 active:scale-98 disabled:pointer-events-none disabled:opacity-60 disabled:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50'
           >
             {isExporting ? (
               <>
-                <svg className="h-5 w-5 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                <svg className="h-4 w-4 animate-spin text-white" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Preparing Excel...
+                <span>Preparing Excel...</span>
               </>
             ) : (
               <>
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                Download Excel (.xlsx)
+                <span>Download Excel (.xlsx)</span>
               </>
             )}
           </button>
-          <p className='text-sm italic text-[#636467] text-center sm:text-left flex-1'>
-            Notice: Negative values are allowed for adjustment/minus headings.
+          <p className='text-xs text-zinc-500 dark:text-zinc-400 text-center sm:text-left flex-1'>
+            Negative values are permitted for adjustments or minus headings. Generated sheet is formatted for official audit presentation.
           </p>
         </div>
       </div>
@@ -912,27 +971,42 @@ function ResultCard({
   value: number;
   color: 'gold' | 'red' | 'blue';
 }) {
-  const tone =
-    color === 'gold'
-      ? 'border-[#068C44]/20 bg-[#068C44]/5 text-[#068C44]'
-      : color === 'red'
-        ? 'border-[#F2B8B5]/50 bg-[#FEF2F2] text-[#B42318]'
-        : 'border-[#068C44]/20 bg-[#068C44]/5 text-[#068C44]';
+  const isRed = color === 'red';
 
   return (
-    <div className={`flex flex-col justify-center rounded-xl border p-4 shadow-sm transition-colors ${tone}`}>
-      <div className='mb-2 flex items-start justify-between gap-2'>
-        <p className='flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] sm:text-xs'>
+    <div
+      className={`flex flex-col justify-between rounded-2xl border p-5 shadow-xs transition-colors ${
+        isRed
+          ? 'border-rose-200/80 dark:border-rose-900/50 bg-rose-50/50 dark:bg-rose-950/20'
+          : 'border-emerald-200/80 dark:border-emerald-900/50 bg-emerald-50/50 dark:bg-emerald-950/20'
+      }`}
+    >
+      <div className='mb-3 flex items-start justify-between gap-2'>
+        <div className='flex items-center gap-2'>
           {prefix && (
-            <span className={`inline-flex h-5 items-center justify-center rounded px-1.5 ${color === 'gold' ? 'bg-[#068C44]/10' : color === 'red' ? 'bg-[#B42318]/10' : ''}`}>
+            <span
+              className={`inline-flex h-5 items-center justify-center rounded-md px-1.5 text-[11px] font-bold font-mono ${
+                isRed
+                  ? 'bg-rose-200/60 dark:bg-rose-900/60 text-rose-800 dark:text-rose-300'
+                  : 'bg-emerald-200/60 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300'
+              }`}
+            >
               {prefix}
             </span>
           )}
-          <span className='opacity-80'>{label}</span>
-        </p>
+          <p className='text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400'>
+            {label}
+          </p>
+        </div>
         <CopyValueButton value={value} label={label} />
       </div>
-      <p className={`text-2xl sm:text-3xl font-extrabold [font-variant-numeric:tabular-nums] ${color === 'red' ? 'text-[#B42318]' : 'text-[#068C44]'}`}>
+      <p
+        className={`text-2xl sm:text-3xl font-extrabold font-mono [font-variant-numeric:tabular-nums] ${
+          isRed
+            ? 'text-rose-700 dark:text-rose-400'
+            : 'text-emerald-700 dark:text-emerald-400'
+        }`}
+      >
         {formatNumber(value)}
       </p>
     </div>
@@ -984,21 +1058,21 @@ function CopyValueButton({ value, label }: { value: number; label: string }) {
       type='button'
       onClick={handleCopy}
       aria-label={`Copy ${label}`}
-      title={isCopied ? 'Copied!' : `Copy ${label}`}
-      className={`relative z-10 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
+      title={isCopied ? 'Copied to clipboard' : `Copy ${label}`}
+      className={`relative inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/30 ${
         isCopied
-          ? 'border-[#16A34A] bg-[#16A34A]/20 text-[#16A34A]'
-          : 'border-[#068C44]/40 bg-[#068C44]/10 text-[#068C44] hover:bg-[#068C44]/20'
+          ? 'border-emerald-500 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+          : 'border-zinc-200 dark:border-zinc-700/80 bg-white/80 dark:bg-zinc-800/80 text-zinc-500 dark:text-zinc-400 hover:border-emerald-500/60 hover:text-emerald-600 dark:hover:text-emerald-400'
       }`}
     >
       <svg
-        className={`absolute h-5 w-5 transition-all duration-300 ${
+        className={`absolute h-4 w-4 transition-all duration-200 ${
           isCopied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
         }`}
         fill='none'
         viewBox='0 0 24 24'
         stroke='currentColor'
-        strokeWidth={2}
+        strokeWidth={1.75}
       >
         <path
           strokeLinecap='round'
@@ -1007,7 +1081,7 @@ function CopyValueButton({ value, label }: { value: number; label: string }) {
         />
       </svg>
       <svg
-        className={`absolute h-5 w-5 transition-all duration-300 ${
+        className={`absolute h-4 w-4 transition-all duration-200 text-emerald-600 dark:text-emerald-400 ${
           isCopied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
         }`}
         fill='none'

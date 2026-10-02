@@ -511,7 +511,10 @@ export function QuickCalculator() {
   });
 
   const calcButtonBase =
-    'rounded-md border border-[#D4D9D7] bg-white px-2.5 py-2 text-sm font-semibold text-[#1F2937] transition hover:bg-[#F8FAF9]';
+    'rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/60 px-2.5 py-2.5 text-sm font-semibold text-zinc-800 dark:text-zinc-200 transition-all hover:bg-white dark:hover:bg-zinc-700/60 hover:border-zinc-300 dark:hover:border-zinc-700 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/30';
+
+  const opButtonBase =
+    'rounded-lg border border-emerald-200/60 dark:border-emerald-900/40 bg-emerald-50/50 dark:bg-emerald-950/30 px-2.5 py-2.5 text-sm font-bold text-emerald-700 dark:text-emerald-400 transition-all hover:bg-emerald-100/60 dark:hover:bg-emerald-900/40 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/30';
 
   return (
     <div ref={containerRef} className='relative w-full sm:w-auto'>
@@ -522,13 +525,13 @@ export function QuickCalculator() {
         aria-haspopup='dialog'
         aria-controls='quick-calculator-panel'
         aria-label='Toggle basic calculator'
-        className='flex w-full items-center justify-between gap-3 rounded-xl border border-[#D4D9D7] bg-white px-3 py-2 shadow-sm transition hover:border-[#A2A2B2] sm:min-w-44 sm:w-auto'
+        className='flex w-full items-center justify-between gap-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-3.5 py-2 shadow-xs transition hover:border-zinc-300 dark:hover:border-zinc-700 sm:min-w-44 sm:w-auto'
       >
         <span className='text-left'>
-          <span className='block text-[10px] font-bold uppercase tracking-[0.12em] text-[#636467]'>Basic Calculator</span>
-          <span className='block text-sm font-extrabold text-[#1F2937] [font-variant-numeric:tabular-nums]'>{display}</span>
+          <span className='block text-[10px] font-bold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400'>Basic Calculator</span>
+          <span className='block text-sm font-extrabold font-mono text-zinc-900 dark:text-zinc-100 [font-variant-numeric:tabular-nums]'>{display}</span>
         </span>
-        <svg className='h-4 w-4 text-[#636467]' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
+        <svg className={`h-4 w-4 text-zinc-400 dark:text-zinc-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
           <path strokeLinecap='round' strokeLinejoin='round' d='M19 9l-7 7-7-7' />
         </svg>
       </button>
@@ -538,71 +541,71 @@ export function QuickCalculator() {
           id='quick-calculator-panel'
           role='dialog'
           aria-label='Basic calculator'
-          className='absolute left-1/2 z-50 mt-2 w-[min(92vw,20rem)] -translate-x-1/2 rounded-2xl border border-[#D4D9D7] bg-white p-3 shadow-xl sm:left-auto sm:right-0 sm:w-80 sm:translate-x-0'
+          className='absolute left-1/2 z-50 mt-2 w-[min(92vw,20rem)] -translate-x-1/2 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-3.5 shadow-xl dark:shadow-2xl dark:shadow-black/70 sm:left-auto sm:right-0 sm:w-80 sm:translate-x-0'
         >
-          <div className='mb-3 rounded-lg bg-[#111827] px-3 py-2'>
+          <div className='mb-3 rounded-xl border border-zinc-800 bg-zinc-950 p-3 shadow-inner'>
             <div className='mb-1 flex items-center justify-between gap-2'>
-              <p className='text-[11px] font-medium text-[#9CA3AF]'>
+              <p className='text-[11px] font-mono text-zinc-400'>
                 {firstOperand !== null && operator ? `${formatCalcValue(firstOperand)} ${calcSymbol(operator)}` : 'Quick calculation'}
               </p>
               <button
                 type='button'
                 onClick={handleCopyResult}
-                className='rounded border border-[#374151] bg-[#1F2937] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#D1D5DB] transition hover:bg-[#374151]'
+                className='rounded border border-zinc-700 bg-zinc-800 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-300 transition hover:bg-zinc-700 hover:text-white active:scale-95'
               >
                 {copied ? 'Copied' : 'Copy'}
               </button>
             </div>
-            <p className='text-right text-2xl font-bold text-white [font-variant-numeric:tabular-nums]'>
+            <p className='text-right text-2xl font-bold font-mono text-white [font-variant-numeric:tabular-nums]'>
               {display}
             </p>
           </div>
 
           <div ref={keypadRef} className='grid grid-cols-4 gap-2'>
-            <button ref={firstActionRef} data-calc-nav='true' type='button' className={`${calcButtonBase} text-[#B42318]`} onClick={clearAll}>C</button>
+            <button ref={firstActionRef} data-calc-nav='true' type='button' className='rounded-lg border border-rose-200 dark:border-rose-900/40 bg-rose-50/60 dark:bg-rose-950/30 px-2.5 py-2.5 text-sm font-bold text-rose-600 dark:text-rose-400 transition-all hover:bg-rose-100/70 dark:hover:bg-rose-900/50 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/30' onClick={clearAll}>C</button>
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={handleBackspace}>Back</button>
-            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => handleOperator('%')}>%</button>
-            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => handleOperator('/')}>/</button>
+            <button data-calc-nav='true' type='button' className={opButtonBase} onClick={() => handleOperator('%')}>%</button>
+            <button data-calc-nav='true' type='button' className={opButtonBase} onClick={() => handleOperator('/')}>/</button>
 
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('7')}>7</button>
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('8')}>8</button>
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('9')}>9</button>
-            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => handleOperator('*')}>x</button>
+            <button data-calc-nav='true' type='button' className={opButtonBase} onClick={() => handleOperator('*')}>×</button>
 
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('4')}>4</button>
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('5')}>5</button>
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('6')}>6</button>
-            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => handleOperator('-')}>-</button>
+            <button data-calc-nav='true' type='button' className={opButtonBase} onClick={() => handleOperator('-')}>−</button>
 
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('1')}>1</button>
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('2')}>2</button>
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => inputDigit('3')}>3</button>
-            <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={() => handleOperator('+')}>+</button>
+            <button data-calc-nav='true' type='button' className={opButtonBase} onClick={() => handleOperator('+')}>+</button>
 
             <button data-calc-nav='true' type='button' className={`${calcButtonBase} col-span-2`} onClick={() => inputDigit('0')}>0</button>
             <button data-calc-nav='true' type='button' className={calcButtonBase} onClick={inputDot}>.</button>
-            <button data-calc-nav='true' type='button' className='rounded-md border border-[#068C44] bg-[#068C44] px-2.5 py-2 text-sm font-semibold text-white transition hover:bg-[#057A3C]' onClick={handleEquals}>=</button>
+            <button data-calc-nav='true' type='button' className='rounded-lg border border-emerald-600 bg-emerald-600 px-2.5 py-2.5 text-sm font-bold text-white shadow-xs transition-all hover:bg-emerald-500 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50' onClick={handleEquals}>=</button>
           </div>
 
           <div className='mt-3'>
             <button
               type='button'
               onClick={() => setShowHistory((prev) => !prev)}
-              className='w-full rounded-md border border-[#D4D9D7] bg-[#F8FAF9] px-3 py-2 text-xs font-semibold uppercase tracking-widest text-[#4B5563] transition hover:bg-[#EEF4F1]'
+              className='w-full rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 transition hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-zinc-200'
             >
               History
             </button>
             {showHistory && (
-              <div className='mt-2 max-h-40 space-y-2 overflow-y-auto rounded-md border border-[#E5E7EB] bg-[#FCFDFC] p-2'>
+              <div className='mt-2 max-h-40 space-y-1.5 overflow-y-auto rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/80 dark:bg-zinc-950/40 p-2'>
                 {history.length === 0 ? (
-                  <p className='text-xs text-[#6B7280]'>No saved history yet.</p>
+                  <p className='text-xs text-zinc-500 text-center py-2'>No saved history yet.</p>
                 ) : (
                   history.map((item) => (
-                    <div key={item.id} className='rounded-md border border-[#EEF2F0] bg-white px-2 py-1.5'>
-                      <p className='text-xs font-semibold text-[#1F2937]'>
+                    <div key={item.id} className='rounded-md border border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-zinc-900 px-2.5 py-1.5'>
+                      <p className='text-xs font-mono font-medium text-zinc-800 dark:text-zinc-200'>
                         {item.expression} = {item.result}
                       </p>
-                      <p className='text-[11px] text-[#6B7280]'>{item.timestamp}</p>
+                      <p className='text-[10px] text-zinc-500'>{item.timestamp}</p>
                     </div>
                   ))
                 )}
