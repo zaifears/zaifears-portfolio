@@ -14,11 +14,12 @@ pnpm dev           # start dev server (Turbopack)
 pnpm build         # production build (this is also the only type-check step — no separate `tsc --noEmit` or lint script exists)
 pnpm start         # run production build
 pnpm test          # run tests/**/*.test.ts via node's built-in test runner (--import tsx)
+pnpm indexnow      # submit canonical site URLs to the IndexNow protocol (Bing, Yandex, Seznam, Naver)
 ```
 
-Run a single test file directly: `node --import tsx --test tests/bangla-input.test.ts`
+Run a single test file directly: `node --import tsx --test tests/bangla-input.test.ts` or `tests/indexnow.test.ts`
 
-There is currently only one test file ([tests/bangla-input.test.ts](tests/bangla-input.test.ts)), covering the Bangla-input helpers in `lib/`. There is no ESLint/Prettier config in the repo — don't assume a lint step exists.
+There are currently two test files ([tests/bangla-input.test.ts](tests/bangla-input.test.ts) covering Bangla-input helpers and [tests/indexnow.test.ts](tests/indexnow.test.ts) covering IndexNow payload and URL filtering). There is no ESLint/Prettier config in the repo — don't assume a lint step exists.
 
 ### Environment variables actually in use
 

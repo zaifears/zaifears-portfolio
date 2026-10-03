@@ -1,6 +1,7 @@
 import { timingSafeEqual } from 'crypto';
 import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
+import { submitToIndexNow } from '@/lib/indexnow';
 
 export async function POST(request: NextRequest) {
   try {
@@ -35,12 +36,22 @@ export async function POST(request: NextRequest) {
 
     if (typeof path === 'string' && path.startsWith('/')) {
       revalidatePath(path);
+      // Asynchronously notify search engines via IndexNow
+      submitToIndexNow([path]).catch((e) =>
+        console.error('IndexNow auto-submission failed for path:', path, e)
+      );
+
       return NextResponse.json({ revalidated: true, path });
     } else {
       // Revalidate all main pages
       revalidatePath('/skills');
       revalidatePath('/life');
       revalidatePath('/');
+
+      // Asynchronously notify search engines via IndexNow
+      submitToIndexNow(['/skills', '/life', '/']).catch((e) =>
+        console.error('IndexNow auto-submission failed for main paths:', e)
+      );
 
       return NextResponse.json({
         revalidated: true,
