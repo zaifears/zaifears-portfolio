@@ -1,4 +1,4 @@
-export const DEFAULT_INDEXNOW_KEY = '027fffa28aa5225100a39b20abec3ec2';
+export const DEFAULT_INDEXNOW_KEY = '05b1a843c7594001ad7c45cce6934b7d';
 export const DEFAULT_INDEXNOW_HOST = 'shahoriar.bd';
 export const INDEXNOW_API_ENDPOINT = 'https://api.indexnow.org/indexnow';
 export const INDEXNOW_BING_ENDPOINT = 'https://www.bing.com/indexnow';
