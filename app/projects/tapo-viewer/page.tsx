@@ -126,31 +126,84 @@ const supportedCameraCategories: CameraCategory[] = [
   },
 ];
 
-const faqItems = [
+interface FAQItem {
+  question: string;
+  answer: string;
+  category: string;
+}
+
+const faqItems: FAQItem[] = [
   {
+    category: "Camera Compatibility",
     question: "Which TP-Link Tapo camera models are supported by Tapo-Viewer?",
     answer:
       "Tapo-Viewer works with virtually every TP-Link Tapo camera that supports local Camera Accounts (RTSP/ONVIF). This includes 27+ models: Tapo C200, C210, C211, C212, C220, C225, TC70, TC71, TC72, TC73 (Indoor Pan/Tilt); Tapo C100, C110, C111, C120, C125, TC60 (Indoor Fixed); Tapo C310, C320WS, C325WB, TC65 (Outdoor Bullet); Tapo C500, C510W, C520WS, TC40, TC41 (Outdoor PTZ); and Tapo C720, C501GW. Any Tapo camera with local camera account support in the official mobile app will connect seamlessly.",
   },
   {
-    question: "Is there a Tapo desktop app for Windows laptops and PCs?",
+    category: "Indoor Models",
+    question: "Does Tapo-Viewer work with Tapo C200 and Tapo C210 on Windows?",
     answer:
-      "Tapo-Viewer is a Windows desktop app for compatible TP-Link Tapo cameras. It runs on 64-bit Windows 10 and Windows 11 and lets users launch live camera feeds in a desktop media player and browse recordings stored on a camera MicroSD card.",
+      "Yes, Tapo C200 and C210 are 100% compatible and extensively tested. You can stream live 1080p (C200) and 2K 3MP (C210) RTSP feeds directly to Windows players (VLC, mpv.net, PotPlayer) with low latency. You can also view MicroSD recording dates on the visual calendar and download motion events without a cloud subscription.",
   },
   {
-    question: "Where can I download the Tapo-Viewer EXE?",
+    category: "Outdoor Models",
+    question: "Can I monitor Tapo C310, C320WS, and outdoor bullet cameras on PC?",
     answer:
-      "The standalone Tapo-Viewer.exe and ZIP archive are available from the project’s latest GitHub Release. The executable includes its dependencies and UI assets, so Python and terminal commands are not required to run it.",
+      "Yes. Tapo C310, C320WS, C325WB ColorPro, and TC65 outdoor bullet cameras connect via Wi-Fi or Ethernet cable. Tapo-Viewer allows streaming both High-Definition (stream1 2K/3MP) and standard definition (stream2 360p) RTSP feeds, as well as downloading weatherproof MicroSD security clips directly to your Windows drive.",
   },
   {
-    question: "Can Tapo-Viewer download Tapo camera recordings?",
+    category: "PTZ Models",
+    question: "Is Tapo C500 and C520WS 360° outdoor PTZ supported?",
     answer:
-      "Yes. Tapo-Viewer uses an interactive recording calendar and a motion-event timeline to browse compatible camera MicroSD recordings, then downloads motion events and continuous recordings to the computer. It remuxes clips to MP4 with AAC audio when FFmpeg is available.",
+      "Yes. Tapo C500, C510W, C520WS, and TC40/TC41 outdoor pan/tilt cameras are completely compatible for live RTSP streaming and MicroSD card recording downloads over your home network.",
   },
   {
-    question: "Does Tapo-Viewer send camera footage to third-party servers?",
+    category: "Compatibility",
+    question: "Are battery-powered Tapo cameras like Tapo C420, C400, or C425 supported?",
     answer:
-      "No. The app communicates directly with the camera over home Wi-Fi or LAN. Credentials are not saved unless the user explicitly selects the save option.",
+      "No. Wire-free battery-powered Tapo cameras (such as Tapo C400, C420, C425, and battery doorbells) operate in an aggressive low-power sleep mode to conserve battery. They do not maintain active RTSP/ONVIF streams or allow local Camera Account connections. Tapo-Viewer requires mains-powered (plugged-in) Tapo cameras.",
+  },
+  {
+    category: "Desktop App",
+    question: "Is there an official Tapo desktop app for Windows laptops and PCs?",
+    answer:
+      "TP-Link does not offer an official standalone Windows PC desktop software for Tapo cameras. Tapo-Viewer bridges this gap: it is an independent, native 64-bit Windows 10/11 application that connects locally to your cameras without requiring resource-heavy Android emulators like BlueStacks.",
+  },
+  {
+    category: "Setup Guide",
+    question: "How do I create a Camera Account in the Tapo mobile app?",
+    answer:
+      "Open the official TP-Link Tapo mobile app, tap your camera to open its live feed, tap the gear icon (Device Settings) in the upper right, navigate to Advanced Settings > Camera Account, and create a local username and password. Enter those credentials and your camera's local IP address into Tapo-Viewer to connect.",
+  },
+  {
+    category: "Download & Install",
+    question: "Where can I download the standalone Tapo-Viewer EXE?",
+    answer:
+      "Download the pre-compiled Tapo-Viewer.exe (v1.1.1, ~262MB) directly from the GitHub Releases page. It is a portable executable bundled with Python runtime, PyTapo, UI assets, and dependencies—no installation or terminal setup required.",
+  },
+  {
+    category: "MicroSD Downloads",
+    question: "Can Tapo-Viewer download recordings without removing the MicroSD card?",
+    answer:
+      "Yes. Tapo-Viewer queries the camera's internal MicroSD card over Wi-Fi, displays recorded dates on an interactive calendar, lists motion detection timestamps, and downloads clips directly to your computer. When FFmpeg is installed on your PC, clips are automatically remuxed to standard MP4 with AAC audio.",
+  },
+  {
+    category: "Pricing & Plans",
+    question: "Do I need a paid Tapo Care cloud subscription to use Tapo-Viewer?",
+    answer:
+      "No. Tapo-Viewer communicates directly with your camera over your local home Wi-Fi or LAN network. It bypasses TP-Link cloud servers entirely, allowing you to watch live feeds and download recordings from your local MicroSD card for free.",
+  },
+  {
+    category: "Privacy & Security",
+    question: "Does Tapo-Viewer work offline, and does it send footage to third parties?",
+    answer:
+      "Tapo-Viewer is 100% local and privacy-first. All video streams and downloads transfer directly between your camera's local IP address and your PC over your local network. No video data or credentials are ever transmitted to third-party cloud servers or telemetry trackers.",
+  },
+  {
+    category: "Multi-Camera",
+    question: "Can I monitor multiple Tapo cameras simultaneously on PC?",
+    answer:
+      "Yes. You can open multiple live stream windows in lightweight desktop media players (such as mpv.net, VLC, or PotPlayer) arranged side-by-side or across multi-monitor setups for a dedicated home or office security monitoring station.",
   },
 ];
 
@@ -569,15 +622,38 @@ export default function TapoViewerPage() {
         </section>
 
         <section className="mt-16">
-          <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">Tapo-Viewer FAQ</p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">Tapo desktop app and EXE download questions</h2>
+          <div className="max-w-3xl mb-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-700 dark:border-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300 mb-3">
+              <ShieldCheck className="h-3.5 w-3.5 text-cyan-500" />
+              Frequently Asked Questions
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+              Tapo-Viewer & Camera Compatibility FAQ
+            </h2>
+            <p className="mt-2 text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+              Find answers regarding supported Tapo camera models, Windows setup, local RTSP streaming, and MicroSD card video downloads.
+            </p>
           </div>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
+
+          <div className="grid gap-4 md:grid-cols-2">
             {faqItems.map((item) => (
-              <article key={item.question} className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900/60">
-                <h3 className="font-semibold leading-snug">{item.question}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">{item.answer}</p>
+              <article
+                key={item.question}
+                className="flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 dark:border-gray-800 dark:bg-gray-900/60 shadow-sm transition-all hover:border-cyan-200 dark:hover:border-cyan-900/60"
+              >
+                <div>
+                  <div className="mb-2.5">
+                    <span className="inline-block rounded-md bg-cyan-50 px-2.5 py-0.5 text-[11px] font-semibold text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 border border-cyan-200/60 dark:border-cyan-900/40">
+                      {item.category}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-base leading-snug text-gray-900 dark:text-white">
+                    {item.question}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                    {item.answer}
+                  </p>
+                </div>
               </article>
             ))}
           </div>
