@@ -262,6 +262,21 @@ export default function RootLayout({
           }}
         />
 
+        <script
+          type="speculationrules"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              prerender: [
+                {
+                  source: 'list',
+                  urls: ['/skills', '/projects', '/life', '/ai'],
+                  eagerness: 'moderate',
+                },
+              ],
+            }),
+          }}
+        />
+
         <Script id="sw-register" strategy="afterInteractive">
           {`
             if ('serviceWorker' in navigator) {

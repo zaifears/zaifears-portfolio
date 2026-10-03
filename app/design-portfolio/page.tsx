@@ -7,6 +7,18 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://shahoriar.bd/design-portfolio',
   },
+  openGraph: {
+    title: 'Design Portfolio | Md Al Shahoriar Hossain',
+    description: 'Graphic design projects, pitchdeck presentations, and visual branding solutions.',
+    url: 'https://shahoriar.bd/design-portfolio',
+    siteName: 'Md Al Shahoriar Hossain',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Design Portfolio | Md Al Shahoriar Hossain',
+    description: 'Graphic design projects, presentation pitchdecks, and visual branding work.',
+  },
 };
 
 // This page now simply displays the shared PortfolioContent component.
@@ -37,7 +49,7 @@ export default function DesignPortfolioPage() {
           })
         }}
       />
-        <PortfolioContent />
+        <PortfolioContent isStandalone={true} />
       </div>
     </div>
   );

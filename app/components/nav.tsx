@@ -10,7 +10,8 @@ import {
   faEnvelope,
   faFlag,
   faMicrochip,
-  faFolderOpen
+  faFolderOpen,
+  faFileLines
 } from '@fortawesome/free-solid-svg-icons';
 
 interface NavItem {
@@ -28,6 +29,7 @@ const navItems: NavItem[] = [
   { href: '/techtips', name: 'Tech Tips', icon: faMicrochip },
   { href: '/education', name: 'Education', icon: faUserGraduate },
   { href: '/contact', name: 'Contact', icon: faEnvelope },
+  { href: '/resume.md', name: 'Resume', icon: faFileLines, desktopOnly: true },
 ];
 
 const isNavItemActive = (itemHref: string, pathname: string): boolean => {
@@ -52,7 +54,7 @@ export function Navbar() {
           <ul>
             {navItems.map((item) => {
               const isActive = isNavItemActive(item.href, pathname);
-              const isExternal = item.href.startsWith('http');
+              const isExternal = item.href.startsWith('http') || item.href.endsWith('.md');
 
               if (isExternal) {
                 return (

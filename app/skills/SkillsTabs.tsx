@@ -34,7 +34,7 @@ const workplaceEntries = [
     link: 'mailto:shahoriar.hossain@bd.ey.com',
     linkLabel: 'shahoriar.hossain@bd.ey.com',
     logo: {
-      src: 'https://i.ibb.co.com/xtF7LGKn/EY-logo.png',
+      src: '/images/EY.png',
       alt: 'EY logo',
       logoLink: 'https://www.ey.com/en_bd',
       width: 120,

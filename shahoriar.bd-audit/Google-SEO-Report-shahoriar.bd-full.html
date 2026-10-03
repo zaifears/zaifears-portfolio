@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: A4;
+    margin: 22mm 18mm 25mm 18mm;
+    @bottom-center {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 9pt;
+      color: #6b7280;
+      font-family: 'DejaVu Serif', 'Times New Roman', Georgia, serif;
+    }
+    @bottom-left {
+      content: "Confidential";
+      font-size: 7pt;
+      color: #d6d3cc;
+      font-family: 'DejaVu Serif', 'Times New Roman', Georgia, serif;
+    }
+    @bottom-right {
+      content: "shahoriar.bd Google SEO Report";
+      font-size: 8pt;
+      color: #cbd5e1;
+      font-family: 'DejaVu Serif', 'Times New Roman', Georgia, serif;
+    }
+  }
+
+  @page :first {
+    margin: 0;
+    @bottom-left { content: none; }
+    @bottom-center { content: none; }
+    @bottom-right { content: none; }
+  }
+
+  @page toc {
+    @bottom-center {
+      content: counter(page);
+      font-size: 9pt;
+      color: #6b7280;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Times New Roman', 'DejaVu Serif', Georgia, serif;
+    font-size: 10pt;
+    line-height: 1.55;
+    color: #1e293b;
+    background: white;
+  }
+
+  /* ─── Title Page (Clean White) ─── */
+  .title-page {
+    page: first;
+    width: 210mm;
+    height: 297mm;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #1a1a2e;
+    position: relative;
+    padding: 50mm 30mm 40mm 30mm;
+    border-top: 6mm solid #1e3a5f;
+  }
+
+  .title-page .badge {
+    background: #f7f6f3;
+    border: 1px solid #d6d3cc;
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 9pt;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15mm;
+    color: #1e3a5f;
+  }
+
+  .title-page h1 {
+    font-size: 28pt;
+    font-weight: bold;
+    margin-bottom: 5mm;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    color: #1a1a2e;
+  }
+
+  .title-page .subtitle {
+    font-size: 13pt;
+    color: #6b7280;
+    margin-bottom: 12mm;
+    font-weight: 300;
+  }
+
+  .title-page .url {
+    font-size: 12pt;
+    color: #1e3a5f;
+    margin-bottom: 15mm;
+    padding: 4mm 8mm;
+    border: 1px solid #d6d3cc;
+    border-radius: 6px;
+    background: #faf9f7;
+  }
+
+  .title-page .score-box {
+    background: #faf9f7;
+    border: 2px solid #d6d3cc;
+    border-radius: 12px;
+    padding: 6mm 12mm;
+    margin-bottom: 15mm;
+  }
+
+  .title-page .score-number {
+    font-size: 42pt;
+    font-weight: bold;
+    color: #1e3a5f;
+    line-height: 1;
+  }
+
+  .title-page .score-label {
+    font-size: 10pt;
+    color: #6b7280;
+    margin-top: 2mm;
+  }
+
+  .title-page .meta {
+    font-size: 9pt;
+    color: #6b7280;
+    margin-top: 8mm;
+    padding-top: 5mm;
+    border-top: 1px solid #d6d3cc;
+  }
+
+  .title-page .meta span {
+    margin: 0 8px;
+  }
+
+  /* ─── Table of Contents ─── */
+  .toc-page {
+    page: toc;
+    page-break-before: always;
+  }
+
+  .toc-page h2 {
+    font-size: 18pt;
+    color: #1e3a5f;
+    margin-bottom: 8mm;
+    padding-bottom: 3mm;
+    border-bottom: 2px solid #1e3a5f;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .toc-list li {
+    padding: 2mm 0;
+    border-bottom: 1px solid #f1f5f9;
+    overflow: hidden;
+  }
+
+  .toc-list li.toc-section {
+    font-weight: bold;
+    font-size: 11pt;
+    padding-top: 4mm;
+    color: #0f172a;
+  }
+
+  .toc-list li.toc-sub {
+    padding-left: 8mm;
+    font-size: 9.5pt;
+    color: #475569;
+  }
+
+  .toc-score {
+    display: inline-block;
+    float: right;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 9pt;
+    font-weight: bold;
+    color: white;
+  }
+
+  .score-good { background: #2d6a4f; }
+  .score-warn { background: #d4740e; }
+  .score-bad { background: #c53030; }
+
+  /* ─── Section Styles ─── */
+  div.section {
+    page-break-before: always;
+  }
+
+  .section-header {
+    background: #faf9f7;
+    border-left: 4px solid #1e3a5f;
+    padding: 5mm 6mm;
+    margin-bottom: 6mm;
+    page-break-after: avoid;
+  }
+
+  .section-header h2 {
+    font-size: 16pt;
+    color: #0f172a;
+    margin-bottom: 1mm;
+  }
+
+  .section-header .section-score {
+    font-size: 12pt;
+    font-weight: bold;
+    float: right;
+    margin-top: -6mm;
+  }
+
+  h3 {
+    font-size: 12pt;
+    color: #1e3a5f;
+    margin-top: 6mm;
+    margin-bottom: 3mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 1px solid #d6d3cc;
+    page-break-after: avoid;
+  }
+
+  h4 {
+    font-size: 10.5pt;
+    color: #334155;
+    margin-top: 4mm;
+    margin-bottom: 2mm;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin-bottom: 3mm;
+    color: #334155;
+  }
+
+  .highlight {
+    background: #fef3c7;
+    border-left: 3px solid #d4740e;
+    padding: 3mm 4mm;
+    margin: 4mm 0;
+    font-size: 9.5pt;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  .critical-box {
+    background: #fef2f2;
+    border-left: 3px solid #c53030;
+    padding: 3mm 4mm;
+    margin: 4mm 0;
+    font-size: 9.5pt;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  .success-box {
+    background: #f0fdf4;
+    border-left: 3px solid #2d6a4f;
+    padding: 3mm 4mm;
+    margin: 4mm 0;
+    font-size: 9.5pt;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  /* ─── Tables ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4mm 0 6mm 0;
+    font-size: 9pt;
+  }
+
+  thead th {
+    background: #f7f6f3;
+    color: #0f172a;
+    font-weight: bold;
+    padding: 3mm 4mm;
+    text-align: left;
+    border-bottom: 2px solid #d6d3cc;
+    font-size: 9pt;
+  }
+
+  tbody td {
+    padding: 2.5mm 3mm;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #fdfcfa;
+  }
+
+  .status-pass {
+    color: #2d6a4f;
+    font-weight: bold;
+  }
+
+  .status-fail {
+    color: #c53030;
+    font-weight: bold;
+  }
+
+  .status-warn {
+    color: #d4740e;
+    font-weight: bold;
+  }
+
+  .status-partial {
+    color: #4a5568;
+    font-weight: bold;
+  }
+
+  /* ─── Charts ─── */
+  .chart-container {
+    text-align: center;
+    margin: 4mm 0;
+  }
+
+  .chart-container img {
+    max-width: 100%;
+    max-height: 120mm;
+    height: auto;
+  }
+
+  .chart-caption {
+    font-size: 8.5pt;
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 2mm;
+    text-align: center;
+  }
+
+  .chart-half {
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+    text-align: center;
+    margin: 2mm 0;
+  }
+
+  .chart-half img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* ─── Two column layout ─── */
+  .two-col {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin: 3mm 0;
+  }
+
+  .two-col .col {
+    display: table-cell;
+    vertical-align: top;
+    padding: 0 2mm;
+  }
+
+  .four-col {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin: 3mm 0;
+  }
+
+  .four-col .col {
+    display: table-cell;
+    vertical-align: top;
+    padding: 0 1.5mm;
+  }
+
+  /* ─── Metric Cards ─── */
+  .metric-card {
+    background: #faf9f7;
+    border: 1px solid #d6d3cc;
+    border-radius: 6px;
+    padding: 2.5mm 3mm;
+    text-align: center;
+    margin: 2mm 0;
+  }
+
+  .metric-card .value {
+    font-size: 14pt;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+
+  .metric-card .label {
+    font-size: 7.5pt;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 1mm;
+  }
+
+  /* ─── Action Plan ─── */
+  .action-item {
+    background: #faf9f7;
+    border-radius: 4px;
+    padding: 3mm 4mm;
+    margin: 3mm 0;
+    border-left: 3px solid #cbd5e1;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  .action-item.critical {
+    border-left-color: #c53030;
+    background: #fdf2f2;
+  }
+
+  .action-item.high {
+    border-left-color: #d4740e;
+    background: #fdf8ef;
+  }
+
+  .action-item.medium {
+    border-left-color: #1e3a5f;
+    background: #f0f4f8;
+  }
+
+  .action-item.low {
+    border-left-color: #94a3b8;
+  }
+
+  .action-item h4 {
+    margin-top: 0;
+    margin-bottom: 1.5mm;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .action-item .effort {
+    font-size: 8.5pt;
+    color: #64748b;
+    float: right;
+  }
+
+  .priority-tag {
+    display: inline-block;
+    padding: 0.5mm 3mm;
+    border-radius: 3px;
+    font-size: 8pt;
+    font-weight: bold;
+    color: white;
+    margin-right: 2mm;
+    vertical-align: middle;
+  }
+
+  .priority-critical { background: #c53030; }
+  .priority-high { background: #d4740e; }
+  .priority-medium { background: #1e3a5f; }
+  .priority-low { background: #94a3b8; }
+
+  /* ─── Code blocks ─── */
+  .code-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 3mm 4mm;
+    border-radius: 4px;
+    font-family: 'DejaVu Sans Mono', monospace;
+    font-size: 8pt;
+    line-height: 1.6;
+    margin: 3mm 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  /* ─── Divider ─── */
+  .divider {
+    border: none;
+    border-top: 1px solid #d6d3cc;
+    margin: 5mm 0;
+  }
+
+  /* ─── Roadmap ─── */
+  .roadmap-phase {
+    background: #faf9f7;
+    border-radius: 6px;
+    padding: 4mm 5mm;
+    margin: 4mm 0;
+    border: 1px solid #d6d3cc;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  .roadmap-phase h4 {
+    margin-top: 0;
+    border-bottom: none;
+    color: #1e3a5f;
+  }
+
+  .roadmap-phase ul {
+    margin: 2mm 0 0 5mm;
+    padding: 0;
+  }
+
+  .roadmap-phase li {
+    margin-bottom: 1.5mm;
+    font-size: 9.5pt;
+    color: #334155;
+  }
+
+  /* ─── Lists ─── */
+  ul {
+    margin-left: 5mm;
+    margin-bottom: 3mm;
+  }
+
+  li {
+    margin-bottom: 1.5mm;
+  }
+
+  /* ─── Data freshness ─── */
+  .data-freshness {
+    font-size: 8pt;
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 4mm;
+    padding-top: 2mm;
+    border-top: 1px solid #d6d3cc;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ======================================================= TITLE PAGE === -->
+<div class="title-page">
+  <div class="badge">Full SEO Audit Report</div>
+  <h1>shahoriar.bd</h1>
+  <div class="subtitle">Prepared by Claude SEO</div>
+  <div class="score-box">
+    <div class="score-number">87<span style="font-size: 20pt; color: #94a3b8;">/100</span></div>
+    <div class="score-label">SEO Health Score</div>
+  </div>
+  <div class="meta">
+    <span>October 03, 2026</span>
+    <span>Full Audit</span>
+  </div>
+</div>
+
+
+<!-- ======================================================= TABLE OF CONTENTS === -->
+<div class="toc-page">
+  <h2>Table of Contents</h2>
+  <ul class="toc-list">
+    <li class="toc-section"><span>1. Executive Summary</span></li>
+    <li class="toc-sub"><span>Key Metrics, Critical Issues &amp; Quick Wins</span></li>
+    <li class="toc-section"><span>2. Audit Categories</span></li>
+    <li class="toc-sub"><span>What Works</span></li>
+    <li class="toc-sub"><span>Findings by Severity</span></li>
+    <li class="toc-section"><span>3. Action Plan</span></li>
+    <li class="toc-sub"><span>Phased Roadmap</span></li>
+    <li class="toc-section"><span>4. Data Sources &amp; Methodology</span></li>
+  </ul>
+</div>
+
+
+<!-- ======================================================= 1. EXECUTIVE SUMMARY === -->
+<div class="section">
+  <div class="section-header">
+    <h2>1. Executive Summary</h2>
+  </div>
+
+  <p>This report presents a comprehensive SEO audit of <strong>shahoriar.bd</strong> for a <strong>Personal Portfolio &amp; Professional Knowledge Hub</strong> site, generated on October 03, 2026. Findings combine technical, content, schema, performance, visual, and search-readiness evidence as available.</p>
+
+  <div class="two-col">
+    <div class="col">
+      <div class="metric-card">
+        <div class="value" style="color: #d4740e;">87/100</div>
+        <div class="label">SEO Health Score</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="critical-box">
+    <strong>Critical Issues Found:</strong>
+    <ol>
+      <li>Duplicate H1 tags on blog posts caused by Rich Text renderer mapping BLOCKS.HEADING_1 to &lt;h1&gt; instead of &lt;h2&gt;</li>
+      <li>llms.txt fails Lighthouse Agentic standard: missing blockquote summary and bare URLs instead of Markdown links</li>
+      <li>Homepage H1 concatenates sr-only and visible text into &#x27;Md Al Shahoriar HossainMD ALSHAHORIARHossain&#x27;</li>
+      <li>Canonical trailing slash inconsistency: homepage specifies &#x27;https://shahoriar.bd/&#x27; while sitemap.xml specifies &#x27;https://shahoriar.bd&#x27;</li>
+      <li>OpenGraph and Twitter cards missing on 7 core indexable routes (/skills, /education, /life, /projects, /ai, /contact, /design-portfolio), defaulting to generic homepage preview</li>
+    </ol>
+  </div>
+
+  <div class="success-box">
+    <strong>Quick Wins:</strong>
+    <ol>
+      <li>Standardize llms.txt with a blockquote summary and markdown formatted links [Title](url)</li>
+      <li>Map Contentful BLOCKS.HEADING_1 to &lt;h2&gt; in app/life/[slug]/page.tsx to eliminate duplicate H1s</li>
+      <li>Add page-level openGraph and twitter cards to /skills, /education, /projects, and /life</li>
+      <li>Add informative alt text (`${item.name} logo`) to ItemCard in app/techtips/page.tsx</li>
+      <li>Harmonize homepage canonical to &#x27;https://shahoriar.bd&#x27; to match sitemap.xml and prevent canonical divergence</li>
+    </ol>
+  </div>
+
+</div>
+
+<!-- ======================================================= 2. AUDIT CATEGORIES === -->
+<div class="section">
+  <div class="section-header">
+    <h2>2. Audit Categories</h2>
+  </div>
+
+  <h3>2.1 Technical SEO</h3>
+  <p><strong>Score:</strong> <span class="status-pass">88/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>HSTS max-age 31536000 with includeSubDomains enabled</li>
+    <li>Strict security headers: X-Content-Type-Options, X-Frame-Options DENY, CSP frame-ancestors none</li>
+    <li>HTTP/3 and Cloudflare edge CDN acceleration with verified 200 responses</li>
+    <li>Dual HTTP Link header serving llms.txt and llms-full.txt discovery on all responses</li>
+    <li>301 permanent redirect properly configured from /llm.txt to /llms.txt</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Homepage Canonical Trailing Slash Mismatch with Sitemap <span class="status-warn">Medium</span></h4>
+    <p>app/page.tsx declares alternates.canonical as &#x27;https://shahoriar.bd/&#x27;, whereas app/sitemap.ts emits &#x27;https://shahoriar.bd&#x27; without trailing slash. This discrepancy causes search engines to evaluate two canonical candidates.</p>
+    <p><strong>Recommendation:</strong> Remove the trailing slash in app/page.tsx to match sitemap.xml (&#x27;https://shahoriar.bd&#x27;).</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Missing Canonical Tag on /techtips and /ide <span class="status-warn">Medium</span></h4>
+    <p>app/techtips/layout.tsx and app/ide/page.tsx do not declare an alternates.canonical URL, leaving query strings or trailing slashes vulnerable to duplicate indexing.</p>
+    <p><strong>Recommendation:</strong> Add alternates: { canonical: &#x27;https://shahoriar.bd/techtips&#x27; } to app/techtips/layout.tsx and alternates: { canonical: &#x27;https://shahoriar.bd/ide&#x27; } to app/ide/page.tsx (or mark /ide with robots noindex if private).</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Crawl Isolation Gaps for Standalone Routes in robots.txt <span class="status-warn">Low</span></h4>
+    <p>Internal and private apps (/shoily, /bizcomp, /meetup) are excluded from the sitemap but not disallowed in robots.txt. /meetup also contains an unencoded replacement character in its title.</p>
+    <p><strong>Recommendation:</strong> Add Disallow rules in app/robots.ts for /shoily, /bizcomp, and /meetup, or ensure they explicitly carry robots: { index: false }.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.2 Content Quality &amp; E-E-A-T</h3>
+  <p><strong>Score:</strong> <span class="status-pass">92/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>Firsthand expertise and institutional affiliations (EY Bangladesh, bKash, ICAB, BUP)</li>
+    <li>Zero filler content, zero detected AI generic pattern phrasing (overall quality score: 91/100)</li>
+    <li>External authority backlinks and citations to official BUP news and business press</li>
+    <li>Detailed statutory compliance architecture for Bangladesh Youth Tax Calculator</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Duplicate H1 Tags on Blog Detail Pages <span class="status-warn">High</span></h4>
+    <p>In app/life/[slug]/page.tsx, the article title renders as an &lt;h1&gt;, but the Contentful rich text renderer also maps BLOCKS.HEADING_1 to an &lt;h1&gt;. Any post containing a top-level heading in Contentful has multiple &lt;h1&gt; elements.</p>
+    <p><strong>Recommendation:</strong> Change BLOCKS.HEADING_1 in the rich text renderNode to render an &lt;h2&gt;, BLOCKS.HEADING_2 to &lt;h3&gt;, and BLOCKS.HEADING_3 to &lt;h4&gt;.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Homepage H1 Text Concatenation <span class="status-warn">Medium</span></h4>
+    <p>In app/components/HeroSection.tsx, the &lt;h1&gt; includes both an sr-only span with the full name and visual block spans with the name split. Search engines concatenate these into &#x27;Md Al Shahoriar HossainMD ALSHAHORIARHossain&#x27;.</p>
+    <p><strong>Recommendation:</strong> Provide visual text within standard spans and avoid duplicating the entire name in an adjacent sr-only container inside the same &lt;h1&gt;.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Heading Level Skips on /projects and /design-portfolio <span class="status-warn">Medium</span></h4>
+    <p>app/projects/ProjectsContent.tsx skips from &lt;h1&gt; directly to &lt;h3&gt; without any intermediate &lt;h2&gt;. /design-portfolio lacks an &lt;h1&gt; element entirely, starting at &lt;h2&gt;.</p>
+    <p><strong>Recommendation:</strong> Add section &lt;h2&gt; headings on /projects and add an &lt;h1&gt; page header on /design-portfolio.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.3 On-Page SEO</h3>
+  <p><strong>Score:</strong> <span class="status-pass">82/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>Unique titles and descriptive meta descriptions across core portfolio sections</li>
+    <li>Targeted keywords mapped to specific projects (Youth Tax Calculator, Tapo-Viewer, LocReminder)</li>
+    <li>Clear hierarchy and semantic sectioning across desktop and mobile shells</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Missing Page-Level Open Graph and Twitter Metadata on 7 Key Routes <span class="status-warn">High</span></h4>
+    <p>/skills, /education, /projects, /life, /ai, /contact, and /design-portfolio do not define openGraph or twitter card metadata. When shared on social platforms, they fallback to generic homepage text.</p>
+    <p><strong>Recommendation:</strong> Export specific openGraph and twitter objects in the metadata of each page with customized titles, descriptions, and canonical URLs.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Buried Resume &amp; Recruiter Friction (SXO) <span class="status-warn">Medium</span></h4>
+    <p>The primary conversion goal for a professional portfolio is employer and recruiter evaluation. The resume (/resume.md) is buried under the bottom AI profile section rather than in the primary navigation or Hero CTA.</p>
+    <p><strong>Recommendation:</strong> Add a direct &#x27;Resume&#x27; link in app/components/nav.tsx and a secondary CTA button in HeroSection.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.4 Schema / Structured Data</h3>
+  <p><strong>Score:</strong> <span class="status-pass">88/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>Comprehensive Person schema linked with @id: https://shahoriar.bd/#person</li>
+    <li>Valid WebSite schema referencing the Person entity as publisher</li>
+    <li>Rich SoftwareApplication schema on project subpages and BreadcrumbList markup on secondary pages</li>
+    <li>BlogPosting schema on /life/[slug] with publishedTime, modifiedTime, and author</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Missing ContactPage and Credential Structured Data <span class="status-warn">Low</span></h4>
+    <p>/contact lacks ContactPage / ContactPoint schema. /skills certifications tab does not provide EducationalOccupationalCredential or ItemList schema.</p>
+    <p><strong>Recommendation:</strong> Inject ContactPage schema on /contact and ItemList / EducationalOccupationalCredential markup on /skills.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Deprecated FAQPage SERP Feature Advisory <span class="status-warn">Info</span></h4>
+    <p>Google retired FAQ rich result accordions for all sites on May 7, 2026. Existing FAQPage markup on homepage and /projects/youth-tax-calculator provides no SERP accordion benefits.</p>
+    <p><strong>Recommendation:</strong> Retain existing FAQ schema for AI entity understanding, but do not rely on it for Google SERP snippet expansion.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.5 Performance (CWV)</h3>
+  <p><strong>Score:</strong> <span class="status-pass">90/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>GeistSans and GeistMono zero-layout-shift font configuration</li>
+    <li>Deferred third-party tracking (Microsoft Clarity initializes on requestIdleCallback / 3s timeout)</li>
+    <li>Priority loading on desktop hero portrait and responsive next/image optimization</li>
+    <li>Clean mobile viewport (no horizontal scroll, touch targets verified)</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Absence of Speculation Rules and fetchpriority=&quot;high&quot; <span class="status-warn">Medium</span></h4>
+    <p>preload_check.py scored 50/100. While Next.js provides client router prefetching, adding Speculation Rules API enables instant prerendering for top user pathways (/skills, /projects, /ai).</p>
+    <p><strong>Recommendation:</strong> Add a &lt;script type=&quot;speculationrules&quot;&gt; block in layout.tsx or next.config.js headers, and ensure hero images carry fetchpriority=&quot;high&quot;.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.6 AI Search Readiness</h3>
+  <p><strong>Score:</strong> <span class="status-pass">86/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>Dedicated /ai machine-readable profile with extensive factual data and verification date</li>
+    <li>Permanent llms.txt and llms-full.txt links advertised via HTTP Link headers</li>
+    <li>100/100 score on agent_ux_check.py (semantic landmarks, accessible controls, zero div-onclick widgets)</li>
+    <li>Open robots policy allowing all major AI search crawlers (GPTBot, Claude-SearchBot, PerplexityBot, Applebot)</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>llms.txt Fails Official Specification &amp; Lighthouse Agentic Audit <span class="status-warn">High</span></h4>
+    <p>agentic_check.py flagged llms.txt as failing Lighthouse Agentic criteria: missing blockquote summary (&#x27;&gt; ...&#x27;) and using bare text URLs instead of Markdown formatted links [Name](url).</p>
+    <p><strong>Recommendation:</strong> Rewrite app/llms.txt/route.ts to include a blockquote summary below the title and format all links as markdown links with concise descriptions.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.7 Images</h3>
+  <p><strong>Score:</strong> <span class="status-pass">80/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>WebP/AVIF automated image generation via next/image</li>
+    <li>Explicit width/height or fill containers preventing cumulative layout shifts (CLS)</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>40+ App Logos with Empty alt=&quot;&quot; on /techtips <span class="status-warn">Medium</span></h4>
+    <p>ItemCard in app/techtips/page.tsx renders images with alt=&quot;&quot;, treating all software and tool logos as decorative images.</p>
+    <p><strong>Recommendation:</strong> Update ItemCard to use alt={`${item.name} logo`} for accessible identification and image search indexing.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>External Free Image Hosting (i.ibb.co.com) <span class="status-warn">Medium</span></h4>
+    <p>EY company logo on /skills and Tapo-Viewer screenshots load from i.ibb.co.com, introducing third-party DNS latency and link expiration risk.</p>
+    <p><strong>Recommendation:</strong> Download and host all images locally in public/skills/ and public/projects/tapo-viewer/.</p>
+  </div>
+  <hr class="divider">
+</div>
+
+<!-- ======================================================= 3. ACTION PLAN === -->
+<div class="section">
+  <div class="section-header">
+    <h2>3. Action Plan</h2>
+  </div>
+
+  <div class="roadmap-phase">
+    <h4>Phase 1: Critical &amp; High Impact Fixes <span class="effort">Immediate (Days 1-3)</span></h4>
+    <ul>
+      <li>Fix blog post Rich Text renderer in app/life/[slug]/page.tsx: map BLOCKS.HEADING_1 to &lt;h2&gt; to eliminate duplicate &lt;h1&gt; tags</li>
+      <li>Fix llms.txt syntax in app/llms.txt/route.ts: add blockquote summary and markdown links to pass Lighthouse Agentic audit</li>
+      <li>Harmonize canonical URL in app/page.tsx by removing trailing slash (&#x27;https://shahoriar.bd&#x27;)</li>
+      <li>Add missing canonical tags to app/techtips/layout.tsx and app/ide/page.tsx</li>
+      <li>Add page-level openGraph and twitter card metadata across /skills, /education, /projects, /life, and /ai</li>
+    </ul>
+  </div>
+  <div class="roadmap-phase">
+    <h4>Phase 2: On-Page Architecture &amp; Accessibility <span class="effort">Week 1</span></h4>
+    <ul>
+      <li>Fix empty alt=&quot;&quot; on 40+ app icons in app/techtips/page.tsx to alt={`${item.name} logo`}</li>
+      <li>Fix heading hierarchies: introduce &lt;h2&gt; section breaks in ProjectsContent.tsx and add &lt;h1&gt; in DesignPortfolio</li>
+      <li>Clean up homepage H1 in HeroSection.tsx to avoid visual/sr-only text duplication</li>
+      <li>Add /projects/locreminder/policy to app/sitemap.ts</li>
+      <li>Update app/robots.ts to disallow /shoily, /bizcomp, and /meetup, and fix character encoding in meetup layout title</li>
+    </ul>
+  </div>
+  <div class="roadmap-phase">
+    <h4>Phase 3: Performance &amp; Image Consolidation <span class="effort">Weeks 2-3</span></h4>
+    <ul>
+      <li>Migrate external images on i.ibb.co.com (EY logo and Tapo-Viewer screenshots) to local /public directory</li>
+      <li>Add Speculation Rules for prefetching /prerendering top user pathways (/skills, /projects, /ai)</li>
+      <li>Add fetchpriority=&quot;high&quot; to LCP hero image in HeroSection.tsx</li>
+    </ul>
+  </div>
+  <div class="roadmap-phase">
+    <h4>Phase 4: SXO &amp; Structured Data Expansion <span class="effort">Month 1</span></h4>
+    <ul>
+      <li>Add prominent Resume / CV link in main navigation and hero section to reduce recruiter friction</li>
+      <li>Inject ContactPage schema on /contact and EducationalOccupationalCredential schema on /skills</li>
+      <li>Add Blog / CollectionPage schema on /life index page</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================================================= DATA SOURCES & METHODOLOGY === -->
+<div class="section" style="text-align: center; padding-top: 15mm;">
+  <hr class="divider">
+  <h3 style="text-align: left;">Data Sources &amp; Methodology</h3>
+  <table>
+    <thead>
+      <tr><th>Source</th><th>Description</th><th>Update Frequency</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>PageSpeed Insights API</td>
+          <td>Lighthouse lab audit (mobile emulation, Moto G Power, slow 4G)</td>
+          <td>Real-time</td></tr>
+      <tr><td>Chrome UX Report (CrUX)</td>
+          <td>28-day rolling field data from real Chrome users</td>
+          <td>Daily ~04:00 UTC</td></tr>
+      <tr><td>CrUX History API</td>
+          <td>25-week p75 trend data per metric</td>
+          <td>Weekly</td></tr>
+      <tr><td>Google Search Console</td>
+          <td>Search Analytics (clicks, impressions, CTR, position)</td>
+          <td>2-3 day lag</td></tr>
+      <tr><td>URL Inspection API</td>
+          <td>Per-URL index status, coverage state, crawl info</td>
+          <td>Real-time (2,000/day)</td></tr>
+    </tbody>
+  </table>
+  <p style="color: #94a3b8; font-size: 9pt; margin-top: 5mm;">
+    Report generated by Claude SEO (Google SEO Intelligence Skill), October 03, 2026<br>
+    Methodology based on Google Web Vitals thresholds, Search Console documentation, and Lighthouse scoring algorithms.
+  </p>
+</div>
+
+</body>
+</html>

@@ -8,7 +8,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://shahoriar.bd/education',
   },
-}
+  openGraph: {
+    title: 'Education & Academic Qualifications | Md Al Shahoriar Hossain',
+    description: 'Academic background, BBA in Finance & Banking at BUP, CA Professional Level studies at ICAB, and Notre Dame College education.',
+    url: 'https://shahoriar.bd/education',
+    siteName: 'Md Al Shahoriar Hossain',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Education & Academic Qualifications | Md Al Shahoriar Hossain',
+    description: 'Academic background, BBA in Finance & Banking at BUP, and CA Professional Level studies at ICAB.',
+  },
+};
 
 const educationEntries = [
   {

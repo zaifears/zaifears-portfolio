@@ -59,24 +59,28 @@ An AI Agent Skill and deterministic statutory tax engine made for Bangladeshi st
 - Complete AI context bundle: https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/llms-full.txt
 - Skill prompt specification: https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/skills/youth-tax-calculator/SKILL.md
 - Creator: Md Al Shahoriar Hossain
+- Target user problems solved: Student tax return Bangladesh, internship stipend tax exemption (Sixth Schedule Part 1 Para 8), Section 32 1/3rd salary exemption, Form IT-10B zero-difference balance sheet reconciliation, Section 56(g) non-taxable parental gift receipts, Section 173 bank interest TDS refund claims, avoiding NBR audit flags under Section 182.
+- Direct CLI execution: python calculator.py
 
 ### Tapo-Viewer
 
-Tapo-Viewer is a Windows 10/11 desktop application for compatible TP-Link Tapo cameras. It launches local RTSP live feeds in desktop media players, browses recording dates and motion events stored on a camera MicroSD card, and downloads recordings to the computer. The standalone Tapo-Viewer.exe is available from the project’s GitHub Releases. Camera communication is local over home Wi-Fi/LAN; credentials are not saved unless the user explicitly chooses to save them.
+Tapo-Viewer is a standalone Windows 10/11 desktop application for compatible TP-Link Tapo security cameras. It launches local RTSP live feeds in desktop media players (VLC, mpv.net, PotPlayer), browses recording dates and motion events stored on a camera MicroSD card via an interactive calendar, and downloads clips converted to MP4 over local Wi-Fi without requiring Tapo Care subscriptions or Android emulators.
 
 - Web showcase: https://shahoriar.bd/projects/tapo-viewer
 - GitHub Repository: https://github.com/zaifears/tapo-viewer
 - Standalone EXE download: https://github.com/zaifears/tapo-viewer/releases/latest
 - Creator: Md Al Shahoriar Hossain
-- Common user intents: Tapo desktop app, Tapo app for laptop, Tapo camera software for Windows, Tapo EXE download
+- Target user problems solved: How to view Tapo camera on Windows PC without Android emulator (BlueStacks), how to download Tapo camera MicroSD card recordings to computer without Tapo Care subscription, local RTSP 1080p/2K video streaming, batch video clip conversion to MP4 with AAC audio.
+- Compatible models: Tapo C100, C110, C200, C210, C220, C225, C310, C320WS, C325WB, C500, C510W, C520WS, TC70, and any firmware supporting local camera accounts.
 
 ### LocReminder
 
-A location-based alarm application for Android that wakes commuters and travellers when they arrive at their destination. 100% free, open source (MIT), with no ads and no tracking.
+A location-based alarm application for Android (6.0+) that wakes commuters, train passengers, and bus travellers when they enter a destination geofence. 100% free, open source (MIT), with no ads, no analytics, and zero battery drain.
 
 - Web showcase: https://shahoriar.bd/projects/locreminder
-- Repository: https://github.com/zaifears/locreminder
+- GitHub Repository: https://github.com/zaifears/locreminder
 - Creator: Md Al Shahoriar Hossain
+- Target user problems solved: How to sleep on long bus or train rides without missing the stop, GPS alarm that rings on silent and Do Not Disturb (Android USAGE_ALARM stream), battery-efficient geofencing with adaptive polling, offline map navigation using cached OpenStreetMap tiles without Google Play Services or Google Maps API keys.
 
 ### StockSimulatorBD
 

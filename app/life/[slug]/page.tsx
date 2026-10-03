@@ -360,37 +360,37 @@ export default async function LifePostPage({
       ),
 
       [BLOCKS.HEADING_1]: (_node: Node, children: ReactNode) => (
-        <h1 className="mb-4 mt-12 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {children}
-        </h1>
-      ),
-
-      [BLOCKS.HEADING_2]: (_node: Node, children: ReactNode) => (
-        <h2 className="mb-4 mt-12 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h2 className="mb-4 mt-12 text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
           {children}
         </h2>
       ),
 
-      [BLOCKS.HEADING_3]: (_node: Node, children: ReactNode) => (
-        <h3 className="mb-3 mt-8 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+      [BLOCKS.HEADING_2]: (_node: Node, children: ReactNode) => (
+        <h3 className="mb-4 mt-10 text-xl md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {children}
         </h3>
       ),
 
-      [BLOCKS.HEADING_4]: (_node: Node, children: ReactNode) => (
-        <h4 className="mb-2 mt-6 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+      [BLOCKS.HEADING_3]: (_node: Node, children: ReactNode) => (
+        <h4 className="mb-3 mt-8 text-lg md:text-xl font-bold tracking-tight text-gray-900 dark:text-white">
           {children}
         </h4>
       ),
 
-      [BLOCKS.HEADING_5]: (_node: Node, children: ReactNode) => (
-        <h5 className="mb-2 mt-4 text-base font-bold tracking-tight text-gray-900 dark:text-white">
+      [BLOCKS.HEADING_4]: (_node: Node, children: ReactNode) => (
+        <h5 className="mb-2 mt-6 text-base font-bold tracking-tight text-gray-900 dark:text-white">
           {children}
         </h5>
       ),
 
-      [BLOCKS.HEADING_6]: (_node: Node, children: ReactNode) => (
+      [BLOCKS.HEADING_5]: (_node: Node, children: ReactNode) => (
         <h6 className="mb-2 mt-4 text-sm font-bold tracking-tight text-gray-900 dark:text-white">
+          {children}
+        </h6>
+      ),
+
+      [BLOCKS.HEADING_6]: (_node: Node, children: ReactNode) => (
+        <h6 className="mb-2 mt-4 text-xs font-semibold tracking-wide uppercase text-gray-900 dark:text-white">
           {children}
         </h6>
       ),

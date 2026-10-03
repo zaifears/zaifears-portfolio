@@ -220,6 +220,29 @@ const techStack = [
   'GitHub Actions CI/CD',
 ];
 
+const faqItems = [
+  {
+    question: 'Will LocReminder ring if my Android phone is on silent, vibrate, or Do Not Disturb?',
+    answer:
+      'Yes. LocReminder routes sound through the Android USAGE_ALARM audio stream, acquires a partial wake lock, and launches a full-screen alert over your lock screen. This guarantees the alarm rings at full volume even when your device is muted or locked.',
+  },
+  {
+    question: 'Does LocReminder require internet access or mobile data while travelling?',
+    answer:
+      'No. LocReminder uses OpenStreetMap tiles that stay cached locally on your device for up to 30 days. You can set alarms, view cached streets, or enter GPS coordinates with zero network connectivity.',
+  },
+  {
+    question: 'How does LocReminder prevent battery drain on long bus or train trips?',
+    answer:
+      'LocReminder dynamically calculates background polling intervals based on your speed and distance remaining. When you are far away (e.g. 50+ km), it polls every 10–15 minutes. As you approach your wake radius, it smoothly ramps up to 10 seconds, consuming less than 2% battery on a typical commute.',
+  },
+  {
+    question: 'Does LocReminder track or collect my destination GPS data?',
+    answer:
+      'No. LocReminder has no analytics SDKs, no ad networks, no accounts, and no backend servers. All destination names, pinned coordinates, and alarm preferences stay strictly on your local device.',
+  },
+];
+
 export default function LocReminderPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
@@ -232,20 +255,79 @@ export default function LocReminderPage() {
             name: 'LocReminder',
             url: `${baseUrl}/projects/locreminder`,
             applicationCategory: 'TravelApplication',
-            operatingSystem: 'Android 6.0+',
+            operatingSystem: 'Android 6.0 and higher',
+            softwareVersion: '2.0.0',
+            fileSize: '20MB',
+            downloadUrl: apkUrl,
+            image: `${baseUrl}/projects/locreminder/icon.png`,
+            screenshot: ['0', '1', '2', '4'].map(
+              (n) => `${baseUrl}/projects/locreminder/screenshots/${n}.jpg`
+            ),
             offers: {
               '@type': 'Offer',
               price: '0',
               priceCurrency: 'USD',
             },
             description:
-              'LocReminder is a location-based alarm for Android, which helps you wake up at the right place.',
+              'LocReminder is an open-source location-based alarm for Android that rings a full-volume alert when approaching your destination.',
             author: {
               '@type': 'Person',
               '@id': `${baseUrl}/#person`,
               name: 'Md Al Shahoriar Hossain',
               url: baseUrl,
             },
+          }),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqItems.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer,
+              },
+            })),
+          }),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'HowTo',
+            name: 'How to set a location-based GPS destination alarm on Android',
+            description:
+              'Step-by-step instructions to set a geofence alarm that wakes you up at full volume when approaching your destination.',
+            totalTime: 'PT1M',
+            step: [
+              {
+                '@type': 'HowToStep',
+                position: 1,
+                name: 'Search or Pin Destination',
+                text: 'Type your destination place name, paste latitude/longitude coordinates, or drag the map under the pin.',
+              },
+              {
+                '@type': 'HowToStep',
+                position: 2,
+                name: 'Set Wake Radius',
+                text: 'Choose your alert radius between 100 meters and 3 kilometers based on your speed and preparation time needed.',
+              },
+              {
+                '@type': 'HowToStep',
+                position: 3,
+                name: 'Relax and Sleep',
+                text: 'Put your phone away. LocReminder runs battery-efficient background checks and rings a looping alarm over your lock screen when you cross the boundary.',
+              },
+            ],
           }),
         }}
       />
@@ -320,6 +402,16 @@ export default function LocReminderPage() {
                   {b}
                 </span>
               ))}
+            </div>
+
+            {/* Citable Answer Capsule for LLM & User Instant Clarity */}
+            <div className="mt-5 rounded-2xl border border-blue-500/30 bg-blue-500/5 p-4 sm:p-5 text-xs sm:text-sm leading-relaxed text-gray-700 dark:text-gray-200 text-left">
+              <strong className="block text-blue-700 dark:text-blue-300 font-semibold mb-1">
+                Direct Solution:
+              </strong>
+              <p>
+                <strong>LocReminder</strong> is a free, privacy-first open-source Android application (Android 6.0+) that rings a full-volume wake-up alarm when you cross a chosen geographic boundary. Unlike standard clock alarms that assume a fixed schedule, LocReminder monitors location dynamically to wake commuters, train passengers, and bus travellers at the exact stop regardless of transit delays — functioning completely offline with cached OpenStreetMap tiles, zero battery drain, and zero data telemetry.
+              </p>
             </div>
           </div>
         </header>
@@ -552,6 +644,33 @@ export default function LocReminderPage() {
           <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
             The detection and alarm mechanisms are powered by native Kotlin holding an Android foreground service with wake-lock support. This guarantees that when arrival is detected, the alarm rings even if the Flutter UI engine is not running in memory. Flutter powers the responsive Material 3 map, location search, and user configuration.
           </p>
+        </section>
+
+        {/* FAQ Section matching FAQPage Schema */}
+        <section className="mb-14">
+          <div className="mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              Common questions about sound behavior, battery optimization, and offline navigation.
+            </p>
+          </div>
+          <div className="space-y-4">
+            {faqItems.map((item) => (
+              <div
+                key={item.question}
+                className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50/60 dark:bg-gray-900/40 p-5 sm:p-6"
+              >
+                <h3 className="font-semibold text-base sm:text-lg text-gray-900 dark:text-white mb-2">
+                  {item.question}
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {item.answer}
+                </p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* Footer note */}

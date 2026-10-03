@@ -4,11 +4,25 @@ import ProjectsContent from './ProjectsContent';
 const baseUrl = 'https://shahoriar.bd';
 
 export const metadata: Metadata = {
-  title: 'Projects',
+  title: 'Software Projects & Developer Tools',
   description:
-    'A showcase of technical and business projects by Md Al Shahoriar Hossain, spanning Flutter mobile development, Excel VBA automation, and Python tooling.',
+    'A catalog of independent software products, statutory compliance engines, and desktop utilities spanning Tapo-Viewer, Bangladesh Youth Tax Calculator, LocReminder, and financial simulators.',
   alternates: {
     canonical: `${baseUrl}/projects`,
+  },
+  openGraph: {
+    title: 'Software Projects & Developer Tools',
+    description:
+      'A catalog of independent software products, statutory compliance engines, and desktop utilities spanning Tapo-Viewer, Bangladesh Youth Tax Calculator, LocReminder, and financial simulators.',
+    url: `${baseUrl}/projects`,
+    siteName: 'Software Projects & Tools',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Software Projects & Developer Tools',
+    description:
+      'A catalog of independent software products, statutory compliance engines, and desktop utilities spanning Tapo-Viewer, Bangladesh Youth Tax Calculator, LocReminder, and financial simulators.',
   },
 };
 
@@ -24,6 +38,60 @@ export default function ProjectsPage() {
             itemListElement: [
               { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
               { '@type': 'ListItem', position: 2, name: 'Projects', item: `${baseUrl}/projects` },
+            ],
+          }),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: 'Software Projects, Tools & Utilities',
+            description:
+              'A directory of independent open-source software applications, statutory compliance engines, and desktop utilities.',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                item: {
+                  '@type': 'SoftwareApplication',
+                  name: 'Bangladesh Youth Tax Calculator',
+                  url: `${baseUrl}/projects/youth-tax-calculator`,
+                  applicationCategory: 'FinanceApplication',
+                  operatingSystem: 'Cross-platform (Python 3 / AI Agent Skill)',
+                  description:
+                    'AI Agent Skill and statutory calculation engine for students and interns filing on etaxnbr.gov.bd under Income Tax Act 2023 with zero-difference balance sheet reconciliation.',
+                },
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                item: {
+                  '@type': 'SoftwareApplication',
+                  name: 'Tapo-Viewer',
+                  url: `${baseUrl}/projects/tapo-viewer`,
+                  applicationCategory: 'MultimediaApplication',
+                  operatingSystem: 'Windows 10, Windows 11',
+                  description:
+                    'Windows desktop application for streaming live TP-Link Tapo camera feeds in 1080p and downloading MicroSD recordings without cloud subscriptions.',
+                },
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                item: {
+                  '@type': 'SoftwareApplication',
+                  name: 'LocReminder',
+                  url: `${baseUrl}/projects/locreminder`,
+                  applicationCategory: 'TravelApplication',
+                  operatingSystem: 'Android 6.0+',
+                  description:
+                    'Location-based GPS alarm app for Android that wakes commuters and travellers when arriving at their destination with zero data tracking.',
+                },
+              },
             ],
           }),
         }}

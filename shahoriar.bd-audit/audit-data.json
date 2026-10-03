@@ -1,0 +1,239 @@
+{
+  "summary": {
+    "health_score": 87,
+    "business_type": "Personal Portfolio & Professional Knowledge Hub",
+    "top_findings": [
+      "Duplicate H1 tags on blog posts caused by Rich Text renderer mapping BLOCKS.HEADING_1 to <h1> instead of <h2>",
+      "llms.txt fails Lighthouse Agentic standard: missing blockquote summary and bare URLs instead of Markdown links",
+      "Homepage H1 concatenates sr-only and visible text into 'Md Al Shahoriar HossainMD ALSHAHORIARHossain'",
+      "Canonical trailing slash inconsistency: homepage specifies 'https://shahoriar.bd/' while sitemap.xml specifies 'https://shahoriar.bd'",
+      "OpenGraph and Twitter cards missing on 7 core indexable routes (/skills, /education, /life, /projects, /ai, /contact, /design-portfolio), defaulting to generic homepage preview",
+      "40+ app logos on /techtips have empty alt=\"\" attributes, hurting accessibility and image SEO",
+      "Third-party image hotlinking on i.ibb.co.com for corporate EY logo on /skills and Tapo-Viewer screenshots"
+    ],
+    "quick_wins": [
+      "Standardize llms.txt with a blockquote summary and markdown formatted links [Title](url)",
+      "Map Contentful BLOCKS.HEADING_1 to <h2> in app/life/[slug]/page.tsx to eliminate duplicate H1s",
+      "Add page-level openGraph and twitter cards to /skills, /education, /projects, and /life",
+      "Add informative alt text (`${item.name} logo`) to ItemCard in app/techtips/page.tsx",
+      "Harmonize homepage canonical to 'https://shahoriar.bd' to match sitemap.xml and prevent canonical divergence",
+      "Add missing canonical tag to app/techtips/layout.tsx and app/ide/page.tsx"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 88,
+      "what_works": [
+        "HSTS max-age 31536000 with includeSubDomains enabled",
+        "Strict security headers: X-Content-Type-Options, X-Frame-Options DENY, CSP frame-ancestors none",
+        "HTTP/3 and Cloudflare edge CDN acceleration with verified 200 responses",
+        "Dual HTTP Link header serving llms.txt and llms-full.txt discovery on all responses",
+        "301 permanent redirect properly configured from /llm.txt to /llms.txt"
+      ],
+      "findings": [
+        {
+          "title": "Homepage Canonical Trailing Slash Mismatch with Sitemap",
+          "severity": "Medium",
+          "description": "app/page.tsx declares alternates.canonical as 'https://shahoriar.bd/', whereas app/sitemap.ts emits 'https://shahoriar.bd' without trailing slash. This discrepancy causes search engines to evaluate two canonical candidates.",
+          "recommendation": "Remove the trailing slash in app/page.tsx to match sitemap.xml ('https://shahoriar.bd')."
+        },
+        {
+          "title": "Missing Canonical Tag on /techtips and /ide",
+          "severity": "Medium",
+          "description": "app/techtips/layout.tsx and app/ide/page.tsx do not declare an alternates.canonical URL, leaving query strings or trailing slashes vulnerable to duplicate indexing.",
+          "recommendation": "Add alternates: { canonical: 'https://shahoriar.bd/techtips' } to app/techtips/layout.tsx and alternates: { canonical: 'https://shahoriar.bd/ide' } to app/ide/page.tsx (or mark /ide with robots noindex if private)."
+        },
+        {
+          "title": "Crawl Isolation Gaps for Standalone Routes in robots.txt",
+          "severity": "Low",
+          "description": "Internal and private apps (/shoily, /bizcomp, /meetup) are excluded from the sitemap but not disallowed in robots.txt. /meetup also contains an unencoded replacement character in its title.",
+          "recommendation": "Add Disallow rules in app/robots.ts for /shoily, /bizcomp, and /meetup, or ensure they explicitly carry robots: { index: false }."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality & E-E-A-T",
+      "score": 92,
+      "what_works": [
+        "Firsthand expertise and institutional affiliations (EY Bangladesh, bKash, ICAB, BUP)",
+        "Zero filler content, zero detected AI generic pattern phrasing (overall quality score: 91/100)",
+        "External authority backlinks and citations to official BUP news and business press",
+        "Detailed statutory compliance architecture for Bangladesh Youth Tax Calculator"
+      ],
+      "findings": [
+        {
+          "title": "Duplicate H1 Tags on Blog Detail Pages",
+          "severity": "High",
+          "description": "In app/life/[slug]/page.tsx, the article title renders as an <h1>, but the Contentful rich text renderer also maps BLOCKS.HEADING_1 to an <h1>. Any post containing a top-level heading in Contentful has multiple <h1> elements.",
+          "recommendation": "Change BLOCKS.HEADING_1 in the rich text renderNode to render an <h2>, BLOCKS.HEADING_2 to <h3>, and BLOCKS.HEADING_3 to <h4>."
+        },
+        {
+          "title": "Homepage H1 Text Concatenation",
+          "severity": "Medium",
+          "description": "In app/components/HeroSection.tsx, the <h1> includes both an sr-only span with the full name and visual block spans with the name split. Search engines concatenate these into 'Md Al Shahoriar HossainMD ALSHAHORIARHossain'.",
+          "recommendation": "Provide visual text within standard spans and avoid duplicating the entire name in an adjacent sr-only container inside the same <h1>."
+        },
+        {
+          "title": "Heading Level Skips on /projects and /design-portfolio",
+          "severity": "Medium",
+          "description": "app/projects/ProjectsContent.tsx skips from <h1> directly to <h3> without any intermediate <h2>. /design-portfolio lacks an <h1> element entirely, starting at <h2>.",
+          "recommendation": "Add section <h2> headings on /projects and add an <h1> page header on /design-portfolio."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 82,
+      "what_works": [
+        "Unique titles and descriptive meta descriptions across core portfolio sections",
+        "Targeted keywords mapped to specific projects (Youth Tax Calculator, Tapo-Viewer, LocReminder)",
+        "Clear hierarchy and semantic sectioning across desktop and mobile shells"
+      ],
+      "findings": [
+        {
+          "title": "Missing Page-Level Open Graph and Twitter Metadata on 7 Key Routes",
+          "severity": "High",
+          "description": "/skills, /education, /projects, /life, /ai, /contact, and /design-portfolio do not define openGraph or twitter card metadata. When shared on social platforms, they fallback to generic homepage text.",
+          "recommendation": "Export specific openGraph and twitter objects in the metadata of each page with customized titles, descriptions, and canonical URLs."
+        },
+        {
+          "title": "Buried Resume & Recruiter Friction (SXO)",
+          "severity": "Medium",
+          "description": "The primary conversion goal for a professional portfolio is employer and recruiter evaluation. The resume (/resume.md) is buried under the bottom AI profile section rather than in the primary navigation or Hero CTA.",
+          "recommendation": "Add a direct 'Resume' link in app/components/nav.tsx and a secondary CTA button in HeroSection."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 88,
+      "what_works": [
+        "Comprehensive Person schema linked with @id: https://shahoriar.bd/#person",
+        "Valid WebSite schema referencing the Person entity as publisher",
+        "Rich SoftwareApplication schema on project subpages and BreadcrumbList markup on secondary pages",
+        "BlogPosting schema on /life/[slug] with publishedTime, modifiedTime, and author"
+      ],
+      "findings": [
+        {
+          "title": "Missing ContactPage and Credential Structured Data",
+          "severity": "Low",
+          "description": "/contact lacks ContactPage / ContactPoint schema. /skills certifications tab does not provide EducationalOccupationalCredential or ItemList schema.",
+          "recommendation": "Inject ContactPage schema on /contact and ItemList / EducationalOccupationalCredential markup on /skills."
+        },
+        {
+          "title": "Deprecated FAQPage SERP Feature Advisory",
+          "severity": "Info",
+          "description": "Google retired FAQ rich result accordions for all sites on May 7, 2026. Existing FAQPage markup on homepage and /projects/youth-tax-calculator provides no SERP accordion benefits.",
+          "recommendation": "Retain existing FAQ schema for AI entity understanding, but do not rely on it for Google SERP snippet expansion."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 90,
+      "what_works": [
+        "GeistSans and GeistMono zero-layout-shift font configuration",
+        "Deferred third-party tracking (Microsoft Clarity initializes on requestIdleCallback / 3s timeout)",
+        "Priority loading on desktop hero portrait and responsive next/image optimization",
+        "Clean mobile viewport (no horizontal scroll, touch targets verified)"
+      ],
+      "findings": [
+        {
+          "title": "Absence of Speculation Rules and fetchpriority=\"high\"",
+          "severity": "Medium",
+          "description": "preload_check.py scored 50/100. While Next.js provides client router prefetching, adding Speculation Rules API enables instant prerendering for top user pathways (/skills, /projects, /ai).",
+          "recommendation": "Add a <script type=\"speculationrules\"> block in layout.tsx or next.config.js headers, and ensure hero images carry fetchpriority=\"high\"."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 86,
+      "what_works": [
+        "Dedicated /ai machine-readable profile with extensive factual data and verification date",
+        "Permanent llms.txt and llms-full.txt links advertised via HTTP Link headers",
+        "100/100 score on agent_ux_check.py (semantic landmarks, accessible controls, zero div-onclick widgets)",
+        "Open robots policy allowing all major AI search crawlers (GPTBot, Claude-SearchBot, PerplexityBot, Applebot)"
+      ],
+      "findings": [
+        {
+          "title": "llms.txt Fails Official Specification & Lighthouse Agentic Audit",
+          "severity": "High",
+          "description": "agentic_check.py flagged llms.txt as failing Lighthouse Agentic criteria: missing blockquote summary ('> ...') and using bare text URLs instead of Markdown formatted links [Name](url).",
+          "recommendation": "Rewrite app/llms.txt/route.ts to include a blockquote summary below the title and format all links as markdown links with concise descriptions."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 80,
+      "what_works": [
+        "WebP/AVIF automated image generation via next/image",
+        "Explicit width/height or fill containers preventing cumulative layout shifts (CLS)"
+      ],
+      "findings": [
+        {
+          "title": "40+ App Logos with Empty alt=\"\" on /techtips",
+          "severity": "Medium",
+          "description": "ItemCard in app/techtips/page.tsx renders images with alt=\"\", treating all software and tool logos as decorative images.",
+          "recommendation": "Update ItemCard to use alt={`${item.name} logo`} for accessible identification and image search indexing."
+        },
+        {
+          "title": "External Free Image Hosting (i.ibb.co.com)",
+          "severity": "Medium",
+          "description": "EY company logo on /skills and Tapo-Viewer screenshots load from i.ibb.co.com, introducing third-party DNS latency and link expiration risk.",
+          "recommendation": "Download and host all images locally in public/skills/ and public/projects/tapo-viewer/."
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Critical & High Impact Fixes",
+        "timeframe": "Immediate (Days 1-3)",
+        "items": [
+          "Fix blog post Rich Text renderer in app/life/[slug]/page.tsx: map BLOCKS.HEADING_1 to <h2> to eliminate duplicate <h1> tags",
+          "Fix llms.txt syntax in app/llms.txt/route.ts: add blockquote summary and markdown links to pass Lighthouse Agentic audit",
+          "Harmonize canonical URL in app/page.tsx by removing trailing slash ('https://shahoriar.bd')",
+          "Add missing canonical tags to app/techtips/layout.tsx and app/ide/page.tsx",
+          "Add page-level openGraph and twitter card metadata across /skills, /education, /projects, /life, and /ai"
+        ]
+      },
+      {
+        "name": "Phase 2: On-Page Architecture & Accessibility",
+        "timeframe": "Week 1",
+        "items": [
+          "Fix empty alt=\"\" on 40+ app icons in app/techtips/page.tsx to alt={`${item.name} logo`}",
+          "Fix heading hierarchies: introduce <h2> section breaks in ProjectsContent.tsx and add <h1> in DesignPortfolio",
+          "Clean up homepage H1 in HeroSection.tsx to avoid visual/sr-only text duplication",
+          "Add /projects/locreminder/policy to app/sitemap.ts",
+          "Update app/robots.ts to disallow /shoily, /bizcomp, and /meetup, and fix character encoding in meetup layout title"
+        ]
+      },
+      {
+        "name": "Phase 3: Performance & Image Consolidation",
+        "timeframe": "Weeks 2-3",
+        "items": [
+          "Migrate external images on i.ibb.co.com (EY logo and Tapo-Viewer screenshots) to local /public directory",
+          "Add Speculation Rules for prefetching /prerendering top user pathways (/skills, /projects, /ai)",
+          "Add fetchpriority=\"high\" to LCP hero image in HeroSection.tsx"
+        ]
+      },
+      {
+        "name": "Phase 4: SXO & Structured Data Expansion",
+        "timeframe": "Month 1",
+        "items": [
+          "Add prominent Resume / CV link in main navigation and hero section to reduce recruiter friction",
+          "Inject ContactPage schema on /contact and EducationalOccupationalCredential schema on /skills",
+          "Add Blog / CollectionPage schema on /life index page"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}

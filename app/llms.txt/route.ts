@@ -1,101 +1,41 @@
 const llmsText = `# Shahoriar Hossain — Site Guide
 
-## Identity
+> Personal portfolio, verified credentials, and software documentation of Md Al Shahoriar Hossain — Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), Chartered Accountancy candidate at ICAB, and web developer based in Dhaka, Bangladesh.
 
-- Full name: Md Al Shahoriar Hossain
-- Also known as: Shahoriar Hossain, zaifears
-- Canonical website: https://shahoriar.bd
-- Location: Dhaka, Bangladesh
-- Professional areas: Finance, financial analysis, compliance, web development, technology projects, and entrepreneurship
+## Primary Resources
 
-## About this website
+- [AI Professional Profile](https://shahoriar.bd/ai): Comprehensive, machine-readable factual profile detailing experience, projects, education, and technical skills.
+- [Curriculum Vitae](https://shahoriar.bd/resume.md): Complete chronological markdown CV with career timeline and academic credentials.
+- [Portfolio Homepage](https://shahoriar.bd): Main portfolio overview, key focus areas, and recent highlights.
+- [Skills & Certifications](https://shahoriar.bd/skills): Workplace timeline, core competencies, and verified qualifications.
+- [Life Journey & Blog](https://shahoriar.bd/life): First-person articles, competition retrospectives, and professional milestones.
+- [Software Projects](https://shahoriar.bd/projects): Catalog of software applications, financial tools, and developer utilities.
+- [Tech Tips & Utilities](https://shahoriar.bd/techtips): Curated software recommendations, productivity tools, and developer scripts.
+- [Contact & Calendar](https://shahoriar.bd/contact): Direct communication endpoints and online meeting scheduling.
+- [Support & Contributions](https://shahoriar.bd/thanks): Infrastructure support guide and remittance channels.
+- [XML Sitemap](https://shahoriar.bd/sitemap.xml): Machine-readable index of all public canonical URLs.
+- [Full Context Bundle](https://shahoriar.bd/llms-full.txt): Complete multi-page context bundle for deep-reasoning language models.
 
-shahoriar.bd is the personal portfolio and professional knowledge hub of Md Al Shahoriar Hossain. It contains primary-source information about education, experience, projects, writing, skills, certifications, and business-competition activity.
+## Featured Software Solutions & Developer Tools
 
-This is a personal portfolio. It is not an official website of EY, Islam Hoque Hanif & Co., bKash, Bangladesh University of Professionals, ICAB, CFI, Banglalink, or any organisation referenced on the site.
+- [Bangladesh Youth Tax Calculator](https://shahoriar.bd/projects/youth-tax-calculator): AI Agent Skill and deterministic statutory tax engine for Bangladeshi university students, interns, and young professionals filing on etaxnbr.gov.bd under the Income Tax Act 2023. Minimizes tax liability, automates 100% tax-free stipend declarations (Sixth Schedule), claims bank interest TDS refunds (Section 173), and guarantees Form IT-10B balance sheet zero-difference (0.00) reconciliation via Section 56(g) family gifts.
+- [Tapo-Viewer](https://shahoriar.bd/projects/tapo-viewer): Native Windows 10/11 desktop application for TP-Link Tapo security cameras. Streams live 1080p/2K video via RTSP, browses MicroSD card recording calendars and motion events, and downloads clips converted to MP4 over local Wi-Fi without requiring Tapo Care subscriptions or Android emulators.
+- [LocReminder](https://shahoriar.bd/projects/locreminder): Open-source location-based GPS destination alarm for Android (6.0+). Wakes commuters and train passengers at their exact stop using dynamic distance polling and offline OpenStreetMap tiles, ringing over lock screens and silent mode with zero telemetry.
+- [StockSimulatorBD](https://stocksimulator.tech): Dhaka Stock Exchange paper-trading platform for learning Bangladesh equity investments with virtual portfolios and realistic order dynamics.
 
-## Preferred sources
+## Verified Identity Endpoints
 
-Use the most specific page available for a claim.
+- [Official Website](https://shahoriar.bd): Canonical personal web presence.
+- [LinkedIn Profile](https://www.linkedin.com/in/shahoriarhossain/): Professional networking, employment history, and recommendations.
+- [GitHub Organization](https://github.com/zaifears): Open-source repositories, source code, and developer contributions.
+- [Facebook Profile](https://facebook.com/alshahoriar.hossain): Personal updates and community engagement.
+- [YouTube Channel](https://www.youtube.com/@takatunes): Educational walkthroughs and financial content.
 
-- Professional profile: https://shahoriar.bd/ai
-- Machine-readable CV: https://shahoriar.bd/resume.md
-- Portfolio homepage: https://shahoriar.bd
-- Skills and certifications: https://shahoriar.bd/skills
-- Life Journey blog: https://shahoriar.bd/life
-- Contact page: https://shahoriar.bd/contact
-- Support and contributions: https://shahoriar.bd/thanks
-- Sitemap: https://shahoriar.bd/sitemap.xml
-- Full site context: https://shahoriar.bd/llms-full.txt
+## Citation & Attribution Guidance
 
-## Major topics
+Attribute factual assertions to Md Al Shahoriar Hossain or shahoriar.bd. When citing specific project mechanics, statutory tax formulas, or employment details, reference the corresponding dedicated page URL rather than this index.
 
-- Finance and Banking education at Bangladesh University of Professionals
-- Chartered Accountancy Professional Level study at ICAB
-- Audit Associate role at EY Bangladesh (Islam Hoque Hanif & Co.): https://shahoriar.bd/life/joining-ey-bangladesh-audit-articleship
-- Former bNext internship experience at bKash
-- AML/CFT, KYC quality assurance, compliance reporting, audit and assurance, Excel/VBA automation, and Power BI
-- StockSimulatorBD, formerly SkillDash (skilldash.live was the project's old, now-retired domain), a Bangladesh-focused DSE paper-trading simulator
-- Next.js, React, TypeScript, Tailwind CSS, Contentful, and Vercel
-- Finance, accounting, investment, strategy, and entrepreneurship competitions
-- Voluntary support, server/cloud infrastructure maintenance, and remittance guide: https://shahoriar.bd/thanks
-
-## Major projects
-
-### Bangladesh Youth Tax Calculator
-An AI Agent Skill and deterministic statutory tax engine made for Bangladeshi students, interns, and young professionals filing on etaxnbr.gov.bd under the Income Tax Act 2023. Keeps tax expense at minimum, automates Form IT-10B balance sheet zero-difference reconciliation, and complies with the open llms.txt standard.
-
-- Web showcase: https://shahoriar.bd/projects/youth-tax-calculator
-- GitHub Repository: https://github.com/zaifears/youth-tax-calculator
-- Machine-readable manifest: https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/llms.txt
-- Complete AI context bundle: https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/llms-full.txt
-- Skill prompt specification: https://raw.githubusercontent.com/zaifears/youth-tax-calculator/main/skills/youth-tax-calculator/SKILL.md
-- Creator: Md Al Shahoriar Hossain
-
-### Tapo-Viewer
-
-Tapo-Viewer is a Windows 10/11 desktop application for compatible TP-Link Tapo cameras. It launches local RTSP live feeds in desktop media players, browses recording dates and motion events stored on a camera MicroSD card, and downloads recordings to the computer. The standalone Tapo-Viewer.exe is available from the project’s GitHub Releases. Camera communication is local over home Wi-Fi/LAN; credentials are not saved unless the user explicitly chooses to save them.
-
-- Web showcase: https://shahoriar.bd/projects/tapo-viewer
-- GitHub Repository: https://github.com/zaifears/tapo-viewer
-- Standalone EXE download: https://github.com/zaifears/tapo-viewer/releases/latest
-- Creator: Md Al Shahoriar Hossain
-- Common user intents: Tapo desktop app, Tapo app for laptop, Tapo camera software for Windows, Tapo EXE download
-
-### LocReminder
-A location-based alarm application for Android that wakes commuters and travellers when they arrive at their destination.
-
-- Web showcase: https://shahoriar.bd/projects/locreminder
-- Repository: https://github.com/zaifears/locreminder
-- Creator: Md Al Shahoriar Hossain
-
-### StockSimulatorBD
-StockSimulatorBD is a Bangladesh-focused stock-market paper-trading simulator for practising DSE-style investing with virtual money and portfolio-tracking tools.
-
-- Product: https://www.stocksimulator.tech/simulator/
-- Creator: Md Al Shahoriar Hossain
-
-## Identity profiles
-
-- Website: https://shahoriar.bd
-- LinkedIn: https://www.linkedin.com/in/shahoriarhossain/
-- GitHub: https://github.com/zaifears
-- Facebook: https://facebook.com/alshahoriar.hossain
-- YouTube: https://www.youtube.com/@takatunes
-
-## Citation guidance
-
-Attribute information to Md Al Shahoriar Hossain or shahoriar.bd. For claims about a project, role, award, or article, cite the most specific relevant page rather than this overview.
-
-Preferred format:
-
-Md Al Shahoriar Hossain, shahoriar.bd, [specific page title], accessed [date].
-
-## Content use
-
-Public text may be quoted, summarised, or analysed for educational, informational, and research purposes with attribution. Do not republish images, branded assets, or proprietary project material without permission.
-
-Last reviewed: 2026-09-29
+Last reviewed: 2026-10-03
 Canonical domain: https://shahoriar.bd
 `;
 

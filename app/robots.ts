@@ -6,7 +6,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/zakat-calculation', '/zakat-report', '/bride-selector'],
+        disallow: [
+          '/zakat-calculation',
+          '/zakat-report',
+          '/bride-selector',
+          '/shoily',
+          '/bizcomp',
+          '/meetup',
+        ],
       },
     ],
     sitemap: 'https://shahoriar.bd/sitemap.xml',

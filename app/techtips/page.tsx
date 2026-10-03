@@ -457,7 +457,7 @@ const CardItem = ({ item }: { item: TechItem }) => {
           <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800/80 p-1.5 flex items-center justify-center shrink-0 border border-gray-200/50 dark:border-gray-700/50 group-hover:scale-105 transition-transform">
             <Image
               src={`/techtips/${item.logo}`}
-              alt=""
+              alt={`${item.name} logo`}
               width={36}
               height={36}
               className="w-full h-full object-contain rounded-md"

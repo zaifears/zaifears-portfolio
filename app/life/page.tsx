@@ -11,6 +11,18 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://shahoriar.bd/life',
   },
+  openGraph: {
+    title: 'Life Journey, Articles & Insights | Md Al Shahoriar Hossain',
+    description: 'First-person essays, career updates, competition retrospectives, and technical writing.',
+    url: 'https://shahoriar.bd/life',
+    siteName: 'Md Al Shahoriar Hossain',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Life Journey, Articles & Insights | Md Al Shahoriar Hossain',
+    description: 'First-person essays, career updates, competition retrospectives, and technical writing.',
+  },
 };
 
 // ISR: revalidate every 60 seconds in the background instead of hitting Contentful on every request
@@ -102,6 +114,31 @@ export default async function LifePage() {
           })
         }}
       />
+      {lifeEvents.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Blog",
+              "name": "Life & Blog — Md Al Shahoriar Hossain",
+              "description": "Personal blog and life updates, reflections, career insights, and competition write-ups.",
+              "url": "https://shahoriar.bd/life",
+              "blogPost": lifeEvents.slice(0, 10).map((event) => ({
+                "@type": "BlogPosting",
+                "headline": event.fields.title,
+                "url": `https://shahoriar.bd/life/${event.fields.slug}`,
+                "datePublished": event.fields.date,
+                "author": {
+                  "@type": "Person",
+                  "name": "Md Al Shahoriar Hossain",
+                  "url": "https://shahoriar.bd",
+                },
+              })),
+            }).replace(/</g, '\\u003c'),
+          }}
+        />
+      )}
       <div className="mb-10 lg:mb-14">
         <h1 className="font-bold text-4xl md:text-5xl tracking-tight mb-4 text-gray-900 dark:text-white">
           Life Journey

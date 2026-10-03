@@ -15,9 +15,34 @@ const GetStarted = dynamic(() => import('./components/GetStarted'), {
 
 export const metadata: Metadata = {
   title: 'Md Al Shahoriar Hossain | Portfolio & Projects',
-  description: 'Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at BUP, CA candidate, and Audit Associate at EY Bangladesh. Explore financial analysis, web development projects like StockSimulatorBD (formerly SkillDash, now at stocksimulator.tech), and business competition achievements.',
+  description:
+    'Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at BUP, CA candidate, and Audit Associate at EY Bangladesh. Explore financial analysis, web development projects like StockSimulatorBD (formerly SkillDash, now at stocksimulator.tech), and business competition achievements.',
   alternates: {
-    canonical: 'https://shahoriar.bd/',
+    canonical: 'https://shahoriar.bd',
+  },
+  openGraph: {
+    title: 'Md Al Shahoriar Hossain | Portfolio & Projects',
+    description:
+      'Audit Associate at EY Bangladesh, CA candidate, and developer. Explore financial models, compliance automation, and web development projects.',
+    url: 'https://shahoriar.bd',
+    siteName: 'Md Al Shahoriar Hossain',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Md Al Shahoriar Hossain — Audit Associate and Web Developer',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Md Al Shahoriar Hossain | Portfolio & Projects',
+    description:
+      'Audit Associate at EY Bangladesh, CA candidate, and developer. Explore financial analysis and software projects.',
+    images: ['/opengraph-image.png'],
   },
 };
 

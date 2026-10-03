@@ -77,9 +77,29 @@ export default function ProjectsContent() {
       {/* Section header */}
       <motion.div variants={itemVariants} className="mb-8 sm:mb-10 px-1">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-2 sm:mb-3">Projects</h1>
-        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-          A selection of technical and business projects - shipped tools, automation scripts, and competition work.
-        </p>
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Featured Software & Tools</h2>
+        
+        {/* Quick Solution Jump Chips for Search Intent */}
+        <div className="flex flex-wrap gap-2 mt-3 mb-2">
+          <Link
+            href="/projects/youth-tax-calculator"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors"
+          >
+            <span>🇧🇩 Student Tax Calculator (etaxnbr)</span>
+          </Link>
+          <Link
+            href="/projects/tapo-viewer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-cyan-50 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/50 hover:bg-cyan-100 dark:hover:bg-cyan-900/50 transition-colors"
+          >
+            <span>📹 Tapo Camera Windows Viewer</span>
+          </Link>
+          <Link
+            href="/projects/locreminder"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
+          >
+            <span>📍 Commuter Location Alarm (Android)</span>
+          </Link>
+        </div>
       </motion.div>
 
       {/* ── Bangladesh Youth Tax Calculator card ── */}
@@ -445,6 +465,11 @@ export default function ProjectsContent() {
             Published on GitHub Releases, with an F-Droid submission in progress.
           </p>
         </div>
+      </motion.div>
+
+      {/* ── Internal Systems Header ── */}
+      <motion.div variants={itemVariants} className="pt-4 px-1">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Internal Systems & Corporate Automation</h2>
       </motion.div>
 
       {/* ── Leave Tracker Pro card ── */}

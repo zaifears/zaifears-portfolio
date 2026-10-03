@@ -9,6 +9,18 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://shahoriar.bd/skills',
   },
+  openGraph: {
+    title: 'Skills & Certifications | Md Al Shahoriar Hossain',
+    description: 'Workplace history, financial modeling, web development capabilities, and verified professional certifications.',
+    url: 'https://shahoriar.bd/skills',
+    siteName: 'Md Al Shahoriar Hossain',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Skills & Certifications | Md Al Shahoriar Hossain',
+    description: 'Workplace history, financial modeling, web engineering capabilities, and verified qualifications.',
+  },
 };
 
 export const revalidate = 60;
@@ -74,6 +86,31 @@ export default async function SkillsPage() {
           })
         }}
       />
+      {certificates.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              "itemListElement": certificates.map((cert, index) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": {
+                  "@type": "EducationalOccupationalCredential",
+                  "name": cert.fields.title,
+                  "credentialCategory": "Professional Certification",
+                  "recognizedBy": {
+                    "@type": "Organization",
+                    "name": cert.fields.issuingBody,
+                  },
+                  ...(cert.fields.credentialUrl ? { url: cert.fields.credentialUrl } : {}),
+                },
+              })),
+            }).replace(/</g, '\\u003c'),
+          }}
+        />
+      )}
       {/* Animated gradient background */}
       
       <div className="fixed inset-0 md:left-64 z-0">

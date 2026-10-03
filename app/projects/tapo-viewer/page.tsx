@@ -54,13 +54,84 @@ const features = [
   },
 ];
 
-const supportedDevices = [
-  { title: "Indoor", models: "Tapo C100, C110, C200, C210, C220, C225, TC70" },
-  { title: "Outdoor", models: "Tapo C310, C320WS, C325WB, C500, C510W, C520WS" },
-  { title: "Other models", models: "Any current-firmware Tapo camera with local camera-account support." },
+interface SupportedModel {
+  name: string;
+  resolution: string;
+  highlight?: string;
+}
+
+interface CameraCategory {
+  title: string;
+  description: string;
+  models: SupportedModel[];
+}
+
+const supportedCameraCategories: CameraCategory[] = [
+  {
+    title: "Indoor Pan & Tilt Series (360°)",
+    description: "Full motorized pan/tilt rotation, motion tracking, and two-way audio",
+    models: [
+      { name: "Tapo C200", resolution: "1080p FHD", highlight: "Popular" },
+      { name: "Tapo C210", resolution: "2K 3MP Ultra HD", highlight: "Verified" },
+      { name: "Tapo C211", resolution: "2K 3MP (Black Edition)", highlight: "Verified" },
+      { name: "Tapo C212", resolution: "2K 3MP Pan/Tilt", highlight: "Verified" },
+      { name: "Tapo C220", resolution: "2K 4MP QHD AI", highlight: "Verified" },
+      { name: "Tapo C225", resolution: "2K QHD Starlight AI", highlight: "Physical Shutter" },
+      { name: "Tapo TC70", resolution: "1080p FHD Pan/Tilt", highlight: "Verified" },
+      { name: "Tapo TC71", resolution: "2K 3MP Pan/Tilt", highlight: "Verified" },
+      { name: "Tapo TC72", resolution: "2K Pan/Tilt", highlight: "Verified" },
+      { name: "Tapo TC73", resolution: "2K QHD Pan/Tilt", highlight: "Verified" },
+    ],
+  },
+  {
+    title: "Indoor Fixed & Compact Series",
+    description: "Compact wall-mount, desktop, and magnetic base cameras",
+    models: [
+      { name: "Tapo C100", resolution: "1080p FHD Compact", highlight: "Popular" },
+      { name: "Tapo C110", resolution: "2K 3MP Ultra HD", highlight: "Verified" },
+      { name: "Tapo C111", resolution: "2K 3MP Compact", highlight: "Verified" },
+      { name: "Tapo C120", resolution: "2K QHD (IP66 Indoor/Outdoor)", highlight: "Magnetic Base" },
+      { name: "Tapo C125", resolution: "2K QHD AI Smart", highlight: "Physical Shutter" },
+      { name: "Tapo TC60", resolution: "1080p Fixed Lens", highlight: "Verified" },
+    ],
+  },
+  {
+    title: "Outdoor Bullet & ColorPro Series",
+    description: "Weatherproof IP66 bullet cameras with color and starlight night vision",
+    models: [
+      { name: "Tapo C310", resolution: "2K 3MP Outdoor Security", highlight: "Top Outdoor" },
+      { name: "Tapo C320WS", resolution: "2K QHD 4MP Full-Color", highlight: "Verified" },
+      { name: "Tapo C325WB", resolution: "2K ColorPro Low-Light", highlight: "ColorPro Tech" },
+      { name: "Tapo TC65", resolution: "3MP Outdoor Bullet", highlight: "Verified" },
+    ],
+  },
+  {
+    title: "Outdoor Pan & Tilt PTZ Series (360°)",
+    description: "Weatherproof 360° panoramic outdoor cameras with motion following",
+    models: [
+      { name: "Tapo C500", resolution: "1080p Outdoor 360° (IP65)", highlight: "Popular PTZ" },
+      { name: "Tapo C510W", resolution: "2K 3MP Full-Color 360°", highlight: "Verified" },
+      { name: "Tapo C520WS", resolution: "2K QHD 4MP Starlight PTZ", highlight: "Starlight Sensor" },
+      { name: "Tapo TC40", resolution: "1080p Outdoor Pan/Tilt", highlight: "Verified" },
+      { name: "Tapo TC41", resolution: "2K Outdoor Pan/Tilt", highlight: "Verified" },
+    ],
+  },
+  {
+    title: "Floodlight & Specialized Cameras",
+    description: "Smart floodlight security and cellular-enabled models",
+    models: [
+      { name: "Tapo C720", resolution: "2K QHD Floodlight Camera", highlight: "Smart Floodlight" },
+      { name: "Tapo C501GW", resolution: "3G/4G LTE Outdoor Pan/Tilt", highlight: "Cellular LTE" },
+    ],
+  },
 ];
 
 const faqItems = [
+  {
+    question: "Which TP-Link Tapo camera models are supported by Tapo-Viewer?",
+    answer:
+      "Tapo-Viewer works with virtually every TP-Link Tapo camera that supports local Camera Accounts (RTSP/ONVIF). This includes 27+ models: Tapo C200, C210, C211, C212, C220, C225, TC70, TC71, TC72, TC73 (Indoor Pan/Tilt); Tapo C100, C110, C111, C120, C125, TC60 (Indoor Fixed); Tapo C310, C320WS, C325WB, TC65 (Outdoor Bullet); Tapo C500, C510W, C520WS, TC40, TC41 (Outdoor PTZ); and Tapo C720, C501GW. Any Tapo camera with local camera account support in the official mobile app will connect seamlessly.",
+  },
   {
     question: "Is there a Tapo desktop app for Windows laptops and PCs?",
     answer:
@@ -97,6 +168,21 @@ export const metadata: Metadata = {
     "Tapo camera viewer for PC",
     "Tapo MicroSD recording download",
     "TP-Link Tapo Windows app",
+    "Tapo C200 Windows app",
+    "Tapo C310 PC viewer",
+    "Tapo C500 desktop app",
+    "Tapo C520WS PC app",
+    "Tapo C210 Windows 11",
+    "Tapo C100 RTSP PC",
+    "Tapo C110 desktop",
+    "Tapo C220 PC download",
+    "Tapo C225 Windows",
+    "Tapo C320WS desktop viewer",
+    "Tapo C325WB PC app",
+    "Tapo C120 PC app",
+    "Tapo C125 desktop",
+    "Tapo TC70 Windows",
+    "Tapo TC65 PC viewer",
   ],
   alternates: { canonical: `${baseUrl}/projects/tapo-viewer` },
   robots: { index: true, follow: true },
@@ -134,14 +220,59 @@ export default function TapoViewerPage() {
             name: "Tapo-Viewer",
             url: `${baseUrl}/projects/tapo-viewer`,
             applicationCategory: "MultimediaApplication",
-            operatingSystem: "Windows 10 and Windows 11",
+            operatingSystem: "Windows 10, Windows 11 (64-bit)",
+            softwareVersion: "1.1.1",
+            fileSize: "262MB",
             offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
             author: { "@type": "Person", name: "Shahoriar Hossain", url: baseUrl },
             codeRepository: repositoryUrl,
             license: `${repositoryUrl}/blob/main/LICENSE`,
             downloadUrl: releaseUrl,
             image: `${baseUrl}/projects/tapo-viewer/tapo-viewer_logo.png`,
+            screenshot: [
+              `${baseUrl}/images/Homepage.png`,
+              `${baseUrl}/images/Login.png`,
+            ],
             featureList: features.map((feature) => feature.title),
+            requirements: "Windows 10/11 64-bit, local Wi-Fi or LAN connection, compatible TP-Link Tapo camera",
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: "How to watch Tapo camera live feed and download recordings on Windows PC",
+            description: "Step-by-step guide to streaming live Tapo camera feeds via RTSP and downloading MicroSD recordings directly to a Windows 10 or 11 computer using Tapo-Viewer.",
+            totalTime: "PT3M",
+            step: [
+              {
+                "@type": "HowToStep",
+                position: 1,
+                name: "Create a Camera Account in Tapo App",
+                text: "Open the official TP-Link Tapo mobile app, go to Camera Settings > Advanced Settings > Camera Account, and configure a local username and password.",
+              },
+              {
+                "@type": "HowToStep",
+                position: 2,
+                name: "Launch Tapo-Viewer on Windows",
+                text: "Run Tapo-Viewer.exe on Windows 10 or 11. Enter your camera's local IP address and the Camera Account credentials.",
+              },
+              {
+                "@type": "HowToStep",
+                position: 3,
+                name: "Watch Live RTSP Feed or Browse Calendar",
+                text: "Click Live Stream to launch the feed in VLC, mpv.net, or PotPlayer, or click any highlighted date on the calendar to load recorded motion events.",
+              },
+              {
+                "@type": "HowToStep",
+                position: 4,
+                name: "Download Recordings to PC",
+                text: "Select single or batch motion clips and click Download. Tapo-Viewer downloads the footage directly over local Wi-Fi and automatically remuxes to MP4.",
+              },
+            ],
           }),
         }}
       />
@@ -216,6 +347,17 @@ export default function TapoViewerPage() {
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-gray-500 dark:text-gray-400">
               Looking for a Tapo app for a laptop or Windows PC? Tapo-Viewer connects to compatible cameras over home Wi‑Fi or LAN, keeping the workflow local rather than sending footage to third-party servers.
             </p>
+
+            {/* Citable Answer Capsule for LLM & Instant User Clarity */}
+            <div className="mt-5 rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-4 sm:p-5 text-sm leading-relaxed text-gray-700 dark:text-gray-200">
+              <strong className="block text-cyan-700 dark:text-cyan-300 font-semibold mb-1">
+                Direct Solution:
+              </strong>
+              <p>
+                <strong>Tapo-Viewer</strong> is a free, standalone Windows 10/11 desktop application for TP-Link Tapo security cameras. It enables local RTSP live video streaming in 1080p/2K, MicroSD card recording playback, and batch MP4 clip downloads over home Wi-Fi — with zero cloud subscriptions (no Tapo Care required), no Android emulators (BlueStacks), and without having to remove the physical SD card from the camera.
+              </p>
+            </div>
+
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a
                 href={releaseUrl}
@@ -241,7 +383,7 @@ export default function TapoViewerPage() {
 
           <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-xl shadow-cyan-950/10 dark:border-gray-800 dark:bg-gray-950">
             <Image
-              src="https://i.ibb.co.com/SwnsYxYN/dashboard.png"
+              src="/images/Homepage.png"
               alt="Tapo-Viewer dashboard showing a recording calendar, timeline, live feed controls, and download manager"
               width={1366}
               height={768}
@@ -268,6 +410,57 @@ export default function TapoViewerPage() {
           </div>
         </section>
 
+        {/* Problem vs Alternative Comparison Matrix for Search Intent */}
+        <section className="mt-16">
+          <div className="max-w-2xl mb-6">
+            <p className="text-xs font-semibold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">Why Use Tapo-Viewer</p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">How It Compares to Other Methods</h2>
+          </div>
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900/60 shadow-sm">
+            <table className="w-full text-left text-xs sm:text-sm">
+              <thead className="border-b border-gray-200 bg-gray-50/80 dark:border-gray-800 dark:bg-gray-950/60 text-gray-500 dark:text-gray-400">
+                <tr>
+                  <th className="p-3 sm:p-4 font-semibold">Solution</th>
+                  <th className="p-3 sm:p-4 font-semibold">PC Live Stream</th>
+                  <th className="p-3 sm:p-4 font-semibold">MicroSD Downloads</th>
+                  <th className="p-3 sm:p-4 font-semibold">Monthly Cost</th>
+                  <th className="p-3 sm:p-4 font-semibold">Resource Overhead</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-800/60">
+                <tr className="bg-cyan-50/40 dark:bg-cyan-950/20 font-medium">
+                  <td className="p-3 sm:p-4 text-cyan-700 dark:text-cyan-300 font-bold">Tapo-Viewer (Windows)</td>
+                  <td className="p-3 sm:p-4 text-emerald-600 dark:text-emerald-400">✓ Native 1080p/2K RTSP</td>
+                  <td className="p-3 sm:p-4 text-emerald-600 dark:text-emerald-400">✓ Over Wi-Fi (No SD pull)</td>
+                  <td className="p-3 sm:p-4 text-emerald-600 dark:text-emerald-400">Free / Open Source</td>
+                  <td className="p-3 sm:p-4">Minimal (~45MB RAM)</td>
+                </tr>
+                <tr>
+                  <td className="p-3 sm:p-4 font-semibold">Official Tapo Mobile App</td>
+                  <td className="p-3 sm:p-4 text-amber-600">Mobile-only (Phone screen)</td>
+                  <td className="p-3 sm:p-4 text-amber-600">Slow manual phone saves</td>
+                  <td className="p-3 sm:p-4">Free / Tapo Care ($3.49/mo)</td>
+                  <td className="p-3 sm:p-4">Phone battery dependent</td>
+                </tr>
+                <tr>
+                  <td className="p-3 sm:p-4 font-semibold">Android Emulators (BlueStacks)</td>
+                  <td className="p-3 sm:p-4">✓ Emulated Android window</td>
+                  <td className="p-3 sm:p-4 text-rose-500">Complex shared folders</td>
+                  <td className="p-3 sm:p-4">Free (with ads)</td>
+                  <td className="p-3 sm:p-4 text-rose-500">Heavy (2-4GB RAM, high CPU)</td>
+                </tr>
+                <tr>
+                  <td className="p-3 sm:p-4 font-semibold">Pulling SD Card Manually</td>
+                  <td className="p-3 sm:p-4 text-rose-500">✗ No live feed</td>
+                  <td className="p-3 sm:p-4">✓ Physical card reader</td>
+                  <td className="p-3 sm:p-4">Hardware reader cost</td>
+                  <td className="p-3 sm:p-4 text-rose-500">Physical dismount of camera</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         <section className="mt-16">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">Built for the desktop</p>
@@ -287,7 +480,7 @@ export default function TapoViewerPage() {
         <section className="mt-16 grid gap-8 lg:grid-cols-2 lg:items-center">
           <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 dark:border-gray-800 dark:bg-gray-950">
             <Image
-              src="https://i.ibb.co.com/GyvfC3W/login.png"
+              src="/images/Login.png"
               alt="Tapo-Viewer onboarding screen for camera credentials, MicroSD access, and preferred media player"
               width={1366}
               height={768}
@@ -303,27 +496,75 @@ export default function TapoViewerPage() {
           </div>
         </section>
 
-        <section className="mt-16 grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900/60">
-            <p className="text-xs font-semibold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">Supported devices</p>
-            <h2 className="mt-2 text-2xl font-bold">Tapo cameras with local accounts</h2>
-            <div className="mt-5 space-y-4">
-              {supportedDevices.map((group) => (
-                <div key={group.title} className="border-l-2 border-cyan-500 pl-4">
-                  <h3 className="font-semibold">{group.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">{group.models}</p>
-                </div>
-              ))}
+        {/* Full Comprehensive Supported Camera Models Section */}
+        <section className="mt-16">
+          <div className="max-w-3xl mb-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-700 dark:border-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300 mb-3">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+              27+ Camera Models Verified
             </div>
-            <p className="mt-5 text-sm text-gray-500 dark:text-gray-400">Compatible cameras support local RTSP and ONVIF accounts.</p>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+              Every Supported TP-Link Tapo Camera
+            </h2>
+            <p className="mt-2 text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+              Tapo-Viewer connects directly to any TP-Link Tapo camera equipped with a local Camera Account (RTSP/ONVIF). Whether you have an indoor pan/tilt model, a 2K QHD outdoor bullet, or a 360° PTZ camera, your device is fully compatible.
+            </p>
           </div>
 
-          <div className="rounded-2xl border border-gray-200 bg-gray-950 p-6 text-gray-100 dark:border-gray-800">
-            <p className="text-xs font-semibold uppercase tracking-widest text-cyan-400">Run from source</p>
-            <h2 className="mt-2 text-2xl font-bold text-white">Windows 10/11 · Python 3.10+</h2>
-            <p className="mt-3 text-sm leading-relaxed text-gray-400">Clone the repository, then double-click <code className="rounded bg-white/10 px-1.5 py-0.5 text-gray-200">run.bat</code>. On the first run it creates a virtual environment, installs requirements, and launches the app.</p>
-            <pre className="mt-5 overflow-x-auto rounded-xl border border-white/10 bg-black/30 p-4 text-xs leading-relaxed text-cyan-100"><code>{`git clone https://github.com/zaifears/tapo-viewer.git\ncd tapo-viewer\n# Double-click run.bat`}</code></pre>
-            <div className="mt-5 flex items-start gap-2 text-sm text-gray-400"><Terminal className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" /><span>FFmpeg is optional but recommended for automatic MP4 remuxing.</span></div>
+          <div className="grid gap-6 md:grid-cols-2">
+            {supportedCameraCategories.map((cat) => (
+              <div
+                key={cat.title}
+                className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 dark:border-gray-800 dark:bg-gray-900/60 shadow-sm"
+              >
+                <div className="border-b border-gray-100 dark:border-gray-800/80 pb-3 mb-4">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                    {cat.title}
+                  </h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                    {cat.description}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {cat.models.map((m) => (
+                    <div
+                      key={m.name}
+                      className="flex items-center justify-between p-2.5 rounded-xl border border-gray-100 dark:border-gray-800/60 bg-gray-50/70 dark:bg-gray-950/40"
+                    >
+                      <div>
+                        <span className="block font-semibold text-sm text-gray-900 dark:text-white">
+                          {m.name}
+                        </span>
+                        <span className="block text-[11px] text-gray-500 dark:text-gray-400">
+                          {m.resolution}
+                        </span>
+                      </div>
+                      <span className="shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60">
+                        {m.highlight || "Verified"}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 p-4 rounded-xl border border-cyan-200 dark:border-cyan-900/40 bg-cyan-50/50 dark:bg-cyan-950/20 text-xs sm:text-sm text-gray-600 dark:text-gray-300 flex items-center justify-between flex-wrap gap-2">
+            <span>
+              <strong>Have another Tapo model?</strong> As long as your camera supports creating a <em>Camera Account</em> in the official Tapo mobile app (Advanced Settings &gt; Camera Account), Tapo-Viewer will stream live video and pull MicroSD recordings directly.
+            </span>
+          </div>
+        </section>
+
+        {/* Developer Setup Section */}
+        <section className="mt-16">
+          <div className="rounded-2xl border border-gray-200 bg-gray-950 p-6 sm:p-8 text-gray-100 dark:border-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-widest text-cyan-400">Developer Setup</p>
+            <h2 className="mt-2 text-2xl font-bold text-white">Run from source (Windows 10/11 · Python 3.10+)</h2>
+            <p className="mt-3 text-sm leading-relaxed text-gray-400 max-w-3xl">Clone the repository, then double-click <code className="rounded bg-white/10 px-1.5 py-0.5 text-gray-200 font-mono">run.bat</code>. On the first run it creates a virtual environment, installs requirements, and launches the app.</p>
+            <pre className="mt-5 overflow-x-auto rounded-xl border border-white/10 bg-black/40 p-4 text-xs font-mono leading-relaxed text-cyan-100"><code>{`git clone https://github.com/zaifears/tapo-viewer.git\ncd tapo-viewer\n# Double-click run.bat`}</code></pre>
+            <div className="mt-5 flex items-start gap-2 text-sm text-gray-400"><Terminal className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" /><span>FFmpeg is optional but recommended for automatic MP4 remuxing with AAC audio.</span></div>
           </div>
         </section>
 

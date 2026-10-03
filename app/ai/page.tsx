@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://shahoriar.bd/ai',
   },
+  openGraph: {
+    title: 'AI & Executive Professional Profile | Md Al Shahoriar Hossain',
+    description:
+      'Structured machine-readable profile detailing statutory compliance engines, finance career at EY, education, and technical competencies.',
+    url: 'https://shahoriar.bd/ai',
+    siteName: 'Md Al Shahoriar Hossain',
+    type: 'profile',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI & Executive Profile | Md Al Shahoriar Hossain',
+    description:
+      'Structured profile detailing statutory compliance, EY audit background, and software engineering.',
+  },
 };
 
 interface ProjectItem {

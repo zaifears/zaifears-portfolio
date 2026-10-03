@@ -9,6 +9,38 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://shahoriar.bd/contact',
   },
+  openGraph: {
+    title: 'Contact & Collaboration | Md Al Shahoriar Hossain',
+    description: 'Get in touch via email, LinkedIn, or schedule an online meeting to discuss finance opportunities and software projects.',
+    url: 'https://shahoriar.bd/contact',
+    siteName: 'Md Al Shahoriar Hossain',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact & Collaboration | Md Al Shahoriar Hossain',
+    description: 'Get in touch via email, LinkedIn, or schedule an online meeting.',
+  },
+};
+
+const contactJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Md Al Shahoriar Hossain',
+  url: 'https://shahoriar.bd/contact',
+  description: 'Contact and collaboration endpoints for Md Al Shahoriar Hossain.',
+  mainEntity: {
+    '@type': 'Person',
+    '@id': 'https://shahoriar.bd/#person',
+    name: 'Md Al Shahoriar Hossain',
+    email: 'hello@shahoriar.bd',
+    sameAs: [
+      'https://github.com/zaifears',
+      'https://www.linkedin.com/in/shahoriarhossain/',
+      'https://facebook.com/alshahoriar.hossain',
+      'https://www.youtube.com/@takatunes',
+    ],
+  },
 };
 
 const contactMethods = [
@@ -21,6 +53,12 @@ const contactMethods = [
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(contactJsonLd),
+        }}
+      />
       {/* Animated gradient background */}
       <div className="fixed inset-0 md:left-64 z-0">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob will-change-transform" />

@@ -77,11 +77,15 @@ const projects = [
   }
 ];
 
-export default function PortfolioContent() {
+export default function PortfolioContent({ isStandalone = false }: { isStandalone?: boolean }) {
   return (
     <div>
       <div className="mb-12">
-        <h2 className="text-3xl font-bold mb-2">Design Portfolio</h2>
+        {isStandalone ? (
+          <h1 className="text-3xl font-bold mb-2">Design Portfolio</h1>
+        ) : (
+          <h2 className="text-3xl font-bold mb-2">Design Portfolio</h2>
+        )}
         <p className="text-gray-600 dark:text-gray-400">A selection of graphic design, presentation pitchdecks, and visual work.</p>
       </div>
       

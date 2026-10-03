@@ -24,13 +24,14 @@ export default async function sitemap() {
     '/projects/youth-tax-calculator': 0.9,
     '/projects/tapo-viewer': 0.8,
     '/projects/locreminder': 0.6,
+    '/projects/locreminder/policy': 0.5,
     '/techtips': 0.6,
     '/contact': 0.5,
     '/design-portfolio': 0.4,
     '/thanks': 0.6,
   };
 
-  const routes = ['', '/ai', '/education', '/skills', '/projects', '/projects/youth-tax-calculator', '/projects/tapo-viewer', '/projects/locreminder', '/techtips', '/contact', '/life', '/design-portfolio', '/thanks']
+  const routes = ['', '/ai', '/education', '/skills', '/projects', '/projects/youth-tax-calculator', '/projects/tapo-viewer', '/projects/locreminder', '/projects/locreminder/policy', '/techtips', '/contact', '/life', '/design-portfolio', '/thanks']
     .filter((route) => !excludedRoutes.has(route))
     .map((route) => ({
       url: `${baseUrl}${route}`,
