@@ -10,8 +10,7 @@ import {
   faEnvelope,
   faFlag,
   faMicrochip,
-  faFolderOpen,
-  faFileLines
+  faFolderOpen
 } from '@fortawesome/free-solid-svg-icons';
 
 interface NavItem {
@@ -29,7 +28,6 @@ const navItems: NavItem[] = [
   { href: '/techtips', name: 'Tech Tips', icon: faMicrochip },
   { href: '/education', name: 'Education', icon: faUserGraduate },
   { href: '/contact', name: 'Contact', icon: faEnvelope },
-  { href: '/resume.md', name: 'Resume', icon: faFileLines, desktopOnly: true },
 ];
 
 const isNavItemActive = (itemHref: string, pathname: string): boolean => {
@@ -45,7 +43,7 @@ export function Navbar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:z-40 w-64 p-6 bg-transparent text-gray-600 dark:text-gray-400 font-mono justify-center md:h-screen md:overflow-y-auto">
+      <aside className="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:z-40 w-64 p-6 bg-transparent text-gray-600 dark:text-gray-400 font-sans font-medium justify-center md:h-screen md:overflow-y-auto">
         <div className="mb-8 px-2">
           <p className="font-mono text-xs text-gray-500 dark:text-gray-400 uppercase tracking-widest">zaifears</p>
           <p className="text-sm font-medium text-gray-900 dark:text-white mt-1">Md Al Shahoriar</p>
@@ -111,7 +109,7 @@ export function Navbar() {
                   }`}
                 >
                   <FontAwesomeIcon icon={item.icon} className="w-4 h-4 mx-auto" />
-                  <span className="text-[9px] font-semibold tracking-tight whitespace-nowrap overflow-hidden text-ellipsis leading-none text-center w-full">{item.name}</span>
+                  <span className="text-[9px] font-medium tracking-tight whitespace-nowrap overflow-hidden text-ellipsis leading-none text-center w-full">{item.name}</span>
                 </Link>
               );
             })}

@@ -1,5 +1,30 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-sans: var(--font-space-grotesk), 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-h1: var(--font-coolvetica), 'Coolvetica', sans-serif;
+  --font-coolvetica: var(--font-coolvetica), 'Coolvetica', sans-serif;
+  --font-space-grotesk: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('/fonts/Coolvetica-Regular.woff') format('woff'),
+       url('/fonts/Coolvetica-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('/fonts/Coolvetica-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 ::selection {
   background-color: #47a3f3;
   color: #fefefe;
@@ -34,7 +59,15 @@
   --sh-string: #0fa295;
 }
 
+/* ==========================================================================
+   Typography Configuration:
+   - H1: Coolvetica
+   - Everywhere else: Space Grotesk
+   ========================================================================== */
+
+/* Base font everywhere: Space Grotesk */
 html {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   scroll-behavior: smooth;
   -webkit-user-select: none;
   user-select: none;
@@ -43,8 +76,48 @@ html {
 }
 
 body {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-user-select: text;
   user-select: text;
+}
+
+/* H1 only: Coolvetica */
+h1,
+.font-h1,
+.prose h1 {
+  font-family: var(--font-coolvetica), 'Coolvetica', sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em;
+}
+
+/* H2, H3, H4, H5, H6 and all other headings: Space Grotesk */
+h2,
+h3,
+h4,
+h5,
+h6,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+}
+
+/* All UI elements (nav, buttons, labels, tables, forms): Space Grotesk */
+nav,
+nav a,
+nav span,
+nav button,
+[role="navigation"],
+button,
+[role="button"],
+input,
+textarea,
+select,
+label,
+table,
+th,
+td {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
 }
 
 /* Prevent mobile browsers from zooming when inputs receive focus. */
@@ -168,8 +241,9 @@ select {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   font-size: 2.25rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  font-family: var(--font-coolvetica), 'Coolvetica', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
   color: #111827;
 }
 
@@ -177,6 +251,7 @@ select {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   font-size: 1.5rem;
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
   font-weight: 700;
   letter-spacing: -0.025em;
   color: #111827;
@@ -186,6 +261,7 @@ select {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   font-size: 1.25rem;
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
   font-weight: 600;
   letter-spacing: -0.025em;
   color: #111827;

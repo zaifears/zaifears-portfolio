@@ -5,8 +5,33 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
 import type { Metadata, Viewport } from 'next';
-import { GeistSans } from 'geist/font/sans';
+import { Space_Grotesk } from 'next/font/google';
+import localFont from 'next/font/local';
 import { GeistMono } from 'geist/font/mono';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+});
+
+const coolvetica = localFont({
+  src: [
+    {
+      path: '../public/fonts/Coolvetica-Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Coolvetica-Italic.otf',
+      weight: '400',
+      style: 'italic',
+    },
+  ],
+  variable: '--font-coolvetica',
+  display: 'swap',
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+});
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Script from 'next/script';
@@ -226,7 +251,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cx(GeistSans.variable, GeistMono.variable)}
+      className={cx(spaceGrotesk.variable, coolvetica.variable, GeistMono.variable, spaceGrotesk.className)}
     >
       <head>
         <meta
@@ -288,7 +313,7 @@ export default function RootLayout({
         </Script>
       </head>
 
-      <body className="bg-white text-black antialiased transition-colors duration-300 dark:bg-black dark:text-white">
+      <body className={cx(spaceGrotesk.className, "bg-white text-black antialiased transition-colors duration-300 dark:bg-black dark:text-white font-sans")}>
         <ClarityInitializer />
 
         <LayoutWrapper>{children}</LayoutWrapper>
