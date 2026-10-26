@@ -260,7 +260,8 @@ export default function AiPage() {
     '@id': 'https://shahoriar.bd/ai#webpage',
     url: 'https://shahoriar.bd/ai',
     name: 'AI & Executive Profile | Md Al Shahoriar Hossain',
-    dateModified: '2026-09-30',
+    dateCreated: '2026-06-27T00:00:00+06:00',
+    dateModified: '2026-09-30T00:00:00+06:00',
     description:
       'Machine-readable and executive profile of Md Al Shahoriar Hossain — Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), CA candidate, and software engineer.',
     mainEntity: {
@@ -268,6 +269,9 @@ export default function AiPage() {
       '@id': 'https://shahoriar.bd/#person',
       name: 'Md Al Shahoriar Hossain',
       alternateName: ['Shahoriar Hossain', 'zaifears'],
+      image: 'https://shahoriar.bd/images/shahoriar-author.jpg',
+      description:
+        'Md Al Shahoriar Hossain is an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), Chartered Accountancy candidate at ICAB, and software engineer based in Dhaka, Bangladesh.',
       jobTitle: 'Audit Associate and Software Developer',
       worksFor: {
         '@type': 'Organization',
@@ -1004,7 +1008,9 @@ export default function AiPage() {
           {/* Schema.org Structured Data Graph */}
           <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+            }}
           />
         </div>
       </div>

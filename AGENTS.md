@@ -17,9 +17,9 @@ pnpm test          # run tests/**/*.test.ts via node's built-in test runner (--i
 pnpm indexnow      # submit canonical site URLs to the IndexNow protocol (Bing, Yandex, Seznam, Naver)
 ```
 
-Run a single test file directly: `node --import tsx --test tests/bangla-input.test.ts` or `tests/indexnow.test.ts`
+Run a single test file directly: `node --import tsx --test tests/bangla-input.test.ts`, `tests/indexnow.test.ts`, or `tests/ai-profile.test.ts`
 
-There are currently two test files ([tests/bangla-input.test.ts](tests/bangla-input.test.ts) covering Bangla-input helpers and [tests/indexnow.test.ts](tests/indexnow.test.ts) covering IndexNow payload and URL filtering). There is no ESLint/Prettier config in the repo — don't assume a lint step exists.
+There are currently three test files ([tests/bangla-input.test.ts](tests/bangla-input.test.ts) covering Bangla-input helpers, [tests/indexnow.test.ts](tests/indexnow.test.ts) covering IndexNow payload and URL filtering, and [tests/ai-profile.test.ts](tests/ai-profile.test.ts) covering `/ai` ProfilePage structured data datetime validations). There is no ESLint/Prettier config in the repo — don't assume a lint step exists.
 
 ### Environment variables actually in use
 
