@@ -4,14 +4,14 @@ import ThanksClient from './ThanksClient';
 export const metadata: Metadata = {
   title: 'Thank You | Support My Projects & Tools',
   description:
-    'Did you love using any of my apps? Thank you very much. I enjoy solving problems and building free tools for people. Direct payment and remittance guide for bKash, Standard Chartered Bank, Wise, Remitly, PayPal (Xoom), and Revolut.',
+    'Did you love using any of my apps? Thank you very much. I enjoy solving problems and building free tools for people. Direct payment and remittance guide for BanglaQR, bKash, Eastern Bank PLC, Wise, Remitly, PayPal (Xoom), and Revolut.',
   alternates: {
     canonical: 'https://shahoriar.bd/thanks',
   },
   openGraph: {
     title: 'Thank You | Support My Projects & Tools',
     description:
-      'Did you love using any of my apps? Thank you very much. I enjoy solving problems and building free tools for people. Direct payment and remittance guide for bKash, Standard Chartered Bank, Wise, Remitly, PayPal (Xoom), and Revolut.',
+      'Did you love using any of my apps? Thank you very much. I enjoy solving problems and building free tools for people. Direct payment and remittance guide for BanglaQR, bKash, Eastern Bank PLC, Wise, Remitly, PayPal (Xoom), and Revolut.',
     url: 'https://shahoriar.bd/thanks',
     type: 'website',
   },
@@ -32,7 +32,7 @@ const jsonLd = {
       url: 'https://shahoriar.bd/thanks',
       name: 'Thank You | Support My Projects & Tools',
       description:
-        'Did you love using any of my apps? Thank you very much. I enjoy solving problems and building free tools for people. Direct payment and remittance guide for bKash, Standard Chartered Bank, Wise, Remitly, PayPal (Xoom), and Revolut.',
+        'Did you love using any of my apps? Thank you very much. I enjoy solving problems and building free tools for people. Direct payment and remittance guide for BanglaQR, bKash, Eastern Bank PLC, Wise, Remitly, PayPal (Xoom), and Revolut.',
       isPartOf: {
         '@type': 'WebSite',
         '@id': 'https://shahoriar.bd/#website',
