@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFaceDizzy } from '@fortawesome/free-solid-svg-icons';
 
 export default function LifeError({
   error,
@@ -17,7 +19,7 @@ export default function LifeError({
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-8">
-      <div className="text-6xl mb-4">😵</div>
+      <div className="text-6xl mb-4 text-accent-text"><FontAwesomeIcon icon={faFaceDizzy} aria-hidden="true" /></div>
       <h2 className="text-2xl font-bold mb-2 text-red-500">
         Something went wrong!
       </h2>

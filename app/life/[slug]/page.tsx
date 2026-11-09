@@ -397,7 +397,7 @@ export default async function LifePostPage({
       ),
 
       [BLOCKS.HEADING_6]: (_node: Node, children: ReactNode) => (
-        <h6 className="mb-2 mt-4 text-xs font-semibold tracking-wide uppercase text-gray-900 dark:text-white">
+        <h6 className="mb-2 mt-4 text-xs font-semibold text-gray-900 dark:text-white">
           {children}
         </h6>
       ),
@@ -805,13 +805,13 @@ export default async function LifePostPage({
           />
 
           <div className="flex-1">
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">
-              About the author
-            </p>
-
             <h2 className="mt-1 text-xl font-bold text-gray-900 dark:text-white">
               Md Al Shahoriar Hossain
             </h2>
+
+            <p className="text-sm mt-1 text-blue-600 dark:text-blue-400">
+              About the author
+            </p>
 
             <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
               Finance professional, CA candidate, and developer building
@@ -852,7 +852,7 @@ export default async function LifePostPage({
       <div className="mb-16 mt-16 border-t border-gray-200 pt-8 dark:border-gray-800 md:mb-0">
         <Link
           href="/life"
-          className="group inline-flex items-center gap-2 rounded-full bg-gray-100 px-5 py-2.5 text-gray-700 transition-all hover:bg-blue-50 hover:text-blue-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-blue-900/20 dark:hover:text-blue-400"
+          className="group inline-flex items-center gap-2 rounded-full bg-gray-100 px-5 py-2.5 text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-blue-900/20 dark:hover:text-blue-400"
         >
           <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
           All posts

@@ -1,6 +1,18 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faSun,
+  faCloud,
+  faSmog,
+  faCloudRain,
+  faSnowflake,
+  faCloudBolt,
+  faTemperatureHalf,
+} from '@fortawesome/free-solid-svg-icons';
+
+const chip = 'inline-flex items-center gap-2 rounded-full border border-rule bg-paper-2 px-4 py-2 text-sm text-ink-2 tabular-nums';
 
 export default function Weather() {
   const [weather, setWeather] = useState<{ temperature: number; weathercode: number } | null>(null);
@@ -24,32 +36,31 @@ export default function Weather() {
   }, []);
 
   const getWeatherIcon = (code: number) => {
-    if (code === 0) return '☀️';
-    if (code >= 1 && code <= 3) return '☁️';
-    if (code >= 45 && code <= 48) return '🌫️';
-    if (code >= 51 && code <= 67) return '🌧️';
-    if (code >= 71 && code <= 77) return '❄️';
-    if (code >= 80 && code <= 82) return '🌧️';
-    if (code >= 85 && code <= 86) return '❄️';
-    if (code >= 95 && code <= 99) return '⛈️';
-    return '...';
+    if (code === 0) return faSun;
+    if (code >= 1 && code <= 3) return faCloud;
+    if (code >= 45 && code <= 48) return faSmog;
+    if (code >= 51 && code <= 67) return faCloudRain;
+    if (code >= 71 && code <= 77) return faSnowflake;
+    if (code >= 80 && code <= 82) return faCloudRain;
+    if (code >= 85 && code <= 86) return faSnowflake;
+    if (code >= 95 && code <= 99) return faCloudBolt;
+    return faTemperatureHalf;
   };
 
   if (!isClient || !weather) {
     return (
-      <div className="text-center font-mono text-zinc-400 text-sm animate-pulse">
+      <div className={`${chip} text-muted`}>
         <span>--°C</span>
-        <span className="ml-2">...</span>
-        <p className="text-xs">Dhaka, Bangladesh</p>
+        <span>Dhaka, Bangladesh</span>
       </div>
     );
   }
 
   return (
-    <div className="text-center font-mono text-zinc-400 text-sm">
+    <div className={chip}>
+      <FontAwesomeIcon icon={getWeatherIcon(weather.weathercode)} className="w-4 h-4 text-accent-text" aria-hidden="true" />
       <span>{weather.temperature.toFixed(0)}°C</span>
-      <span className="ml-2">{getWeatherIcon(weather.weathercode)}</span>
-      <p className="text-xs">Dhaka, Bangladesh</p>
+      <span>Dhaka, Bangladesh</span>
     </div>
   );
 }

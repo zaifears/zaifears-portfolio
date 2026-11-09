@@ -33,44 +33,38 @@ export default function FeaturedAreas() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "0px 0px -200px 0px" }}
-      className="px-4 md:px-8 max-w-7xl mx-auto py-20"
+      className="max-w-6xl mx-auto py-10 md:py-14"
     >
       <motion.h2
         variants={itemVariants}
-        className="text-4xl md:text-5xl font-black mb-12 text-gray-900 dark:text-white"
+        className="text-3xl md:text-5xl font-semibold mb-8 text-ink"
       >
         Featured Areas
       </motion.h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[240px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[minmax(250px,auto)]">
         {/* Skills - Large card spanning 2 columns and 2 rows */}
         <div className="col-span-1 sm:col-span-2 sm:row-span-2 row-span-1">
           <motion.div
-            whileHover={{ y: -8 }}
-            transition={{ duration: 0.3 }}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.25 }}
             variants={itemVariants}
             className="h-full"
           >
-            <Link href="/skills" className="block h-full">
-              <div className="relative h-full p-6 rounded-2xl border border-gray-200 dark:border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-gray-300 dark:hover:border-white/20 overflow-hidden group cursor-pointer bg-gray-100/50 dark:bg-white/5">
-                <div className="absolute inset-0 bg-gray-100/0 group-hover:bg-gray-100/50 dark:bg-white/0 dark:group-hover:bg-white/5 transition-colors duration-300" />
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="text-5xl mb-4 text-gray-500 dark:text-white/60 group-hover:text-gray-700 dark:group-hover:text-white/80 transition-colors duration-300">
-                    <FontAwesomeIcon icon={faCode} />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Skills</h3>
-                  <p className="text-gray-600 dark:text-white/50 text-sm grow mb-4">
-                    Finance modeling, Next.js, TypeScript, Power BI, and CA Certificate Level — see the full stack.
-                  </p>
-                  <div className="flex items-center gap-2 text-gray-500 dark:text-white/60 group-hover:text-gray-700 dark:group-hover:text-white/80 transition-colors duration-300">
-                    <span className="text-sm font-medium">View skills</span>
-                    <motion.span
-                      className="inline-block"
-                      whileHover={{ x: 4 }}
-                    >
-                      <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-                    </motion.span>
-                  </div>
+            <Link href="/skills" className="block h-full rounded-panel">
+              <div className="group relative flex h-full flex-col rounded-panel bg-accent p-8 text-accent-ink">
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-card bg-accent-ink/15 text-3xl">
+                  <FontAwesomeIcon icon={faCode} />
+                </div>
+                <h3 className="mb-3 text-3xl font-semibold">Skills</h3>
+                <p className="mb-6 grow text-base text-accent-ink/85">
+                  Finance modeling, Next.js, TypeScript, Power BI, and CA Certificate Level. See the full stack.
+                </p>
+                <div className="flex items-center gap-3">
+                  <span className="font-medium">View skills</span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent-ink text-accent transition-transform duration-200 group-hover:translate-x-1">
+                    <FontAwesomeIcon icon={faArrowRight} className="h-4 w-4" />
+                  </span>
                 </div>
               </div>
             </Link>

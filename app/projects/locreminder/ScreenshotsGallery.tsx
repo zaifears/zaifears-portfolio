@@ -41,7 +41,7 @@ export default function ScreenshotsGallery() {
       <div className="hidden lg:grid lg:grid-cols-6 gap-3.5">
         {screenshots.map((s) => (
           <div key={s.id} className="flex flex-col gap-2">
-            <div className="relative aspect-[9/19.5] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-md hover:border-blue-500/40">
+            <div className="relative aspect-[9/19.5] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-sm transition duration-300 hover:scale-[1.03] hover:shadow-md hover:border-blue-500/40">
               <Image
                 src={`/projects/locreminder/screenshots/${s.id}.jpg`}
                 alt={s.alt}
@@ -100,7 +100,7 @@ export default function ScreenshotsGallery() {
                 type="button"
                 onClick={() => scrollTo(idx)}
                 aria-label={`Go to screenshot ${idx + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
+                className={`h-1.5 rounded-full transition duration-300 ${
                   activeIndex === idx
                     ? 'w-6 bg-blue-600 dark:bg-blue-400'
                     : 'w-1.5 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400'

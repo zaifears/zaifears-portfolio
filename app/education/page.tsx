@@ -103,12 +103,6 @@ export default function EducationPage() {
           })
         }}
       />
-      {/* Animated gradient background */}
-      
-      <div className="fixed inset-0 md:left-64 z-0">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob will-change-transform" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 will-change-transform" />
-      </div>
 
       {/* Content */}
       <div className="relative z-10">
@@ -122,7 +116,7 @@ export default function EducationPage() {
         {/* Education Entries */}
         <div className="space-y-12">
           {educationEntries.map((entry) => (
-            <div key={entry.id} className={`group bg-white dark:bg-neutral-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8 ${entry.borderColor} transition-all duration-300 hover:shadow-2xl`}>
+            <div key={entry.id} className={`group bg-white dark:bg-neutral-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 md:p-8 ${entry.borderColor} transition duration-300 hover:shadow-2xl`}>
                <div className={`flex flex-col md:flex-row items-center gap-8 ${entry.imagePosition === 'right' ? 'md:flex-row-reverse' : ''}`}>
                 
                 {/* Image Section */}
@@ -160,7 +154,7 @@ export default function EducationPage() {
                     className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold transition-colors duration-300"
                   >
                     Visit {entry.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                     </svg>
                   </a>
@@ -180,10 +174,10 @@ export default function EducationPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/skills"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition duration-300 hover:-translate-y-0.5"
               >
                 View skills
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                 </svg>
               </Link>
@@ -192,7 +186,7 @@ export default function EducationPage() {
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors"
               >
                 See projects
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                 </svg>
               </Link>

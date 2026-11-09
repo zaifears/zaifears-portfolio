@@ -1,102 +1,45 @@
 "use client";
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faMicrochip, faPalette, faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
-  },
-};
+const links = [
+  { href: '/techtips', label: 'Tech Tips', note: 'Quick guides and technical notes', icon: faMicrochip },
+  { href: '/design-portfolio', label: 'Design Portfolio', note: 'Graphic design and visual work', icon: faPalette },
+  { href: '/ide', label: 'Code in Python', note: 'A Python editor in your browser', icon: faTerminal },
+];
 
 export default function GetStarted() {
   return (
     <motion.section
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "0px 0px -200px 0px" }}
-      className="px-4 md:px-8 max-w-7xl mx-auto py-20"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+      transition={{ duration: 0.5 }}
+      className="max-w-6xl mx-auto py-10 md:py-12"
     >
-      <motion.h2
-        variants={itemVariants}
-        className="text-4xl md:text-5xl font-black mb-12 text-gray-900 dark:text-white text-center"
-      >
-        Explore More
-      </motion.h2>
+      <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-ink">Explore More</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <motion.div variants={itemVariants}>
-          <Link href="/techtips">
-            <div className="rounded-2xl border border-gray-200 dark:border-white/10 backdrop-blur-xl overflow-hidden group cursor-pointer hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300">
-              <div className="relative h-44 overflow-hidden">
-                <Image
-                  src="/techtips.png"
-                  alt="Tech Tips"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 600px"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900 dark:text-white">Tech Tips</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Quick guides and technical notes</p>
-              </div>
-            </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {links.map((l) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            className="group flex items-center gap-4 rounded-card border border-rule bg-paper-2 p-4 transition-colors duration-200 hover:bg-paper-3"
+          >
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-control bg-accent-soft text-accent-text">
+              <FontAwesomeIcon icon={l.icon} aria-hidden="true" />
+            </span>
+            <span className="min-w-0 grow">
+              <span className="block font-semibold text-ink">{l.label}</span>
+              <span className="block text-sm text-muted">{l.note}</span>
+            </span>
+            <FontAwesomeIcon icon={faArrowRight} className="h-4 w-4 text-muted transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
           </Link>
-        </motion.div>
-
-        <motion.div variants={itemVariants}>
-          <Link href="/design-portfolio">
-            <div className="rounded-2xl border border-gray-200 dark:border-white/10 backdrop-blur-xl overflow-hidden group cursor-pointer hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300">
-              <div className="relative h-44 overflow-hidden">
-                <Image
-                  src="/designbox.png"
-                  alt="Design Portfolio"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 600px"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900 dark:text-white">Design Portfolio</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Graphic design and visual work</p>
-              </div>
-            </div>
-          </Link>
-        </motion.div>
+        ))}
       </div>
-
-      {/* Python IDE Button */}
-      <motion.div variants={itemVariants} className="max-w-2xl mx-auto">
-        <Link
-          href="/ide"
-          className="w-full py-4 bg-gray-900/10 dark:bg-white/10 border border-gray-900/20 dark:border-white/20 rounded-2xl text-gray-900 dark:text-white font-semibold backdrop-blur-xl hover:bg-gray-900/20 dark:hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-3 hover:scale-105 active:scale-95 group"
-        >
-          <span className="text-2xl">🐍</span>
-          <span>Code in Python</span>
-          <motion.span whileHover={{ x: 4 }}>
-            <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-          </motion.span>
-        </Link>
-      </motion.div>
     </motion.section>
   );
 }

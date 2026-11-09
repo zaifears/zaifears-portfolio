@@ -159,10 +159,10 @@ export default async function LifePage() {
       {/* --- Featured Latest Post --- */}
       {latestEvent && (
         <div className="mb-16 lg:mb-20">
-          <h2 className="flex items-center gap-2 text-sm font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 mb-6">
+          <h2 className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 mb-6">
             <Star className="w-4 h-4" /> Featured Post
           </h2>
-          <Link href={`/life/${latestEvent.fields.slug}`} className="group relative flex flex-col bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-blue-500/5 hover:border-blue-500/30 transition-all duration-500">
+          <Link href={`/life/${latestEvent.fields.slug}`} className="group relative flex flex-col bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-blue-500/5 hover:border-blue-500/30 transition duration-500">
             {latestEvent.fields.coverImage?.fields?.file?.url && (
               <div className="relative w-full h-64 md:h-112 overflow-hidden">
                 <Image
@@ -207,7 +207,7 @@ export default async function LifePage() {
                 <Link 
                   href={`/life/${event.fields.slug}`} 
                   key={index} 
-                  className="group flex flex-col bg-white dark:bg-neutral-900 rounded-2xl border border-gray-200 dark:border-neutral-800 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 overflow-hidden hover:-translate-y-1 min-w-0"
+                  className="group flex flex-col bg-white dark:bg-neutral-900 rounded-2xl border border-gray-200 dark:border-neutral-800 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/5 transition duration-300 overflow-hidden hover:-translate-y-1 min-w-0"
                 >
                   {event.fields.coverImage?.fields?.file?.url && (
                     <div className="relative h-56 w-full overflow-hidden">

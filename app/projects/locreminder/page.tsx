@@ -22,6 +22,8 @@ import {
   CalendarOff,
 } from 'lucide-react';
 import ScreenshotsGallery from './ScreenshotsGallery';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBed, faBookOpen, faBox, faCar, faEarthAsia } from '@fortawesome/free-solid-svg-icons';
 
 const baseUrl = 'https://shahoriar.bd';
 const apkUrl = 'https://github.com/zaifears/locreminder/releases/latest/download/app-release.apk';
@@ -87,27 +89,27 @@ const howToSteps = [
 
 const useCases = [
   {
-    emoji: '😴',
+    icon: faBed,
     title: 'Long bus or train rides',
     text: 'Actually sleep and rest instead of half-watching for your stop the entire journey.',
   },
   {
-    emoji: '🌏',
+    icon: faEarthAsia,
     title: 'An unfamiliar city',
     text: 'You do not know what your stop looks like, so let the phone know for you.',
   },
   {
-    emoji: '📚',
+    icon: faBookOpen,
     title: 'Commuters',
     text: 'Read, work, or listen to something without keeping one anxious eye on the route.',
   },
   {
-    emoji: '🚗',
+    icon: faCar,
     title: 'Passengers on road trips',
     text: 'Get woken before the highway turn-off instead of 20 km past it.',
   },
   {
-    emoji: '📦',
+    icon: faBox,
     title: 'Pickups and errands',
     text: 'A nudge when you are near the shop, the post office, or a friend’s place.',
   },
@@ -327,12 +329,6 @@ export default function LocReminderPage() {
         }}
       />
 
-      {/* Subtle ambient background blob */}
-      <div className="fixed inset-0 md:left-64 z-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob will-change-transform" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 will-change-transform" />
-      </div>
-
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-8 md:py-12">
         <nav className="mb-8">
           <Link
@@ -366,7 +362,7 @@ export default function LocReminderPage() {
               Reminds you at the right place
             </p>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-2xl leading-relaxed">
-              Sleep on the bus. Remember the errand. Drop a pin on your destination and put your phone away — it goes off when you arrive.
+              Sleep on the bus. Remember the errand. Drop a pin on your destination and put your phone away. It goes off when you arrive.
             </p>
             <div className="flex flex-wrap justify-center sm:justify-start gap-2">
               {badges.map((b) => (
@@ -397,7 +393,7 @@ export default function LocReminderPage() {
             href={apkUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-md shadow-blue-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-semibold rounded-xl transition duration-300 hover:-translate-y-0.5 shadow-md shadow-blue-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
             <Download className="w-4 h-4" aria-hidden="true" />
             <span>Download APK (Universal)</span>
@@ -511,7 +507,7 @@ export default function LocReminderPage() {
                 key={u.title}
                 className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-5"
               >
-                <div className="text-2xl mb-2">{u.emoji}</div>
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-control bg-accent-soft"><FontAwesomeIcon icon={u.icon} className="w-5 h-5 text-accent-text" aria-hidden="true" /></div>
                 <h3 className="font-bold text-gray-900 dark:text-white mb-1 text-sm sm:text-base">
                   {u.title}
                 </h3>

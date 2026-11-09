@@ -328,7 +328,7 @@ export default function RootLayout({
         </Script>
       </head>
 
-      <body className={cx(spaceGrotesk.className, "bg-white text-black antialiased transition-colors duration-300 dark:bg-black dark:text-white font-sans")}>
+      <body className={cx(spaceGrotesk.className, "antialiased font-sans")}>
         <ClarityInitializer />
 
         <LayoutWrapper>{children}</LayoutWrapper>

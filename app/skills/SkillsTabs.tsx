@@ -84,14 +84,14 @@ const VALID_TABS = ['workplace', 'skills', 'certificates', 'designPortfolio'] as
 type Tab = (typeof VALID_TABS)[number];
 
 const SkillItem = ({ icon, name }: { icon: string; name: string }) => (
-  <div className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 text-center hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+  <div className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 text-center hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition duration-300 hover:scale-[1.02] hover:shadow-lg">
     <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800/50 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-300">
       <div className="relative w-10 h-10">
         <Image
           src={`/${icon}`}
           alt={`${name} icon`}
           fill
-          className="object-contain transition-transform duration-300 group-hover:scale-110"
+          className="object-contain transition-transform duration-300 group-hover:scale-105"
         />
       </div>
     </div>
@@ -110,7 +110,7 @@ const TechSkillItem = ({
   logos: { src: string; alt: string; href: string }[];
   names: string;
 }) => (
-  <div className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 text-center h-full flex flex-col hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+  <div className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 text-center h-full flex flex-col hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition duration-300 hover:scale-[1.02] hover:shadow-lg">
     <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
       {title}
     </h3>
@@ -169,7 +169,7 @@ const TabButtons = ({
           aria-selected={activeTab === id ? 'true' : 'false'}
           aria-controls={`tabpanel-${id}`}
           onClick={() => onTabChange(id)}
-          className={`whitespace-nowrap text-center px-4 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold rounded-xl transition-all duration-300 ${
+          className={`whitespace-nowrap text-center px-4 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold rounded-xl transition duration-300 ${
             activeTab === id
               ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
               : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
@@ -228,7 +228,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
             {workplaceEntries.map((entry) => (
               <div key={entry.company} className="relative">
                 <div className="-left-2.25 absolute top-2 h-3 w-3 rounded-full bg-blue-600" />
-                <div className="bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 transition-all duration-300 hover:border-blue-500/30 hover:shadow-lg">
+                <div className="bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 transition duration-300 hover:border-blue-500/30 hover:shadow-lg">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                       <h3 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -402,7 +402,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
           {certificates.map((cert: Certificate, index: number) => (
             <div
               key={index}
-              className="group bg-white dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 flex flex-col sm:flex-row items-start gap-6 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition-all duration-300"
+              className="group bg-white dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 flex flex-col sm:flex-row items-start gap-6 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:border-blue-500/30 transition duration-300"
             >
               {cert.fields.certificateImage && (
                 <div className="shrink-0 w-full sm:w-24 sm:h-24 bg-gray-100 dark:bg-gray-800 rounded-xl p-2 flex items-center justify-center group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-300">

@@ -336,7 +336,7 @@ export default function TapoViewerPage() {
 
         <section className="grid items-center gap-9 lg:grid-cols-[1.05fr_.95fr] lg:gap-12">
           <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-700 dark:border-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-700 dark:border-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300">
               <Wifi className="h-3.5 w-3.5" />
               Windows · Local camera viewer
             </div>
@@ -353,7 +353,7 @@ export default function TapoViewerPage() {
                 Tapo-Viewer
               </h1>
             </div>
-            <p className="mt-4 text-sm font-semibold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">
+            <p className="mt-4 text-sm font-semibold text-cyan-600 dark:text-cyan-400">
               Desktop app for Tapo cameras on Windows
             </p>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-gray-300">
@@ -428,8 +428,7 @@ export default function TapoViewerPage() {
         {/* Problem vs Alternative Comparison Matrix for Search Intent */}
         <section className="mt-16">
           <div className="max-w-2xl mb-6">
-            <p className="text-xs font-semibold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">Why Use Tapo-Viewer</p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">How It Compares to Other Methods</h2>
+<h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">How It Compares to Other Methods</h2>
           </div>
           <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900/60 shadow-sm">
             <table className="w-full text-left text-xs sm:text-sm">
@@ -478,8 +477,7 @@ export default function TapoViewerPage() {
 
         <section className="mt-16">
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">Built for the desktop</p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">Everything documented in the app</h2>
+<h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">Everything documented in the app</h2>
           </div>
           <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => (
@@ -503,8 +501,7 @@ export default function TapoViewerPage() {
             />
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-cyan-600 dark:text-cyan-400">Connection setup</p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">A focused onboarding flow</h2>
+<h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">A focused onboarding flow</h2>
             <p className="mt-4 leading-relaxed text-gray-600 dark:text-gray-400">
               Enter camera credentials, choose whether cloud-password authentication is needed for MicroSD downloads, and select the media player to use for live streams. The interface is designed for standard 1366×768 laptop displays and high-DPI monitors, with F11 fullscreen support.
             </p>
@@ -514,7 +511,7 @@ export default function TapoViewerPage() {
         {/* Full Comprehensive Supported Camera Models Section */}
         <section className="mt-16">
           <div className="max-w-3xl mb-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-700 dark:border-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300 mb-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700 dark:border-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300 mb-3">
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
               27+ Camera Models Verified
             </div>
@@ -575,7 +572,7 @@ export default function TapoViewerPage() {
         {/* Developer Setup Section */}
         <section className="mt-16">
           <div className="rounded-2xl border border-gray-200 bg-gray-950 p-6 sm:p-8 text-gray-100 dark:border-gray-800">
-            <p className="text-xs font-semibold uppercase tracking-widest text-cyan-400">Developer Setup</p>
+            <p className="text-xs font-semibold text-cyan-400">Developer Setup</p>
             <h2 className="mt-2 text-2xl font-bold text-white">Run from source (Windows 10/11 · Python 3.10+)</h2>
             <p className="mt-3 text-sm leading-relaxed text-gray-400 max-w-3xl">Clone the repository, then double-click <code className="rounded bg-white/10 px-1.5 py-0.5 text-gray-200 font-mono">run.bat</code>. On the first run it creates a virtual environment, installs requirements, and launches the app.</p>
             <pre className="mt-5 overflow-x-auto rounded-xl border border-white/10 bg-black/40 p-4 text-xs font-mono leading-relaxed text-cyan-100"><code>{`git clone https://github.com/zaifears/tapo-viewer.git\ncd tapo-viewer\n# Double-click run.bat`}</code></pre>
@@ -585,10 +582,6 @@ export default function TapoViewerPage() {
 
         <section className="mt-16">
           <div className="max-w-3xl mb-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-700 dark:border-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300 mb-3">
-              <ShieldCheck className="h-3.5 w-3.5 text-cyan-500" />
-              Frequently Asked Questions
-            </div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
               Tapo-Viewer & Camera Compatibility FAQ
             </h2>
@@ -601,7 +594,7 @@ export default function TapoViewerPage() {
             {faqItems.map((item) => (
               <article
                 key={item.question}
-                className="flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 dark:border-gray-800 dark:bg-gray-900/60 shadow-sm transition-all hover:border-cyan-200 dark:hover:border-cyan-900/60"
+                className="flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 dark:border-gray-800 dark:bg-gray-900/60 shadow-sm transition hover:border-cyan-200 dark:hover:border-cyan-900/60"
               >
                 <div>
                   <div className="mb-2.5">

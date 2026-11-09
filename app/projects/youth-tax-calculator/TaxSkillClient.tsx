@@ -67,7 +67,7 @@ export default function TaxSkillClient() {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                 Deployment & Tooling
               </span>
             </div>
@@ -80,7 +80,7 @@ export default function TaxSkillClient() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 p-1 bg-gray-100 dark:bg-gray-800 rounded-xl w-full sm:w-auto">
             <button
               onClick={() => setActiveTab("skill")}
-              className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+              className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition ${
                 activeTab === "skill"
                   ? "bg-white dark:bg-gray-900 text-emerald-600 dark:text-emerald-400 shadow-sm"
                   : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -91,7 +91,7 @@ export default function TaxSkillClient() {
             </button>
             <button
               onClick={() => setActiveTab("wizard")}
-              className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+              className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition ${
                 activeTab === "wizard"
                   ? "bg-white dark:bg-gray-900 text-emerald-600 dark:text-emerald-400 shadow-sm"
                   : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -102,7 +102,7 @@ export default function TaxSkillClient() {
             </button>
             <button
               onClick={() => setActiveTab("cli")}
-              className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+              className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition ${
                 activeTab === "cli"
                   ? "bg-white dark:bg-gray-900 text-emerald-600 dark:text-emerald-400 shadow-sm"
                   : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
@@ -191,7 +191,7 @@ export default function TaxSkillClient() {
                 </div>
                 <button
                   onClick={() => copyToClipboard(aiPrompt, "web-ai-prompt")}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg shadow-sm transition-all shrink-0"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg shadow-sm transition shrink-0"
                 >
                   {copiedId === "web-ai-prompt" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedId === "web-ai-prompt" ? "Copied Prompt!" : "Copy Prompt"}</span>
@@ -279,7 +279,7 @@ export default function TaxSkillClient() {
         <div className="mb-6 pb-4 border-b border-gray-100 dark:border-gray-800">
           <div className="flex items-center gap-2 mb-1">
             <Calculator className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
               Live Statutory Simulation
             </span>
           </div>
@@ -411,7 +411,7 @@ export default function TaxSkillClient() {
 
             {/* Portal difference banner */}
             <div className="p-3.5 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-center">
-              <div className="text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider">
+              <div className="text-[11px] font-semibold text-emerald-800 dark:text-emerald-300">
                 NBR Portal Validation Check
               </div>
               <div className="text-xl font-extrabold font-mono text-emerald-900 dark:text-emerald-200 mt-0.5">

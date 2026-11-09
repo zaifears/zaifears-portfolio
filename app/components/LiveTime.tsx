@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 
+const chip = 'rounded-full border border-rule bg-paper-2 px-4 py-2 text-sm text-ink-2 tabular-nums';
+
 export default function LiveTime() {
   const [time, setTime] = useState(new Date());
   const [isClient, setIsClient] = useState(false);
@@ -21,11 +23,11 @@ export default function LiveTime() {
   hours = hours ? hours : 12;
 
   if (!isClient) {
-    return <div className="text-zinc-400 animate-pulse">--:-- --</div>;
+    return <div className={`${chip} text-muted`}>--:-- --</div>;
   }
 
   return (
-    <div className="text-zinc-400 font-mono text-sm">
+    <div className={chip}>
       {formatTwoDigits(hours)}:{minutes} {ampm}
     </div>
   );

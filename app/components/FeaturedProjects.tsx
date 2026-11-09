@@ -26,6 +26,13 @@ const itemVariants = {
   },
 };
 
+const panel =
+  'group relative rounded-panel border border-rule bg-paper-2 p-3 transition-colors duration-200 hover:bg-paper-3';
+const media = 'relative h-64 md:h-auto md:min-h-80 overflow-hidden rounded-card';
+const copy = 'flex flex-col justify-center gap-4 p-6 md:p-10';
+const textLink =
+  'inline-flex w-fit items-center gap-3 rounded-full bg-accent px-5 py-3 font-medium text-accent-ink transition-transform duration-200 hover:-translate-y-0.5';
+
 export default function FeaturedProjects() {
   return (
     <motion.section
@@ -33,46 +40,43 @@ export default function FeaturedProjects() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "0px 0px -200px 0px" }}
-      className="px-4 md:px-8 max-w-7xl mx-auto py-20 border-t border-gray-200 dark:border-white/10"
+      className="max-w-6xl mx-auto py-10 md:py-14"
     >
       <motion.h2
         variants={itemVariants}
-        className="text-4xl md:text-5xl font-black mb-12 text-gray-900 dark:text-white"
+        className="text-3xl md:text-5xl font-semibold mb-8 text-ink"
       >
         Featured Projects
       </motion.h2>
 
-      <div className="space-y-8">
+      <div className="space-y-6">
         {/* StockSimulatorBD Project */}
-        <motion.div
-          variants={itemVariants}
-          className="relative rounded-2xl border border-gray-200 dark:border-white/10 backdrop-blur-xl bg-gray-100/50 dark:bg-white/5 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300 group overflow-hidden"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch">
+        <motion.div variants={itemVariants} className={panel}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-stretch">
             <Link
               href="https://stocksimulator.tech/simulator"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative h-64 md:h-auto order-2 md:order-1 overflow-hidden cursor-pointer"
+              className={`${media} order-2 md:order-1 cursor-pointer`}
             >
               <Image
                 src="/stocksimbd-banner.png"
                 alt="StockSimulatorBD - DSE Stock Simulator"
                 fill
-                sizes="(max-width: 768px) 100vw, 608px"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                sizes="(max-width: 768px) 100vw, 540px"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
-            <div className="p-8 flex flex-col justify-center order-1 md:order-2">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">StockSimulatorBD</h3>
-              <p className="text-gray-600 dark:text-white/70 mb-4 leading-relaxed">
+            <div className={`${copy} order-1 md:order-2`}>
+              <h3 className="text-2xl md:text-3xl font-semibold text-ink">StockSimulatorBD</h3>
+              <p className="text-ink-2 leading-relaxed">
                 Bangladesh&apos;s DSE paper trading simulator. Replicates live market conditions so investors can learn the Dhaka Stock Exchange without risking real capital.
               </p>
               <Link
                 href="https://stocksimulator.tech/simulator"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-gray-500 dark:text-white/60 group-hover:text-gray-900 dark:group-hover:text-white transition-colors w-fit"
+                className={textLink}
               >
                 Open StockSimulatorBD <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
               </Link>
@@ -81,20 +85,17 @@ export default function FeaturedProjects() {
         </motion.div>
 
         {/* Business Competition Projects */}
-        <motion.div
-          variants={itemVariants}
-          className="relative rounded-2xl border border-gray-200 dark:border-white/10 backdrop-blur-xl bg-gray-100/50 dark:bg-white/5 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300 group overflow-hidden"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch">
-            <div className="p-8 flex flex-col justify-center">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Business Competition Projects</h3>
-              <p className="text-gray-600 dark:text-white/70 mb-4 leading-relaxed">
+        <motion.div variants={itemVariants} className={panel}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-stretch">
+            <div className={copy}>
+              <h3 className="text-2xl md:text-3xl font-semibold text-ink">Business Competition Projects</h3>
+              <p className="text-ink-2 leading-relaxed">
                 20+ national business competitions. Financial models, market analyses, and strategic proposals from winning cases at Excelerate, Accolyze, Technopreneurship, and more.
               </p>
               <Link
                 href="/bizcomp"
                 rel="nofollow"
-                className="inline-flex items-center gap-2 text-gray-500 dark:text-white/60 group-hover:text-gray-900 dark:group-hover:text-white transition-colors w-fit"
+                className={textLink}
               >
                 View Cases <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
               </Link>
@@ -102,14 +103,14 @@ export default function FeaturedProjects() {
             <Link
               href="/bizcomp"
               rel="nofollow"
-              className="relative h-64 md:h-auto overflow-hidden cursor-pointer"
+              className={`${media} cursor-pointer`}
             >
               <Image
                 src="/bizcomp.png"
                 alt="Business Competition Projects"
                 fill
-                sizes="(max-width: 768px) 100vw, 608px"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                sizes="(max-width: 768px) 100vw, 540px"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
           </div>

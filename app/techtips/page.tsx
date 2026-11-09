@@ -451,7 +451,7 @@ const CardItem = ({ item }: { item: TechItem }) => {
   const hasDualAction = Boolean(item.github || item.secondaryLink);
 
   return (
-    <article className="group flex flex-col justify-between rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-md">
+    <article className="group flex flex-col justify-between rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 transition duration-200 hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-md">
       <div>
         <div className="flex items-start gap-3 mb-2.5">
           <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800/80 p-1.5 flex items-center justify-center shrink-0 border border-gray-200/50 dark:border-gray-700/50 group-hover:scale-105 transition-transform">
@@ -668,7 +668,7 @@ export default function TechTipsPage() {
                   tabIndex={isSelected ? 0 : -1}
                   onClick={() => handleTabChange(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg whitespace-nowrap transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg whitespace-nowrap transition duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
                     isSelected
                       ? 'bg-blue-600 text-white shadow-sm font-semibold'
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200/60 dark:hover:bg-gray-800/60'
@@ -698,7 +698,7 @@ export default function TechTipsPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Quick search..."
               aria-label="Quick search utilities"
-              className="w-full text-xs sm:text-sm px-3 py-2 pl-8 rounded-xl bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              className="w-full text-xs sm:text-sm px-3 py-2 pl-8 rounded-xl bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             />
             <svg
               className="w-4 h-4 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none"
@@ -817,7 +817,7 @@ export default function TechTipsPage() {
                 {filteredPowerShell.map((item) => (
                   <article
                     key={item.name}
-                    className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 transition-all hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-sm"
+                    className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 transition hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-sm"
                   >
                     <div className="flex items-start gap-3 mb-3">
                       <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">

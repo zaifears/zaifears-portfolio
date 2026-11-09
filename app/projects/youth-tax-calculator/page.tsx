@@ -248,12 +248,6 @@ export default function YouthTaxCalculatorPage() {
         }}
       />
 
-      {/* Subtle ambient background blob */}
-      <div className="fixed inset-0 md:left-64 z-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-emerald-500/15 dark:bg-emerald-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob will-change-transform" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-teal-500/10 dark:bg-teal-500/5 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 will-change-transform" />
-      </div>
-
       <div className="relative z-10 max-w-4xl mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-12">
         {/* Navigation */}
         <nav className="mb-6 sm:mb-8">
@@ -319,7 +313,7 @@ export default function YouthTaxCalculatorPage() {
             href={repoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-md shadow-emerald-500/20 text-xs sm:text-sm"
+            className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition duration-300 hover:-translate-y-0.5 shadow-md shadow-emerald-500/20 text-xs sm:text-sm"
           >
             <Github className="w-4 h-4" />
             <span>GitHub Repository</span>

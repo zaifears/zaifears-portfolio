@@ -9,7 +9,7 @@ export default function LayoutWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  
+
   // Full-screen routes bypass the default site shell (navbar + shifted main content).
   const isFullScreenPage =
     pathname.startsWith('/bizcomp') ||
@@ -24,13 +24,14 @@ export default function LayoutWrapper({
         // If we're on a full-screen route, render without navbar
         <>{children}</>
       ) : (
-        // On all other pages, render the default layout with the navbar
-        <>
+        // On all other pages, render the default layout with the navbar.
+        // `.site` scopes the blue/black palette and the rounded corner scale (see tokens.css).
+        <div className="site min-h-screen bg-paper text-ink">
           <Navbar />
-          <main className="md:ml-64 p-4 md:p-8 pb-20 md:pb-8">
+          <main className="md:ml-68 p-4 md:p-8 pb-28 md:pb-8">
             {children}
           </main>
-        </>
+        </div>
       )}
     </>
   );

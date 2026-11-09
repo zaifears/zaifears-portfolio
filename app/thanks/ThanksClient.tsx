@@ -118,7 +118,7 @@ function StylizedQrFallback({
           : 'bg-gradient-to-b from-emerald-50 to-teal-100/60 dark:from-emerald-950/40 dark:to-[#0c1815] border-emerald-300 dark:border-emerald-800'
       }`}
     >
-      <div className="flex items-center justify-between w-full text-[10px] font-mono uppercase tracking-wider font-bold text-gray-500 dark:text-gray-400">
+      <div className="flex items-center justify-between w-full text-[10px] font-bold text-gray-500 dark:text-gray-400">
         <span>Scan & Pay</span>
         <span
           className={`px-1.5 py-0.5 rounded text-[10px] font-black ${
@@ -302,7 +302,7 @@ SWIFT Code: ${b.swiftCode}`;
           <button
             type="button"
             onClick={() => setRegion('international')}
-            className={`py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold transition-all min-h-[44px] cursor-pointer ${
+            className={`py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold transition min-h-[44px] cursor-pointer ${
               region === 'international'
                 ? 'bg-white dark:bg-[#1B2230] text-blue-600 dark:text-blue-400 shadow-sm border border-blue-200 dark:border-blue-900/60'
                 : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
@@ -313,7 +313,7 @@ SWIFT Code: ${b.swiftCode}`;
           <button
             type="button"
             onClick={() => setRegion('bangladesh')}
-            className={`py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold transition-all min-h-[44px] cursor-pointer ${
+            className={`py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold transition min-h-[44px] cursor-pointer ${
               region === 'bangladesh'
                 ? 'bg-white dark:bg-[#1B2230] text-emerald-600 dark:text-emerald-400 shadow-sm border border-emerald-200 dark:border-emerald-900/60'
                 : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
@@ -334,7 +334,7 @@ SWIFT Code: ${b.swiftCode}`;
               <button
                 type="button"
                 onClick={() => setBdTab('banglaqr')}
-                className={`flex flex-col items-center justify-center text-center p-2.5 sm:p-3 min-h-[54px] rounded-xl transition-all relative active:scale-[0.98] cursor-pointer ${
+                className={`flex flex-col items-center justify-center text-center p-2.5 sm:p-3 min-h-[54px] rounded-xl transition relative active:scale-[0.98] cursor-pointer ${
                   bdTab === 'banglaqr'
                     ? 'bg-white dark:bg-[#1B2230] text-emerald-600 dark:text-emerald-400 shadow-sm border border-emerald-200 dark:border-emerald-900/60 ring-2 ring-emerald-500/20'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-white/60 dark:hover:bg-white/5'
@@ -354,7 +354,7 @@ SWIFT Code: ${b.swiftCode}`;
               <button
                 type="button"
                 onClick={() => setBdTab('other')}
-                className={`flex flex-col items-center justify-center text-center p-2.5 sm:p-3 min-h-[54px] rounded-xl transition-all relative active:scale-[0.98] cursor-pointer ${
+                className={`flex flex-col items-center justify-center text-center p-2.5 sm:p-3 min-h-[54px] rounded-xl transition relative active:scale-[0.98] cursor-pointer ${
                   bdTab === 'other'
                     ? 'bg-white dark:bg-[#1B2230] text-blue-600 dark:text-blue-400 shadow-sm border border-blue-200 dark:border-blue-900/60 ring-2 ring-blue-500/20'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-white/60 dark:hover:bg-white/5'
@@ -379,7 +379,7 @@ SWIFT Code: ${b.swiftCode}`;
                 <div className="px-4 sm:px-6 py-3.5 bg-black/20 flex items-center justify-between border-b border-white/10 flex-wrap gap-2">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-xs font-black tracking-wider uppercase">
+                    <span className="text-xs font-black">
                       BanglaQR
                     </span>
                   </div>
@@ -467,7 +467,7 @@ SWIFT Code: ${b.swiftCode}`;
                       </div>
 
                       <div className="p-3 rounded-xl bg-gray-50 dark:bg-[#1a2130] border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-xs space-y-1.5">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
+                        <span className="text-[10px] font-bold text-gray-400 block">
                           How it works:
                         </span>
                         <ul className="space-y-1 text-[11px]">
@@ -489,7 +489,7 @@ SWIFT Code: ${b.swiftCode}`;
                               caption: 'All of these 20+ Bank and MFS apps support BanglaQR scanning.',
                             })
                           }
-                          className="relative w-full overflow-hidden rounded-xl border border-red-500/30 shadow-md group cursor-pointer hover:border-red-400 transition-all active:scale-[0.99] bg-[#be1e2d]"
+                          className="relative w-full overflow-hidden rounded-xl border border-red-500/30 shadow-md group cursor-pointer hover:border-red-400 transition active:scale-[0.99] bg-[#be1e2d]"
                         >
                           <Image
                             src="/thanks/banglaqr-app.png"
@@ -522,7 +522,7 @@ SWIFT Code: ${b.swiftCode}`;
                   <button
                     type="button"
                     onClick={() => setOtherSubTab('mfs')}
-                    className={`w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-bold transition-all min-h-[44px] active:scale-[0.98] cursor-pointer ${
+                    className={`w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-bold transition min-h-[44px] active:scale-[0.98] cursor-pointer ${
                       otherSubTab === 'mfs'
                         ? 'bg-white dark:bg-[#1f2737] text-orange-600 dark:text-orange-400 shadow-sm border border-orange-200 dark:border-orange-900/60'
                         : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-200'
@@ -534,7 +534,7 @@ SWIFT Code: ${b.swiftCode}`;
                   <button
                     type="button"
                     onClick={() => setOtherSubTab('bank')}
-                    className={`w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-bold transition-all min-h-[44px] active:scale-[0.98] cursor-pointer ${
+                    className={`w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-bold transition min-h-[44px] active:scale-[0.98] cursor-pointer ${
                       otherSubTab === 'bank'
                         ? 'bg-white dark:bg-[#1f2737] text-blue-600 dark:text-blue-400 shadow-sm border border-blue-200 dark:border-blue-900/60'
                         : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-200'
@@ -546,7 +546,7 @@ SWIFT Code: ${b.swiftCode}`;
                   <button
                     type="button"
                     onClick={() => setOtherSubTab('bkash')}
-                    className={`w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-bold transition-all min-h-[44px] active:scale-[0.98] cursor-pointer ${
+                    className={`w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-bold transition min-h-[44px] active:scale-[0.98] cursor-pointer ${
                       otherSubTab === 'bkash'
                         ? 'bg-white dark:bg-[#1f2737] text-pink-600 dark:text-pink-400 shadow-sm border border-pink-200 dark:border-pink-900/60'
                         : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-200'
@@ -583,7 +583,7 @@ SWIFT Code: ${b.swiftCode}`;
                       {/* Number Copy Box */}
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-gray-50 dark:bg-[#111620] border border-gray-200 dark:border-gray-800 gap-3">
                         <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 block">
+                          <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 block">
                             Target Mobile Number (Cellfin / Nagad / Upay / Rocket)
                           </span>
                           <span className="font-mono text-xl font-black text-gray-900 dark:text-white tracking-widest mt-0.5 block select-all">
@@ -593,7 +593,7 @@ SWIFT Code: ${b.swiftCode}`;
                         <button
                           type="button"
                           onClick={() => handleCopy(PAYMENT_DETAILS.otherMfs.number, 'mfs_num')}
-                          className="inline-flex items-center justify-center gap-1.5 bg-orange-600 hover:bg-orange-700 text-white active:scale-95 px-4 py-2 rounded-lg font-bold text-xs transition-all shadow-sm cursor-pointer min-h-[40px]"
+                          className="inline-flex items-center justify-center gap-1.5 bg-orange-600 hover:bg-orange-700 text-white active:scale-95 px-4 py-2 rounded-lg font-bold text-xs transition shadow-sm cursor-pointer min-h-[40px]"
                         >
                           {copiedKey === 'mfs_num' ? (
                             <>
@@ -661,7 +661,7 @@ SWIFT Code: ${b.swiftCode}`;
                         {/* 1. Account Title */}
                         <div className="p-3 sm:p-3.5 rounded-xl bg-gray-50 dark:bg-[#111620] border border-gray-200 dark:border-gray-800 flex items-center justify-between gap-2.5">
                           <div className="min-w-0 flex-1">
-                            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wide block">
+                            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 block">
                               Account Name
                             </span>
                             <span className="font-bold text-gray-900 dark:text-white text-xs sm:text-sm break-words block mt-0.5 leading-snug select-all">
@@ -671,7 +671,7 @@ SWIFT Code: ${b.swiftCode}`;
                           <button
                             type="button"
                             onClick={() => handleCopy(PAYMENT_DETAILS.bank.title, 'bank_title')}
-                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold text-xs transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold text-xs transition active:scale-95 flex items-center gap-1.5 cursor-pointer"
                             title="Copy Account Name"
                           >
                             {copiedKey === 'bank_title' ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -682,7 +682,7 @@ SWIFT Code: ${b.swiftCode}`;
                         {/* 2. Account Number */}
                         <div className="p-3 sm:p-3.5 rounded-xl bg-blue-50/60 dark:bg-blue-950/25 border border-blue-200 dark:border-blue-900/50 flex items-center justify-between gap-2.5">
                           <div className="min-w-0 flex-1">
-                            <span className="text-[10px] font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wide block">
+                            <span className="text-[10px] font-bold text-blue-700 dark:text-blue-300 block">
                               Account Number
                             </span>
                             <span className="font-mono tabular-nums font-black text-sm sm:text-base text-blue-900 dark:text-blue-200 tracking-wider block mt-0.5 select-all">
@@ -692,7 +692,7 @@ SWIFT Code: ${b.swiftCode}`;
                           <button
                             type="button"
                             onClick={() => handleCopy(PAYMENT_DETAILS.bank.accountNumber, 'bank_acc')}
-                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all active:scale-95 flex items-center gap-1.5 shadow-sm cursor-pointer"
+                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition active:scale-95 flex items-center gap-1.5 shadow-sm cursor-pointer"
                             title="Copy Account Number"
                           >
                             {copiedKey === 'bank_acc' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
@@ -703,7 +703,7 @@ SWIFT Code: ${b.swiftCode}`;
                         {/* 3. Bank Name */}
                         <div className="p-3 sm:p-3.5 rounded-xl bg-gray-50 dark:bg-[#111620] border border-gray-200 dark:border-gray-800 flex items-center justify-between gap-2.5">
                           <div className="min-w-0 flex-1">
-                            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wide block">
+                            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 block">
                               Bank Name
                             </span>
                             <span className="font-bold text-gray-900 dark:text-white text-xs sm:text-sm break-words block mt-0.5 leading-snug select-all">
@@ -713,7 +713,7 @@ SWIFT Code: ${b.swiftCode}`;
                           <button
                             type="button"
                             onClick={() => handleCopy(PAYMENT_DETAILS.bank.bankName, 'bank_name')}
-                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold text-xs transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold text-xs transition active:scale-95 flex items-center gap-1.5 cursor-pointer"
                             title="Copy Bank Name"
                           >
                             {copiedKey === 'bank_name' ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -724,7 +724,7 @@ SWIFT Code: ${b.swiftCode}`;
                         {/* 4. Branch */}
                         <div className="p-3 sm:p-3.5 rounded-xl bg-gray-50 dark:bg-[#111620] border border-gray-200 dark:border-gray-800 flex items-center justify-between gap-2.5">
                           <div className="min-w-0 flex-1">
-                            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wide block">
+                            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 block">
                               Branch
                             </span>
                             <span className="font-bold text-gray-900 dark:text-white text-xs sm:text-sm break-words block mt-0.5 leading-snug select-all">
@@ -734,7 +734,7 @@ SWIFT Code: ${b.swiftCode}`;
                           <button
                             type="button"
                             onClick={() => handleCopy(PAYMENT_DETAILS.bank.branch, 'bank_branch')}
-                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold text-xs transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold text-xs transition active:scale-95 flex items-center gap-1.5 cursor-pointer"
                             title="Copy Branch"
                           >
                             {copiedKey === 'bank_branch' ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -745,7 +745,7 @@ SWIFT Code: ${b.swiftCode}`;
                         {/* 5. Routing Number */}
                         <div className="p-3 sm:p-3.5 rounded-xl bg-gray-50 dark:bg-[#111620] border border-gray-200 dark:border-gray-800 flex items-center justify-between gap-2.5">
                           <div className="min-w-0 flex-1">
-                            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wide block">
+                            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 block">
                               Routing Number
                             </span>
                             <span className="font-mono tabular-nums font-black text-xs sm:text-sm text-gray-900 dark:text-white tracking-wider block mt-0.5 select-all">
@@ -755,7 +755,7 @@ SWIFT Code: ${b.swiftCode}`;
                           <button
                             type="button"
                             onClick={() => handleCopy(PAYMENT_DETAILS.bank.routingNumber, 'bank_routing')}
-                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold text-xs transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold text-xs transition active:scale-95 flex items-center gap-1.5 cursor-pointer"
                             title="Copy Routing Number"
                           >
                             {copiedKey === 'bank_routing' ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -766,7 +766,7 @@ SWIFT Code: ${b.swiftCode}`;
                         {/* 6. SWIFT Code */}
                         <div className="p-3 sm:p-3.5 rounded-xl bg-gray-50 dark:bg-[#111620] border border-gray-200 dark:border-gray-800 flex items-center justify-between gap-2.5">
                           <div className="min-w-0 flex-1">
-                            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wide block">
+                            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 block">
                               SWIFT Code
                             </span>
                             <span className="font-mono tabular-nums font-black text-xs sm:text-sm text-gray-900 dark:text-white tracking-wider block mt-0.5 select-all">
@@ -776,7 +776,7 @@ SWIFT Code: ${b.swiftCode}`;
                           <button
                             type="button"
                             onClick={() => handleCopy(PAYMENT_DETAILS.bank.swiftCode, 'bank_swift')}
-                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold text-xs transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                            className="shrink-0 min-h-[36px] px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold text-xs transition active:scale-95 flex items-center gap-1.5 cursor-pointer"
                             title="Copy SWIFT Code"
                           >
                             {copiedKey === 'bank_swift' ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -804,7 +804,7 @@ SWIFT Code: ${b.swiftCode}`;
                       <button
                         type="button"
                         onClick={() => setBkashSubTab('payment')}
-                        className={`w-full flex items-center justify-between sm:justify-center gap-2 px-3 py-2.5 rounded-lg text-xs font-bold transition-all min-h-[44px] cursor-pointer ${
+                        className={`w-full flex items-center justify-between sm:justify-center gap-2 px-3 py-2.5 rounded-lg text-xs font-bold transition min-h-[44px] cursor-pointer ${
                           bkashSubTab === 'payment'
                             ? 'bg-white dark:bg-[#1f2737] text-pink-600 dark:text-pink-400 shadow-sm border border-pink-200 dark:border-pink-900/60'
                             : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-200'
@@ -822,7 +822,7 @@ SWIFT Code: ${b.swiftCode}`;
                       <button
                         type="button"
                         onClick={() => setBkashSubTab('personal')}
-                        className={`w-full flex items-center justify-between sm:justify-center gap-2 px-3 py-2.5 rounded-lg text-xs font-bold transition-all min-h-[44px] cursor-pointer ${
+                        className={`w-full flex items-center justify-between sm:justify-center gap-2 px-3 py-2.5 rounded-lg text-xs font-bold transition min-h-[44px] cursor-pointer ${
                           bkashSubTab === 'personal'
                             ? 'bg-white dark:bg-[#1f2737] text-pink-600 dark:text-pink-400 shadow-sm border border-pink-200 dark:border-pink-900/60'
                             : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-200'
@@ -845,7 +845,7 @@ SWIFT Code: ${b.swiftCode}`;
                         <div className="px-4 sm:px-6 py-3.5 bg-black/15 flex items-center justify-between border-b border-white/10 flex-wrap gap-2">
                           <div className="flex items-center gap-2">
                             <CreditCard className="w-4 h-4 text-white" />
-                            <span className="text-xs font-black tracking-wider uppercase">
+                            <span className="text-xs font-black">
                               bKash Make Payment (Merchant)
                             </span>
                           </div>
@@ -927,7 +927,7 @@ SWIFT Code: ${b.swiftCode}`;
                             <div className="flex-1 space-y-3 w-full text-xs">
                               <div className="p-3 rounded-xl bg-gray-50 dark:bg-[#1a2130] border border-gray-200 dark:border-gray-800 flex items-center justify-between gap-2">
                                 <div>
-                                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide block">
+                                  <span className="text-[10px] font-bold text-gray-400 block">
                                     bKash Merchant Number
                                   </span>
                                   <span className="font-mono text-base font-black text-gray-900 dark:text-white block select-all">
@@ -937,7 +937,7 @@ SWIFT Code: ${b.swiftCode}`;
                                 <button
                                   type="button"
                                   onClick={() => handleCopy(PAYMENT_DETAILS.bkashPayment.number, 'pay_num')}
-                                  className="px-3 py-1.5 rounded-lg bg-[#D12053] hover:bg-[#b01040] text-white text-xs font-bold transition-all active:scale-95 flex items-center gap-1 shadow-sm cursor-pointer"
+                                  className="px-3 py-1.5 rounded-lg bg-[#D12053] hover:bg-[#b01040] text-white text-xs font-bold transition active:scale-95 flex items-center gap-1 shadow-sm cursor-pointer"
                                 >
                                   {copiedKey === 'pay_num' ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Copy className="w-3.5 h-3.5" />}
                                   <span>{copiedKey === 'pay_num' ? 'Copied' : 'Copy'}</span>
@@ -964,7 +964,7 @@ SWIFT Code: ${b.swiftCode}`;
                         <div className="px-4 sm:px-6 py-3.5 bg-black/15 flex items-center justify-between border-b border-white/10 flex-wrap gap-2">
                           <div className="flex items-center gap-2">
                             <Send className="w-4 h-4 text-white" />
-                            <span className="text-xs font-black tracking-wider uppercase">
+                            <span className="text-xs font-black">
                               bKash Send Money (Personal)
                             </span>
                           </div>
@@ -987,7 +987,7 @@ SWIFT Code: ${b.swiftCode}`;
                             {/* Manual Copy Details */}
                             <div className="p-3.5 rounded-xl bg-gray-50 dark:bg-[#1a2130] border border-gray-200 dark:border-gray-800 flex items-center justify-between gap-2 text-xs">
                               <div>
-                                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide block">
+                                <span className="text-[10px] font-bold text-gray-400 block">
                                   bKash Personal Number
                                 </span>
                                 <span className="font-mono text-base sm:text-lg font-black text-gray-900 dark:text-white block mt-0.5 select-all">
@@ -997,7 +997,7 @@ SWIFT Code: ${b.swiftCode}`;
                               <button
                                 type="button"
                                 onClick={() => handleCopy(PAYMENT_DETAILS.bkashSendMoney.number, 'send_num')}
-                                className="px-3 py-2 rounded-lg bg-[#D12053] hover:bg-[#b01040] text-white text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 shadow-sm cursor-pointer"
+                                className="px-3 py-2 rounded-lg bg-[#D12053] hover:bg-[#b01040] text-white text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-sm cursor-pointer"
                               >
                                 {copiedKey === 'send_num' ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
                                 <span>{copiedKey === 'send_num' ? 'Copied' : 'Copy Number'}</span>
@@ -1006,7 +1006,7 @@ SWIFT Code: ${b.swiftCode}`;
 
                             {/* Step-by-Step Instructions */}
                             <div className="pt-2 border-t border-gray-100 dark:border-gray-800/80">
-                              <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wide block mb-2">
+                              <span className="text-[11px] font-bold text-gray-500 block mb-2">
                                 Step-by-Step Instructions:
                               </span>
                               <ol className="space-y-1.5 text-gray-700 dark:text-gray-300 text-xs">
@@ -1039,7 +1039,7 @@ SWIFT Code: ${b.swiftCode}`;
               <button
                 type="button"
                 onClick={() => setIntlTab('remit')}
-                className={`flex flex-col items-center justify-center text-center p-3 rounded-xl transition-all cursor-pointer ${
+                className={`flex flex-col items-center justify-center text-center p-3 rounded-xl transition cursor-pointer ${
                   intlTab === 'remit'
                     ? 'bg-white dark:bg-[#1B2230] text-sky-600 dark:text-sky-400 shadow-sm border border-sky-200 dark:border-sky-900/60 ring-2 ring-sky-500/20'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-white/60 dark:hover:bg-white/5'
@@ -1059,7 +1059,7 @@ SWIFT Code: ${b.swiftCode}`;
               <button
                 type="button"
                 onClick={() => setIntlTab('xoom')}
-                className={`flex flex-col items-center justify-center text-center p-3 rounded-xl transition-all cursor-pointer ${
+                className={`flex flex-col items-center justify-center text-center p-3 rounded-xl transition cursor-pointer ${
                   intlTab === 'xoom'
                     ? 'bg-white dark:bg-[#1B2230] text-blue-600 dark:text-blue-400 shadow-sm border border-blue-200 dark:border-blue-900/60 ring-2 ring-blue-500/20'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-white/60 dark:hover:bg-white/5'
@@ -1078,7 +1078,7 @@ SWIFT Code: ${b.swiftCode}`;
               <button
                 type="button"
                 onClick={() => setIntlTab('bank')}
-                className={`flex flex-col items-center justify-center text-center p-3 rounded-xl transition-all cursor-pointer ${
+                className={`flex flex-col items-center justify-center text-center p-3 rounded-xl transition cursor-pointer ${
                   intlTab === 'bank'
                     ? 'bg-white dark:bg-[#1B2230] text-indigo-600 dark:text-indigo-400 shadow-sm border border-indigo-200 dark:border-indigo-900/60 ring-2 ring-indigo-500/20'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-white/60 dark:hover:bg-white/5'
@@ -1100,7 +1100,7 @@ SWIFT Code: ${b.swiftCode}`;
                 <div className="px-4 sm:px-6 py-3.5 bg-black/20 flex items-center justify-between border-b border-white/10 flex-wrap gap-2">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse" />
-                    <span className="text-xs font-black tracking-wider uppercase">
+                    <span className="text-xs font-black">
                       Direct Remittance to bKash or Bank
                     </span>
                   </div>
@@ -1123,7 +1123,7 @@ SWIFT Code: ${b.swiftCode}`;
                       {/* Recipient bKash */}
                       <div className="p-3.5 rounded-xl bg-gray-50 dark:bg-[#1a2130] border border-gray-200 dark:border-gray-800 flex items-center justify-between gap-2">
                         <div>
-                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide block">
+                          <span className="text-[10px] font-bold text-gray-400 block">
                             Recipient bKash Wallet Number
                           </span>
                           <span className="font-mono text-base font-black text-gray-900 dark:text-white block mt-0.5 select-all">
@@ -1133,7 +1133,7 @@ SWIFT Code: ${b.swiftCode}`;
                         <button
                           type="button"
                           onClick={() => handleCopy(PAYMENT_DETAILS.bkashSendMoney.number, 'intl_bkash')}
-                          className="px-3 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 shadow-sm cursor-pointer min-h-[38px]"
+                          className="px-3 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-sm cursor-pointer min-h-[38px]"
                         >
                           {copiedKey === 'intl_bkash' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                           <span>{copiedKey === 'intl_bkash' ? 'Copied' : 'Copy'}</span>
@@ -1143,7 +1143,7 @@ SWIFT Code: ${b.swiftCode}`;
                       {/* Recipient Legal Name */}
                       <div className="p-3.5 rounded-xl bg-gray-50 dark:bg-[#1a2130] border border-gray-200 dark:border-gray-800 flex items-center justify-between gap-2">
                         <div className="min-w-0 pr-1">
-                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide block">
+                          <span className="text-[10px] font-bold text-gray-400 block">
                             Recipient Legal Name
                           </span>
                           <span className="font-bold text-xs sm:text-sm text-gray-900 dark:text-white block mt-0.5 truncate select-all">
@@ -1153,7 +1153,7 @@ SWIFT Code: ${b.swiftCode}`;
                         <button
                           type="button"
                           onClick={() => handleCopy(PAYMENT_DETAILS.bank.title, 'intl_name')}
-                          className="px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer shrink-0 min-h-[38px]"
+                          className="px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-bold transition active:scale-95 flex items-center gap-1.5 cursor-pointer shrink-0 min-h-[38px]"
                         >
                           {copiedKey === 'intl_name' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                           <span>{copiedKey === 'intl_name' ? 'Copied' : 'Copy'}</span>
@@ -1163,7 +1163,7 @@ SWIFT Code: ${b.swiftCode}`;
 
                     {/* Direct App Launchers */}
                     <div className="pt-2 border-t border-gray-100 dark:border-gray-800/80">
-                      <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wide block mb-2">
+                      <span className="text-[11px] font-bold text-gray-500 block mb-2">
                         Official Remittance Portals:
                       </span>
                       <div className="flex flex-wrap items-center gap-2">
@@ -1231,7 +1231,7 @@ SWIFT Code: ${b.swiftCode}`;
 
                     {/* Step-by-Step Instructions */}
                     <div className="pt-2 border-t border-gray-100 dark:border-gray-800/80">
-                      <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wide block mb-2">
+                      <span className="text-[11px] font-bold text-gray-500 block mb-2">
                         Instructions:
                       </span>
                       <ol className="space-y-1 text-gray-600 dark:text-gray-300 text-xs">
@@ -1253,7 +1253,7 @@ SWIFT Code: ${b.swiftCode}`;
                 <div className="px-4 sm:px-6 py-3.5 bg-black/20 flex items-center justify-between border-b border-white/10 flex-wrap gap-2">
                   <div className="flex items-center gap-2">
                     <Send className="w-4 h-4 text-white" />
-                    <span className="text-xs font-black tracking-wider uppercase">
+                    <span className="text-xs font-black">
                       PayPal via Xoom Bangladesh
                     </span>
                   </div>
@@ -1275,7 +1275,7 @@ SWIFT Code: ${b.swiftCode}`;
                       href="https://www.xoom.com/bangladesh"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all shadow-sm active:scale-95 cursor-pointer min-h-[44px]"
+                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-sm active:scale-95 cursor-pointer min-h-[44px]"
                     >
                       <span>Open Xoom Bangladesh</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -1285,7 +1285,7 @@ SWIFT Code: ${b.swiftCode}`;
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                       {/* Option 1: bKash on Xoom */}
                       <div className="p-3.5 rounded-xl bg-gray-50 dark:bg-[#1a2130] border border-gray-200 dark:border-gray-800 space-y-2">
-                        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wide block">
+                        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 block">
                           Option 1: bKash Wallet Transfer (Instant)
                         </span>
                         <div className="flex items-center justify-between">
@@ -1308,7 +1308,7 @@ SWIFT Code: ${b.swiftCode}`;
 
                       {/* Option 2: Bank Deposit on Xoom */}
                       <div className="p-3.5 rounded-xl bg-gray-50 dark:bg-[#1a2130] border border-gray-200 dark:border-gray-800 space-y-2">
-                        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wide block">
+                        <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 block">
                           Option 2: Direct Bank Deposit
                         </span>
                         <div className="flex items-center justify-between">
@@ -1348,7 +1348,7 @@ SWIFT Code: ${b.swiftCode}`;
                 <div className="px-4 sm:px-6 py-3.5 bg-black/20 flex items-center justify-between border-b border-white/10 flex-wrap gap-2">
                   <div className="flex items-center gap-2">
                     <Building2 className="w-4 h-4 text-white" />
-                    <span className="text-xs font-black tracking-wider uppercase">
+                    <span className="text-xs font-black">
                       {PAYMENT_DETAILS.bank.bankName} (SWIFT Wire)
                     </span>
                   </div>
@@ -1398,7 +1398,7 @@ SWIFT Code: ${b.swiftCode}`;
 
         <a
           href="mailto:hello@shahoriar.bd?subject=Support%20Confirmation%20-%20Shahoriar"
-          className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs font-semibold transition-all active:scale-95 shrink-0 min-h-[44px]"
+          className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs font-semibold transition active:scale-95 shrink-0 min-h-[44px]"
         >
           <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
           <span>hello@shahoriar.bd</span>

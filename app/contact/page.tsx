@@ -59,11 +59,6 @@ export default function ContactPage() {
           __html: JSON.stringify(contactJsonLd),
         }}
       />
-      {/* Animated gradient background */}
-      <div className="fixed inset-0 md:left-64 z-0">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob will-change-transform" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 will-change-transform" />
-      </div>
 
       {/* Content */}
       <div className="relative z-10">
@@ -82,7 +77,7 @@ export default function ContactPage() {
             href="https://cal.com/zaifears"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 md:p-8 hover:border-blue-500/50 dark:hover:border-blue-500 transition-all duration-300 hover:scale-[1.01] hover:shadow-xl hover:shadow-blue-600/10"
+            className="group block bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 md:p-8 hover:border-blue-500/50 dark:hover:border-blue-500 transition duration-300 hover:scale-[1.01] hover:shadow-xl hover:shadow-blue-600/10"
           >
             <div className="flex flex-col md:flex-row items-center gap-6">
               <div className="shrink-0">
@@ -99,7 +94,7 @@ export default function ContactPage() {
               <div className="shrink-0">
                 <span className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
                   Book on Cal.com
-                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                   </svg>
                 </span>
@@ -116,7 +111,7 @@ export default function ContactPage() {
               href={method.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 ${method.hoverColor} transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+              className={`group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl p-6 ${method.hoverColor} transition duration-300 hover:scale-[1.02] hover:shadow-lg`}
             >
               <div className="flex flex-col h-full">
                 <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800/50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors duration-300">
@@ -128,7 +123,7 @@ export default function ContactPage() {
                 </p>
                 <div className="mt-4 flex items-center text-blue-600 dark:text-blue-400 text-sm font-semibold">
                   <span>Connect</span>
-                  <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                   </svg>
                 </div>

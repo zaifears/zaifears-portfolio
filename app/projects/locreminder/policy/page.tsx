@@ -146,9 +146,6 @@ export default function LocReminderPolicyPage() {
         </Link>
 
         <div className="mb-12">
-          <p className="text-blue-600 dark:text-blue-400 font-mono text-sm mb-2 tracking-widest uppercase">
-            LocReminder
-          </p>
           <h1 className="text-3xl md:text-4xl font-bold mb-3">Privacy Policy</h1>
           <p className="text-gray-700 dark:text-gray-300 font-medium mb-1">
             LocReminder is a location-based alarm for Android, which helps you wake up at the right place.

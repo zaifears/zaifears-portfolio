@@ -1,0 +1,191 @@
+/* Every colour, face, radius and motion value for the public site lives here and nowhere else.
+   The scale names avoid Tailwind's own --text-* / --ease-* / --color-* defaults on purpose,
+   except for the --color-* roles declared in @theme static below, which are meant to become utilities. */
+
+@theme static {
+  /* Light mode (default) */
+  --color-paper: oklch(98.4% 0.006 258);
+  --color-paper-2: oklch(95.2% 0.012 258);
+  --color-paper-3: oklch(91.5% 0.02 259);
+  --color-ink: oklch(16% 0.03 263);
+  --color-ink-2: oklch(34% 0.035 262);
+  --color-muted: oklch(47% 0.035 261);
+  --color-rule: oklch(89% 0.02 259);
+  --color-accent: oklch(51% 0.235 262);
+  --color-accent-ink: oklch(99% 0.004 258);
+  --color-accent-text: oklch(47% 0.23 262);
+  --color-accent-soft: oklch(93% 0.045 260);
+  --color-focus: oklch(51% 0.235 262);
+
+  --font-display: var(--font-coolvetica), 'Coolvetica', system-ui, sans-serif;
+  --font-body: var(--font-space-grotesk), 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --radius-control: 16px;
+  --radius-card: 28px;
+  --radius-panel: 36px;
+  --radius-pill: 999px;
+}
+
+:root {
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-4xl: 144px;
+
+  --type-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --type-section: clamp(1.875rem, 2.2vw + 1rem, 3rem);
+  --type-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.625rem);
+  --type-lead: clamp(1.125rem, 0.35vw + 1rem, 1.375rem);
+
+  --motion-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  --container: 1200px;
+  --sidebar: 15rem;
+  --sidebar-gap: 1rem;
+
+  --tracking-display: -0.02em;
+  --color-error: oklch(55% 0.2 27);
+  --color-success: oklch(52% 0.13 150);
+
+  --z-base: 1;
+  --z-raised: 10;
+  --z-sticky-nav: 300;
+}
+
+/* Dark mode: the system preference, or an explicit .dark class on <html>. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: oklch(12.5% 0.028 263);
+    --color-paper-2: oklch(17% 0.034 263);
+    --color-paper-3: oklch(22% 0.045 263);
+    --color-ink: oklch(96.5% 0.01 258);
+    --color-ink-2: oklch(82% 0.025 259);
+    --color-muted: oklch(70% 0.035 260);
+    --color-rule: oklch(27% 0.045 263);
+    --color-accent-text: oklch(76% 0.15 258);
+    --color-accent-soft: oklch(24% 0.09 263);
+    --color-focus: oklch(72% 0.17 258);
+  }
+}
+
+:root.dark {
+  --color-paper: oklch(12.5% 0.028 263);
+  --color-paper-2: oklch(17% 0.034 263);
+  --color-paper-3: oklch(22% 0.045 263);
+  --color-ink: oklch(96.5% 0.01 258);
+  --color-ink-2: oklch(82% 0.025 259);
+  --color-muted: oklch(70% 0.035 260);
+  --color-rule: oklch(27% 0.045 263);
+  --color-accent-text: oklch(76% 0.15 258);
+  --color-accent-soft: oklch(24% 0.09 263);
+  --color-focus: oklch(72% 0.17 258);
+}
+
+/* Syntax-highlight palette for MDX code blocks. */
+:root {
+  --sh-class: oklch(48% 0.12 258);
+  --sh-identifier: oklch(34% 0.035 262);
+  --sh-sign: oklch(66% 0.03 258);
+  --sh-string: oklch(52% 0.11 195);
+  --sh-keyword: oklch(55% 0.21 27);
+  --sh-comment: oklch(66% 0.015 20);
+  --sh-jsxliterals: oklch(52% 0.17 275);
+  --sh-property: oklch(60% 0.18 45);
+  --sh-entity: oklch(60% 0.18 45);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sh-class: oklch(72% 0.14 258);
+    --sh-identifier: oklch(99% 0 0);
+    --sh-keyword: oklch(72% 0.14 25);
+    --sh-string: oklch(65% 0.11 185);
+  }
+}
+
+:root.dark {
+  --sh-class: oklch(72% 0.14 258);
+  --sh-identifier: oklch(99% 0 0);
+  --sh-keyword: oklch(72% 0.14 25);
+  --sh-string: oklch(65% 0.11 185);
+}
+
+/* The public site shell re-points Tailwind's grey, black and white and its corner radii.
+   Anything outside .site (the Zakat tools, the competition microsites) keeps its own look. */
+.site {
+  --color-white: oklch(99% 0.004 258);
+  --color-black: oklch(12.5% 0.028 263);
+
+  --color-gray-50: oklch(97.8% 0.006 258);
+  --color-gray-100: oklch(95% 0.011 258);
+  --color-gray-200: oklch(90% 0.017 258);
+  --color-gray-300: oklch(83% 0.022 258);
+  --color-gray-400: oklch(70% 0.028 259);
+  --color-gray-500: oklch(57% 0.032 260);
+  --color-gray-600: oklch(46% 0.036 261);
+  --color-gray-700: oklch(36% 0.04 262);
+  --color-gray-800: oklch(27% 0.042 263);
+  --color-gray-900: oklch(20% 0.038 263);
+  --color-gray-950: oklch(14.5% 0.03 263);
+
+  --color-zinc-50: var(--color-gray-50);
+  --color-zinc-100: var(--color-gray-100);
+  --color-zinc-200: var(--color-gray-200);
+  --color-zinc-300: var(--color-gray-300);
+  --color-zinc-400: var(--color-gray-400);
+  --color-zinc-500: var(--color-gray-500);
+  --color-zinc-600: var(--color-gray-600);
+  --color-zinc-700: var(--color-gray-700);
+  --color-zinc-800: var(--color-gray-800);
+  --color-zinc-900: var(--color-gray-900);
+  --color-zinc-950: var(--color-gray-950);
+  --color-neutral-50: var(--color-gray-50);
+  --color-neutral-100: var(--color-gray-100);
+  --color-neutral-200: var(--color-gray-200);
+  --color-neutral-300: var(--color-gray-300);
+  --color-neutral-400: var(--color-gray-400);
+  --color-neutral-500: var(--color-gray-500);
+  --color-neutral-600: var(--color-gray-600);
+  --color-neutral-700: var(--color-gray-700);
+  --color-neutral-800: var(--color-gray-800);
+  --color-neutral-900: var(--color-gray-900);
+  --color-neutral-950: var(--color-gray-950);
+  --color-slate-50: var(--color-gray-50);
+  --color-slate-100: var(--color-gray-100);
+  --color-slate-200: var(--color-gray-200);
+  --color-slate-300: var(--color-gray-300);
+  --color-slate-400: var(--color-gray-400);
+  --color-slate-500: var(--color-gray-500);
+  --color-slate-600: var(--color-gray-600);
+  --color-slate-700: var(--color-gray-700);
+  --color-slate-800: var(--color-gray-800);
+  --color-slate-900: var(--color-gray-900);
+  --color-slate-950: var(--color-gray-950);
+
+  --color-blue-300: oklch(80% 0.11 258);
+  --color-blue-400: oklch(70% 0.17 259);
+  --color-blue-500: oklch(61% 0.22 261);
+  --color-blue-600: oklch(54% 0.235 262);
+  --color-blue-700: oklch(47% 0.22 263);
+  --color-blue-800: oklch(40% 0.18 264);
+  --color-blue-900: oklch(33% 0.13 265);
+
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 1.75rem;
+  --radius-3xl: 2.25rem;
+  --radius-4xl: 2.75rem;
+}

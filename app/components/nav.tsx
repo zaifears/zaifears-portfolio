@@ -37,33 +37,38 @@ const isNavItemActive = (itemHref: string, pathname: string): boolean => {
   return pathname.startsWith(itemHref);
 };
 
+const itemBase =
+  'flex items-center gap-3 rounded-control px-4 py-3 font-medium transition-colors duration-200';
+const itemIdle = 'text-ink-2 hover:bg-paper-3 hover:text-ink';
+const itemActive = 'bg-accent text-accent-ink';
+
 export function Navbar() {
   const pathname = usePathname();
 
   return (
     <>
-      {/* Desktop Sidebar */}
-      <aside className="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:z-40 w-64 p-6 bg-transparent text-gray-600 dark:text-gray-400 font-sans font-medium justify-center md:h-screen md:overflow-y-auto">
-        <div className="mb-8 px-2">
-          <p className="font-mono text-xs text-gray-500 dark:text-gray-400 uppercase tracking-widest">zaifears</p>
-          <p className="text-sm font-medium text-gray-900 dark:text-white mt-1">Md Al Shahoriar</p>
-        </div>
-        <nav>
-          <ul>
+      {/* Desktop sidebar: a floating rounded panel */}
+      <aside className="hidden md:flex md:flex-col fixed top-4 bottom-4 left-4 z-40 w-60 rounded-panel border border-rule bg-paper-2 p-5 overflow-y-auto">
+        <Link href="/" className="mb-6 block rounded-card bg-paper px-4 py-3 border border-rule">
+          <p className="text-sm text-muted">zaifears</p>
+          <p className="font-semibold text-ink leading-tight">Md Al Shahoriar</p>
+        </Link>
+        <nav className="flex-1 flex flex-col justify-center">
+          <ul className="flex flex-col gap-1.5">
             {navItems.map((item) => {
               const isActive = isNavItemActive(item.href, pathname);
               const isExternal = item.href.startsWith('http') || item.href.endsWith('.md');
 
               if (isExternal) {
                 return (
-                  <li key={item.name} className="mb-4">
+                  <li key={item.name}>
                     <a
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center p-2 rounded-md transition-all duration-300 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-900`}
+                      className={`${itemBase} ${itemIdle}`}
                     >
-                      <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
+                      <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
                       <span>{item.name}</span>
                     </a>
                   </li>
@@ -71,16 +76,13 @@ export function Navbar() {
               }
 
               return (
-                <li key={item.name} className="mb-4">
+                <li key={item.name}>
                   <Link
                     href={item.href}
-                    className={`flex items-center p-2 rounded-md transition-all duration-300 ${
-                      isActive
-                        ? 'text-blue-600 bg-gray-200 dark:text-blue-400 dark:bg-gray-800 scale-95 translate-x-2'
-                        : 'hover:text-blue-500 dark:hover:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-900'
-                    }`}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`${itemBase} ${isActive ? itemActive : itemIdle}`}
                   >
-                    <FontAwesomeIcon icon={item.icon} className="w-5 h-5 mr-3" />
+                    <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
                     <span>{item.name}</span>
                   </Link>
                 </li>
@@ -90,9 +92,9 @@ export function Navbar() {
         </nav>
       </aside>
 
-      {/* Mobile Bottom Navigation Bar - Floating Glass Pill */}
-      <div className="md:hidden fixed bottom-4 left-4 right-4 z-50">
-        <nav className="flex justify-between items-center gap-1 py-3 px-1 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl shadow-lg shadow-black/10 dark:shadow-black/30 border border-gray-200/50 dark:border-white/10">
+      {/* Mobile: floating pill dock */}
+      <div className="md:hidden fixed bottom-4 left-3 right-3 z-50">
+        <nav className="flex justify-between items-center gap-1 p-1.5 rounded-full bg-paper-2/90 backdrop-blur-xl border border-rule">
           {navItems
             .filter(item => !item.desktopOnly)
             .map((item) => {
@@ -102,14 +104,15 @@ export function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative flex flex-1 min-w-0 flex-col items-center justify-center gap-1 py-2 px-0.5 rounded-lg transition-all duration-300 text-center ${
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`relative flex flex-1 min-w-0 flex-col items-center justify-center gap-1 py-2 px-0.5 rounded-full transition-colors duration-200 text-center ${
                     isActive
-                      ? 'text-white bg-blue-700 dark:bg-blue-600 shadow-md shadow-blue-500/30'
-                      : 'text-gray-500 dark:text-gray-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-white/10'
+                      ? 'bg-accent text-accent-ink'
+                      : 'text-muted hover:text-ink hover:bg-paper-3'
                   }`}
                 >
                   <FontAwesomeIcon icon={item.icon} className="w-4 h-4 mx-auto" />
-                  <span className="text-[9px] font-medium tracking-tight whitespace-nowrap overflow-hidden text-ellipsis leading-none text-center w-full">{item.name}</span>
+                  <span className="text-[10px] font-medium whitespace-nowrap overflow-hidden text-ellipsis leading-none text-center w-full">{item.name}</span>
                 </Link>
               );
             })}

@@ -96,7 +96,7 @@ export default function PortfolioContent({ isStandalone = false }: { isStandalon
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="group block bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition-all duration-300 hover:border-blue-500/30 hover:scale-[1.02] hover:shadow-xl"
+            className="group block bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition duration-300 hover:border-blue-500/30 hover:scale-[1.02] hover:shadow-xl"
           >
             <div className="relative aspect-video">
               <Image
