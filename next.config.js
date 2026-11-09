@@ -24,7 +24,18 @@ const nextConfig = {
   },
 
   async headers() {
+    const noindexHeader = [
+      {
+        key: 'X-Robots-Tag',
+        value: 'noindex, nofollow, noarchive',
+      },
+    ];
+
     return [
+      {
+        source: '/(zakat-calculation|zakat-report|bride-selector|shoily|bizcomp|meetup|api)(.*)',
+        headers: noindexHeader,
+      },
       {
         source: '/(.*)',
         headers: [

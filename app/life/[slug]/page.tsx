@@ -89,6 +89,13 @@ function normalizeText(value: string): string {
   return value.replace(/\s+/g, ' ').trim();
 }
 
+function toIsoDateTime(dateStr: string): string {
+  if (!dateStr) return dateStr;
+  return /^\d{4}-\d{2}-\d{2}$/.test(dateStr.trim())
+    ? `${dateStr.trim()}T00:00:00+06:00`
+    : dateStr;
+}
+
 function limitDescription(value: string, maxLength = 160): string {
   const normalizedValue = normalizeText(value);
 
@@ -266,8 +273,8 @@ export async function generateMetadata({
       siteName,
       title,
       description,
-      publishedTime: event.fields.date,
-      modifiedTime: event.sys.updatedAt,
+      publishedTime: toIsoDateTime(event.fields.date),
+      modifiedTime: toIsoDateTime(event.sys.updatedAt || event.fields.date),
       authors: [authorName],
       ...(imageUrl
         ? {
@@ -561,8 +568,8 @@ export default async function LifePostPage({
     url: postUrl,
     inLanguage: 'en',
     isAccessibleForFree: true,
-    datePublished: event.fields.date,
-    dateModified: event.sys.updatedAt || event.fields.date,
+    datePublished: toIsoDateTime(event.fields.date),
+    dateModified: toIsoDateTime(event.sys.updatedAt || event.fields.date),
     wordCount,
     timeRequired: `PT${readingTime}M`,
     mainEntityOfPage: {

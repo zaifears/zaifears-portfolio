@@ -191,6 +191,8 @@ export default function YouthTaxCalculatorPage() {
               name: "Md Al Shahoriar Hossain",
               url: baseUrl,
             },
+            codeRepository: repoUrl,
+            license: `${repoUrl}/blob/main/LICENSE`,
             about: [
               {
                 "@type": "Thing",
@@ -200,52 +202,6 @@ export default function YouthTaxCalculatorPage() {
               {
                 "@type": "Thing",
                 name: "Income Tax Act 2023 (Bangladesh)",
-              },
-            ],
-          }),
-        }}
-      />
-
-      {/* Schema.org HowTo JSON-LD for Google Rich Results */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "HowTo",
-            name: "How to file student zero-tax return on etaxnbr.gov.bd with zero-difference balance sheet",
-            description: "Step-by-step statutory filing walkthrough for Bangladeshi students, interns, and young professionals to declare stipends, claim bank interest TDS refunds, and balance Form IT-10B under Income Tax Act 2023.",
-            totalTime: "PT15M",
-            step: [
-              {
-                "@type": "HowToStep",
-                position: 1,
-                name: "Verify Basic Exemption Threshold",
-                text: "Confirm your total taxable income is at or below BDT 4,00,000 (BDT 4,50,000 for female taxpayers). If within the limit, your statutory tax liability is strictly BDT 0.00 and Section 163 minimum tax does not trigger.",
-              },
-              {
-                "@type": "HowToStep",
-                position: 2,
-                name: "Declare Tax-Exempt Stipends and Scholarships",
-                text: "Under Sixth Schedule Part 1 Paragraph 8 of the Income Tax Act 2023, declare university bursaries and education stipends under Tax-Exempted Income so funds legally justify your living expenses.",
-              },
-              {
-                "@type": "HowToStep",
-                position: 3,
-                name: "Apply Section 32 Salary Auto-Exemption",
-                text: "For paid corporate internships, apply Section 32 exemption (1/3rd gross salary or BDT 4,50,000, whichever is less) so tax is calculated solely on net taxable earnings.",
-              },
-              {
-                "@type": "HowToStep",
-                position: 4,
-                name: "Reconcile Form IT-10B with Section 56(g) Family Gifts",
-                text: "Enter parental or sibling financial support under Other Receipts / Non-Taxable Capital Receipts under Section 56(g) to make sources and outflows match with an exact 0.00 difference.",
-              },
-              {
-                "@type": "HowToStep",
-                position: 5,
-                name: "Claim 100% Bank Savings Interest TDS Refund",
-                text: "Declare advance tax deducted at source by your bank under Section 102/138. Under Section 173, claim the entire amount as a refundable credit on your e-Return.",
               },
             ],
           }),

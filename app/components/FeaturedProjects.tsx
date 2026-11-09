@@ -93,6 +93,7 @@ export default function FeaturedProjects() {
               </p>
               <Link
                 href="/bizcomp"
+                rel="nofollow"
                 className="inline-flex items-center gap-2 text-gray-500 dark:text-white/60 group-hover:text-gray-900 dark:group-hover:text-white transition-colors w-fit"
               >
                 View Cases <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
@@ -100,6 +101,7 @@ export default function FeaturedProjects() {
             </div>
             <Link
               href="/bizcomp"
+              rel="nofollow"
               className="relative h-64 md:h-auto overflow-hidden cursor-pointer"
             >
               <Image

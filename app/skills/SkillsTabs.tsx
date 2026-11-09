@@ -115,21 +115,27 @@ const TechSkillItem = ({
       {title}
     </h3>
     <div className="flex justify-center items-center gap-4 my-auto grow">
-      {logos.map((logo) => (
-        <a
-          key={logo.src}
-          href={logo.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={logo.alt}
-          title={logo.alt}
-          className="transition-opacity hover:opacity-75"
-        >
-          <div className="relative h-12 w-20 min-w-18">
+      {logos.map((logo) =>
+        logo.href && logo.href !== '#' ? (
+          <a
+            key={logo.src}
+            href={logo.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={logo.alt}
+            title={logo.alt}
+            className="transition-opacity hover:opacity-75"
+          >
+            <div className="relative h-12 w-20 min-w-18">
+              <Image src={`/${logo.src}`} alt={logo.alt} fill className="object-contain" />
+            </div>
+          </a>
+        ) : (
+          <div key={logo.src} title={logo.alt} className="relative h-12 w-20 min-w-18">
             <Image src={`/${logo.src}`} alt={logo.alt} fill className="object-contain" />
           </div>
-        </a>
-      ))}
+        )
+      )}
     </div>
     <p className="text-gray-600 dark:text-gray-400 text-sm mt-4">{names}</p>
   </div>
@@ -196,7 +202,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
 
   const handleTabChange = (tab: Tab) => {
     setActiveTab(tab);
-    window.history.pushState(null, '', `#${tab}`);
+    window.history.replaceState(null, '', `#${tab}`);
     window.dispatchEvent(new Event('hashchange'));
   };
 
@@ -392,6 +398,7 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
           aria-label="Certifications"
           className={`space-y-6 max-w-6xl mx-auto ${activeTab === 'certificates' ? 'block' : 'hidden'}`}
         >
+          <h2 className="text-3xl font-bold mb-8">Professional Certifications</h2>
           {certificates.map((cert: Certificate, index: number) => (
             <div
               key={index}

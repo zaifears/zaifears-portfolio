@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'AI & Executive Profile | Md Al Shahoriar Hossain',
+  title: 'AI & Executive Profile',
   description:
     'Comprehensive machine-readable and executive profile of Md Al Shahoriar Hossain — Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), Chartered Accountancy candidate at ICAB, and software engineer. Detailed business project outcomes, education, awards, and technical competencies.',
   alternates: {
@@ -261,7 +261,14 @@ export default function AiPage() {
     url: 'https://shahoriar.bd/ai',
     name: 'AI & Executive Profile | Md Al Shahoriar Hossain',
     dateCreated: '2026-06-27T00:00:00+06:00',
-    dateModified: '2026-09-30T00:00:00+06:00',
+    dateModified: '2026-11-09T00:00:00+06:00',
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shahoriar.bd' },
+        { '@type': 'ListItem', position: 2, name: 'AI & Executive Profile', item: 'https://shahoriar.bd/ai' },
+      ],
+    },
     description:
       'Machine-readable and executive profile of Md Al Shahoriar Hossain — Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), CA candidate, and software engineer.',
     mainEntity: {

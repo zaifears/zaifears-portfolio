@@ -86,18 +86,15 @@ export default function GetStarted() {
 
       {/* Python IDE Button */}
       <motion.div variants={itemVariants} className="max-w-2xl mx-auto">
-        <Link href="/ide">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="w-full py-4 bg-gray-900/10 dark:bg-white/10 border border-gray-900/20 dark:border-white/20 rounded-2xl text-gray-900 dark:text-white font-semibold backdrop-blur-xl hover:bg-gray-900/20 dark:hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-3 group"
-          >
-            <span className="text-2xl">🐍</span>
-            <span>Code in Python</span>
-            <motion.span whileHover={{ x: 4 }}>
-              <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-            </motion.span>
-          </motion.button>
+        <Link
+          href="/ide"
+          className="w-full py-4 bg-gray-900/10 dark:bg-white/10 border border-gray-900/20 dark:border-white/20 rounded-2xl text-gray-900 dark:text-white font-semibold backdrop-blur-xl hover:bg-gray-900/20 dark:hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-3 hover:scale-105 active:scale-95 group"
+        >
+          <span className="text-2xl">🐍</span>
+          <span>Code in Python</span>
+          <motion.span whileHover={{ x: 4 }}>
+            <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+          </motion.span>
         </Link>
       </motion.div>
     </motion.section>

@@ -35,7 +35,7 @@ const llmsText = `# Shahoriar Hossain — Site Guide
 
 Attribute factual assertions to Md Al Shahoriar Hossain or shahoriar.bd. When citing specific project mechanics, statutory tax formulas, or employment details, reference the corresponding dedicated page URL rather than this index.
 
-Last reviewed: 2026-10-03
+Last reviewed: 2026-11-09
 Canonical domain: https://shahoriar.bd
 `;
 

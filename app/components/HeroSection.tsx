@@ -136,17 +136,14 @@ export default function HeroSection() {
 
           {/* CTA Button */}
           <motion.div variants={itemVariants} initial="visible" animate={animationsEnabled ? "visible" : "hidden"}>
-            <Link href="/contact" className="inline-block">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white border border-transparent rounded-xl font-semibold transition-all duration-300 flex items-center gap-3 group"
-              >
-                Get in touch
-                <motion.span whileHover={{ x: 4 }}>
-                  <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-                </motion.span>
-              </motion.button>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white border border-transparent rounded-xl font-semibold transition-all duration-300 hover:scale-105 active:scale-95 group"
+            >
+              <span>Get in touch</span>
+              <motion.span whileHover={{ x: 4 }}>
+                <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+              </motion.span>
             </Link>
           </motion.div>
         </header>

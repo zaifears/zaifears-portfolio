@@ -277,7 +277,7 @@ export default function TapoViewerPage() {
             softwareVersion: "1.1.1",
             fileSize: "262MB",
             offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-            author: { "@type": "Person", name: "Shahoriar Hossain", url: baseUrl },
+            author: { "@type": "Person", "@id": `${baseUrl}/#person`, name: "Md Al Shahoriar Hossain", url: baseUrl },
             codeRepository: repositoryUrl,
             license: `${repositoryUrl}/blob/main/LICENSE`,
             downloadUrl: releaseUrl,
@@ -288,44 +288,6 @@ export default function TapoViewerPage() {
             ],
             featureList: features.map((feature) => feature.title),
             requirements: "Windows 10/11 64-bit, local Wi-Fi or LAN connection, compatible TP-Link Tapo camera",
-          }),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "HowTo",
-            name: "How to watch Tapo camera live feed and download recordings on Windows PC",
-            description: "Step-by-step guide to streaming live Tapo camera feeds via RTSP and downloading MicroSD recordings directly to a Windows 10 or 11 computer using Tapo-Viewer.",
-            totalTime: "PT3M",
-            step: [
-              {
-                "@type": "HowToStep",
-                position: 1,
-                name: "Create a Camera Account in Tapo App",
-                text: "Open the official TP-Link Tapo mobile app, go to Camera Settings > Advanced Settings > Camera Account, and configure a local username and password.",
-              },
-              {
-                "@type": "HowToStep",
-                position: 2,
-                name: "Launch Tapo-Viewer on Windows",
-                text: "Run Tapo-Viewer.exe on Windows 10 or 11. Enter your camera's local IP address and the Camera Account credentials.",
-              },
-              {
-                "@type": "HowToStep",
-                position: 3,
-                name: "Watch Live RTSP Feed or Browse Calendar",
-                text: "Click Live Stream to launch the feed in VLC, mpv.net, or PotPlayer, or click any highlighted date on the calendar to load recorded motion events.",
-              },
-              {
-                "@type": "HowToStep",
-                position: 4,
-                name: "Download Recordings to PC",
-                text: "Select single or batch motion clips and click Download. Tapo-Viewer downloads the footage directly over local Wi-Fi and automatically remuxes to MP4.",
-              },
-            ],
           }),
         }}
       />

@@ -52,6 +52,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LocReminder — Location-Based Alarm for Android',
+    description:
+      'LocReminder reminds you at the right place. Free, open-source, no ads, no tracking.',
+    images: ['/projects/locreminder/icon.png'],
+  },
 };
 
 const howToSteps = [
@@ -276,6 +283,8 @@ export default function LocReminderPage() {
               name: 'Md Al Shahoriar Hossain',
               url: baseUrl,
             },
+            codeRepository: repoUrl,
+            license: `${repoUrl}/blob/main/LICENSE`,
           }),
         }}
       />
@@ -294,40 +303,6 @@ export default function LocReminderPage() {
                 text: item.answer,
               },
             })),
-          }),
-        }}
-      />
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'HowTo',
-            name: 'How to set a location-based GPS destination alarm on Android',
-            description:
-              'Step-by-step instructions to set a geofence alarm that wakes you up at full volume when approaching your destination.',
-            totalTime: 'PT1M',
-            step: [
-              {
-                '@type': 'HowToStep',
-                position: 1,
-                name: 'Search or Pin Destination',
-                text: 'Type your destination place name, paste latitude/longitude coordinates, or drag the map under the pin.',
-              },
-              {
-                '@type': 'HowToStep',
-                position: 2,
-                name: 'Set Wake Radius',
-                text: 'Choose your alert radius between 100 meters and 3 kilometers based on your speed and preparation time needed.',
-              },
-              {
-                '@type': 'HowToStep',
-                position: 3,
-                name: 'Relax and Sleep',
-                text: 'Put your phone away. LocReminder runs battery-efficient background checks and rings a looping alarm over your lock screen when you cross the boundary.',
-              },
-            ],
           }),
         }}
       />

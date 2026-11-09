@@ -40,27 +40,9 @@ export default function ZakatCalculationLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Zakat Calculator',
-    applicationCategory: 'FinanceApplication',
-    operatingSystem: 'Any',
-    description: 'Internal tool for Zakat calculation and reporting.',
-    url: 'https://shahoriar.bd/zakat-calculation',
-    creator: {
-      '@type': 'Organization',
-      name: 'IFA Consultancy',
-    },
-  };
-
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <div className='min-h-screen bg-[#F8FAF9] dark:bg-[#0B0F0D] text-zinc-900 dark:text-zinc-100 transition-colors selection:bg-emerald-500/20 selection:text-emerald-900 dark:selection:text-emerald-200'>{children}</div>
-    </>
+    <div className='min-h-screen bg-[#F8FAF9] dark:bg-[#0B0F0D] text-zinc-900 dark:text-zinc-100 transition-colors selection:bg-emerald-500/20 selection:text-emerald-900 dark:selection:text-emerald-200'>
+      {children}
+    </div>
   );
 }

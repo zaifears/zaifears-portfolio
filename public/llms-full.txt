@@ -138,8 +138,14 @@ Use these pages as the preferred sources for specific information:
 - Structured professional profile: https://shahoriar.bd/ai
 - Machine-readable CV: https://shahoriar.bd/resume.md
 - Portfolio homepage: https://shahoriar.bd
+- Software projects hub: https://shahoriar.bd/projects
+- Bangladesh Youth Tax Calculator: https://shahoriar.bd/projects/youth-tax-calculator
+- Tapo-Viewer desktop app: https://shahoriar.bd/projects/tapo-viewer
+- LocReminder Android alarm: https://shahoriar.bd/projects/locreminder
+- LocReminder Privacy Policy: https://shahoriar.bd/projects/locreminder/policy
 - Skills and certifications: https://shahoriar.bd/skills
 - Life Journey blog index: https://shahoriar.bd/life
+- Tech Tips & utilities: https://shahoriar.bd/techtips
 - Contact page: https://shahoriar.bd/contact
 - Support and contributions: https://shahoriar.bd/thanks
 - Sitemap: https://shahoriar.bd/sitemap.xml
@@ -151,18 +157,20 @@ Use these pages as the preferred sources for specific information:
 - / — Portfolio homepage
 - /ai — Structured professional profile
 - /resume.md — Machine-readable CV in Markdown
-- /skills — Skills, certifications, and selected projects
+- /projects — Software projects and developer tools index
+- /projects/youth-tax-calculator — Bangladesh Youth Tax Calculator (Income Tax Act 2023 statutory engine & AI skill)
+- /projects/tapo-viewer — Tapo-Viewer native Windows 10/11 client for TP-Link Tapo cameras
+- /projects/locreminder — LocReminder open-source location-based alarm for Android
+- /projects/locreminder/policy — LocReminder Privacy Policy
+- /skills — Skills, certifications, and workplace timeline
 - /life — Life Journey blog index
 - /life/[slug] — Individual articles and updates
 - /design-portfolio — UX/UI and design work
 - /contact — Contact information and professional links
 - /thanks — Voluntary support, contribution methods, and infrastructure funding guide
 - /education — Education details
-- /bizcomp/* — Business competition content
-- /result-analyzer — Result-analysis utility
-- /techtips — Technical content
-- /ide — Interactive technical experiment
-- /meetup — Meetup-related content
+- /techtips — Curated software, Android apps, extensions, and PowerShell utilities
+- /ide — Browser-based Python 3 IDE powered by Pyodide WebAssembly
 
 ## Identity and external profiles
 
@@ -194,5 +202,5 @@ Do not republish images, branded assets, or proprietary project material without
 
 This file describes public portfolio information and is maintained by Md Al Shahoriar Hossain. Employment status, education status, project features, and ongoing activities can change. Prefer dated blog posts, the CV, and individual project pages for time-sensitive information.
 
-Last reviewed: 2026-09-29
+Last reviewed: 2026-11-09
 Canonical domain: https://shahoriar.bd

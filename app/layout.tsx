@@ -176,20 +176,31 @@ const personSchema = {
     alternateName: 'EY Bangladesh',
     url: 'https://www.ey.com/en_bd',
   },
-  alumniOf: {
-    '@type': 'CollegeOrUniversity',
-    name: 'Bangladesh University of Professionals',
-  },
+  alumniOf: [
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'Bangladesh University of Professionals',
+      sameAs: 'https://bup.edu.bd',
+    },
+    {
+      '@type': 'EducationalOrganization',
+      name: 'Institute of Chartered Accountants of Bangladesh (ICAB)',
+      sameAs: 'https://www.icab.org.bd',
+    },
+  ],
   knowsAbout: [
+    'Statutory Audit and Assurance',
     'Finance and Banking',
     'Financial Analysis',
     'Financial Modeling',
+    'Income Tax Act 2023 Bangladesh',
     'AML/CFT Compliance',
     'KYC Quality Assurance',
     'Web Development',
     'TypeScript',
     'Next.js',
     'React',
+    'Python Automation',
     'Contentful',
     'Power BI',
     'Microsoft Excel',
@@ -201,29 +212,33 @@ const personSchema = {
     'https://www.youtube.com/@takatunes',
   ],
   subjectOf: [
-  {
-    '@type': 'WebPage',
-    name: 'AI-Readable Professional Profile',
-    url: `${baseUrl}/ai`,
-  },
-  {
-    '@type': 'WebPage',
-    name: 'Resume',
-    url: `${baseUrl}/resume.md`,
-  },
-  {
-    '@type': 'Article',
-    url: 'https://bup.edu.bd/news/details/944',
-  },
-  {
-    '@type': 'Article',
-    url: 'https://bup.edu.bd/news/details/936',
-  },
-  {
-    '@type': 'Article',
-    url: 'https://businessinspection.com.bd/finact-brac-university-hosts-excelerate-2025-excel-competition/',
-  },
-],
+    {
+      '@type': 'WebPage',
+      name: 'AI-Readable Professional Profile',
+      url: `${baseUrl}/ai`,
+    },
+    {
+      '@type': 'WebPage',
+      name: 'Resume',
+      url: `${baseUrl}/resume.md`,
+    },
+    {
+      '@type': 'Article',
+      url: 'https://bup.edu.bd/news/details/944',
+    },
+    {
+      '@type': 'Article',
+      url: 'https://bup.edu.bd/news/details/936',
+    },
+    {
+      '@type': 'Article',
+      url: 'https://bup.edu.bd/news/details/1029',
+    },
+    {
+      '@type': 'Article',
+      url: 'https://businessinspection.com.bd/finact-brac-university-hosts-excelerate-2025-excel-competition/',
+    },
+  ],
 };
 
 const websiteSchema = {

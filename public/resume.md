@@ -56,6 +56,21 @@ March 2024 – Present
 
 ## Key Projects
 
+**Bangladesh Youth Tax Calculator — Statutory Tax Engine & AI Agent Skill**
+https://shahoriar.bd/projects/youth-tax-calculator | https://github.com/zaifears/youth-tax-calculator
+
+Built a deterministic statutory tax engine and AI Agent Skill for Bangladeshi university students, interns, and young professionals filing on the NBR e-Return portal (etaxnbr.gov.bd) under the Income Tax Act 2023. Automates Sixth Schedule tax-exempt stipend declarations, Section 32 salary exemptions, Section 173 bank interest TDS refunds, and Form IT-10B zero-difference balance sheet reconciliation.
+
+**Tapo-Viewer — Native Windows 10/11 Client for TP-Link Tapo Cameras**
+https://shahoriar.bd/projects/tapo-viewer | https://github.com/zaifears/tapo-viewer
+
+Engineered a standalone Windows desktop application (Python, CustomTkinter, pyTapo, FFmpeg) for streaming live 1080p/2K RTSP feeds, browsing MicroSD card recording calendars, and batch-downloading MP4 clips over local Wi-Fi without Tapo Care cloud subscriptions or Android emulators.
+
+**LocReminder — Open-Source Location-Based Alarm for Android**
+https://shahoriar.bd/projects/locreminder | https://github.com/zaifears/locreminder
+
+Developed a privacy-first Android (6.0+) GPS destination alarm (Flutter 3, Native Kotlin Foreground Service, OpenStreetMap) that wakes commuters at their stop with adaptive battery-aware polling, offline map tile caching, and zero telemetry.
+
 **StockSimulatorBD — DSE Paper Trading Simulator**
 https://www.stocksimulator.tech/simulator/
 

@@ -44,6 +44,13 @@ interface LifeEvent {
   };
 }
 
+function toIsoDateTime(dateStr: string): string {
+  if (!dateStr) return dateStr;
+  return /^\d{4}-\d{2}-\d{2}$/.test(dateStr.trim())
+    ? `${dateStr.trim()}T00:00:00+06:00`
+    : dateStr;
+}
+
 // Function to fetch all life events from Contentful
 async function getLifeEvents(): Promise<LifeEvent[]> {
   try {
@@ -128,9 +135,10 @@ export default async function LifePage() {
                 "@type": "BlogPosting",
                 "headline": event.fields.title,
                 "url": `https://shahoriar.bd/life/${event.fields.slug}`,
-                "datePublished": event.fields.date,
+                "datePublished": toIsoDateTime(event.fields.date),
                 "author": {
                   "@type": "Person",
+                  "@id": "https://shahoriar.bd/#person",
                   "name": "Md Al Shahoriar Hossain",
                   "url": "https://shahoriar.bd",
                 },

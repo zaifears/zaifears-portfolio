@@ -728,20 +728,19 @@ export default function TechTipsPage() {
           aria-labelledby="tab-apps"
           hidden={activeTab !== 'apps'}
           tabIndex={0}
-          className="focus-visible:outline-none"
+          className={activeTab !== 'apps' ? 'hidden' : 'focus-visible:outline-none'}
         >
-          {activeTab === 'apps' && (
-            filteredApps.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-                {filteredApps.map((app) => (
-                  <CardItem key={app.name} item={app} />
-                ))}
-              </div>
-            ) : (
-              <p className="text-center py-12 text-sm text-gray-500 dark:text-gray-400">
-                No apps matching &ldquo;{searchQuery}&rdquo;.
-              </p>
-            )
+          <h2 className="sr-only">Desktop Applications</h2>
+          {filteredApps.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              {filteredApps.map((app) => (
+                <CardItem key={app.name} item={app} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center py-12 text-sm text-gray-500 dark:text-gray-400">
+              No apps matching &ldquo;{searchQuery}&rdquo;.
+            </p>
           )}
         </div>
 
@@ -752,20 +751,19 @@ export default function TechTipsPage() {
           aria-labelledby="tab-android"
           hidden={activeTab !== 'android'}
           tabIndex={0}
-          className="focus-visible:outline-none"
+          className={activeTab !== 'android' ? 'hidden' : 'focus-visible:outline-none'}
         >
-          {activeTab === 'android' && (
-            filteredAndroid.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-                {filteredAndroid.map((app) => (
-                  <CardItem key={app.name} item={app} />
-                ))}
-              </div>
-            ) : (
-              <p className="text-center py-12 text-sm text-gray-500 dark:text-gray-400">
-                No Android apps matching &ldquo;{searchQuery}&rdquo;.
-              </p>
-            )
+          <h2 className="sr-only">Android Applications</h2>
+          {filteredAndroid.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              {filteredAndroid.map((app) => (
+                <CardItem key={app.name} item={app} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center py-12 text-sm text-gray-500 dark:text-gray-400">
+              No Android apps matching &ldquo;{searchQuery}&rdquo;.
+            </p>
           )}
         </div>
 
@@ -776,20 +774,19 @@ export default function TechTipsPage() {
           aria-labelledby="tab-browserExtensions"
           hidden={activeTab !== 'browserExtensions'}
           tabIndex={0}
-          className="focus-visible:outline-none"
+          className={activeTab !== 'browserExtensions' ? 'hidden' : 'focus-visible:outline-none'}
         >
-          {activeTab === 'browserExtensions' && (
-            filteredExtensions.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-                {filteredExtensions.map((ext) => (
-                  <CardItem key={ext.name} item={ext} />
-                ))}
-              </div>
-            ) : (
-              <p className="text-center py-12 text-sm text-gray-500 dark:text-gray-400">
-                No extensions matching &ldquo;{searchQuery}&rdquo;.
-              </p>
-            )
+          <h2 className="sr-only">Browser Extensions</h2>
+          {filteredExtensions.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              {filteredExtensions.map((ext) => (
+                <CardItem key={ext.name} item={ext} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center py-12 text-sm text-gray-500 dark:text-gray-400">
+              No extensions matching &ldquo;{searchQuery}&rdquo;.
+            </p>
           )}
         </div>
 
@@ -800,55 +797,53 @@ export default function TechTipsPage() {
           aria-labelledby="tab-powershell"
           hidden={activeTab !== 'powershell'}
           tabIndex={0}
-          className="focus-visible:outline-none"
+          className={activeTab !== 'powershell' ? 'hidden' : 'focus-visible:outline-none'}
         >
-          {activeTab === 'powershell' && (
-            <div className="space-y-4">
-              <section className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 sm:p-5">
-                <h2 className="text-base sm:text-lg font-bold mb-2 text-gray-900 dark:text-white">
-                  How to Run PowerShell Commands
-                </h2>
-                <ol className="list-decimal list-inside text-gray-600 dark:text-gray-300 space-y-1.5 text-xs sm:text-sm leading-relaxed">
-                  <li>Press the <kbd className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded font-mono text-xs border border-gray-200 dark:border-gray-700">Win</kbd> key and type <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded font-mono text-xs text-blue-600 dark:text-blue-400">powershell</code>.</li>
-                  <li>Right-click and select <strong>Run as administrator</strong>.</li>
-                  <li>Click <strong>Copy</strong> on any command below and paste it into PowerShell with <kbd className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded font-mono text-xs border border-gray-200 dark:border-gray-700">Ctrl + V</kbd> or right-click.</li>
-                  <li>Press <kbd className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded font-mono text-xs border border-gray-200 dark:border-gray-700">Enter</kbd> to execute.</li>
-                </ol>
-              </section>
+          <div className="space-y-4">
+            <section className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 sm:p-5">
+              <h2 className="text-base sm:text-lg font-bold mb-2 text-gray-900 dark:text-white">
+                How to Run PowerShell Commands
+              </h2>
+              <ol className="list-decimal list-inside text-gray-600 dark:text-gray-300 space-y-1.5 text-xs sm:text-sm leading-relaxed">
+                <li>Press the <kbd className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded font-mono text-xs border border-gray-200 dark:border-gray-700">Win</kbd> key and type <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded font-mono text-xs text-blue-600 dark:text-blue-400">powershell</code>.</li>
+                <li>Right-click and select <strong>Run as administrator</strong>.</li>
+                <li>Click <strong>Copy</strong> on any command below and paste it into PowerShell with <kbd className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded font-mono text-xs border border-gray-200 dark:border-gray-700">Ctrl + V</kbd> or right-click.</li>
+                <li>Press <kbd className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded font-mono text-xs border border-gray-200 dark:border-gray-700">Enter</kbd> to execute.</li>
+              </ol>
+            </section>
 
-              {filteredPowerShell.length > 0 ? (
-                <div className="space-y-3">
-                  {filteredPowerShell.map((item) => (
-                    <article
-                      key={item.name}
-                      className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 transition-all hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-sm"
-                    >
-                      <div className="flex items-start gap-3 mb-3">
-                        <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-                          <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 3a1 1 0 000 2h6a1 1 0 100-2H5zm0 4a1 1 0 100 2h3a1 1 0 100-2H5z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <div className="grow min-w-0">
-                          <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
-                            {item.name}
-                          </h3>
-                          <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mt-0.5">
-                            {item.description}
-                          </p>
-                        </div>
+            {filteredPowerShell.length > 0 ? (
+              <div className="space-y-3">
+                {filteredPowerShell.map((item) => (
+                  <article
+                    key={item.name}
+                    className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 transition-all hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-sm"
+                  >
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                        <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 3a1 1 0 000 2h6a1 1 0 100-2H5zm0 4a1 1 0 100 2h3a1 1 0 100-2H5z" clipRule="evenodd" />
+                        </svg>
                       </div>
-                      <CommandBlock content={item.command} label={item.name} />
-                    </article>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-center py-12 text-sm text-gray-500 dark:text-gray-400">
-                  No PowerShell commands matching &ldquo;{searchQuery}&rdquo;.
-                </p>
-              )}
-            </div>
-          )}
+                      <div className="grow min-w-0">
+                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                          {item.name}
+                        </h3>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mt-0.5">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                    <CommandBlock content={item.command} label={item.name} />
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center py-12 text-sm text-gray-500 dark:text-gray-400">
+                No PowerShell commands matching &ldquo;{searchQuery}&rdquo;.
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

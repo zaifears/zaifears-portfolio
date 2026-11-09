@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,17 +6,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: [
-          '/zakat-calculation',
-          '/zakat-report',
-          '/bride-selector',
-          '/shoily',
-          '/bizcomp',
-          '/meetup',
-        ],
+        disallow: ['/api/'],
       },
     ],
     sitemap: 'https://shahoriar.bd/sitemap.xml',
     host: 'https://shahoriar.bd',
-  }
+  };
 }

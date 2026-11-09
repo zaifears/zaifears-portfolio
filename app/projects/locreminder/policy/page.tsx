@@ -11,6 +11,28 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${baseUrl}/projects/locreminder/policy`,
   },
+  openGraph: {
+    type: 'website',
+    url: `${baseUrl}/projects/locreminder/policy`,
+    title: 'LocReminder Privacy Policy | Md Al Shahoriar Hossain',
+    description:
+      'Privacy policy for LocReminder — a 100% free & open-source location-based alarm for Android with zero telemetry and on-device storage.',
+    images: [
+      {
+        url: '/projects/locreminder/icon.png',
+        width: 512,
+        height: 512,
+        alt: 'LocReminder app icon',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'LocReminder Privacy Policy',
+    description:
+      'Privacy policy for LocReminder — 100% free & open-source location-based alarm for Android with zero telemetry.',
+    images: ['/projects/locreminder/icon.png'],
+  },
 };
 
 const storedData: { item: string; why: string }[] = [
@@ -89,6 +111,31 @@ function CardHeading({ children }: { children: React.ReactNode }) {
 export default function LocReminderPolicyPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
+              { '@type': 'ListItem', position: 2, name: 'Projects', item: `${baseUrl}/projects` },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: 'LocReminder',
+                item: `${baseUrl}/projects/locreminder`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 4,
+                name: 'Privacy Policy',
+                item: `${baseUrl}/projects/locreminder/policy`,
+              },
+            ],
+          }),
+        }}
+      />
       <div className="max-w-3xl mx-auto px-4 py-12">
         <Link
           href="/projects/locreminder"

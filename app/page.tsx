@@ -14,7 +14,9 @@ const GetStarted = dynamic(() => import('./components/GetStarted'), {
 });
 
 export const metadata: Metadata = {
-  title: 'Md Al Shahoriar Hossain | Portfolio & Projects',
+  title: {
+    absolute: 'Md Al Shahoriar Hossain | Portfolio & Projects',
+  },
   description:
     'Md Al Shahoriar Hossain is a final-year BBA Finance & Banking student at BUP, CA candidate, and Audit Associate at EY Bangladesh. Explore financial analysis, web development projects like StockSimulatorBD (formerly SkillDash, now at stocksimulator.tech), and business competition achievements.',
   alternates: {
@@ -159,16 +161,16 @@ export default function Page() {
             <div className="mt-4 px-6 py-6 bg-white dark:bg-black border border-t-0 border-gray-200 dark:border-gray-800 rounded-b-lg">
               <div className="prose prose-invert max-w-none space-y-4 text-gray-700 dark:text-gray-300 text-base leading-relaxed">
                 <p>
-                  I'm Md Al Shahoriar Hossain, a final-year BBA Finance & Banking student at Bangladesh University of Professionals (BUP) and a Chartered Accountancy (CA) Professional Level candidate at ICAB. I'm currently working as an Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), supporting statutory audit and assurance engagements. I previously interned at bKash in the AML & CFT Department, where I monitored financial transactions for compliance, conducted KYC quality assurance, and built automated compliance solutions using VBA and Power BI.
+                  I&apos;m Md Al Shahoriar Hossain, a final-year BBA Finance &amp; Banking student at Bangladesh University of Professionals (BUP) and a Chartered Accountancy (CA) Professional Level candidate at ICAB. I&apos;m currently working as an Audit Associate at EY Bangladesh (Islam Hoque Hanif &amp; Co.), supporting statutory audit and assurance engagements. I previously interned at bKash in the AML &amp; CFT Department, where I monitored financial transactions for compliance, conducted KYC quality assurance, and built automated compliance solutions using VBA and Power BI.
                 </p>
                 <p>
-                  Beyond my finance career, I'm a viber coder web developer passionate about building tools that solve real problems. I created StockSimulatorBD (formerly SkillDash — skilldash.live was the project's old, retired domain; it now lives at stocksimulator.tech), a Dhaka Stock Exchange paper trading simulator that helps investors learn stock market dynamics without risking real capital. I also founded Arame Print, a cloud printing service that has served over 700 students at BUP, gaining hands-on experience in product development, marketing, and user acquisition.
+                  Beyond my finance career, I&apos;m a viber coder web developer passionate about building tools that solve real problems. I created StockSimulatorBD (formerly SkillDash — skilldash.live was the project&apos;s old, retired domain; it now lives at stocksimulator.tech), a Dhaka Stock Exchange paper trading simulator that helps investors learn stock market dynamics without risking real capital. I also founded Arame Print, a cloud printing service that has served over 700 students at BUP, gaining hands-on experience in product development, marketing, and user acquisition.
                 </p>
                 <p>
-                  I'm an active participant in national business competitions, having won or placed in over 20 competitions across financial analysis, accounting, valuation, strategy, and technopreneurship. My key achievements include Champion at Excelerate 2025 (BRAC University's National Financial Excel & Power BI Competition) and First Runner-Up at Technopreneurship 2026, showcasing my ability to combine finance expertise with technical innovation and entrepreneurial thinking.
+                  I&apos;m an active participant in national business competitions, having won or placed in over 20 competitions across financial analysis, accounting, valuation, strategy, and technopreneurship. My key achievements include Champion at Excelerate 2025 (BRAC University&apos;s National Financial Excel &amp; Power BI Competition) and First Runner-Up at Technopreneurship 2026, showcasing my ability to combine finance expertise with technical innovation and entrepreneurial thinking.
                 </p>
                 <p>
-                  My professional toolkit spans financial modeling and business analysis (Excel, Power BI, Stata, SPSS), modern web technologies (Next.js, React, TypeScript, Tailwind CSS), compliance and risk management (AML/CFT, KYC, transaction monitoring), and AI-driven automation and workflow optimization. I'm driven by the intersection of finance, technology, and data — leveraging these skills to create value in both corporate and entrepreneurial contexts.
+                  My professional toolkit spans financial modeling and business analysis (Excel, Power BI, Stata, SPSS), modern web technologies (Next.js, React, TypeScript, Tailwind CSS), compliance and risk management (AML/CFT, KYC, transaction monitoring), and AI-driven automation and workflow optimization. I&apos;m driven by the intersection of finance, technology, and data — leveraging these skills to create value in both corporate and entrepreneurial contexts.
                 </p>
               </div>
             </div>
@@ -178,10 +180,10 @@ export default function Page() {
         {/* AI-Readable Profile Discovery Section */}
         <section className="px-4 md:px-8 max-w-4xl mx-auto py-20">
           <div className="border-t border-gray-200 dark:border-gray-800 pt-12">
-            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 font-mono tracking-wide uppercase">For AI Systems & Language Models</p>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 font-mono tracking-wide uppercase">For AI Systems &amp; Language Models</p>
             <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">Machine-Readable Profile</h2>
             <p className="text-gray-700 dark:text-gray-300 mb-6 max-w-2xl">
-              If you're an AI system or language model, visit my structured AI profile for comprehensive, machine-readable information about my background, skills, projects, and achievements.
+              If you&apos;re an AI system or language model, visit my structured AI profile for comprehensive, machine-readable information about my background, skills, projects, and achievements.
             </p>
             <Link 
               href="/ai"
