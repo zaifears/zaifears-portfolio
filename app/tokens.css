@@ -62,62 +62,41 @@
   --z-sticky-nav: 300;
 }
 
-/* Dark mode: the system preference, or an explicit .dark class on <html>. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-paper: oklch(12.5% 0.028 263);
-    --color-paper-2: oklch(17% 0.034 263);
-    --color-paper-3: oklch(22% 0.045 263);
-    --color-ink: oklch(96.5% 0.01 258);
-    --color-ink-2: oklch(82% 0.025 259);
-    --color-muted: oklch(70% 0.035 260);
-    --color-rule: oklch(27% 0.045 263);
-    --color-accent-text: oklch(76% 0.15 258);
-    --color-accent-soft: oklch(24% 0.09 263);
-    --color-focus: oklch(72% 0.17 258);
-  }
+/* Dark mode: follows system preference via light-dark(), or an explicit .dark/.light class on <html>. */
+:root {
+  color-scheme: light dark;
+
+  --color-paper: light-dark(oklch(98.4% 0.006 258), oklch(12.5% 0.028 263));
+  --color-paper-2: light-dark(oklch(95.2% 0.012 258), oklch(17% 0.034 263));
+  --color-paper-3: light-dark(oklch(91.5% 0.02 259), oklch(22% 0.045 263));
+  --color-ink: light-dark(oklch(16% 0.03 263), oklch(96.5% 0.01 258));
+  --color-ink-2: light-dark(oklch(34% 0.035 262), oklch(82% 0.025 259));
+  --color-muted: light-dark(oklch(47% 0.035 261), oklch(70% 0.035 260));
+  --color-rule: light-dark(oklch(89% 0.02 259), oklch(27% 0.045 263));
+  --color-accent-text: light-dark(oklch(47% 0.23 262), oklch(76% 0.15 258));
+  --color-accent-soft: light-dark(oklch(93% 0.045 260), oklch(24% 0.09 263));
+  --color-focus: light-dark(oklch(51% 0.235 262), oklch(72% 0.17 258));
 }
 
 :root.dark {
-  --color-paper: oklch(12.5% 0.028 263);
-  --color-paper-2: oklch(17% 0.034 263);
-  --color-paper-3: oklch(22% 0.045 263);
-  --color-ink: oklch(96.5% 0.01 258);
-  --color-ink-2: oklch(82% 0.025 259);
-  --color-muted: oklch(70% 0.035 260);
-  --color-rule: oklch(27% 0.045 263);
-  --color-accent-text: oklch(76% 0.15 258);
-  --color-accent-soft: oklch(24% 0.09 263);
-  --color-focus: oklch(72% 0.17 258);
+  color-scheme: dark;
+}
+
+:root.light {
+  color-scheme: light;
 }
 
 /* Syntax-highlight palette for MDX code blocks. */
 :root {
-  --sh-class: oklch(48% 0.12 258);
-  --sh-identifier: oklch(34% 0.035 262);
+  --sh-class: light-dark(oklch(48% 0.12 258), oklch(72% 0.14 258));
+  --sh-identifier: light-dark(oklch(34% 0.035 262), oklch(99% 0 0));
   --sh-sign: oklch(66% 0.03 258);
-  --sh-string: oklch(52% 0.11 195);
-  --sh-keyword: oklch(55% 0.21 27);
+  --sh-string: light-dark(oklch(52% 0.11 195), oklch(65% 0.11 185));
+  --sh-keyword: light-dark(oklch(55% 0.21 27), oklch(72% 0.14 25));
   --sh-comment: oklch(66% 0.015 20);
   --sh-jsxliterals: oklch(52% 0.17 275);
   --sh-property: oklch(60% 0.18 45);
   --sh-entity: oklch(60% 0.18 45);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sh-class: oklch(72% 0.14 258);
-    --sh-identifier: oklch(99% 0 0);
-    --sh-keyword: oklch(72% 0.14 25);
-    --sh-string: oklch(65% 0.11 185);
-  }
-}
-
-:root.dark {
-  --sh-class: oklch(72% 0.14 258);
-  --sh-identifier: oklch(99% 0 0);
-  --sh-keyword: oklch(72% 0.14 25);
-  --sh-string: oklch(65% 0.11 185);
 }
 
 /* The public site shell re-points Tailwind's grey, black and white and its corner radii.
