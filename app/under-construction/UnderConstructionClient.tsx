@@ -10,12 +10,18 @@ import {
   Construction,
   BellRing,
   Check,
+  Rocket,
+  ArrowUpRight,
+  CheckCircle2,
 } from 'lucide-react';
 import {
   buildGoogleCalendarUrl,
   buildIcsReminder,
   getCountdownParts,
   getNextSunday10AmBst,
+  hasConstructionEnded,
+  LAUNCH_TARGET_UTC,
+  STOCKSIMULATOR_URL,
   type CountdownParts,
   type NextSundayBst,
 } from '@/lib/calendarReminder';
@@ -23,6 +29,7 @@ import {
 export default function UnderConstructionClient() {
   const [schedule, setSchedule] = useState<NextSundayBst | null>(null);
   const [countdown, setCountdown] = useState<CountdownParts | null>(null);
+  const [ended, setEnded] = useState<boolean>(false);
   const [googleUrl, setGoogleUrl] = useState<string>(
     'https://calendar.google.com/calendar/render?action=TEMPLATE'
   );
@@ -32,9 +39,10 @@ export default function UnderConstructionClient() {
   useEffect(() => {
     const update = () => {
       const now = new Date();
-      const next = getNextSunday10AmBst(now);
-      setSchedule(next);
-      setCountdown(getCountdownParts(next.startUtc, now));
+      const isEnded = hasConstructionEnded(now);
+      setEnded(isEnded);
+      setSchedule(getNextSunday10AmBst(now));
+      setCountdown(getCountdownParts(LAUNCH_TARGET_UTC, now));
       setGoogleUrl(buildGoogleCalendarUrl(now));
     };
 
@@ -93,26 +101,75 @@ export default function UnderConstructionClient() {
 
       {/* Main status card */}
       <section className="rounded-panel border border-rule bg-paper-2 p-6 md:p-10 space-y-6">
-        <div className="inline-flex items-center gap-2.5 rounded-full border border-rule bg-paper px-4 py-1.5 text-xs font-medium text-ink-2">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500" />
-          </span>
-          <Construction className="w-3.5 h-3.5 text-amber-500" />
-          <span>Under Construction</span>
-        </div>
+        {ended ? (
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+            </span>
+            <CheckCircle2 className="w-3.5 h-3.5" />
+            <span>Construction Ended · Now Live</span>
+          </div>
+        ) : (
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-rule bg-paper px-4 py-1.5 text-xs font-medium text-ink-2">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500" />
+            </span>
+            <Construction className="w-3.5 h-3.5 text-amber-500" />
+            <span>Under Construction</span>
+          </div>
+        )}
 
         <div className="space-y-3">
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-ink">
-            StockSimulatorBD is currently under construction
+            {ended
+              ? 'Construction has ended!'
+              : 'StockSimulatorBD is currently under construction'}
           </h1>
           <p className="text-base md:text-lg text-ink-2 leading-relaxed">
-            Thank you for staying with us. We&apos;re actively upgrading the platform and will be
-            back soon — set a Google Calendar reminder for{' '}
-            <span className="font-semibold text-ink">Sunday at 10:00 AM BST</span> to get
-            notified.
+            {ended ? (
+              <>
+                Thank you for the wait — StockSimulatorBD is back online. Please visit the website
+                using the button below.
+              </>
+            ) : (
+              <>
+                Thank you for staying with us. We&apos;re actively upgrading the platform and will
+                be back soon — set a Google Calendar reminder for{' '}
+                <span className="font-semibold text-ink">Sunday at 10:00 AM BST</span> to get
+                notified.
+              </>
+            )}
           </p>
         </div>
+
+        {/* Big Launch CTA right inside the hero when construction has ended */}
+        {ended && (
+          <div className="pt-2">
+            <a
+              href={STOCKSIMULATOR_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex w-full items-center justify-center gap-4 rounded-card bg-accent px-8 py-6 md:py-7 text-xl md:text-2xl font-semibold text-accent-ink shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+            >
+              <Rocket className="w-7 h-7 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span>Visit StockSimulatorBD</span>
+              <ArrowUpRight className="w-7 h-7 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+            <p className="mt-2.5 text-center text-xs text-muted">
+              Opens{' '}
+              <a
+                href={STOCKSIMULATOR_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-ink"
+              >
+                {STOCKSIMULATOR_URL}
+              </a>
+            </p>
+          </div>
+        )}
 
         {/* Tenor GIF Embed */}
         <div className="overflow-hidden rounded-card border border-rule bg-paper p-2">
@@ -132,83 +189,85 @@ export default function UnderConstructionClient() {
         </div>
       </section>
 
-      {/* Google Calendar Notification Card */}
-      <section className="rounded-panel border border-rule bg-paper-2 p-6 md:p-8 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 text-sm font-medium text-accent-text">
-              <BellRing className="w-4 h-4" />
-              <span>Sunday 10:00 AM BST Notification</span>
-            </div>
-            <h2 className="text-xl md:text-2xl font-semibold text-ink">
-              {schedule ? schedule.formattedBst : 'Sunday · 10:00 AM BST (UTC+6)'}
-            </h2>
-            <p className="text-sm text-muted">
-              Bangladesh Standard Time (Asia/Dhaka, UTC+6) — automatically converts to your local
-              timezone in Google Calendar.
-            </p>
-          </div>
-        </div>
-
-        {/* Countdown */}
-        <div className="grid grid-cols-4 gap-2.5 sm:gap-4">
-          {[
-            { label: 'Days', value: countdown?.days },
-            { label: 'Hours', value: countdown?.hours },
-            { label: 'Minutes', value: countdown?.minutes },
-            { label: 'Seconds', value: countdown?.seconds },
-          ].map((unit) => (
-            <div
-              key={unit.label}
-              className="rounded-card border border-rule bg-paper px-3 py-3 text-center"
-            >
-              <div className="text-2xl md:text-3xl font-semibold tabular-nums text-ink">
-                {unit.value !== undefined ? String(unit.value).padStart(2, '0') : '--'}
+      {/* Google Calendar Notification Card (hidden once construction has ended) */}
+      {!ended && (
+        <section className="rounded-panel border border-rule bg-paper-2 p-6 md:p-8 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 text-sm font-medium text-accent-text">
+                <BellRing className="w-4 h-4" />
+                <span>Sunday 10:00 AM BST Notification</span>
               </div>
-              <div className="text-xs text-muted mt-0.5">{unit.label}</div>
+              <h2 className="text-xl md:text-2xl font-semibold text-ink">
+                {schedule ? schedule.formattedBst : 'Sunday · 10:00 AM BST (UTC+6)'}
+              </h2>
+              <p className="text-sm text-muted">
+                Bangladesh Standard Time (Asia/Dhaka, UTC+6) — automatically converts to your
+                local timezone in Google Calendar.
+              </p>
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* Calendar Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 pt-1">
-          <a
-            href={googleUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2.5 rounded-full bg-accent px-6 py-3.5 text-sm md:text-base font-medium text-accent-ink transition-transform duration-200 hover:-translate-y-0.5"
-          >
-            <CalendarPlus className="w-4 h-4" />
-            Add to Google Calendar (Sunday 10 AM BST)
-          </a>
+          {/* Countdown */}
+          <div className="grid grid-cols-4 gap-2.5 sm:gap-4">
+            {[
+              { label: 'Days', value: countdown?.days },
+              { label: 'Hours', value: countdown?.hours },
+              { label: 'Minutes', value: countdown?.minutes },
+              { label: 'Seconds', value: countdown?.seconds },
+            ].map((unit) => (
+              <div
+                key={unit.label}
+                className="rounded-card border border-rule bg-paper px-3 py-3 text-center"
+              >
+                <div className="text-2xl md:text-3xl font-semibold tabular-nums text-ink">
+                  {unit.value !== undefined ? String(unit.value).padStart(2, '0') : '--'}
+                </div>
+                <div className="text-xs text-muted mt-0.5">{unit.label}</div>
+              </div>
+            ))}
+          </div>
 
-          <button
-            type="button"
-            onClick={handleDownloadIcs}
-            className="inline-flex items-center justify-center gap-2.5 rounded-full border border-rule bg-paper px-6 py-3.5 text-sm md:text-base font-medium text-ink transition-colors duration-200 hover:bg-paper-3 cursor-pointer"
-          >
-            {icsDownloaded ? (
-              <>
-                <Check className="w-4 h-4 text-emerald-500" />
-                Reminder Downloaded (.ics)
-              </>
-            ) : (
-              <>
-                <Download className="w-4 h-4" />
-                Download .ics Reminder
-              </>
-            )}
-          </button>
-        </div>
+          {/* Calendar Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-1">
+            <a
+              href={googleUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2.5 rounded-full bg-accent px-6 py-3.5 text-sm md:text-base font-medium text-accent-ink transition-transform duration-200 hover:-translate-y-0.5"
+            >
+              <CalendarPlus className="w-4 h-4" />
+              Add to Google Calendar (Sunday 10 AM BST)
+            </a>
 
-        <div className="flex items-center gap-2 text-xs text-muted">
-          <Clock className="w-3.5 h-3.5 shrink-0" />
-          <span>
-            Adding the event sets a calendar notification on Sunday at 10:00 AM BST so you
-            don&apos;t miss when StockSimulatorBD is back.
-          </span>
-        </div>
-      </section>
+            <button
+              type="button"
+              onClick={handleDownloadIcs}
+              className="inline-flex items-center justify-center gap-2.5 rounded-full border border-rule bg-paper px-6 py-3.5 text-sm md:text-base font-medium text-ink transition-colors duration-200 hover:bg-paper-3 cursor-pointer"
+            >
+              {icsDownloaded ? (
+                <>
+                  <Check className="w-4 h-4 text-emerald-500" />
+                  Reminder Downloaded (.ics)
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4" />
+                  Download .ics Reminder
+                </>
+              )}
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs text-muted">
+            <Clock className="w-3.5 h-3.5 shrink-0" />
+            <span>
+              Adding the event sets a calendar notification on Sunday at 10:00 AM BST so you
+              don&apos;t miss when StockSimulatorBD is back.
+            </span>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

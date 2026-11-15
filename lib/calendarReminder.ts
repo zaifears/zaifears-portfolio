@@ -114,6 +114,13 @@ export const REMINDER_EVENT_TITLE = 'StockSimulatorBD — Sunday 10 AM BST Check
 export const REMINDER_EVENT_DETAILS =
   'StockSimulatorBD is currently under construction. Thank you for staying with us! Visit https://shahoriar.bd/under-construction or https://stocksimulator.tech for updates.';
 export const REMINDER_EVENT_LOCATION = 'https://shahoriar.bd/under-construction';
+export const STOCKSIMULATOR_URL = 'https://stocksimulator.tech';
+/** Sunday, Nov 15, 2026 at 10:00:00 AM BST (04:00:00 UTC). */
+export const LAUNCH_TARGET_UTC = new Date('2026-11-15T04:00:00.000Z');
+
+export function hasConstructionEnded(now: Date = new Date()): boolean {
+  return now.getTime() >= LAUNCH_TARGET_UTC.getTime();
+}
 
 /**
  * Builds a Google Calendar "Add Event" URL pre-filled for the next Sunday 10:00 AM BST.
