@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   AlertCircle,
-  ArrowLeft,
   BellRing,
   CalendarDays,
   CheckCircle2,
@@ -292,7 +291,7 @@ export const metadata: Metadata = {
 
 export default function TapFeedPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-white text-gray-900 dark:bg-black dark:text-white">
+    <div className="min-h-screen overflow-hidden bg-white text-gray-900 dark:bg-black dark:text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -377,19 +376,11 @@ export default function TapFeedPage() {
         <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-10 lg:px-8 lg:py-14">
-        <Link
-          href="/projects"
-          className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400"
-        >
-          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-          All projects
-        </Link>
-
+      <div className="relative z-10 mx-auto max-w-6xl px-3 pt-1 pb-8 sm:px-5 sm:pt-2 sm:pb-10 lg:px-6 lg:pb-12">
         {/* Hero Section */}
-        <section className="grid items-center gap-9 lg:grid-cols-[1.05fr_.95fr] lg:gap-12">
+        <section className="grid items-start gap-8 lg:grid-cols-[1.05fr_.95fr] lg:gap-10">
           <div>
-            <div className="mb-5 flex flex-wrap items-center gap-2">
+            <div className="mb-3 flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-700 dark:border-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300">
                 <Wifi className="h-3.5 w-3.5" aria-hidden="true" />
                 Windows 10/11 · Local camera viewer
@@ -963,6 +954,6 @@ export default function TapFeedPage() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }
