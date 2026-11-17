@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden">
+    <div className="min-h-screen text-ink">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -98,8 +98,7 @@ export default function ProjectsPage() {
         }}
       />
 
-
-      <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-12">
+      <div className="mx-auto max-w-6xl pt-2 pb-16">
         <ProjectsContent />
       </div>
     </div>
