@@ -11,6 +11,11 @@
 # next.js
 /.next/
 /out/
+/.claude/
+/.hallmark/
+/.agents/
+/.impeccable/
+skills-lock.json
 
 # production
 /build
