@@ -61,10 +61,10 @@ https://shahoriar.bd/projects/youth-tax-calculator | https://github.com/zaifears
 
 Built a deterministic statutory tax engine and AI Agent Skill for Bangladeshi university students, interns, and young professionals filing on the NBR e-Return portal (etaxnbr.gov.bd) under the Income Tax Act 2023. Automates Sixth Schedule tax-exempt stipend declarations, Section 32 salary exemptions, Section 173 bank interest TDS refunds, and Form IT-10B zero-difference balance sheet reconciliation.
 
-**Tapo-Viewer — Native Windows 10/11 Client for TP-Link Tapo Cameras**
-https://shahoriar.bd/projects/tapo-viewer | https://github.com/zaifears/tapo-viewer
+**TapFeed (formerly Tapo-Viewer) — Native Windows 10/11 Client for TP-Link Tapo Cameras**
+https://shahoriar.bd/projects/tapfeed | https://github.com/zaifears/TapFeed
 
-Engineered a standalone Windows desktop application (Python, CustomTkinter, pyTapo, FFmpeg) for streaming live 1080p/2K RTSP feeds, browsing MicroSD card recording calendars, and batch-downloading MP4 clips over local Wi-Fi without Tapo Care cloud subscriptions or Android emulators.
+Engineered a standalone Windows 10/11 desktop application (Rust, Tauri 2, libmpv, Python, PyTapo) for watching live HD/SD camera feeds with sound and screenshots, controlling motorized pan & tilt, browsing MicroSD card recording calendars, and downloading .ts clips over local Wi-Fi with Windows Credential Manager integration and zero cloud subscriptions.
 
 **LocReminder — Open-Source Location-Based Alarm for Android**
 https://shahoriar.bd/projects/locreminder | https://github.com/zaifears/locreminder

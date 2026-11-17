@@ -6,14 +6,14 @@ const baseUrl = 'https://shahoriar.bd';
 export const metadata: Metadata = {
   title: 'Software Projects & Developer Tools',
   description:
-    'A catalog of independent software products, statutory compliance engines, and desktop utilities spanning Tapo-Viewer, Bangladesh Youth Tax Calculator, LocReminder, and financial simulators.',
+    'A catalog of independent software products, statutory compliance engines, and desktop utilities spanning TapFeed (formerly Tapo-Viewer), LocReminder, Bangladesh Youth Tax Calculator, and financial simulators.',
   alternates: {
     canonical: `${baseUrl}/projects`,
   },
   openGraph: {
     title: 'Software Projects & Developer Tools',
     description:
-      'A catalog of independent software products, statutory compliance engines, and desktop utilities spanning Tapo-Viewer, Bangladesh Youth Tax Calculator, LocReminder, and financial simulators.',
+      'A catalog of independent software products, statutory compliance engines, and desktop utilities spanning TapFeed (formerly Tapo-Viewer), LocReminder, Bangladesh Youth Tax Calculator, and financial simulators.',
     url: `${baseUrl}/projects`,
     siteName: 'Software Projects & Tools',
     type: 'website',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Software Projects & Developer Tools',
     description:
-      'A catalog of independent software products, statutory compliance engines, and desktop utilities spanning Tapo-Viewer, Bangladesh Youth Tax Calculator, LocReminder, and financial simulators.',
+      'A catalog of independent software products, statutory compliance engines, and desktop utilities spanning TapFeed (formerly Tapo-Viewer), LocReminder, Bangladesh Youth Tax Calculator, and financial simulators.',
   },
 };
 
@@ -58,30 +58,18 @@ export default function ProjectsPage() {
                 position: 1,
                 item: {
                   '@type': 'SoftwareApplication',
-                  name: 'Bangladesh Youth Tax Calculator',
-                  url: `${baseUrl}/projects/youth-tax-calculator`,
-                  applicationCategory: 'FinanceApplication',
-                  operatingSystem: 'Cross-platform (Python 3 / AI Agent Skill)',
+                  name: 'TapFeed',
+                  alternateName: 'Tapo-Viewer',
+                  url: `${baseUrl}/projects/tapfeed`,
+                  applicationCategory: 'MultimediaApplication',
+                  operatingSystem: 'Windows 10, Windows 11',
                   description:
-                    'AI Agent Skill and statutory calculation engine for students and interns filing on etaxnbr.gov.bd under Income Tax Act 2023 with zero-difference balance sheet reconciliation.',
+                    'Windows desktop application (built with Rust, Tauri 2, mpv, and PyTapo) for streaming live TP-Link Tapo camera feeds and downloading MicroSD recordings locally without cloud subscriptions.',
                 },
               },
               {
                 '@type': 'ListItem',
                 position: 2,
-                item: {
-                  '@type': 'SoftwareApplication',
-                  name: 'Tapo-Viewer',
-                  url: `${baseUrl}/projects/tapo-viewer`,
-                  applicationCategory: 'MultimediaApplication',
-                  operatingSystem: 'Windows 10, Windows 11',
-                  description:
-                    'Windows desktop application for streaming live TP-Link Tapo camera feeds in 1080p and downloading MicroSD recordings without cloud subscriptions.',
-                },
-              },
-              {
-                '@type': 'ListItem',
-                position: 3,
                 item: {
                   '@type': 'SoftwareApplication',
                   name: 'LocReminder',
@@ -90,6 +78,19 @@ export default function ProjectsPage() {
                   operatingSystem: 'Android 6.0+',
                   description:
                     'Location-based GPS alarm app for Android that wakes commuters and travellers when arriving at their destination with zero data tracking.',
+                },
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                item: {
+                  '@type': 'SoftwareApplication',
+                  name: 'Bangladesh Youth Tax Calculator',
+                  url: `${baseUrl}/projects/youth-tax-calculator`,
+                  applicationCategory: 'FinanceApplication',
+                  operatingSystem: 'Cross-platform (Python 3 / AI Agent Skill)',
+                  description:
+                    'AI Agent Skill and statutory calculation engine for students and interns filing on etaxnbr.gov.bd under Income Tax Act 2023 with zero-difference balance sheet reconciliation.',
                 },
               },
             ],

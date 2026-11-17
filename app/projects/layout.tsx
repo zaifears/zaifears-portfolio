@@ -11,14 +11,14 @@ export const metadata: Metadata = {
   },
 
   description:
-    'Independent software products, statutory compliance engines, and developer tools including Tapo-Viewer, Bangladesh Youth Tax Calculator, and LocReminder.',
+    'Independent software products, statutory compliance engines, and developer tools including TapFeed (formerly Tapo-Viewer), LocReminder, and Bangladesh Youth Tax Calculator.',
 
   category: 'SoftwareApplication',
 
   openGraph: {
     title: 'Software Projects & Developer Tools',
     description:
-      'Independent software products, statutory compliance engines, and desktop utilities including Tapo-Viewer, Bangladesh Youth Tax Calculator, and LocReminder.',
+      'Independent software products, statutory compliance engines, and desktop utilities including TapFeed (formerly Tapo-Viewer), LocReminder, and Bangladesh Youth Tax Calculator.',
     url: `${baseUrl}/projects`,
     siteName: 'Software Projects & Tools',
     locale: 'en_US',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Software Projects & Developer Tools',
     description:
-      'Independent software products, statutory compliance engines, and desktop utilities including Tapo-Viewer, Bangladesh Youth Tax Calculator, and LocReminder.',
+      'Independent software products, statutory compliance engines, and desktop utilities including TapFeed (formerly Tapo-Viewer), LocReminder, and Bangladesh Youth Tax Calculator.',
   },
 
   robots: {

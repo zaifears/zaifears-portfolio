@@ -83,185 +83,40 @@ export default function ProjectsContent() {
         {/* Quick Solution Jump Chips for Search Intent */}
         <div className="flex flex-wrap gap-2 mt-3 mb-2">
           <Link
-            href="/projects/youth-tax-calculator"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors"
-          >
-            <FontAwesomeIcon icon={faCalculator} className="w-3.5 h-3.5" aria-hidden="true" /><span>Student Tax Calculator (etaxnbr)</span>
-          </Link>
-          <Link
-            href="/projects/tapo-viewer"
+            href="/projects/tapfeed"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-cyan-50 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/50 hover:bg-cyan-100 dark:hover:bg-cyan-900/50 transition-colors"
           >
-            <FontAwesomeIcon icon={faVideo} className="w-3.5 h-3.5" aria-hidden="true" /><span>Tapo Camera Windows Viewer</span>
+            <FontAwesomeIcon icon={faVideo} className="w-3.5 h-3.5" aria-hidden="true" /><span>TapFeed — Tapo Camera Windows Viewer</span>
           </Link>
           <Link
             href="/projects/locreminder"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
           >
-            <FontAwesomeIcon icon={faLocationDot} className="w-3.5 h-3.5" aria-hidden="true" /><span>Commuter Location Alarm (Android)</span>
+            <FontAwesomeIcon icon={faLocationDot} className="w-3.5 h-3.5" aria-hidden="true" /><span>LocReminder — Commuter Location Alarm (Android)</span>
+          </Link>
+          <Link
+            href="/projects/youth-tax-calculator"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors"
+          >
+            <FontAwesomeIcon icon={faCalculator} className="w-3.5 h-3.5" aria-hidden="true" /><span>Student Tax Calculator (etaxnbr)</span>
           </Link>
         </div>
       </motion.div>
 
-      {/* ── Bangladesh Youth Tax Calculator card ── */}
-      <motion.div
-        variants={itemVariants}
-        className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition duration-300 hover:border-emerald-500/30 hover:shadow-lg"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-          {/* Left col — title + story */}
-          <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
-            <div className="flex items-center gap-3">
-              <Link
-                href="/projects/youth-tax-calculator"
-                className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-xl"
-              >
-                <div className="w-10 h-10 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-0.5 shadow-sm hover:-translate-y-0.5 transition-transform">
-                  <Image
-                    src="/projects/youth-tax-calculator/BD-Logos.webp"
-                    alt="Bangladesh Youth Tax Calculator logo"
-                    width={40}
-                    height={40}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-              </Link>
-              <div>
-                <Link
-                  href="/projects/youth-tax-calculator"
-                  className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded block"
-                >
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
-                    Bangladesh Youth Tax Calculator
-                  </h3>
-                </Link>
-                <span className="inline-block text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/40 px-2.5 sm:px-3 py-1 rounded-full mt-2">
-                  AI Skill, Tax Tech
-                </span>
-              </div>
-            </div>
-            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
-              <p className="font-medium text-gray-800 dark:text-gray-200">
-                An AI Agent Skill and deterministic statutory engine made for students, interns, and young professionals filing on etaxnbr.gov.bd.
-              </p>
-              <p>
-                Having an e-TIN, filing tax returns is something we all face. But being a student with no budget to hire a CA firm, many turn to AI. Generic models struggle with the NBR portal UI and hallucinate balance sheet math.
-              </p>
-              <p>
-                This skill equips your LLM with the Income Tax Act 2023, guides you through every screen, and uses a deterministic Python engine to ensure your balance sheet difference is exactly 0.00 while keeping tax expense at minimum.
-              </p>
-            </div>
-            <Link
-              href="/projects/youth-tax-calculator"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-white/60 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors w-fit mt-auto"
-            >
-              View Project
-              <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-3 h-3" />
-            </Link>
-          </div>
-
-          {/* Right col — tool tags + feature list + python snippet */}
-          <div className="p-5 sm:p-6 md:p-8 flex flex-col justify-between gap-5">
-            {/* Tools */}
-            <div>
-              <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
-                Tools & Standards
-              </p>
-              <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                {[
-                  "AI Agent Skill",
-                  "Python 3 Engine",
-                  "Income Tax Act 2023",
-                  "etaxnbr.gov.bd",
-                  "Form IT-10B",
-                  "MIT License",
-                ].map((tool) => (
-                  <span
-                    key={tool}
-                    className="text-[11px] sm:text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
-                  >
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Features */}
-            <div>
-              <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
-                Core Outcomes
-              </p>
-              <div className="flex flex-col gap-2.5">
-                {[
-                  { icon: faScaleBalanced, text: "Keeps tax expense at minimum (0 BDT floor under 4,00,000 BDT)" },
-                  { icon: faMoneyBill, text: "100% bank TDS refund with direct claiming guidance" },
-                  { icon: faFileLines, text: "Zero-difference balance sheet math via Section 56(g)" },
-                  { icon: faShieldHalved, text: "Prevents NBR e-Return portal errors & audit flags" },
-                ].map((f) => (
-                  <div
-                    key={f.text}
-                    className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    <span className="mt-0.5 shrink-0"><FontAwesomeIcon icon={f.icon} className="w-4 h-4 text-accent-text" aria-hidden="true" /></span>
-                    <span className="leading-snug">{f.text}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick Run / Python Engine snippet (Yellow highlighted position) */}
-            <div className="mt-auto pt-2">
-              <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2">
-                Standalone Engine
-              </p>
-              <div className="flex items-center justify-between gap-2.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-gray-900 dark:bg-black border border-gray-800 font-mono text-xs shadow-inner">
-                <div className="flex items-center gap-2 text-emerald-400 min-w-0 overflow-x-auto no-scrollbar">
-                  <span className="text-gray-500 select-none">$</span>
-                  <span className="text-gray-100 font-semibold truncate">python calculator.py</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => copyCode("python calculator.py", "tax-cli")}
-                  aria-label="Copy python command"
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition-colors shrink-0 text-[11px] font-sans font-medium"
-                >
-                  {copiedId === "tax-cli" ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedId === "tax-cli" ? "Copied!" : "Copy"}</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* BOTTOM: footer note */}
-        <div className="px-5 sm:px-6 md:px-8 py-3.5 sm:py-4 border-t border-gray-200 dark:border-gray-800/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <p className="text-xs text-gray-400 dark:text-gray-500">
-            Open source on GitHub with 1-click installation for Windows and macOS.
-          </p>
-          <a
-            href="https://github.com/zaifears/youth-tax-calculator"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
-          >
-            <span>github.com/zaifears/youth-tax-calculator</span>
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-2.5 h-2.5" />
-          </a>
-        </div>
-      </motion.div>
-
-      {/* ── Tapo-Viewer card ── */}
+      {/* ── 1. TapFeed card ── */}
       <motion.div
         variants={itemVariants}
         className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition duration-300 hover:border-cyan-500/30 hover:shadow-lg"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
           <div className="relative min-h-64 md:min-h-full bg-gray-950 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800/50">
-            <Link href="/projects/tapo-viewer" className="absolute inset-0 block">
+            <Link href="/projects/tapfeed" className="absolute inset-0 block">
               <Image
-                src="/projects/tapo-viewer/tapo-viewer_logo.png"
-                alt="Tapo-Viewer logo"
+                src="/projects/tapfeed/TapFeed.png"
+                alt="TapFeed (formerly Tapo-Viewer) logo"
                 fill
+                priority
+                fetchPriority="high"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain p-8 transition-transform duration-500 group-hover:scale-[1.04] sm:p-10"
               />
@@ -271,18 +126,23 @@ export default function ProjectsContent() {
           <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-5">
             <div>
               <Link
-                href="/projects/tapo-viewer"
+                href="/projects/tapfeed"
                 className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded block"
               >
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-300">
-                  Tapo-Viewer
+                  TapFeed
                 </h3>
               </Link>
-              <span className="inline-block text-xs font-semibold text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-900/30 border border-cyan-100 dark:border-cyan-800/40 px-2.5 sm:px-3 py-1 rounded-full mt-2">
-                Windows, Camera Viewer
-              </span>
+              <div className="flex flex-wrap items-center gap-2 mt-2">
+                <span className="inline-block text-xs font-semibold text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-900/30 border border-cyan-100 dark:border-cyan-800/40 px-2.5 sm:px-3 py-1 rounded-full">
+                  Windows · Camera Viewer
+                </span>
+                <span className="text-[11px] font-medium text-gray-500 dark:text-gray-400">
+                  Previously named Tapo-Viewer
+                </span>
+              </div>
               <p className="mt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                A Windows desktop app for playing live Tapo camera feeds and downloading recorded clips directly from a camera&apos;s MicroSD card.
+                Watch your Tapo camera live and save its memory card recordings on Windows — built with Rust, Tauri 2, mpv, and PyTapo.
               </p>
             </div>
 
@@ -292,10 +152,10 @@ export default function ProjectsContent() {
               </p>
               <div className="flex flex-col gap-2.5">
                 {[
-                  { icon: faTv, text: "Launches local RTSP live streams in VLC, mpv.net, PotPlayer, or FFplay" },
-                  { icon: faCalendarDays, text: "Browses MicroSD recordings with a calendar and motion-event timeline" },
-                  { icon: faDownload, text: "Downloads clips with MP4 conversion and a persistent download manager" },
-                  { icon: faLock, text: "Communicates directly with the camera over home Wi-Fi/LAN" },
+                  { icon: faTv, text: "Embedded HD/SD live view with sound, full screen, screenshots, and motorized pan & tilt" },
+                  { icon: faCalendarDays, text: "Recordings calendar marking days with clips stored on the camera's MicroSD card" },
+                  { icon: faDownload, text: "Downloads recordings as .ts with queue progress, cancel controls, and plain-language diagnostics" },
+                  { icon: faLock, text: "100% local network camera traffic with optional Windows Credential Manager storage" },
                 ].map((feature) => (
                   <div key={feature.text} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                     <span className="mt-0.5 shrink-0"><FontAwesomeIcon icon={feature.icon} className="w-4 h-4 text-accent-text" aria-hidden="true" /></span>
@@ -306,7 +166,7 @@ export default function ProjectsContent() {
             </div>
 
             <Link
-              href="/projects/tapo-viewer"
+              href="/projects/tapfeed"
               className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-white/60 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors w-fit mt-auto"
             >
               Tapo desktop app for Windows
@@ -317,10 +177,10 @@ export default function ProjectsContent() {
 
         <div className="px-5 sm:px-6 md:px-8 py-3.5 sm:py-4 border-t border-gray-200 dark:border-gray-800/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <p className="text-xs text-gray-400 dark:text-gray-500">
-            Windows 10/11, Python 3.10+, MIT License, powered by PyTapo
+            Windows 10/11 · Rust + Tauri 2 · mpv · Powered by PyTapo · MIT License
           </p>
           <a
-            href="https://github.com/zaifears/tapo-viewer/releases/latest"
+            href="https://github.com/zaifears/tapfeed/releases/latest"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-cyan-600 dark:text-cyan-400 hover:underline inline-flex items-center gap-1"
@@ -331,7 +191,7 @@ export default function ProjectsContent() {
         </div>
       </motion.div>
 
-      {/* ── LocReminder card ── */}
+      {/* ── 2. LocReminder card ── */}
       <motion.div
         variants={itemVariants}
         className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition duration-300 hover:border-blue-500/30 hover:shadow-lg"
@@ -465,6 +325,153 @@ export default function ProjectsContent() {
           <p className="text-xs text-gray-400 dark:text-gray-500">
             Published on GitHub Releases, with an F-Droid submission in progress.
           </p>
+        </div>
+      </motion.div>
+
+      {/* ── 3. Bangladesh Youth Tax Calculator card ── */}
+      <motion.div
+        variants={itemVariants}
+        className="group bg-gray-50 dark:bg-gray-900/50 dark:backdrop-blur-sm border border-gray-200 dark:border-gray-800/50 rounded-2xl overflow-hidden transition duration-300 hover:border-emerald-500/30 hover:shadow-lg"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+          {/* Left col — title + story */}
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-4 md:border-r border-gray-200 dark:border-gray-800/50">
+            <div className="flex items-center gap-3">
+              <Link
+                href="/projects/youth-tax-calculator"
+                className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-xl"
+              >
+                <div className="w-10 h-10 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-0.5 shadow-sm hover:-translate-y-0.5 transition-transform">
+                  <Image
+                    src="/projects/youth-tax-calculator/BD-Logos.webp"
+                    alt="Bangladesh Youth Tax Calculator logo"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+              </Link>
+              <div>
+                <Link
+                  href="/projects/youth-tax-calculator"
+                  className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded block"
+                >
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
+                    Bangladesh Youth Tax Calculator Skill
+                  </h3>
+                </Link>
+                <span className="inline-block text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/40 px-2.5 sm:px-3 py-1 rounded-full mt-2">
+                  AI Skill, Tax Tech
+                </span>
+              </div>
+            </div>
+            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
+              <p className="font-medium text-gray-800 dark:text-gray-200">
+                An AI Agent Skill and deterministic statutory engine made for students, interns, and young professionals filing on etaxnbr.gov.bd.
+              </p>
+              <p>
+                Having an e-TIN, filing tax returns is something we all face. But being a student with no budget to hire a CA firm, many turn to AI. Generic models struggle with the NBR portal UI and hallucinate balance sheet math.
+              </p>
+              <p>
+                This skill equips your LLM with the Income Tax Act 2023, guides you through every screen, and uses a deterministic Python engine to ensure your balance sheet difference is exactly 0.00 while keeping tax expense at minimum.
+              </p>
+            </div>
+            <Link
+              href="/projects/youth-tax-calculator"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-white/60 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors w-fit mt-auto"
+            >
+              View Project
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-3 h-3" />
+            </Link>
+          </div>
+
+          {/* Right col — tool tags + feature list + python snippet */}
+          <div className="p-5 sm:p-6 md:p-8 flex flex-col justify-between gap-5">
+            {/* Tools */}
+            <div>
+              <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
+                Tools & Standards
+              </p>
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                {[
+                  "AI Agent Skill",
+                  "Python 3 Engine",
+                  "Income Tax Act 2023",
+                  "etaxnbr.gov.bd",
+                  "Form IT-10B",
+                  "MIT License",
+                ].map((tool) => (
+                  <span
+                    key={tool}
+                    className="text-[11px] sm:text-xs font-medium bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 px-2.5 py-1 rounded-lg"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Features */}
+            <div>
+              <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2.5 sm:mb-3">
+                Core Outcomes
+              </p>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { icon: faScaleBalanced, text: "Keeps tax expense at minimum (0 BDT floor under 4,00,000 BDT)" },
+                  { icon: faMoneyBill, text: "100% bank TDS refund with direct claiming guidance" },
+                  { icon: faFileLines, text: "Zero-difference balance sheet math via Section 56(g)" },
+                  { icon: faShieldHalved, text: "Prevents NBR e-Return portal errors & audit flags" },
+                ].map((f) => (
+                  <div
+                    key={f.text}
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    <span className="mt-0.5 shrink-0"><FontAwesomeIcon icon={f.icon} className="w-4 h-4 text-accent-text" aria-hidden="true" /></span>
+                    <span className="leading-snug">{f.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Run / Python Engine snippet (Yellow highlighted position) */}
+            <div className="mt-auto pt-2">
+              <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2">
+                Standalone Engine
+              </p>
+              <div className="flex items-center justify-between gap-2.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-gray-900 dark:bg-black border border-gray-800 font-mono text-xs shadow-inner">
+                <div className="flex items-center gap-2 text-emerald-400 min-w-0 overflow-x-auto no-scrollbar">
+                  <span className="text-gray-500 select-none">$</span>
+                  <span className="text-gray-100 font-semibold truncate">python calculator.py</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyCode("python calculator.py", "tax-cli")}
+                  aria-label="Copy python command"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition-colors shrink-0 text-[11px] font-sans font-medium"
+                >
+                  {copiedId === "tax-cli" ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedId === "tax-cli" ? "Copied!" : "Copy"}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM: footer note */}
+        <div className="px-5 sm:px-6 md:px-8 py-3.5 sm:py-4 border-t border-gray-200 dark:border-gray-800/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            Open source on GitHub with 1-click installation for Windows and macOS.
+          </p>
+          <a
+            href="https://github.com/zaifears/youth-tax-calculator"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+          >
+            <span>github.com/zaifears/youth-tax-calculator</span>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-2.5 h-2.5" />
+          </a>
         </div>
       </motion.div>
 

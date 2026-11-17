@@ -80,6 +80,11 @@ const nextConfig = {
         destination: '/llms.txt',
         permanent: true,
       },
+      {
+        source: '/projects/tapo-viewer',
+        destination: '/projects/tapfeed',
+        permanent: true,
+      },
     ];
   },
 

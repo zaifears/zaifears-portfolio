@@ -148,31 +148,33 @@ const projects: ProjectItem[] = [
     },
   },
   {
-    id: 'tapo-viewer',
-    name: 'Tapo-Viewer',
+    id: 'tapfeed',
+    name: 'TapFeed (formerly Tapo-Viewer)',
     category: 'Systems & IoT Software · Windows Desktop App',
     role: 'Sole Architect & Desktop Developer',
     problem:
-      'TP-Link Tapo smart home security cameras lack an official, responsive standalone Windows desktop application for viewing local RTSP feeds, searching MicroSD timeline history, and archiving video footage without mandatory, recurring cloud subscription fees (Tapo Care).',
+      'TP-Link Tapo smart home security cameras lack an official, responsive standalone Windows desktop application for viewing local RTSP feeds, controlling motorized pan and tilt, searching MicroSD timeline history, and archiving video footage without mandatory, recurring cloud subscription fees (Tapo Care).',
     solution:
-      'Created a standalone 64-bit Windows desktop application that connects directly to cameras via local Wi-Fi / LAN, guaranteeing 100% data privacy with zero third-party cloud routing. Features an interactive recording calendar and motion-event timeline to query and browse onboard MicroSD recordings directly, coupled with an asynchronous download manager and automated FFmpeg MP4 remuxing with AAC audio.',
+      'Architected a native 64-bit Windows 10/11 desktop application built with Rust, Tauri 2, embedded libmpv video playback, and PyTapo that connects directly to cameras via local Wi-Fi / LAN, guaranteeing 100% data privacy with zero third-party cloud routing. Features HD/SD live view with sound and screenshots, motorized pan-and-tilt controls with saved positions, a two-login fallback system (Camera Account + Tapo app password) stored optionally in Windows Credential Manager, an interactive recording calendar, direct .ts clip downloads, plain-language error diagnostics, and single-file JSON localization.',
     businessImpact: [
-      '100% local on-premise privacy: credentials and video feeds never leave the user’s local network.',
-      'Eliminated reliance on paid cloud subscriptions for retrieving and archiving continuous security recordings.',
-      'Shipped as a standalone, portable Windows .exe requiring no Python runtime or developer tools.',
+      '76% binary size reduction (62 MB vs. 264 MB in Tapo-Viewer 1.x) and ~10x faster startup (~3 seconds vs. 24–47 seconds), eliminating the 610 MB temp-folder unpack on every launch.',
+      '100% local on-premise privacy: camera traffic stays strictly on the local network and passwords stay in Windows Credential Manager only when requested.',
+      'Seamless upgrade path: automatically migrates existing Tapo-Viewer 1.x settings, saved Windows Credential Manager passwords, and language files on first launch.',
+      'Eliminated reliance on paid Tapo Care cloud subscriptions or resource-heavy Android emulators (BlueStacks) for live monitoring, pan/tilt, and MicroSD clip retrieval.',
     ],
     technologies: [
-      'Python 3.10+',
-      'PyTapo Protocol Client',
-      'FFmpeg Integration (MP4/AAC remuxing)',
-      'Tkinter / Custom UI',
+      'Rust',
+      'Tauri 2',
+      'libmpv (Embedded Video Player)',
+      'Python 3.10+ & PyTapo v3.4.31',
+      'Windows Credential Manager',
       'Windows 10/11 Architecture',
       'MIT License',
     ],
     links: {
-      showcase: '/projects/tapo-viewer',
-      github: 'https://github.com/zaifears/tapo-viewer',
-      live: 'https://github.com/zaifears/tapo-viewer/releases/latest',
+      showcase: '/projects/tapfeed',
+      github: 'https://github.com/zaifears/TapFeed',
+      live: 'https://github.com/zaifears/tapfeed/releases/latest',
     },
   },
   {
@@ -261,7 +263,7 @@ export default function AiPage() {
     url: 'https://shahoriar.bd/ai',
     name: 'AI & Executive Profile | Md Al Shahoriar Hossain',
     dateCreated: '2026-06-27T00:00:00+06:00',
-    dateModified: '2026-11-09T00:00:00+06:00',
+    dateModified: '2026-11-17T00:00:00+06:00',
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [
