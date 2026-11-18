@@ -126,22 +126,32 @@ const supportedCameraCategories: CameraCategory[] = [
 ];
 
 export const metadata: Metadata = {
-  title: "TapFeed (Tapo-Viewer): Tapo Camera Desktop App for Windows",
+  title: "TapFeed (Tapo-Viewer): Free Tapo App for PC & Windows 11/10",
   description:
-    "TapFeed (formerly Tapo-Viewer) is a free Windows 10 and 11 app for TP-Link Tapo cameras: live HD and SD view, SD card recording downloads, and pan and tilt.",
+    "Looking for a Tapo app for PC? TapFeed (formerly Tapo-Viewer) is a free Windows 11 and 10 desktop app for TP-Link Tapo cameras with live HD view, PTZ control, and microSD downloads.",
   keywords: [
+    "tapo app for pc",
+    "tapo-viewer",
+    "tapo windows app",
+    "tapo app for pc free download",
+    "tapo app for windows",
+    "tapo viewer",
+    "tapo camera pc app",
+    "tapo desktop app",
+    "tapo pc app",
+    "tapo web viewer",
+    "does tapo have a desktop app",
+    "download tapo camera app for windows 11 free",
+    "tapo app pc",
+    "tapo app windows",
+    "tapo app windows 11",
     "TapFeed",
     "TapFeed.exe",
     "TapFeed download",
-    "Tapo-Viewer",
-    "Tapo Viewer download",
     "Tapo camera viewer for Windows",
-    "Tapo desktop app",
     "Tapo app for desktop",
     "Tapo app for laptop",
     "Tapo camera software for Windows",
-    "Tapo EXE download",
-    "Tapo camera viewer for PC",
     "Tapo MicroSD recording download",
     "Tapo PTZ control Windows PC",
     "TP-Link Tapo Windows app",
@@ -150,42 +160,55 @@ export const metadata: Metadata = {
     "Tapo C500 desktop app",
     "Tapo C520WS PC app",
     "Tapo C210 Windows 11",
-    "Tapo C100 RTSP PC",
-    "Tapo C110 desktop",
-    "Tapo C220 PC download",
-    "Tapo C225 Windows",
-    "Tapo C320WS desktop viewer",
-    "Tapo C325WB PC app",
-    "Tapo C120 PC app",
-    "Tapo C125 desktop",
-    "Tapo TC70 Windows",
-    "Tapo TC65 PC viewer",
   ],
   alternates: { canonical: `${baseUrl}/projects/tapfeed` },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: `${baseUrl}/projects/tapfeed`,
-    title: "TapFeed (formerly Tapo-Viewer): Tapo Camera Viewer for Windows",
+    title: "TapFeed (Tapo-Viewer): Free Tapo App for PC & Windows 11/10",
     description:
-      "Tapo camera viewer for Windows: live HD and SD view, SD card recordings calendar, .ts downloads, and pan and tilt. 62 MB portable app, opens in ~3s.",
+      "Free Tapo app for PC and Windows 11/10: live HD and SD camera view, microSD card recording calendar, direct .ts downloads, and pan and tilt controls.",
     images: [
       {
-        url: "/projects/tapfeed/TapFeed.png",
-        width: 1000,
-        height: 1000,
-        alt: "TapFeed logo: a white Tapo-style pan and tilt camera on a blue circle",
+        url: "/projects/tapfeed/opengraph-image?v=2",
+        width: 1200,
+        height: 630,
+        alt: "TapFeed (Tapo-Viewer): Free Tapo Camera App for PC and Windows 11/10",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TapFeed (formerly Tapo-Viewer): Tapo Camera Viewer for Windows",
+    title: "TapFeed (Tapo-Viewer): Free Tapo App for PC & Windows 11/10",
     description:
-      "Tapo camera viewer for Windows: live HD and SD view, SD card recordings calendar, .ts downloads, and pan and tilt.",
-    images: ["/projects/tapfeed/TapFeed.png"],
+      "Free Tapo app for PC and Windows 11/10: live HD and SD camera view, microSD card recording calendar, direct .ts downloads, and pan and tilt controls.",
+    images: ["/projects/tapfeed/opengraph-image?v=2"],
   },
 };
+
+const tapfeedFaqs = [
+  {
+    question: "Does Tapo have a desktop app for PC and Windows 11?",
+    answer:
+      "TP-Link does not release an official Tapo desktop app for Windows 10 or Windows 11, and there is no built-in Tapo web viewer inside the camera firmware. TapFeed (formerly Tapo-Viewer) fills that gap as a free, open-source Tapo app for PC that streams live HD or SD video, controls motorized pan and tilt cameras, and downloads microSD recordings directly over your local Wi-Fi or Ethernet network.",
+  },
+  {
+    question: "How do I download the Tapo camera app for Windows 11 or 10 for free?",
+    answer:
+      "Download the portable TapFeed.exe file (62 MB) from the official GitHub Releases page. TapFeed is completely free under the MIT License, requires no installer or Tapo Care subscription, and starts in about 3 seconds on Windows 10 and Windows 11 (64-bit).",
+  },
+  {
+    question: "Is there a Tapo web viewer or PC viewer that downloads microSD card recordings?",
+    answer:
+      "RTSP players like VLC can only show a live video stream and cannot browse or download recordings stored on the camera's microSD card. TapFeed acts as a complete Tapo PC viewer with an interactive monthly calendar that marks every day with saved footage and downloads clips directly to your computer as loss-free .ts video files.",
+  },
+  {
+    question: "How do I watch my Tapo camera on PC without an Android emulator like BlueStacks?",
+    answer:
+      "Enable your Camera Account inside the Tapo mobile app (Camera Settings, Advanced Settings, Camera Account), note your camera's local IP address under Device Info, and open TapFeed.exe on your Windows PC. Enter the camera IP, Camera Account username and password, and optional Tapo app password to view live video and control pan and tilt without running an Android emulator.",
+  },
+];
 
 export default function TapFeedPage() {
   return (
@@ -197,7 +220,14 @@ export default function TapFeedPage() {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
             name: "TapFeed",
-            alternateName: ["Tapo-Viewer", "TapFeed.exe", "Tapo-Viewer.exe"],
+            alternateName: [
+              "Tapo-Viewer",
+              "Tapo Viewer",
+              "TapFeed.exe",
+              "Tapo-Viewer.exe",
+              "Tapo App for PC",
+              "Tapo Windows App",
+            ],
             url: `${baseUrl}/projects/tapfeed`,
             applicationCategory: "MultimediaApplication",
             operatingSystem: "Windows 10, Windows 11 (64-bit)",
@@ -252,6 +282,24 @@ export default function TapFeedPage() {
         }}
       />
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: tapfeedFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            })),
+          }),
+        }}
+      />
+
       <div className="mx-auto max-w-6xl space-y-20 sm:space-y-28 pb-16">
         {/* 1. Hero (Stage posture) */}
         <section className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12 pt-2">
@@ -269,13 +317,13 @@ export default function TapFeedPage() {
                   TapFeed
                 </h1>
                 <p className="mt-1.5 text-sm text-muted">
-                  Previously named <strong className="font-semibold text-ink">Tapo-Viewer</strong>
+                  Tapo App for PC, previously named <strong className="font-semibold text-ink">Tapo-Viewer</strong>
                 </p>
               </div>
             </div>
 
             <p className="text-lg sm:text-xl leading-relaxed text-ink-2">
-              Watch your TP-Link Tapo camera live in HD, turn pan and tilt models, and save microSD card recordings to your Windows PC over your home network.
+              Free Tapo desktop app for Windows 11 and 10 to watch live HD streams, turn pan and tilt cameras, and save microSD recordings to your PC.
             </p>
 
             <div className="flex flex-wrap items-center gap-3">
@@ -346,11 +394,11 @@ export default function TapFeedPage() {
 
           <div className="pt-8 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] items-start">
             <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
-              What is TapFeed?
+              Does TP-Link Tapo have a desktop app for PC?
             </h2>
             <div className="space-y-3 text-base leading-relaxed text-ink-2">
               <p>
-                <strong className="font-semibold text-ink">TapFeed</strong> (previously named <strong className="font-semibold text-ink">Tapo-Viewer</strong>) is a free, open-source Windows 10 and 11 desktop application for TP-Link Tapo security cameras. Built with Rust, Tauri 2, embedded <code className="font-mono text-ink">libmpv</code> video playback, and <code className="font-mono text-ink">PyTapo</code> (v3.4.31), it shows live video with sound and screenshots, lists recordings on the camera&apos;s microSD card by day, downloads clips as <code className="font-mono text-ink">.ts</code> files to your PC, and turns motorized pan and tilt cameras over your home network with no Tapo Care subscription or Android emulator.
+                TP-Link does not release an official <strong className="font-semibold text-ink">Tapo app for PC</strong> or a built-in <strong className="font-semibold text-ink">Tapo web viewer</strong> for Windows 11 and Windows 10. <strong className="font-semibold text-ink">TapFeed</strong> (previously named <strong className="font-semibold text-ink">Tapo-Viewer</strong>) is a free, open-source <strong className="font-semibold text-ink">Tapo camera PC app</strong> built with Rust, Tauri 2, embedded <code className="font-mono text-ink">libmpv</code> video playback, and <code className="font-mono text-ink">PyTapo</code> (v3.4.31). It streams live HD or SD video with sound and screenshots, lists recordings on the camera&apos;s microSD card by day, downloads clips as <code className="font-mono text-ink">.ts</code> files to your computer, and turns motorized pan and tilt cameras over your home network with no Tapo Care subscription or Android emulator.
               </p>
               <p>
                 On first start, TapFeed automatically copies your existing Tapo-Viewer settings, saved passwords from Windows Credential Manager, and language files, keeping your downloaded recordings where they are. Versions up to 1.1.3 are named <code className="font-mono text-ink">Tapo-Viewer.exe</code>; v2.0 and newer ship as <code className="font-mono text-ink">TapFeed.exe</code>.
@@ -709,7 +757,32 @@ export default function TapFeedPage() {
           </div>
         </section>
 
-        {/* 9. Colophon / Closing Band */}
+        {/* 9. FAQ: Common Searches for Tapo App for PC & Windows 11 */}
+        <section className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] items-start">
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-ink">
+              Tapo PC app questions and answers
+            </h2>
+            <p className="mt-3 text-base text-ink-2">
+              Direct answers for Windows 11 and Windows 10 users setting up a TP-Link Tapo desktop viewer.
+            </p>
+          </div>
+
+          <dl className="divide-y divide-rule border-t border-b border-rule">
+            {tapfeedFaqs.map((faq) => (
+              <div key={faq.question} className="py-6 space-y-2">
+                <dt className="text-lg font-semibold text-ink">
+                  {faq.question}
+                </dt>
+                <dd className="text-sm sm:text-base leading-relaxed text-ink-2">
+                  {faq.answer}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        {/* 10. Colophon / Closing Band */}
         <section className="panel p-6 sm:p-10 space-y-4">
           <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
             Credits and support
