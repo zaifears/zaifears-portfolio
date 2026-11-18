@@ -11,7 +11,7 @@ export default async function Image() {
     tagPill: 'Free Windows 11 & 10 App',
     headline: 'TapFeed (Tapo-Viewer)',
     headlineSize: '96px',
-    imagePath: 'public/projects/tapfeed/TapFeed.png',
+    publicAssetPath: 'projects/tapfeed/TapFeed.png',
     imageFit: 'logo',
     footerTitle: 'Free & Open Source Tapo App for PC',
     footerSubtitle: 'Live HD View, PTZ Controls & MicroSD Downloads',

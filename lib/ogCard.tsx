@@ -15,7 +15,7 @@ export interface HallmarkOgCardProps {
   headlineSize?: string;
   footerTitle?: string;
   footerSubtitle?: string;
-  imagePath?: string;
+  publicAssetPath?: string;
   imageFit?: 'portrait' | 'logo';
 }
 
@@ -27,17 +27,19 @@ export async function renderHallmarkOgCard({
   headlineSize,
   footerTitle = 'Md Al Shahoriar Hossain',
   footerSubtitle = 'Audit Associate at EY Bangladesh, CA Candidate (ICAB), BUP',
-  imagePath = 'public/shahoriar-hossain.png',
+  publicAssetPath = 'shahoriar-hossain.png',
   imageFit = 'portrait',
 }: HallmarkOgCardProps): Promise<ImageResponse> {
   const [coolveticaFont, portraitBuffer] = await Promise.all([
     readFile(path.join(process.cwd(), 'public/fonts/Coolvetica-Regular.otf')),
-    readFile(path.join(process.cwd(), imagePath)),
+    readFile(path.join(process.cwd(), 'public', publicAssetPath)),
   ]);
 
-  const ext = imagePath.toLowerCase().endsWith('.jpg') || imagePath.toLowerCase().endsWith('.jpeg')
-    ? 'jpeg'
-    : 'png';
+  const ext =
+    publicAssetPath.toLowerCase().endsWith('.jpg') ||
+    publicAssetPath.toLowerCase().endsWith('.jpeg')
+      ? 'jpeg'
+      : 'png';
   const portraitBase64 = `data:image/${ext};base64,${portraitBuffer.toString('base64')}`;
   const computedHeadlineSize =
     headlineSize ||

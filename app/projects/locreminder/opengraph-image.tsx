@@ -10,7 +10,7 @@ export default async function Image() {
     tagPill: 'Free Android GPS Alarm',
     headline: 'LocReminder',
     headlineSize: '108px',
-    imagePath: 'public/projects/locreminder/icon.png',
+    publicAssetPath: 'projects/locreminder/icon.png',
     imageFit: 'logo',
     footerTitle: 'Location-Based Alarm for Android',
     footerSubtitle: '100% Free & Open Source, Offline Maps, Zero Tracking',
