@@ -68,15 +68,15 @@ export default function HeroSection() {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] items-center gap-8 md:gap-12">
-        {/* Portrait: a cutout set in a large rounded blue tile */}
+        {/* Portrait: a cutout set in a large rounded studio-white tile */}
         <motion.div
           variants={itemVariants}
           initial="visible"
           animate={animationsEnabled ? "visible" : "hidden"}
-          className="relative mx-auto w-full max-w-72 sm:max-w-sm md:max-w-none aspect-square overflow-hidden rounded-panel bg-accent md:order-2"
+          className="relative mx-auto w-full max-w-72 sm:max-w-sm md:max-w-none aspect-square overflow-hidden rounded-panel border border-rule bg-slate-100 md:order-2"
         >
           <Image
-            src="/shahoriar_portfolio.png"
+            src="/shahoriar-hossain.png"
             alt="Md Al Shahoriar Hossain portrait"
             fill
             className="object-contain object-bottom"

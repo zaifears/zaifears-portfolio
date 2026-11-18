@@ -14,11 +14,20 @@ export const metadata: Metadata = {
     url: 'https://shahoriar.bd/education',
     siteName: 'Md Al Shahoriar Hossain',
     type: 'website',
+    images: [
+      {
+        url: '/education/opengraph-image?v=2',
+        width: 1200,
+        height: 630,
+        alt: 'Education and Qualifications: Md Al Shahoriar Hossain',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Education & Academic Qualifications | Md Al Shahoriar Hossain',
     description: 'Academic background, BBA in Finance & Banking at BUP, and CA Professional Level studies at ICAB.',
+    images: ['/education/opengraph-image?v=2'],
   },
 };
 

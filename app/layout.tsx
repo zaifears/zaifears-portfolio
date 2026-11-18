@@ -102,10 +102,10 @@ export const metadata: Metadata = {
     type: 'profile',
     images: [
       {
-        url: '/opengraph-image.png',
+        url: '/opengraph-image?v=2',
         width: 1200,
         height: 630,
-        alt: 'Md Al Shahoriar Hossain — Audit Associate and Web Developer',
+        alt: 'Md Al Shahoriar Hossain | Audit Associate and Web Developer',
       },
     ],
   },
@@ -115,7 +115,7 @@ export const metadata: Metadata = {
     title: 'Md Al Shahoriar Hossain | Portfolio',
     description:
       'Professional portfolio of Md Al Shahoriar Hossain, an Audit Associate at EY Bangladesh, covering finance, technology, and professional insights.',
-    images: ['/opengraph-image.png'],
+    images: ['/opengraph-image?v=2'],
   },
 
   robots: {

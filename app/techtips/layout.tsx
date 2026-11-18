@@ -16,12 +16,21 @@ export const metadata: Metadata = {
     url: `${baseUrl}/techtips`,
     siteName: 'Md Al Shahoriar Hossain',
     type: 'website',
+    images: [
+      {
+        url: '/techtips/opengraph-image?v=2',
+        width: 1200,
+        height: 630,
+        alt: 'Tech Tips and Utilities: Md Al Shahoriar Hossain',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Tech Tips & Utilities | Md Al Shahoriar Hossain',
     description:
       'Curated collection of favorite software, productivity utilities, browser extensions, and developer scripts by Md Al Shahoriar Hossain.',
+    images: ['/techtips/opengraph-image?v=2'],
   },
 };
 

@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="public/shahoriar_portfolio.png" alt="Md Al Shahoriar Hossain" width="130" style="border-radius: 50%;" />
+  <img src="public/shahoriar-hossain.png" alt="Md Al Shahoriar Hossain" width="130" style="border-radius: 50%;" />
 
   <h1>Md Al Shahoriar Hossain</h1>
 

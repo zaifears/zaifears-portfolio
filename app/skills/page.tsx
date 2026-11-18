@@ -15,11 +15,20 @@ export const metadata: Metadata = {
     url: 'https://shahoriar.bd/skills',
     siteName: 'Md Al Shahoriar Hossain',
     type: 'website',
+    images: [
+      {
+        url: '/skills/opengraph-image?v=2',
+        width: 1200,
+        height: 630,
+        alt: 'Skills and Certifications: Md Al Shahoriar Hossain',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Skills & Certifications | Md Al Shahoriar Hossain',
     description: 'Workplace history, financial modeling, web engineering capabilities, and verified qualifications.',
+    images: ['/skills/opengraph-image?v=2'],
   },
 };
 

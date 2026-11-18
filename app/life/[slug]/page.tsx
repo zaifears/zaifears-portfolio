@@ -1,19 +1,36 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import type { ReactNode } from 'react';
+import { cache, type ReactNode } from 'react';
 import { getContentfulEntries } from '@/lib/contentfulClient';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import {
   BLOCKS,
   INLINES,
   MARKS,
-  type Document,
   type Node,
 } from '@contentful/rich-text-types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, CalendarDays, Clock } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faArrowLeft,
+  faArrowRight,
+  faCalendar,
+  faClock,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  buildNormalizedHeadingMap,
+  cleanTitle,
+  getCleanImageAlt,
+  getSmartExcerpt,
+  inferPostMeta,
+  richTextToSpacedPlainText,
+  toIsoDateTime,
+  truncateAtWord,
+  type ContentfulImage,
+  type ContentfulImageFile,
+  type LifeEvent,
+} from '@/lib/lifeHelpers';
 
 const baseUrl = 'https://shahoriar.bd';
 const siteName = 'Md Al Shahoriar Hossain';
@@ -21,47 +38,13 @@ const authorName = 'Md Al Shahoriar Hossain';
 
 export const revalidate = 60;
 
-interface ContentfulImageFile {
-  url: string;
-  details?: {
-    image?: {
-      width: number;
-      height: number;
-    };
-  };
-}
-
-interface ContentfulImage {
-  fields: {
-    file?: ContentfulImageFile;
-    title?: string;
-  };
-}
-
-interface LifeEventFields {
-  title: string;
-  date: string;
-  slug: string;
-  content: Document;
-  excerpt?: string;
-  seoTitle?: string;
-  seoDescription?: string;
-  coverImage?: ContentfulImage;
-}
-
-interface LifeEvent {
-  sys: {
-    updatedAt: string;
-  };
-  fields: LifeEventFields;
-}
-
 interface RelatedPost {
   fields: {
     title: string;
     date: string;
     slug: string;
     excerpt?: string;
+    category?: string;
   };
 }
 
@@ -82,28 +65,8 @@ interface EmbeddedAssetTarget {
   fields?: {
     file?: ContentfulImageFile;
     title?: string;
+    description?: string;
   };
-}
-
-function normalizeText(value: string): string {
-  return value.replace(/\s+/g, ' ').trim();
-}
-
-function toIsoDateTime(dateStr: string): string {
-  if (!dateStr) return dateStr;
-  return /^\d{4}-\d{2}-\d{2}$/.test(dateStr.trim())
-    ? `${dateStr.trim()}T00:00:00+06:00`
-    : dateStr;
-}
-
-function limitDescription(value: string, maxLength = 160): string {
-  const normalizedValue = normalizeText(value);
-
-  if (normalizedValue.length <= maxLength) {
-    return normalizedValue;
-  }
-
-  return `${normalizedValue.slice(0, maxLength - 1).trimEnd()}…`;
 }
 
 function formatDate(date: string): string {
@@ -116,26 +79,20 @@ function formatDate(date: string): string {
 
 function getImageUrl(coverImage?: ContentfulImage): string | undefined {
   const imageUrl = coverImage?.fields.file?.url;
-
-  if (!imageUrl) {
-    return undefined;
-  }
-
+  if (!imageUrl) return undefined;
   return imageUrl.startsWith('http') ? imageUrl : `https:${imageUrl}`;
 }
 
 function getPostTitle(event: LifeEvent): string {
-  return event.fields.seoTitle?.trim() || event.fields.title;
+  const raw = event.fields.seoTitle?.trim() || event.fields.title;
+  return cleanTitle(raw);
 }
 
 function getPostDescription(event: LifeEvent): string {
-  const contentText = documentToPlainTextString(event.fields.content);
-
-  return (
-    event.fields.seoDescription?.trim() ||
-    event.fields.excerpt?.trim() ||
-    limitDescription(contentText)
-  );
+  if (event.fields.seoDescription?.trim()) {
+    return truncateAtWord(event.fields.seoDescription, 160);
+  }
+  return getSmartExcerpt(event.fields, 160);
 }
 
 function isEmbeddedEntryTarget(value: unknown): value is EmbeddedEntryTarget {
@@ -148,26 +105,25 @@ function isEmbeddedAssetTarget(value: unknown): value is EmbeddedAssetTarget {
 
 function isUpdatedAfterPublished(event: LifeEvent): boolean {
   return (
-    new Date(event.sys.updatedAt).getTime() >
-    new Date(event.fields.date).getTime()
+    new Date(event.sys.updatedAt).getTime() -
+      new Date(event.fields.date).getTime() >
+    86400000
   );
 }
 
 function getYouTubeVideoId(url: string): string | null {
   try {
     const urlObject = new URL(url);
-
     if (urlObject.hostname === 'youtu.be') {
       return urlObject.pathname.slice(1);
     }
-
     return urlObject.searchParams.get('v');
   } catch {
     return null;
   }
 }
 
-async function getLifeEvent(slug: string): Promise<LifeEvent | null> {
+const getLifeEvent = cache(async (slug: string): Promise<LifeEvent | null> => {
   try {
     const response = await getContentfulEntries({
       content_type: 'zaifearsBlogPost',
@@ -177,23 +133,23 @@ async function getLifeEvent(slug: string): Promise<LifeEvent | null> {
     });
 
     const event = response.items[0];
-
     return event ? (event as unknown as LifeEvent) : null;
   } catch (error) {
     console.error('Failed to fetch blog post from Contentful:', error);
     return null;
   }
-}
+});
 
 async function getRelatedPosts(
-  currentSlug: string
+  currentSlug: string,
+  targetCategory: string
 ): Promise<RelatedPost[]> {
   try {
     const response = await getContentfulEntries({
       content_type: 'zaifearsBlogPost',
       'fields.slug[ne]': currentSlug,
       order: '-fields.date',
-      limit: 3,
+      limit: 12,
       select: [
         'fields.title',
         'fields.date',
@@ -202,7 +158,26 @@ async function getRelatedPosts(
       ],
     });
 
-    return response.items as unknown as RelatedPost[];
+    const candidates = (response.items as unknown as RelatedPost[]) || [];
+    const sameCategory: RelatedPost[] = [];
+    const otherCategory: RelatedPost[] = [];
+
+    for (const item of candidates) {
+      const meta = inferPostMeta({
+        title: item.fields.title,
+        date: item.fields.date,
+        slug: item.fields.slug,
+        content: { nodeType: BLOCKS.DOCUMENT, data: {}, content: [] },
+        excerpt: item.fields.excerpt,
+      });
+      if (meta.category === targetCategory) {
+        sameCategory.push(item);
+      } else {
+        otherCategory.push(item);
+      }
+    }
+
+    return [...sameCategory, ...otherCategory].slice(0, 3);
   } catch (error) {
     console.error('Failed to fetch related blog posts:', error);
     return [];
@@ -220,7 +195,6 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
     return response.items
       .map((item) => {
         const fields = item.fields as { slug?: unknown };
-
         return typeof fields.slug === 'string'
           ? { slug: fields.slug }
           : null;
@@ -253,11 +227,17 @@ export async function generateMetadata({
   const title = getPostTitle(event);
   const description = getPostDescription(event);
   const articleUrl = `${baseUrl}/life/${event.fields.slug}`;
-  const imageUrl = getImageUrl(event.fields.coverImage);
+  const ogImageUrl = `${baseUrl}/life/${event.fields.slug}/opengraph-image?v=2`;
+  const coverAlt = getCleanImageAlt(
+    event.fields.coverImage,
+    event.fields.title
+  );
+  const postMeta = inferPostMeta(event.fields);
 
   return {
     title,
     description,
+    keywords: postMeta.tags,
     alternates: {
       canonical: articleUrl,
     },
@@ -273,25 +253,25 @@ export async function generateMetadata({
       siteName,
       title,
       description,
+      section: postMeta.category,
+      tags: postMeta.tags,
       publishedTime: toIsoDateTime(event.fields.date),
       modifiedTime: toIsoDateTime(event.sys.updatedAt || event.fields.date),
       authors: [authorName],
-      ...(imageUrl
-        ? {
-            images: [
-              {
-                url: imageUrl,
-                alt: event.fields.coverImage?.fields.title || title,
-              },
-            ],
-          }
-        : {}),
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: coverAlt.alt,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      ...(imageUrl ? { images: [imageUrl] } : {}),
+      images: [ogImageUrl],
     },
     robots: {
       index: true,
@@ -313,47 +293,70 @@ export default async function LifePostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-
-  const [event, relatedPosts] = await Promise.all([
-    getLifeEvent(slug),
-    getRelatedPosts(slug),
-  ]);
+  const event = await getLifeEvent(slug);
 
   if (!event) {
     notFound();
   }
 
+  const postMeta = inferPostMeta(event.fields);
+  const relatedPosts = await getRelatedPosts(slug, postMeta.category);
+
+  const displayTitle = cleanTitle(event.fields.title);
   const postTitle = getPostTitle(event);
   const postDescription = getPostDescription(event);
   const postUrl = `${baseUrl}/life/${event.fields.slug}`;
   const imageUrl = getImageUrl(event.fields.coverImage);
-  const contentText = documentToPlainTextString(event.fields.content);
-  const wordCount = normalizeText(contentText)
-    .split(/\s+/)
-    .filter(Boolean).length;
+  const coverAlt = getCleanImageAlt(
+    event.fields.coverImage,
+    event.fields.title
+  );
+
+  const contentText = richTextToSpacedPlainText(event.fields.content);
+  const wordCount = contentText.split(/\s+/).filter(Boolean).length;
   const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
   const imageWidth =
     event.fields.coverImage?.fields.file?.details?.image?.width || 1200;
-
   const imageHeight =
     event.fields.coverImage?.fields.file?.details?.image?.height || 630;
+
+  const headingMap = buildNormalizedHeadingMap(event.fields.content);
+
+  const renderHeading = (nodeType: string, children: ReactNode) => {
+    const tag = headingMap[nodeType] || 'h2';
+    if (tag === 'h2') {
+      return (
+        <h2 className="mb-4 mt-12 text-2xl sm:text-3xl font-semibold text-ink">
+          {children}
+        </h2>
+      );
+    }
+    if (tag === 'h3') {
+      return (
+        <h3 className="mb-3 mt-10 text-xl sm:text-2xl font-semibold text-ink">
+          {children}
+        </h3>
+      );
+    }
+    return (
+      <h4 className="mb-3 mt-8 text-lg sm:text-xl font-semibold text-ink">
+        {children}
+      </h4>
+    );
+  };
 
   const renderOptions = {
     renderMark: {
       [MARKS.BOLD]: (text: ReactNode) => (
-        <strong className="font-semibold text-gray-900 dark:text-white">
-          {text}
-        </strong>
+        <strong className="font-semibold text-ink">{text}</strong>
       ),
-      [MARKS.ITALIC]: (text: ReactNode) => (
-        <em className="italic">{text}</em>
-      ),
+      [MARKS.ITALIC]: (text: ReactNode) => <em className="italic">{text}</em>,
       [MARKS.UNDERLINE]: (text: ReactNode) => (
         <u className="underline">{text}</u>
       ),
       [MARKS.CODE]: (text: ReactNode) => (
-        <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+        <code className="rounded-control bg-paper-2 px-1.5 py-0.5 font-mono text-sm text-ink">
           {text}
         </code>
       ),
@@ -361,55 +364,30 @@ export default async function LifePostPage({
 
     renderNode: {
       [BLOCKS.PARAGRAPH]: (_node: Node, children: ReactNode) => (
-        <p className="my-4 leading-relaxed text-gray-700 dark:text-gray-300">
-          {children}
-        </p>
+        <p className="my-4 leading-relaxed text-ink-2">{children}</p>
       ),
 
-      [BLOCKS.HEADING_1]: (_node: Node, children: ReactNode) => (
-        <h2 className="mb-4 mt-12 text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {children}
-        </h2>
-      ),
-
-      [BLOCKS.HEADING_2]: (_node: Node, children: ReactNode) => (
-        <h3 className="mb-4 mt-10 text-xl md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {children}
-        </h3>
-      ),
-
-      [BLOCKS.HEADING_3]: (_node: Node, children: ReactNode) => (
-        <h4 className="mb-3 mt-8 text-lg md:text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {children}
-        </h4>
-      ),
-
-      [BLOCKS.HEADING_4]: (_node: Node, children: ReactNode) => (
-        <h5 className="mb-2 mt-6 text-base font-bold tracking-tight text-gray-900 dark:text-white">
-          {children}
-        </h5>
-      ),
-
-      [BLOCKS.HEADING_5]: (_node: Node, children: ReactNode) => (
-        <h6 className="mb-2 mt-4 text-sm font-bold tracking-tight text-gray-900 dark:text-white">
-          {children}
-        </h6>
-      ),
-
-      [BLOCKS.HEADING_6]: (_node: Node, children: ReactNode) => (
-        <h6 className="mb-2 mt-4 text-xs font-semibold text-gray-900 dark:text-white">
-          {children}
-        </h6>
-      ),
+      [BLOCKS.HEADING_1]: (_node: Node, children: ReactNode) =>
+        renderHeading(BLOCKS.HEADING_1, children),
+      [BLOCKS.HEADING_2]: (_node: Node, children: ReactNode) =>
+        renderHeading(BLOCKS.HEADING_2, children),
+      [BLOCKS.HEADING_3]: (_node: Node, children: ReactNode) =>
+        renderHeading(BLOCKS.HEADING_3, children),
+      [BLOCKS.HEADING_4]: (_node: Node, children: ReactNode) =>
+        renderHeading(BLOCKS.HEADING_4, children),
+      [BLOCKS.HEADING_5]: (_node: Node, children: ReactNode) =>
+        renderHeading(BLOCKS.HEADING_5, children),
+      [BLOCKS.HEADING_6]: (_node: Node, children: ReactNode) =>
+        renderHeading(BLOCKS.HEADING_6, children),
 
       [BLOCKS.UL_LIST]: (_node: Node, children: ReactNode) => (
-        <ul className="my-4 list-disc space-y-2 pl-6 text-gray-700 marker:text-blue-500 dark:text-gray-300">
+        <ul className="my-4 list-disc space-y-2 pl-6 text-ink-2 marker:text-accent">
           {children}
         </ul>
       ),
 
       [BLOCKS.OL_LIST]: (_node: Node, children: ReactNode) => (
-        <ol className="my-4 list-decimal space-y-2 pl-6 text-gray-700 marker:text-blue-500 dark:text-gray-300">
+        <ol className="my-4 list-decimal space-y-2 pl-6 text-ink-2 marker:text-accent">
           {children}
         </ol>
       ),
@@ -419,68 +397,50 @@ export default async function LifePostPage({
       ),
 
       [BLOCKS.QUOTE]: (_node: Node, children: ReactNode) => (
-        <blockquote className="my-6 rounded-r-lg border-l-4 border-blue-500 bg-blue-50/50 py-2 pl-4 text-gray-700 not-italic dark:border-blue-400 dark:bg-blue-900/15 dark:text-gray-300">
+        <blockquote className="my-6 rounded-card border border-rule bg-accent-soft px-6 py-4 text-ink-2 not-italic">
           {children}
         </blockquote>
       ),
 
-      [BLOCKS.HR]: () => (
-        <hr className="my-8 border-gray-200 dark:border-gray-800" />
-      ),
+      [BLOCKS.HR]: () => <hr className="my-8 border-rule" />,
 
       [BLOCKS.TABLE]: (_node: Node, children: ReactNode) => (
         <div className="my-6 overflow-x-auto">
-          <table className="w-full border-collapse border border-gray-200 text-left text-sm text-gray-700 dark:border-gray-800 dark:text-gray-300">
+          <table className="w-full border-t border-b border-rule text-left text-sm text-ink-2">
             {children}
           </table>
         </div>
       ),
 
       [BLOCKS.TABLE_ROW]: (_node: Node, children: ReactNode) => (
-        <tr className="border-b border-gray-200 dark:border-gray-800">
-          {children}
-        </tr>
+        <tr className="border-b border-rule">{children}</tr>
       ),
 
       [BLOCKS.TABLE_HEADER_CELL]: (_node: Node, children: ReactNode) => (
-        <th className="border border-gray-200 bg-gray-50 p-3 font-semibold text-gray-900 dark:border-gray-800 dark:bg-gray-800/60 dark:text-white">
-          {children}
-        </th>
+        <th className="bg-paper-2 p-3 font-semibold text-ink">{children}</th>
       ),
 
       [BLOCKS.TABLE_CELL]: (_node: Node, children: ReactNode) => (
-        <td className="border border-gray-200 p-3 text-gray-700 dark:border-gray-800 dark:text-gray-300">
-          {children}
-        </td>
+        <td className="p-3 text-ink-2">{children}</td>
       ),
 
       [BLOCKS.EMBEDDED_ENTRY]: (node: Node) => {
         const target = node.data?.target;
-
-        if (!isEmbeddedEntryTarget(target)) {
-          return null;
-        }
+        if (!isEmbeddedEntryTarget(target)) return null;
 
         const contentTypeId = target.sys?.contentType?.sys?.id;
-
-        if (contentTypeId !== 'video') {
-          return null;
-        }
+        if (contentTypeId !== 'video') return null;
 
         const youtubeUrl = target.fields?.youtubeUrl;
-
-        if (!youtubeUrl) {
-          return null;
-        }
+        if (!youtubeUrl) return null;
 
         const videoId = getYouTubeVideoId(youtubeUrl);
-
         if (!videoId) {
-          return <p>Could not load the embedded YouTube video.</p>;
+          return <p className="text-muted">Could not load the embedded YouTube video.</p>;
         }
 
         return (
-          <div className="relative my-8 aspect-video overflow-hidden rounded-xl">
+          <div className="relative my-8 aspect-video overflow-hidden rounded-card border border-rule bg-paper-3">
             <iframe
               className="absolute left-0 top-0 h-full w-full"
               src={`https://www.youtube.com/embed/${videoId}`}
@@ -494,46 +454,36 @@ export default async function LifePostPage({
 
       [BLOCKS.EMBEDDED_ASSET]: (node: Node) => {
         const target = node.data?.target;
-
-        if (!isEmbeddedAssetTarget(target)) {
-          return null;
-        }
+        if (!isEmbeddedAssetTarget(target)) return null;
 
         const file = target.fields?.file;
-        const imageTitle = target.fields?.title || 'Embedded article image';
-
-        if (!file?.url) {
-          return null;
-        }
+        if (!file?.url) return null;
 
         const assetUrl = file.url.startsWith('http')
           ? file.url
           : `https:${file.url}`;
+        const assetAlt = getCleanImageAlt(
+          { fields: target.fields || {} },
+          displayTitle
+        );
 
         return (
           <figure className="my-8">
             <Image
               src={assetUrl}
-              alt={imageTitle}
+              alt={assetAlt.alt}
               width={file.details?.image?.width || 1200}
               height={file.details?.image?.height || 675}
-              className="h-auto w-full rounded-xl border border-gray-200 dark:border-gray-800"
+              sizes="(max-width: 1024px) 100vw, 896px"
+              className="h-auto w-full rounded-card border border-rule"
             />
-            {target.fields?.title && (
-              <figcaption className="mt-3 text-center text-sm text-gray-400 dark:text-gray-400">
-                {target.fields.title}
-              </figcaption>
-            )}
           </figure>
         );
       },
 
       [INLINES.HYPERLINK]: (node: Node, children: ReactNode) => {
         const uri = typeof node.data?.uri === 'string' ? node.data.uri : '';
-
-        if (!uri) {
-          return <>{children}</>;
-        }
+        if (!uri) return <>{children}</>;
 
         const isInternalLink =
           uri.startsWith('/') ||
@@ -543,7 +493,7 @@ export default async function LifePostPage({
         return (
           <a
             href={uri}
-            className="font-medium text-blue-600 underline underline-offset-2 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+            className="font-medium text-accent-text underline underline-offset-4 transition-colors"
             {...(!isInternalLink
               ? {
                   target: '_blank',
@@ -562,9 +512,13 @@ export default async function LifePostPage({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     '@id': `${postUrl}#article`,
-    headline: event.fields.title,
+    headline: displayTitle,
     name: postTitle,
     description: postDescription,
+    abstract: event.fields.tldr?.trim() || postDescription,
+    articleSection: postMeta.category,
+    keywords: postMeta.tags.join(', '),
+    articleBody: contentText,
     url: postUrl,
     inLanguage: 'en',
     isAccessibleForFree: true,
@@ -572,6 +526,9 @@ export default async function LifePostPage({
     dateModified: toIsoDateTime(event.sys.updatedAt || event.fields.date),
     wordCount,
     timeRequired: `PT${readingTime}M`,
+    ...(event.fields.externalUrl?.trim()
+      ? { sameAs: [event.fields.externalUrl.trim()] }
+      : {}),
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': postUrl,
@@ -580,6 +537,11 @@ export default async function LifePostPage({
       '@type': 'Person',
       '@id': `${baseUrl}/#person`,
       name: authorName,
+      jobTitle: 'Audit Associate and Software Developer',
+      worksFor: {
+        '@type': 'Organization',
+        name: 'Islam Hoque Hanif & Co. (EY Bangladesh)',
+      },
       url: baseUrl,
       sameAs: [
         'https://github.com/zaifears',
@@ -627,14 +589,14 @@ export default async function LifePostPage({
       {
         '@type': 'ListItem',
         position: 3,
-        name: event.fields.title,
+        name: displayTitle,
         item: postUrl,
       },
     ],
   };
 
   return (
-    <article className="mx-auto max-w-4xl overflow-x-hidden">
+    <article className="mx-auto max-w-4xl pt-2 pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -649,182 +611,238 @@ export default async function LifePostPage({
         }}
       />
 
-      <nav
-        aria-label="Breadcrumb"
-        className="mb-6 text-sm text-gray-500 dark:text-gray-400"
-      >
+      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted">
         <ol className="flex flex-wrap items-center gap-2">
           <li>
-            <Link
-              href="/"
-              className="transition-colors hover:text-blue-600 dark:hover:text-blue-400"
-            >
+            <Link href="/" className="transition-colors hover:text-accent-text">
               Home
             </Link>
           </li>
-
           <li aria-hidden="true">/</li>
-
           <li>
             <Link
               href="/life"
-              className="transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+              className="transition-colors hover:text-accent-text"
             >
               Life Journey
             </Link>
           </li>
-
           <li aria-hidden="true">/</li>
-
           <li
-            className="max-w-[18rem] truncate text-gray-700 dark:text-gray-200"
+            className="max-w-[20rem] truncate text-ink-2"
             aria-current="page"
           >
-            {event.fields.title}
+            {displayTitle}
           </li>
         </ol>
       </nav>
 
-      <Link
-        href="/life"
-        className="group mb-10 inline-flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-      >
-        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-        Back to Life Journey
-      </Link>
+      <header className="mb-10 space-y-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-text">
+            {postMeta.category}
+          </span>
+          {postMeta.tags.slice(0, 3).map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-rule bg-paper-2 px-3 py-1 text-xs text-muted"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
 
-      <header className="mb-10 text-center md:text-left">
-        <h1 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-[3.5rem]">
-          {event.fields.title}
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-tight text-ink">
+          {displayTitle}
         </h1>
 
-        {event.fields.excerpt && (
-          <p className="mx-auto mb-6 max-w-3xl text-lg leading-relaxed text-gray-600 dark:text-gray-300 md:mx-0">
-            {event.fields.excerpt}
-          </p>
-        )}
-
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-gray-500 dark:text-gray-400 md:justify-start">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted pt-1">
           <span className="inline-flex items-center gap-1.5">
-            <CalendarDays className="h-4 w-4" />
+            <FontAwesomeIcon
+              icon={faCalendar}
+              className="h-3.5 w-3.5"
+              aria-hidden="true"
+            />
             <time dateTime={event.fields.date}>
               Published {formatDate(event.fields.date)}
             </time>
           </span>
 
           {isUpdatedAfterPublished(event) && (
-            <span className="text-gray-400 dark:text-gray-500">
-              Updated {formatDate(event.sys.updatedAt)}
-            </span>
+            <span>Updated {formatDate(event.sys.updatedAt)}</span>
           )}
 
           <span className="inline-flex items-center gap-1.5">
-            <Clock className="h-4 w-4" />
-            {readingTime} min read
+            <FontAwesomeIcon
+              icon={faClock}
+              className="h-3.5 w-3.5"
+              aria-hidden="true"
+            />
+            <span>{readingTime} min read</span>
           </span>
         </div>
       </header>
 
+      {/* Optional Contentful Key Takeaways / TL;DR Block for GEO Citability */}
+      {(() => {
+        const takeawaysList = Array.isArray(event.fields.keyTakeaways)
+          ? event.fields.keyTakeaways.filter(Boolean)
+          : typeof event.fields.keyTakeaways === 'string'
+            ? event.fields.keyTakeaways
+                .split(/\r?\n/)
+                .map((line) => line.replace(/^[-•*]\s*/, '').trim())
+                .filter(Boolean)
+            : [];
+
+        if (!event.fields.tldr && takeawaysList.length === 0) return null;
+
+        return (
+          <section
+            aria-label="Key takeaways"
+            className="mb-10 panel p-6 sm:p-8 space-y-3"
+          >
+            <h2 className="text-lg font-semibold text-ink">Key takeaways</h2>
+            {takeawaysList.length > 0 ? (
+              <ul className="list-disc pl-5 space-y-1.5 text-sm sm:text-base text-ink-2 marker:text-accent">
+                {takeawaysList.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            ) : (
+              event.fields.tldr && (
+                <p className="text-sm sm:text-base leading-relaxed text-ink-2">
+                  {event.fields.tldr}
+                </p>
+              )
+            )}
+          </section>
+        );
+      })()}
+
       {imageUrl && (
         <figure className="mb-12">
-          <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800">
+          <div className="overflow-hidden rounded-card border border-rule bg-paper-2">
             <Image
               src={imageUrl}
-              alt={event.fields.coverImage?.fields.title || event.fields.title}
+              alt={coverAlt.alt}
               width={imageWidth}
               height={imageHeight}
-              className="h-auto w-full object-cover"
               priority
+              fetchPriority="high"
+              sizes="(max-width: 1024px) 100vw, 896px"
+              className="h-auto w-full object-cover"
             />
           </div>
-
-          {event.fields.coverImage?.fields.title && (
-            <figcaption className="mt-3 text-center text-sm text-gray-400 dark:text-gray-400">
-              {event.fields.coverImage.fields.title}
-            </figcaption>
-          )}
         </figure>
       )}
 
-      <div
-        className="prose max-w-none text-gray-700 dark:text-gray-300 leading-relaxed
-          [&_iframe]:max-w-full [&_pre]:overflow-x-auto [&_table]:overflow-x-auto"
-      >
+      <div className="prose max-w-none text-ink-2 leading-relaxed [&_iframe]:max-w-full [&_pre]:overflow-x-auto [&_table]:overflow-x-auto">
         {documentToReactComponents(event.fields.content, renderOptions)}
       </div>
+
+      {/* Connected Software Project Callout (Internal Link Equity) */}
+      {postMeta.relatedProject && (
+        <aside
+          aria-label="Related software project"
+          className="mt-12 panel p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+        >
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold text-ink">
+              {postMeta.relatedProject.name}
+            </h2>
+            <p className="text-sm text-ink-2 max-w-xl">
+              {postMeta.relatedProject.description}
+            </p>
+          </div>
+          <Link
+            href={postMeta.relatedProject.href}
+            className="btn-primary whitespace-nowrap shrink-0 self-start sm:self-center"
+          >
+            <span>View project</span>
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              className="h-3.5 w-3.5"
+              aria-hidden="true"
+            />
+          </Link>
+        </aside>
+      )}
 
       {relatedPosts.length > 0 && (
         <section
           aria-labelledby="related-posts-heading"
-          className="mt-16 border-t border-gray-200 pt-10 dark:border-gray-800"
+          className="mt-16 border-t border-rule pt-10"
         >
           <h2
             id="related-posts-heading"
-            className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+            className="text-2xl sm:text-3xl font-semibold text-ink"
           >
             Continue exploring
           </h2>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {relatedPosts.map((post) => (
-              <Link
-                key={post.fields.slug}
-                href={`/life/${post.fields.slug}`}
-                className="group rounded-xl border border-gray-200 p-5 transition-colors hover:border-blue-400 hover:bg-blue-50/50 dark:border-gray-800 dark:hover:border-blue-700 dark:hover:bg-blue-900/10"
-              >
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {formatDate(post.fields.date)}
-                </p>
+            {relatedPosts.map((post) => {
+              const relTitle = cleanTitle(post.fields.title);
+              return (
+                <Link
+                  key={post.fields.slug}
+                  href={`/life/${post.fields.slug}`}
+                  className="panel p-5 transition-colors hover:bg-paper-3 flex flex-col justify-between gap-3"
+                >
+                  <div>
+                    <p className="text-xs text-muted">
+                      {formatDate(post.fields.date)}
+                    </p>
 
-                <h3 className="mt-2 font-bold text-gray-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
-                  {post.fields.title}
-                </h3>
+                    <h3 className="mt-2 font-semibold text-ink">{relTitle}</h3>
 
-                {post.fields.excerpt && (
-                  <p className="mt-2 line-clamp-3 text-sm text-gray-600 dark:text-gray-300">
-                    {post.fields.excerpt}
-                  </p>
-                )}
-              </Link>
-            ))}
+                    {post.fields.excerpt && (
+                      <p className="mt-2 line-clamp-3 text-sm text-ink-2">
+                        {post.fields.excerpt.normalize('NFKC')}
+                      </p>
+                    )}
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-text">
+                    <span>Read story</span>
+                    <FontAwesomeIcon
+                      icon={faArrowRight}
+                      className="h-3 w-3"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </section>
       )}
 
-      <aside
-        aria-label="About the author"
-        className="mt-16 rounded-2xl border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-900/50"
-      >
+      {/* E-E-A-T Author Bio */}
+      <aside aria-label="About the author" className="mt-16 panel p-6 sm:p-8">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
           <Image
             src="/images/shahoriar-author.jpg"
             alt="Md Al Shahoriar Hossain"
             width={96}
             height={96}
-            className="h-20 w-20 rounded-full object-cover"
+            className="h-20 w-20 rounded-full object-cover shrink-0"
           />
 
-          <div className="flex-1">
-            <h2 className="mt-1 text-xl font-bold text-gray-900 dark:text-white">
+          <div className="flex-1 space-y-2">
+            <h2 className="text-xl font-semibold text-ink">
               Md Al Shahoriar Hossain
             </h2>
 
-            <p className="text-sm mt-1 text-blue-600 dark:text-blue-400">
-              About the author
+            <p className="text-sm leading-relaxed text-ink-2">
+              Audit Associate at <strong className="font-semibold text-ink">EY Bangladesh (Islam Hoque Hanif &amp; Co.)</strong>, Chartered Accountancy Professional Level candidate at <strong className="font-semibold text-ink">ICAB</strong>, and final-year BBA in Finance and Banking student at <strong className="font-semibold text-ink">Bangladesh University of Professionals (BUP)</strong>.
             </p>
 
-            <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
-              Finance professional, CA candidate, and developer building
-              practical digital products, fintech projects, and
-              portfolio-driven experiences.
-            </p>
-
-            <div className="mt-4 flex flex-wrap gap-4 text-sm">
+            <div className="pt-1 flex flex-wrap gap-4 text-sm">
               <a
                 href="https://www.linkedin.com/in/shahoriarhossain/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+                className="font-semibold text-accent-text underline underline-offset-4"
               >
                 LinkedIn
               </a>
@@ -833,14 +851,14 @@ export default async function LifePostPage({
                 href="https://github.com/zaifears"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+                className="font-semibold text-accent-text underline underline-offset-4"
               >
                 GitHub
               </a>
 
               <Link
                 href="/skills"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+                className="font-semibold text-accent-text underline underline-offset-4"
               >
                 Skills and projects
               </Link>
@@ -849,13 +867,14 @@ export default async function LifePostPage({
         </div>
       </aside>
 
-      <div className="mb-16 mt-16 border-t border-gray-200 pt-8 dark:border-gray-800 md:mb-0">
-        <Link
-          href="/life"
-          className="group inline-flex items-center gap-2 rounded-full bg-gray-100 px-5 py-2.5 text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-blue-900/20 dark:hover:text-blue-400"
-        >
-          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          All posts
+      <div className="mt-10">
+        <Link href="/life" className="btn-quiet whitespace-nowrap">
+          <FontAwesomeIcon
+            icon={faArrowLeft}
+            className="h-3.5 w-3.5"
+            aria-hidden="true"
+          />
+          <span>All posts</span>
         </Link>
       </div>
     </article>

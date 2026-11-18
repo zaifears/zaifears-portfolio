@@ -17,12 +17,21 @@ export const metadata: Metadata = {
     url: `${baseUrl}/projects`,
     siteName: 'Software Projects & Tools',
     type: 'website',
+    images: [
+      {
+        url: '/projects/opengraph-image?v=2',
+        width: 1200,
+        height: 630,
+        alt: 'Software Projects and Tools: Md Al Shahoriar Hossain',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Software Projects & Developer Tools',
     description:
       'A catalog of independent software products, statutory compliance engines, and desktop utilities spanning TapFeed (formerly Tapo-Viewer), LocReminder, Bangladesh Youth Tax Calculator, and financial simulators.',
+    images: ['/projects/opengraph-image?v=2'],
   },
 };
 

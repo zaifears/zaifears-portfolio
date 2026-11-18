@@ -32,10 +32,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/opengraph-image.png',
+        url: '/opengraph-image?v=2',
         width: 1200,
         height: 630,
-        alt: 'Md Al Shahoriar Hossain — Audit Associate and Web Developer',
+        alt: 'Md Al Shahoriar Hossain | Portfolio and Projects',
       },
     ],
   },
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: 'Md Al Shahoriar Hossain | Portfolio & Projects',
     description:
       'Audit Associate at EY Bangladesh, CA candidate, and developer. Explore financial analysis and software projects.',
-    images: ['/opengraph-image.png'],
+    images: ['/opengraph-image?v=2'],
   },
 };
 

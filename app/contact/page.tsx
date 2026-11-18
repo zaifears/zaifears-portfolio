@@ -15,11 +15,20 @@ export const metadata: Metadata = {
     url: 'https://shahoriar.bd/contact',
     siteName: 'Md Al Shahoriar Hossain',
     type: 'website',
+    images: [
+      {
+        url: '/contact/opengraph-image?v=2',
+        width: 1200,
+        height: 630,
+        alt: 'Contact and Collaboration: Md Al Shahoriar Hossain',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Contact & Collaboration | Md Al Shahoriar Hossain',
     description: 'Get in touch via email, LinkedIn, or schedule an online meeting.',
+    images: ['/contact/opengraph-image?v=2'],
   },
 };
 
