@@ -171,7 +171,7 @@ export const metadata: Metadata = {
       "Free Tapo app for PC and Windows 11/10: live HD and SD camera view, microSD card recording calendar, direct .ts downloads, and pan and tilt controls.",
     images: [
       {
-        url: "/projects/tapfeed/opengraph-image?v=2",
+        url: "/projects/tapfeed/opengraph-image?v=3",
         width: 1200,
         height: 630,
         alt: "TapFeed (Tapo-Viewer): Free Tapo Camera App for PC and Windows 11/10",
@@ -183,7 +183,7 @@ export const metadata: Metadata = {
     title: "TapFeed (Tapo-Viewer): Free Tapo App for PC & Windows 11/10",
     description:
       "Free Tapo app for PC and Windows 11/10: live HD and SD camera view, microSD card recording calendar, direct .ts downloads, and pan and tilt controls.",
-    images: ["/projects/tapfeed/opengraph-image?v=2"],
+    images: ["/projects/tapfeed/opengraph-image?v=3"],
   },
 };
 

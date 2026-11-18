@@ -57,10 +57,10 @@ export const metadata: Metadata = {
       "AI Agent Skill + deterministic statutory engine made for students and first-time tax filers in Bangladesh. Keeps tax expense at minimum, claims 100% TDS refunds, and achieves zero-difference balance sheets.",
     images: [
       {
-        url: "/projects/youth-tax-calculator/BD-Logos.png",
-        width: 1024,
-        height: 1024,
-        alt: "Bangladesh Youth Tax Calculator Logo",
+        url: "/projects/youth-tax-calculator/opengraph-image?v=3",
+        width: 1200,
+        height: 630,
+        alt: "Bangladesh Youth Tax Calculator: AI Agent Skill & e-Return Filing Engine",
       },
     ],
   },
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: "Bangladesh Youth Tax Calculator - AI Skill for e-Return Filing",
     description:
       "AI Agent Skill and deterministic Python engine made for students and first-time tax filers in Bangladesh under the Income Tax Act 2023.",
-    images: ["/projects/youth-tax-calculator/BD-Logos.png"],
+    images: ["/projects/youth-tax-calculator/opengraph-image?v=3"],
   },
 };
 

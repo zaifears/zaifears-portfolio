@@ -47,10 +47,10 @@ export const metadata: Metadata = {
       'LocReminder is a location-based alarm for Android, which helps you wake up at the right place. 100% Free & Open Source.',
     images: [
       {
-        url: '/projects/locreminder/icon.png',
-        width: 512,
-        height: 512,
-        alt: 'LocReminder app icon',
+        url: '/projects/locreminder/opengraph-image?v=3',
+        width: 1200,
+        height: 630,
+        alt: 'LocReminder: Location-Based GPS Alarm for Android',
       },
     ],
   },
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     title: 'LocReminder — Location-Based Alarm for Android',
     description:
       'LocReminder reminds you at the right place. Free, open-source, no ads, no tracking.',
-    images: ['/projects/locreminder/icon.png'],
+    images: ['/projects/locreminder/opengraph-image?v=3'],
   },
 };
 

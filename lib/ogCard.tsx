@@ -15,6 +15,8 @@ export interface HallmarkOgCardProps {
   headlineSize?: string;
   footerTitle?: string;
   footerSubtitle?: string;
+  imagePath?: string;
+  imageFit?: 'portrait' | 'logo';
 }
 
 export async function renderHallmarkOgCard({
@@ -25,13 +27,18 @@ export async function renderHallmarkOgCard({
   headlineSize,
   footerTitle = 'Md Al Shahoriar Hossain',
   footerSubtitle = 'Audit Associate at EY Bangladesh, CA Candidate (ICAB), BUP',
+  imagePath = 'public/shahoriar-hossain.png',
+  imageFit = 'portrait',
 }: HallmarkOgCardProps): Promise<ImageResponse> {
   const [coolveticaFont, portraitBuffer] = await Promise.all([
     readFile(path.join(process.cwd(), 'public/fonts/Coolvetica-Regular.otf')),
-    readFile(path.join(process.cwd(), 'public/shahoriar-hossain.png')),
+    readFile(path.join(process.cwd(), imagePath)),
   ]);
 
-  const portraitBase64 = `data:image/png;base64,${portraitBuffer.toString('base64')}`;
+  const ext = imagePath.toLowerCase().endsWith('.jpg') || imagePath.toLowerCase().endsWith('.jpeg')
+    ? 'jpeg'
+    : 'png';
+  const portraitBase64 = `data:image/${ext};base64,${portraitBuffer.toString('base64')}`;
   const computedHeadlineSize =
     headlineSize ||
     (subtitle
@@ -156,31 +163,35 @@ export async function renderHallmarkOgCard({
             </div>
           </div>
 
-          {/* Right column: Centered transparent cutout inside warm studio-white rounded tile */}
+          {/* Right column: Portrait cutout or Project logo inside rounded tile */}
           <div
             style={{
               display: 'flex',
               width: '380px',
               height: '100%',
-              backgroundColor: '#f1f5f9',
-              border: '2px solid #cbd5e1',
+              backgroundColor: imageFit === 'logo' ? '#090d18' : '#f1f5f9',
+              border:
+                imageFit === 'logo'
+                  ? '2px solid #222f49'
+                  : '2px solid #cbd5e1',
               borderRadius: '28px',
               overflow: 'hidden',
-              alignItems: 'flex-end',
+              alignItems: imageFit === 'logo' ? 'center' : 'flex-end',
               justifyContent: 'center',
               position: 'relative',
             }}
           >
             <img
               src={portraitBase64}
-              alt="Md Al Shahoriar Hossain"
-              width={410}
-              height={410}
+              alt={headline}
+              width={imageFit === 'logo' ? 300 : 410}
+              height={imageFit === 'logo' ? 300 : 410}
               style={{
-                width: '410px',
-                height: '410px',
+                width: imageFit === 'logo' ? '300px' : '410px',
+                height: imageFit === 'logo' ? '300px' : '410px',
                 objectFit: 'contain',
-                objectPosition: 'bottom center',
+                objectPosition:
+                  imageFit === 'logo' ? 'center center' : 'bottom center',
               }}
             />
           </div>
