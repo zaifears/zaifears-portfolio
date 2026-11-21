@@ -49,6 +49,31 @@ export interface UtmRow {
   percentage: number;
 }
 
+export interface MonthCalendarDay {
+  dateKey: string;
+  day: number;
+  dayOfWeek: number;
+  uniqueVisitors: number;
+  sessions: number;
+  pageviews: number;
+  avgSeconds: number;
+  intensity: 0 | 1 | 2 | 3 | 4;
+  isWeekend: boolean;
+  isToday: boolean;
+  isFuture: boolean;
+}
+
+export interface MonthlyCalendarData {
+  year: number;
+  month: number;
+  monthName: string;
+  firstDayOfWeek: number;
+  totalDays: number;
+  maxSessions: number;
+  totalMonthSessions: number;
+  days: MonthCalendarDay[];
+}
+
 export interface PortfolioAnalyticsData {
   generatedAt: string;
   timezone: string;
@@ -67,6 +92,7 @@ export interface PortfolioAnalyticsData {
   peakHour: { hour: number; hourLabel: string; sessions30d: number; sessions7d: number } | null;
   dayOfWeekActivity: DayOfWeekPoint[];
   peakDay: DayOfWeekPoint | null;
+  monthlyCalendar: MonthlyCalendarData;
   deviceBreakdown: { mobile: number; desktop: number; tablet: number; unknown: number };
   browsers: RankedItem[];
   operatingSystems: RankedItem[];
@@ -173,7 +199,11 @@ export async function GET(req: NextRequest) {
     }
 
     const dailyByKey = new Map<string, Record<string, string>>();
-    keys30.forEach((k, i) => dailyByKey.set(k, dailyHashes[i]));
+    const uvByKey = new Map<string, number>();
+    keys30.forEach((k, i) => {
+      dailyByKey.set(k, dailyHashes[i]);
+      uvByKey.set(k, dailyUvCounts[i]);
+    });
 
     const sumField = (dateKeys: string[], field: string) =>
       dateKeys.reduce((acc, k) => acc + num(dailyByKey.get(k) || {}, field), 0);
@@ -273,6 +303,66 @@ export async function GET(req: NextRequest) {
     );
     const peakDay = peakDayCandidate && peakDayCandidate.sessions > 0 ? peakDayCandidate : null;
 
+    // ── Monthly activity heatmap (current month in Dhaka time) ──────────
+    const [curYear, curMonth, curDayNum] = todayKey.split('-').map(Number);
+    const daysInCurMonth = new Date(Date.UTC(curYear, curMonth, 0)).getUTCDate();
+    const firstDayOfWeek = new Date(Date.UTC(curYear, curMonth - 1, 1, 12, 0, 0)).getUTCDay();
+    const monthName = new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      timeZone: 'UTC',
+    }).format(new Date(Date.UTC(curYear, curMonth - 1, 1, 12, 0, 0)));
+
+    let maxMonthSessions = 1;
+    let totalMonthSessions = 0;
+    const rawMonthDays = Array.from({ length: daysInCurMonth }, (_, idx) => {
+      const day = idx + 1;
+      const dateKey = `${curYear}-${String(curMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const h = dailyByKey.get(dateKey) || {};
+      const sessions = num(h, 'sessions');
+      const pageviews = num(h, 'pageviews');
+      const completed = num(h, 'completedSessions');
+      const totalSec = num(h, 'totalActiveSeconds');
+      const uniqueVisitors = uvByKey.get(dateKey) || 0;
+      if (sessions > maxMonthSessions) maxMonthSessions = sessions;
+      totalMonthSessions += sessions;
+      const dayOfWeek = new Date(Date.UTC(curYear, curMonth - 1, day, 12, 0, 0)).getUTCDay();
+      return {
+        dateKey,
+        day,
+        dayOfWeek,
+        uniqueVisitors,
+        sessions,
+        pageviews,
+        avgSeconds: completed > 0 ? Math.round(totalSec / completed) : 0,
+        isWeekend: dayOfWeek === 5 || dayOfWeek === 6, // Fri/Sat in Bangladesh
+        isToday: dateKey === todayKey,
+        isFuture: day > curDayNum,
+      };
+    });
+
+    const monthlyCalendar: MonthlyCalendarData = {
+      year: curYear,
+      month: curMonth,
+      monthName,
+      firstDayOfWeek,
+      totalDays: daysInCurMonth,
+      maxSessions: maxMonthSessions,
+      totalMonthSessions,
+      days: rawMonthDays.map((d) => ({
+        ...d,
+        intensity:
+          d.sessions === 0
+            ? 0
+            : d.sessions >= maxMonthSessions * 0.75
+              ? 4
+              : d.sessions >= maxMonthSessions * 0.5
+                ? 3
+                : d.sessions >= maxMonthSessions * 0.25
+                  ? 2
+                  : 1,
+      })),
+    };
+
     const deviceBreakdown = {
       mobile: sumField(keys30, 'device_mobile'),
       desktop: sumField(keys30, 'device_desktop'),
@@ -356,6 +446,7 @@ export async function GET(req: NextRequest) {
       peakHour,
       dayOfWeekActivity,
       peakDay,
+      monthlyCalendar,
       deviceBreakdown,
       browsers: toRankedList(browserMap, 8),
       operatingSystems: toRankedList(osMap, 8),

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import {
   Activity,
   ArrowLeft,
+  Calendar,
   Check,
   Clock,
   Compass,
@@ -30,6 +31,8 @@ import {
 import type {
   DailyTrendPoint,
   HourlyActivityPoint,
+  MonthCalendarDay,
+  MonthlyCalendarData,
   PortfolioAnalyticsData,
   RankedItem,
 } from '@/app/api/admin/analytics/route';
@@ -548,6 +551,120 @@ function HourlyBarChart({
         <span>11 PM</span>
       </div>
     </div>
+  );
+}
+
+// ── Monthly Activity Heatmap (current month in Dhaka time) ──────────────
+
+function MonthlyActivityHeatmap({ calendar }: { calendar: MonthlyCalendarData }) {
+  const [hoveredDay, setHoveredDay] = useState<MonthCalendarDay | null>(null);
+  const weekHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const leadingBlanks = Array.from({ length: calendar.firstDayOfWeek }, (_, i) => i);
+
+  return (
+    <Card
+      title={`Monthly Activity Heatmap — ${calendar.monthName} ${calendar.year}`}
+      subtitle={`${calendar.totalMonthSessions.toLocaleString()} sessions so far this month (BST) · darker cells = higher daily traffic`}
+      icon={<Calendar className="w-4 h-4" />}
+      right={
+        hoveredDay ? (
+          <div className="text-[11px] bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 px-3 py-1 rounded-xl text-blue-900 dark:text-blue-200 font-medium">
+            <strong className="font-mono">{hoveredDay.dateKey}</strong>: {hoveredDay.uniqueVisitors} unique ·{' '}
+            {hoveredDay.sessions} sess · {hoveredDay.pageviews} views
+            {hoveredDay.avgSeconds > 0 ? ` · ${formatDuration(hoveredDay.avgSeconds)} avg` : ''}
+          </div>
+        ) : (
+          <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-neutral-400">
+            <span>Less</span>
+            <span className="w-3 h-3 rounded bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800" />
+            <span className="w-3 h-3 rounded bg-blue-100 dark:bg-blue-950/70" />
+            <span className="w-3 h-3 rounded bg-blue-300 dark:bg-blue-800" />
+            <span className="w-3 h-3 rounded bg-blue-500" />
+            <span className="w-3 h-3 rounded bg-indigo-600" />
+            <span>More</span>
+          </div>
+        )
+      }
+    >
+      <div className="space-y-2">
+        <div className="grid grid-cols-7 gap-1.5 sm:gap-2 text-center text-[11px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">
+          {weekHeaders.map((w, idx) => (
+            <div key={w} className={idx === 5 || idx === 6 ? 'text-amber-600/80 dark:text-amber-400/70' : ''}>
+              {w}
+            </div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-7 gap-1.5 sm:gap-2">
+          {leadingBlanks.map((b) => (
+            <div
+              key={`blank-${b}`}
+              className="h-14 sm:h-16 rounded-xl bg-neutral-50/60 dark:bg-neutral-900/20 border border-dashed border-neutral-200/70 dark:border-neutral-800/40"
+            />
+          ))}
+
+          {calendar.days.map((d) => {
+            const isHovered = hoveredDay?.dateKey === d.dateKey;
+
+            let cellClass =
+              'bg-neutral-50 dark:bg-neutral-900/60 text-neutral-700 dark:text-neutral-300 border-neutral-200/70 dark:border-neutral-800';
+            if (d.isFuture) {
+              cellClass =
+                'bg-neutral-50/40 dark:bg-neutral-950 text-neutral-400 dark:text-neutral-600 border-neutral-100 dark:border-neutral-900 opacity-50';
+            } else if (d.intensity === 1) {
+              cellClass =
+                'bg-blue-50 dark:bg-blue-950/40 text-blue-900 dark:text-blue-200 border-blue-200/80 dark:border-blue-900/60';
+            } else if (d.intensity === 2) {
+              cellClass =
+                'bg-blue-100 dark:bg-blue-900/60 text-blue-950 dark:text-blue-100 border-blue-300 dark:border-blue-700';
+            } else if (d.intensity === 3) {
+              cellClass = 'bg-blue-500 text-white border-blue-600 font-semibold';
+            } else if (d.intensity === 4) {
+              cellClass =
+                'bg-gradient-to-br from-blue-600 to-indigo-600 text-white border-blue-600 shadow-sm font-bold';
+            }
+
+            return (
+              <div
+                key={d.dateKey}
+                onMouseEnter={() => setHoveredDay(d)}
+                onMouseLeave={() => setHoveredDay(null)}
+                onClick={() => setHoveredDay(d)}
+                className={`h-14 sm:h-16 rounded-xl p-1.5 sm:p-2 border transition-all cursor-pointer flex flex-col justify-between ${cellClass} ${
+                  isHovered ? 'scale-[1.03] z-10 ring-2 ring-amber-400' : ''
+                } ${d.isToday ? 'ring-2 ring-emerald-500' : ''}`}
+              >
+                <div className="flex items-center justify-between">
+                  <span
+                    className={`text-[11px] sm:text-xs font-bold font-mono ${
+                      d.isToday ? 'underline decoration-emerald-500 decoration-2' : ''
+                    }`}
+                  >
+                    {d.day}
+                  </span>
+                  {d.isToday ? (
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  ) : d.isWeekend ? (
+                    <span className="text-[9px] opacity-60 font-mono hidden sm:inline">wknd</span>
+                  ) : null}
+                </div>
+
+                <div className="text-right">
+                  {d.sessions > 0 ? (
+                    <span className="text-[10px] sm:text-xs font-bold font-mono leading-none">
+                      {formatCompact(d.sessions)}
+                      <span className="text-[9px] opacity-75 font-normal hidden sm:inline"> sess</span>
+                    </span>
+                  ) : (
+                    <span className="text-[10px] opacity-40 font-mono">—</span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </Card>
   );
 }
 
@@ -1101,6 +1218,9 @@ export default function AdminDashboardClient() {
                 </ul>
               </Card>
             </div>
+
+            {/* Monthly Activity Heatmap */}
+            <MonthlyActivityHeatmap calendar={data.monthlyCalendar} />
 
             {/* Most Visited Pages (7D / 30D / All Time) + Traffic Sources & Referrers */}
             {(() => {
