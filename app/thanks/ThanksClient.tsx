@@ -2,10 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import {
-  ArrowLeft,
-  ArrowDown,
   Building2,
   Check,
   Copy,
@@ -128,119 +125,73 @@ export default function ThanksClient() {
 
   return (
     <div className="thanks-page">
-      {/* =================================================================== */}
-      {/* TOP BAR (FULL-SCREEN ROUTE — NO PORTFOLIO SIDEBAR)                  */}
-      {/* =================================================================== */}
-      <header className="thanks-container pt-4 pb-2 sm:pt-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <Link href="/" className="thanks-btn-quiet">
-            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-            <span>shahoriar.bd</span>
-          </Link>
-
-          <div className="flex flex-wrap items-center gap-2">
-            <a href="#direct-methods" className="thanks-btn-quiet">
-              <span>Direct QR &amp; bank</span>
-              <ArrowDown className="w-4 h-4" aria-hidden="true" />
-            </a>
-            <a
-              href={SUPPORTKORI_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="thanks-btn-primary"
-            >
-              <span>Open on SupportKori</span>
-              <ExternalLink className="w-4 h-4" aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-      </header>
-
-      <main className="thanks-container py-6 sm:py-8 space-y-12 sm:space-y-16">
+      <main className="thanks-container py-3 sm:py-4 space-y-4 sm:space-y-5">
         {/* ================================================================= */}
-        {/* HERO: WARM WELCOME + SUPPORTKORI × BUY ME A COFFEE TRUST BANNER   */}
+        {/* 1. YELLOW CAPSULE: FACE + THANK YOU + SUPPORTKORI × BUYMEACOFFEE  */}
         {/* ================================================================= */}
-        <section aria-labelledby="thanks-heading" className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[22px] overflow-hidden relative shrink-0 border-2 border-[var(--tk-yellow-border)] bg-[var(--tk-yellow-soft)]">
-              <Image
-                src="/images/shahoriar-author.jpg"
-                alt="Md Al Shahoriar Hossain"
-                fill
-                sizes="80px"
-                className="object-cover"
-                priority
-              />
+        <section aria-labelledby="thanks-heading" className="thanks-trust-banner">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[22px] overflow-hidden relative shrink-0 border-2 border-[var(--tk-ink)] bg-[var(--tk-surface)]">
+                <Image
+                  src="/images/shahoriar-author.jpg"
+                  alt="Md Al Shahoriar Hossain"
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+
+              <div className="space-y-1 min-w-0">
+                <h1 id="thanks-heading" className="thanks-display">
+                  Thank you for supporting my free tools.
+                </h1>
+                <p className="text-sm sm:text-base text-[var(--tk-ink-2)]">
+                  Free apps with no ads or paywalls. Support directly below.
+                </p>
+              </div>
             </div>
 
-            <div className="space-y-1.5 min-w-0">
-              <h1 id="thanks-heading" className="thanks-display">
-                Thank you for supporting my free tools.
-              </h1>
-              <p className="text-base sm:text-lg text-[var(--tk-ink-2)] max-w-[64ch]">
-                Free apps with no ads or paywalls. Support directly via SupportKori below.
+            <div className="flex flex-col sm:items-start lg:items-end gap-2 shrink-0">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-[var(--tk-surface)] border border-[var(--tk-yellow-border)]">
+                  <Image
+                    src="/thanks/supportkori-logo.png"
+                    alt="SupportKori"
+                    width={126}
+                    height={36}
+                    priority
+                    className="h-5 w-auto object-contain"
+                  />
+                </span>
+                <span className="text-sm font-bold text-[var(--tk-ink)]" aria-hidden="true">
+                  ×
+                </span>
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--tk-surface)] border border-[var(--tk-yellow-border)]">
+                  <Image
+                    src="/thanks/buymeacoffee-logo.svg"
+                    alt="Buy Me a Coffee"
+                    width={18}
+                    height={18}
+                    priority
+                    className="h-4 w-4 object-contain"
+                  />
+                  <span className="text-xs sm:text-sm font-bold text-[var(--tk-ink)]">
+                    Buy Me a Coffee
+                  </span>
+                </span>
+              </div>
+
+              <p className="text-sm sm:text-base font-bold text-[var(--tk-ink)] lg:text-right">
+                supportkori.com is like buymeacoffee.com but for Bangladesh!
               </p>
-            </div>
-          </div>
-
-          {/* Signature SupportKori × Buy Me a Coffee Yellow Trust Banner */}
-          <div className="thanks-trust-banner">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-              <div className="space-y-3 min-w-0">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="inline-flex items-center px-3.5 py-2 rounded-full bg-[var(--tk-surface)] border border-[var(--tk-yellow-border)]">
-                    <Image
-                      src="/thanks/supportkori-logo.png"
-                      alt="SupportKori"
-                      width={126}
-                      height={36}
-                      priority
-                      className="h-6 w-auto object-contain"
-                    />
-                  </span>
-                  <span className="text-sm font-bold text-[var(--tk-ink)]" aria-hidden="true">
-                    ×
-                  </span>
-                  <span className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-[var(--tk-surface)] border border-[var(--tk-yellow-border)]">
-                    <Image
-                      src="/thanks/buymeacoffee-logo.svg"
-                      alt="Buy Me a Coffee"
-                      width={20}
-                      height={20}
-                      priority
-                      className="h-5 w-5 object-contain"
-                    />
-                    <span className="text-sm font-bold text-[var(--tk-ink)]">
-                      Buy Me a Coffee
-                    </span>
-                  </span>
-                </div>
-
-                <p className="text-lg sm:text-xl font-bold text-[var(--tk-ink)] leading-snug">
-                  supportkori.com is like buymeacoffee.com but for Bangladesh!
-                </p>
-                <p className="text-sm sm:text-base text-[var(--tk-ink-2)] max-w-[65ch]">
-                  You are viewing my verified SupportKori page (<span className="thanks-mono font-semibold text-[var(--tk-ink)]">supportkori.com/zaifears</span>) right inside shahoriar.bd, with bKash, Nagad, local cards, and international USD checkout via SSLCommerz.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-                <a
-                  href={SUPPORTKORI_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="thanks-btn-primary"
-                >
-                  <span>Open full page</span>
-                  <ExternalLink className="w-4 h-4" aria-hidden="true" />
-                </a>
-              </div>
             </div>
           </div>
         </section>
 
         {/* ================================================================= */}
-        {/* LIVE SUPPORTKORI EMBED                                            */}
+        {/* 2. LIVE SUPPORTKORI EMBED (IMMEDIATELY AFTER YELLOW CAPSULE)      */}
         {/* ================================================================= */}
         <section aria-label="SupportKori live support page">
           <div className="thanks-embed-shell">
@@ -317,7 +268,7 @@ export default function ThanksClient() {
         {/* ================================================================= */}
         {/* REDESIGNED DIRECT PAYMENT METHODS (BELOW SUPPORTKORI)             */}
         {/* ================================================================= */}
-        <section id="direct-methods" aria-labelledby="direct-methods-heading" className="space-y-6 pt-4">
+        <section id="direct-methods" aria-labelledby="direct-methods-heading" className="space-y-6 pt-8 sm:pt-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div className="space-y-2">
               <h2 id="direct-methods-heading" className="thanks-section-title">

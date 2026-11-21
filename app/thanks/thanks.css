@@ -61,14 +61,14 @@
 
 .thanks-container {
   width: 100%;
-  max-width: 1120px;
+  max-width: 1440px;
   margin-inline: auto;
-  padding-inline: var(--tk-space-md);
+  padding-inline: var(--tk-space-xs);
 }
 
 @media (min-width: 640px) {
   .thanks-container {
-    padding-inline: var(--tk-space-lg);
+    padding-inline: var(--tk-space-md);
   }
 }
 
@@ -203,18 +203,18 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Yellow trust banner */
+/* Yellow trust capsule */
 .thanks-trust-banner {
   background-color: var(--tk-yellow);
   color: var(--tk-ink);
   border: 1px solid var(--tk-yellow-border);
   border-radius: var(--tk-radius-panel);
-  padding: var(--tk-space-lg);
+  padding: var(--tk-space-md);
 }
 
 @media (min-width: 768px) {
   .thanks-trust-banner {
-    padding: 28px 32px;
+    padding: 20px 28px;
   }
 }
 
