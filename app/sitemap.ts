@@ -13,6 +13,7 @@ interface LifeEvent {
 
 export default async function sitemap() {
   const excludedRoutes = new Set([
+    '/admin',
     '/zakat-calculation',
     '/zakat-report',
     '/bride-selector',

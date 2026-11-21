@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/'],
+        disallow: ['/api/', '/admin', '/bride-selector', '/zakat-calculation', '/zakat-report'],
       },
     ],
     sitemap: 'https://shahoriar.bd/sitemap.xml',

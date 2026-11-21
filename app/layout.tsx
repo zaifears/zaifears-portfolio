@@ -32,11 +32,9 @@ const coolvetica = localFont({
   display: 'swap',
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
 });
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import Script from 'next/script';
 import LayoutWrapper from './LayoutWrapper';
-import { ClarityInitializer } from './components/ClarityInitializer';
+import { VisitTracker } from './components/VisitTracker';
 
 const baseUrl = 'https://shahoriar.bd';
 const authorName = 'Md Al Shahoriar Hossain';
@@ -330,12 +328,9 @@ export default function RootLayout({
       </head>
 
       <body className={cx(spaceGrotesk.className, "antialiased font-sans")}>
-        <ClarityInitializer />
+        <VisitTracker />
 
         <LayoutWrapper>{children}</LayoutWrapper>
-
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

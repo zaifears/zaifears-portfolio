@@ -12,6 +12,7 @@ export default function LayoutWrapper({
 
   // Full-screen routes bypass the default site shell (navbar + shifted main content).
   const isFullScreenPage =
+    pathname.startsWith('/admin') ||
     pathname.startsWith('/bizcomp') ||
     pathname.startsWith('/meetup') ||
     pathname.startsWith('/thanks') ||

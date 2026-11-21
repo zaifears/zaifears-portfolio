@@ -33,7 +33,7 @@ const nextConfig = {
 
     return [
       {
-        source: '/(zakat-calculation|zakat-report|bride-selector|shoily|bizcomp|meetup|api)(.*)',
+        source: '/(admin|zakat-calculation|zakat-report|bride-selector|shoily|bizcomp|meetup|api)(.*)',
         headers: noindexHeader,
       },
       {
