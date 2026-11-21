@@ -33,6 +33,7 @@
 }
 
 .finaleBg {
+  --font-display: var(--font-space-grotesk);
   min-height: 100vh;
   background-image:
     radial-gradient(1200px 700px at 5% -10%, rgba(0, 40, 90, 0.14), transparent 60%),
