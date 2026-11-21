@@ -2,24 +2,24 @@ import { Metadata } from 'next';
 import ThanksClient from './ThanksClient';
 
 export const metadata: Metadata = {
-  title: 'Thank You | Support My Projects & Tools',
+  title: 'Thank You | Support Shahoriar on SupportKori',
   description:
-    'Did you love using any of my apps? Thank you very much. I enjoy solving problems and building free tools for people. Direct payment and remittance guide for BanglaQR, bKash, Eastern Bank PLC, Wise, Remitly, PayPal (Xoom), and Revolut.',
+    'Support Md Al Shahoriar Hossain and his free tools directly via SupportKori (supportkori.com/zaifears — like Buy Me a Coffee for Bangladesh) or via BanglaQR, bKash, Eastern Bank PLC, Wise, Remitly, and PayPal Xoom.',
   alternates: {
     canonical: 'https://shahoriar.bd/thanks',
   },
   openGraph: {
-    title: 'Thank You | Support My Projects & Tools',
+    title: 'Thank You | Support Shahoriar on SupportKori',
     description:
-      'Did you love using any of my apps? Thank you very much. I enjoy solving problems and building free tools for people. Direct payment and remittance guide for BanglaQR, bKash, Eastern Bank PLC, Wise, Remitly, PayPal (Xoom), and Revolut.',
+      'Support Md Al Shahoriar Hossain and his free projects directly through SupportKori (supportkori.com/zaifears), BanglaQR, bKash, Bank Transfer, or international remittance.',
     url: 'https://shahoriar.bd/thanks',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: 'Thank You | Support My Projects & Tools',
+    title: 'Thank You | Support Shahoriar on SupportKori',
     description:
-      'Did you love using any of my apps? Thank you very much. I enjoy solving problems and building free tools for people.',
+      'Support my free tools via SupportKori (like Buy Me a Coffee for Bangladesh) or direct payment methods.',
   },
 };
 
@@ -30,9 +30,9 @@ const jsonLd = {
       '@type': 'WebPage',
       '@id': 'https://shahoriar.bd/thanks#webpage',
       url: 'https://shahoriar.bd/thanks',
-      name: 'Thank You | Support My Projects & Tools',
+      name: 'Thank You | Support Shahoriar on SupportKori',
       description:
-        'Did you love using any of my apps? Thank you very much. I enjoy solving problems and building free tools for people. Direct payment and remittance guide for BanglaQR, bKash, Eastern Bank PLC, Wise, Remitly, PayPal (Xoom), and Revolut.',
+        'Support Md Al Shahoriar Hossain and his free tools directly via SupportKori (supportkori.com/zaifears) or via BanglaQR, bKash, Eastern Bank PLC, Wise, Remitly, and PayPal Xoom.',
       isPartOf: {
         '@type': 'WebSite',
         '@id': 'https://shahoriar.bd/#website',
@@ -45,6 +45,7 @@ const jsonLd = {
         name: 'Md Al Shahoriar Hossain',
         url: 'https://shahoriar.bd',
       },
+      sameAs: ['https://www.supportkori.com/zaifears'],
     },
     {
       '@type': 'BreadcrumbList',

@@ -14,6 +14,7 @@ export default function LayoutWrapper({
   const isFullScreenPage =
     pathname.startsWith('/bizcomp') ||
     pathname.startsWith('/meetup') ||
+    pathname.startsWith('/thanks') ||
     pathname.startsWith('/zakat-calulation') ||
     pathname.startsWith('/zakat-calculation') ||
     pathname.startsWith('/zakat-report');
