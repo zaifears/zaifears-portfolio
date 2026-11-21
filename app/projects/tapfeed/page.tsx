@@ -14,7 +14,7 @@ const releaseUrl = "https://github.com/zaifears/tapfeed/releases/latest";
 const issuesUrl = `${repositoryUrl}/issues`;
 
 const screenshots = {
-  feed: "https://i.ibb.co.com/rKn0GZ12/feed-tapfeed.png",
+  feed: "https://i.ibb.co.com/C59n3G6v/image.png",
   login: "https://i.ibb.co.com/bMzFcWrq/login-tapfeed.png",
   downloads: "https://i.ibb.co.com/8nr97KYb/download-tapfeed.png",
 };
