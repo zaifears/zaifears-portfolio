@@ -88,7 +88,6 @@ interface ZoomModalState {
 }
 
 export default function ThanksClient() {
-  const [iframeLoaded, setIframeLoaded] = useState(false);
   const [region, setRegion] = useState<Region>('bangladesh');
   const [bdTab, setBdTab] = useState<BdMethodTab>('banglaqr');
   const [intlTab, setIntlTab] = useState<IntlMethodTab>('remit');
@@ -229,14 +228,6 @@ export default function ThanksClient() {
             </div>
 
             <div className="relative w-full bg-[var(--tk-surface)]">
-              {!iframeLoaded && (
-                <div
-                  role="status"
-                  className="px-6 py-10 text-center text-sm font-medium text-[var(--tk-muted)] border-b border-[var(--tk-rule)]"
-                >
-                  Loading SupportKori checkout page (supportkori.com/zaifears)...
-                </div>
-              )}
               <iframe
                 src={SUPPORTKORI_URL}
                 title="Shahoriar Hossain on SupportKori"
@@ -244,7 +235,6 @@ export default function ThanksClient() {
                 loading="eager"
                 allow="payment; clipboard-write"
                 referrerPolicy="no-referrer-when-downgrade"
-                onLoad={() => setIframeLoaded(true)}
               />
             </div>
 
