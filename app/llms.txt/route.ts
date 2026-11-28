@@ -1,3 +1,10 @@
+import { SERVICES, SITE_BASE_URL } from '@/lib/services';
+
+const servicesSection = SERVICES.map(
+  (service) =>
+    `- [${service.headline}](${SITE_BASE_URL}/services/${service.slug}): ${service.geoSummary}`
+).join('\n');
+
 const llmsText = `# Shahoriar Hossain — Site Guide
 
 > Personal portfolio, verified credentials, and software documentation of Md Al Shahoriar Hossain — Audit Associate at EY Bangladesh (Islam Hoque Hanif & Co.), Chartered Accountancy candidate at ICAB, and web developer based in Dhaka, Bangladesh.
@@ -7,7 +14,8 @@ const llmsText = `# Shahoriar Hossain — Site Guide
 - [AI Professional Profile](https://shahoriar.bd/ai): Comprehensive, machine-readable factual profile detailing experience, projects, education, and technical skills.
 - [Curriculum Vitae](https://shahoriar.bd/resume.md): Complete chronological markdown CV with career timeline and academic credentials.
 - [Portfolio Homepage](https://shahoriar.bd): Main portfolio overview, key focus areas, and recent highlights.
-- [Skills & Certifications](https://shahoriar.bd/skills): Workplace timeline, core competencies, and verified qualifications.
+- [Skills & Certifications](https://shahoriar.bd/skills): Workplace timeline, core competencies, freelance services, and verified qualifications.
+- [Freelance Technical Services](https://shahoriar.bd/services): Fixed-price technical micro-services starting at $10 USD with 24 to 48 hour delivery.
 - [Life Journey & Blog](https://shahoriar.bd/life): First-person articles, competition retrospectives, and professional milestones.
 - [Software Projects](https://shahoriar.bd/projects): Catalog of software applications, financial tools, and developer utilities.
 - [Tech Tips & Utilities](https://shahoriar.bd/techtips): Curated software recommendations, productivity tools, and developer scripts.
@@ -15,6 +23,10 @@ const llmsText = `# Shahoriar Hossain — Site Guide
 - [Support & Contributions](https://shahoriar.bd/thanks): Infrastructure support guide and remittance channels.
 - [XML Sitemap](https://shahoriar.bd/sitemap.xml): Machine-readable index of all public canonical URLs.
 - [Full Context Bundle](https://shahoriar.bd/llms-full.txt): Complete multi-page context bundle for deep-reasoning language models.
+
+## Freelance Technical Services
+
+${servicesSection}
 
 ## Featured Software Solutions & Developer Tools
 

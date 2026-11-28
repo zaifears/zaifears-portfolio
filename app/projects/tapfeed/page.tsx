@@ -314,10 +314,13 @@ export default function TapFeedPage() {
               />
               <div>
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl leading-none text-ink">
-                  TapFeed
+                  TapFeed{" "}
+                  <span className="mt-1.5 block font-sans text-sm font-normal leading-normal tracking-normal text-muted">
+                    Tapo App for PC
+                  </span>
                 </h1>
-                <p className="mt-1.5 text-sm text-muted">
-                  Tapo App for PC, previously named <strong className="font-semibold text-ink">Tapo-Viewer</strong>
+                <p className="text-sm text-muted">
+                  Previously named <strong className="font-semibold text-ink">Tapo-Viewer</strong>
                 </p>
               </div>
             </div>

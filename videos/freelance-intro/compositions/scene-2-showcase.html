@@ -1,0 +1,476 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--ground, #f7f9fc);
+      font-family: "Inter", sans-serif;
+    }
+
+    .s2-camera {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    .s2-grid {
+      position: absolute;
+      inset: -120px;
+      background-image:
+        linear-gradient(to right, rgba(37, 99, 235, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(37, 99, 235, 0.08) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .s2-wrap {
+      position: absolute;
+      inset: 0;
+      padding: 108px 192px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .s2-header {
+      max-width: 1280px;
+    }
+
+    .s2-title {
+      font-family: "Outfit", sans-serif;
+      font-size: 60px;
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      color: var(--ink, #131826);
+    }
+
+    .s2-stage-row {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 44px;
+      margin-top: 32px;
+    }
+
+    .s2-char-col {
+      width: 240px;
+      height: 460px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .s2-cards-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .s2-card {
+      background: #ffffff;
+      border: 2px solid #dbe4f0;
+      border-radius: 28px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 420px;
+      box-shadow: 0 20px 44px rgba(19, 24, 38, 0.06);
+    }
+
+    .s2-card-visual {
+      height: 220px;
+      border-radius: 18px;
+      background: #f1f5fb;
+      border: 1.5px solid #dbe4f0;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .s2-card-title {
+      font-family: "Outfit", sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--ink, #131826);
+      margin-top: 22px;
+      margin-bottom: 8px;
+    }
+
+    .s2-card-desc {
+      font-size: 20px;
+      line-height: 1.4;
+      color: #4b5568;
+    }
+
+    /* Mini Web App UI */
+    .s2-browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid #dbe4f0;
+    }
+    .s2-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #cbd5e1;
+    }
+    .s2-dot-blue {
+      background: #2563eb;
+    }
+    .s2-url-pill {
+      margin-left: 8px;
+      height: 18px;
+      flex: 1;
+      border-radius: 999px;
+      background: #ffffff;
+    }
+    .s2-web-hero {
+      height: 54px;
+      border-radius: 12px;
+      background: #2563eb;
+      margin-top: 14px;
+    }
+    .s2-web-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .s2-web-box {
+      height: 62px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1.5px solid #dbe4f0;
+    }
+
+    /* Mini Workflow & Spreadsheet UI */
+    .s2-nodes-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .s2-node {
+      flex: 1;
+      height: 54px;
+      border-radius: 14px;
+      background: #ffffff;
+      border: 2px solid #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: #2563eb;
+    }
+    .s2-node-arrow {
+      width: 24px;
+      height: 3px;
+      border-radius: 999px;
+      background: #2563eb;
+    }
+    .s2-sheet {
+      margin-top: 16px;
+      background: #ffffff;
+      border: 1.5px solid #dbe4f0;
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .s2-sheet-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 0.7fr;
+      gap: 8px;
+    }
+    .s2-cell {
+      height: 14px;
+      border-radius: 6px;
+      background: #e2e8f0;
+    }
+    .s2-cell-green {
+      background: #10b981;
+    }
+
+    /* Mini Linux / VPS Rack UI */
+    .s2-rack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 100%;
+      justify-content: center;
+    }
+    .s2-blade {
+      height: 50px;
+      border-radius: 12px;
+      background: #131826;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #f8fafc;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 15px;
+    }
+    .s2-led-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .s2-led {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #10b981;
+    }
+    .s2-led-blue {
+      background: #3b82f6;
+    }
+  </style>
+
+  <div id="root" data-composition-id="scene-2-showcase" data-width="1920" data-height="1080">
+    <div id="s2-camera" class="s2-camera">
+      <div class="s2-grid" data-layout-ignore></div>
+
+      <div class="s2-wrap">
+        <div class="s2-header">
+          <h2 id="s2-title" class="s2-title" data-var-text="showcaseText">
+            Be it a web app, workflow automation, or a smart system...
+          </h2>
+        </div>
+
+        <div class="s2-stage-row">
+          <div class="s2-char-col" data-layout-allow-overflow>
+            <svg
+              id="s2-char"
+              width="220"
+              height="380"
+              viewBox="0 0 260 420"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-label="Stick figure gesturing toward solution cards"
+            >
+              <ellipse cx="130" cy="396" rx="52" ry="10" fill="rgba(19, 24, 38, 0.12)" />
+              <g id="s2-char-body">
+                <g id="s2-leg-l">
+                  <line x1="130" y1="264" x2="106" y2="386" stroke="#131826" stroke-width="13" stroke-linecap="round" />
+                </g>
+                <g id="s2-leg-r">
+                  <line x1="130" y1="264" x2="156" y2="386" stroke="#131826" stroke-width="13" stroke-linecap="round" />
+                </g>
+                <line x1="130" y1="146" x2="130" y2="266" stroke="#131826" stroke-width="14" stroke-linecap="round" />
+                <g id="s2-arm-l">
+                  <path d="M130 174 L92 224 L84 264" stroke="#131826" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <g id="s2-arm-r">
+                  <path d="M130 174 L190 162 L234 134" stroke="#2563eb" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <g id="s2-head">
+                  <circle cx="130" cy="96" r="44" fill="#ffffff" stroke="#131826" stroke-width="13" />
+                  <circle cx="122" cy="92" r="5" fill="#131826" />
+                  <circle cx="146" cy="92" r="5" fill="#131826" />
+                  <path d="M120 110 C128 119 142 119 150 110" stroke="#2563eb" stroke-width="5" stroke-linecap="round" />
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <div class="s2-cards-grid">
+            <!-- Card 1: Web App Window -->
+            <div id="s2-card-1" class="s2-card">
+              <div class="s2-card-visual">
+                <div class="s2-browser-bar">
+                  <div class="s2-dot s2-dot-blue"></div>
+                  <div class="s2-dot"></div>
+                  <div class="s2-dot"></div>
+                  <div class="s2-url-pill"></div>
+                </div>
+                <div id="s2-web-hero" class="s2-web-hero"></div>
+                <div class="s2-web-cols">
+                  <div class="s2-web-box"></div>
+                  <div class="s2-web-box"></div>
+                </div>
+              </div>
+              <div>
+                <h3 class="s2-card-title">Web Apps & Sites</h3>
+                <p class="s2-card-desc">Fast Next.js interfaces tuned for SEO, GEO, and Core Web Vitals.</p>
+              </div>
+            </div>
+
+            <!-- Card 2: Workflow Automation & Spreadsheets -->
+            <div id="s2-card-2" class="s2-card">
+              <div class="s2-card-visual">
+                <div class="s2-nodes-row">
+                  <div class="s2-node">FORM</div>
+                  <div class="s2-node-arrow"></div>
+                  <div class="s2-node">SHEET</div>
+                  <div class="s2-node-arrow"></div>
+                  <div class="s2-node">MAIL</div>
+                </div>
+                <div class="s2-sheet">
+                  <div class="s2-sheet-row">
+                    <div class="s2-cell"></div>
+                    <div class="s2-cell"></div>
+                    <div class="s2-cell s2-cell-green"></div>
+                  </div>
+                  <div id="s2-sheet-row-2" class="s2-sheet-row">
+                    <div class="s2-cell"></div>
+                    <div class="s2-cell"></div>
+                    <div class="s2-cell s2-cell-green"></div>
+                  </div>
+                  <div id="s2-sheet-row-3" class="s2-sheet-row">
+                    <div class="s2-cell"></div>
+                    <div class="s2-cell"></div>
+                    <div class="s2-cell s2-cell-green"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h3 class="s2-card-title">Workflow Automation</h3>
+                <p class="s2-card-desc">Forms to Google Sheets, instant auto-replies, and zero-bloat scripts.</p>
+              </div>
+            </div>
+
+            <!-- Card 3: Linux / VPS Server Rack -->
+            <div id="s2-card-3" class="s2-card">
+              <div class="s2-card-visual">
+                <div class="s2-rack">
+                  <div class="s2-blade">
+                    <span>caddy-https</span>
+                    <div class="s2-led-row">
+                      <div class="s2-led"></div>
+                      <div class="s2-led s2-led-blue"></div>
+                    </div>
+                  </div>
+                  <div class="s2-blade">
+                    <span>docker-vps</span>
+                    <div class="s2-led-row">
+                      <div class="s2-led"></div>
+                      <div class="s2-led"></div>
+                    </div>
+                  </div>
+                  <div class="s2-blade">
+                    <span>uptime-alert</span>
+                    <div class="s2-led-row">
+                      <div id="s2-led-pulse" class="s2-led"></div>
+                      <div class="s2-led s2-led-blue"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h3 class="s2-card-title">Smart Systems & VPS</h3>
+                <p class="s2-card-desc">Self-hosted Linux servers, DNS auth, and real-time uptime alerts.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Smooth camera entrance & gentle lateral glide
+      tl.fromTo(
+        "#s2-camera",
+        { opacity: 0, x: 40 },
+        { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" },
+        0
+      );
+      tl.to("#s2-camera", { x: -16, duration: 7.2, ease: "none" }, 0.5);
+
+      // Headline kinetic entrance
+      tl.fromTo(
+        "#s2-title",
+        { y: 36, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
+        0.2
+      );
+
+      // Stick figure steps into left stage
+      tl.fromTo(
+        "#s2-char",
+        { x: -160, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.9, ease: "power3.out" },
+        0.15
+      );
+      for (let i = 0; i < 2; i++) {
+        const st = 0.2 + i * 0.35;
+        tl.fromTo("#s2-char-body", { y: 0 }, { y: -10, duration: 0.17, ease: "power2.out" }, st)
+          .to("#s2-char-body", { y: 0, duration: 0.17, ease: "power2.in" }, st + 0.17);
+      }
+
+      // Three crisp floating cards slide in sequentially with character gesture beats
+      tl.fromTo(
+        "#s2-card-1",
+        { y: 70, opacity: 0, scale: 0.94 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.75, ease: "back.out(1.2)" },
+        1.1
+      );
+      tl.fromTo(
+        "#s2-arm-r",
+        { rotation: 24, svgOrigin: "130 174" },
+        { rotation: -6, svgOrigin: "130 174", duration: 0.45, ease: "power2.out" },
+        1.1
+      );
+
+      tl.fromTo(
+        "#s2-card-2",
+        { y: 70, opacity: 0, scale: 0.94 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.75, ease: "back.out(1.2)" },
+        2.6
+      );
+      tl.fromTo(
+        "#s2-sheet-row-2",
+        { x: -16, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.35, ease: "power2.out" },
+        3.2
+      );
+      tl.fromTo(
+        "#s2-sheet-row-3",
+        { x: -16, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.35, ease: "power2.out" },
+        3.55
+      );
+      tl.to("#s2-arm-r", { rotation: 6, svgOrigin: "130 174", duration: 0.35, ease: "sine.inOut" }, 2.6)
+        .to("#s2-arm-r", { rotation: -10, svgOrigin: "130 174", duration: 0.35, ease: "sine.inOut" }, 2.95);
+
+      tl.fromTo(
+        "#s2-card-3",
+        { y: 70, opacity: 0, scale: 0.94 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.75, ease: "back.out(1.2)" },
+        4.1
+      );
+      tl.to("#s2-arm-r", { rotation: 8, svgOrigin: "130 174", duration: 0.35, ease: "sine.inOut" }, 4.1)
+        .to("#s2-arm-r", { rotation: -12, svgOrigin: "130 174", duration: 0.35, ease: "sine.inOut" }, 4.45);
+
+      // Subtle card hover-float motion so the frame stays alive
+      tl.to("#s2-card-1", { y: -8, duration: 1.6, ease: "sine.inOut" }, 4.9);
+      tl.to("#s2-card-2", { y: -12, duration: 1.6, ease: "sine.inOut" }, 5.1);
+      tl.to("#s2-card-3", { y: -8, duration: 1.6, ease: "sine.inOut" }, 5.3);
+
+      // Clean exit transition
+      tl.to("#s2-camera", { opacity: 0, scale: 1.03, duration: 0.45, ease: "power2.in" }, 7.5);
+
+      window.__timelines["scene-2-showcase"] = tl;
+      tl.seek(0);
+    })();
+  </script>
+</template>

@@ -18,7 +18,7 @@ export async function GET() {
     keyLocation,
     status: 'configured',
     usage: {
-      submitCustomUrls: 'POST /api/indexnow with JSON body { "urls": ["/projects/tapo-viewer"] }',
+      submitCustomUrls: 'POST /api/indexnow with JSON body { "urls": ["/projects/tapfeed"] }',
       submitAllUrls: 'POST /api/indexnow with JSON body { "all": true }',
       keyFile: `https://${host}/${key}.txt`,
     },
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
           'https://shahoriar.bd/',
           'https://shahoriar.bd/ai',
           'https://shahoriar.bd/projects',
-          'https://shahoriar.bd/projects/tapo-viewer',
+          'https://shahoriar.bd/projects/tapfeed',
           'https://shahoriar.bd/projects/youth-tax-calculator',
           'https://shahoriar.bd/projects/locreminder',
           'https://shahoriar.bd/skills',

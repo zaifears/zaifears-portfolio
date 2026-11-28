@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import PortfolioContent from '../design-portfolio/PortfolioContent';
+import ServicesCatalogGrid from '../components/services/ServicesCatalogGrid';
 
 // Define the structure for a single Certificate
 interface Certificate {
@@ -80,7 +81,7 @@ const workplaceEntries = [
   },
 ];
 
-const VALID_TABS = ['workplace', 'skills', 'certificates', 'designPortfolio'] as const;
+const VALID_TABS = ['workplace', 'skills', 'certificates', 'designPortfolio', 'services'] as const;
 type Tab = (typeof VALID_TABS)[number];
 
 const SkillItem = ({ icon, name }: { icon: string; name: string }) => (
@@ -153,6 +154,7 @@ const TabButtons = ({
     { id: 'skills', label: 'Skills' },
     { id: 'certificates', label: 'Certifications' },
     { id: 'designPortfolio', label: 'Design Portfolio' },
+    { id: 'services', label: 'Services' },
   ];
 
   return (
@@ -162,14 +164,16 @@ const TabButtons = ({
       // Grid on mobile so both columns line up evenly; flex-wrap once there's room for all tabs in a row
       className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center mb-12 bg-gray-100 dark:bg-gray-900/50 dark:backdrop-blur-sm rounded-2xl p-2 gap-2 sm:gap-4 sm:max-w-fit mx-auto border border-gray-200 dark:border-gray-800"
     >
-      {tabs.map(({ id, label }) => (
+      {tabs.map(({ id, label }, idx) => (
         <button
           key={id}
           role="tab"
           aria-selected={activeTab === id ? 'true' : 'false'}
           aria-controls={`tabpanel-${id}`}
           onClick={() => onTabChange(id)}
-          className={`whitespace-nowrap text-center px-4 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold rounded-xl transition duration-300 ${
+          className={`whitespace-nowrap text-center px-4 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold rounded-xl transition-colors duration-200 ${
+            idx === tabs.length - 1 && tabs.length % 2 === 1 ? 'col-span-2 sm:col-span-1' : ''
+          } ${
             activeTab === id
               ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
               : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800/50'
@@ -463,6 +467,16 @@ export default function SkillsTabs({ certificates }: SkillsTabsProps) {
           className={activeTab === 'designPortfolio' ? 'block' : 'hidden'}
         >
           <PortfolioContent />
+        </div>
+
+        {/* Services */}
+        <div
+          id="tabpanel-services"
+          role="tabpanel"
+          aria-label="Services"
+          className={activeTab === 'services' ? 'block' : 'hidden'}
+        >
+          <ServicesCatalogGrid />
         </div>
       </div>
     </>

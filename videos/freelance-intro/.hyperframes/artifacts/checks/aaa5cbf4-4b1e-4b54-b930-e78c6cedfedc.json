@@ -1,0 +1,596 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#s1-camera\" for x between 5.50s and 5.80s.",
+        "selector": "#s1-camera",
+        "dataAttributes": {},
+        "sourceFile": "E:\\zaifears-portfolio\\videos\\freelance-intro\\compositions\\scene-1-hook.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      }
+    ],
+    "filesScanned": 5
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 4,
+    "findings": [
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 1.667,
+        "selector": "#s1-camera",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -19.15,
+          "top": -5.89,
+          "right": 1921.78,
+          "bottom": 1085.89,
+          "width": 1940.93,
+          "height": 1091.77
+        },
+        "containerSelector": "#scene-1-hook > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 19.15,
+          "top": 5.89,
+          "bottom": 5.89
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-1-hook.html",
+        "bbox": {
+          "x": -19.15,
+          "y": -5.89,
+          "width": 1940.93,
+          "height": 1091.77
+        },
+        "firstSeen": 1.667,
+        "lastSeen": 1.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          1.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 8.333,
+        "selector": "#s2-camera",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -4,
+          "top": 0,
+          "right": 1916,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "containerSelector": "#scene-2-showcase > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 4
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-2-showcase.html",
+        "bbox": {
+          "x": -4,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "firstSeen": 8.333,
+        "lastSeen": 11.667,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          8.333,
+          11.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 18.333,
+        "selector": "#s3-camera",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -35.14,
+          "top": -19.76,
+          "right": 1955.14,
+          "bottom": 1099.76,
+          "width": 1990.27,
+          "height": 1119.53
+        },
+        "containerSelector": "#scene-3-custom > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 35.14,
+          "right": 35.14,
+          "top": 19.76,
+          "bottom": 19.76
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-3-custom.html",
+        "bbox": {
+          "x": -35.14,
+          "y": -19.76,
+          "width": 1990.27,
+          "height": 1119.53
+        },
+        "firstSeen": 18.333,
+        "lastSeen": 21.667,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          18.333,
+          21.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 25,
+        "selector": "#s4-camera",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -6.34,
+          "top": -3.56,
+          "right": 1926.34,
+          "bottom": 1083.56,
+          "width": 1932.67,
+          "height": 1087.13
+        },
+        "containerSelector": "#scene-4-cta > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 6.34,
+          "right": 6.34,
+          "top": 3.56,
+          "bottom": 3.56
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-4-cta.html",
+        "bbox": {
+          "x": -6.34,
+          "y": -3.56,
+          "width": 1932.67,
+          "height": 1087.13
+        },
+        "firstSeen": 25,
+        "lastSeen": 28.333,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          25,
+          28.333
+        ]
+      }
+    ],
+    "duration": 30,
+    "samples": [
+      1.667,
+      5,
+      8.333,
+      11.667,
+      15,
+      18.333,
+      21.667,
+      25,
+      28.333
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 4,
+    "truncated": false,
+    "faceCheck": {
+      "ran": true,
+      "candidates": 0,
+      "faces": 0
+    }
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 2.54:1; WCAG AA requires 3:1.",
+        "text": "✓",
+        "fg": "rgb(16,185,129)",
+        "bg": "rgb(255,255,255)",
+        "ratio": 2.54,
+        "requiredRatio": 3,
+        "suggestedColor": "rgb(15,169,118)",
+        "large": true,
+        "selector": "#s3-knob-check",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-3-custom.html",
+        "bbox": {
+          "x": 1504.67431640625,
+          "y": 406.1087646484375,
+          "width": 23.6346435546875,
+          "height": 34.980010986328125
+        },
+        "time": 21.667,
+        "times": [
+          21.667
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      1.667,
+      8.333,
+      15,
+      21.667,
+      28.333
+    ],
+    "checked": 23,
+    "passed": 22
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 6,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "first_frame_empty",
+        "severity": "warning",
+        "message": "Frame 0 shows only the background, and the first frame is the thumbnail on social players: have the title or key image already on screen at 0 s instead of entering from nothing; see references/review.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      },
+      {
+        "code": "film_silent",
+        "severity": "warning",
+        "message": "This 30 s film has no sound source (no <audio>, no <video> with sound): add a music bed and sounds on the visible actions unless the person asked for silence; see references/sound.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"Let’s build together\" renders at 24 px for 4.50 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Let’s build together",
+        "selector": "#s1-badge",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-1-hook.html",
+        "bbox": {
+          "x": 777,
+          "y": 420.55,
+          "width": 226.23,
+          "height": 29.39
+        },
+        "time": 1.375,
+        "times": [
+          1.375
+        ],
+        "fontPx": 24,
+        "floorPx": 28,
+        "seconds": 4.5,
+        "elements": [
+          {
+            "selector": "#s1-badge",
+            "text": "Let’s build together",
+            "fontPx": 24,
+            "time": 1.375,
+            "seconds": 4.5
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 9 text elements stay under it for 0.5 s or more, the smallest \"caddy-https\" at 15 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "caddy-https",
+        "selector": "div.s2-rack > div:nth-of-type(1) > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-2-showcase.html",
+        "bbox": {
+          "x": 1391.99,
+          "y": 507.66,
+          "width": 96.55,
+          "height": 19.5
+        },
+        "time": 10.25,
+        "times": [
+          7.25,
+          8.75,
+          8.75,
+          8.75,
+          8.75,
+          10.25,
+          10.25,
+          10.25,
+          10.25
+        ],
+        "fontPx": 14.63,
+        "floorPx": 28,
+        "seconds": 3.625,
+        "elements": [
+          {
+            "selector": "div.s2-rack > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "caddy-https",
+            "fontPx": 14.63,
+            "time": 10.25,
+            "seconds": 3.625
+          },
+          {
+            "selector": "div.s2-rack > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "docker-vps",
+            "fontPx": 14.63,
+            "time": 10.25,
+            "seconds": 3.625
+          },
+          {
+            "selector": "div.s2-rack > div:nth-of-type(3) > span:nth-of-type(1)",
+            "text": "uptime-alert",
+            "fontPx": 14.63,
+            "time": 10.25,
+            "seconds": 3.625
+          },
+          {
+            "selector": "div.s2-nodes-row > div:nth-of-type(1)",
+            "text": "FORM",
+            "fontPx": 15.6,
+            "time": 8.75,
+            "seconds": 5.125
+          },
+          {
+            "selector": "div.s2-nodes-row > div:nth-of-type(3)",
+            "text": "SHEET",
+            "fontPx": 15.6,
+            "time": 8.75,
+            "seconds": 5.125
+          },
+          {
+            "selector": "div.s2-nodes-row > div:nth-of-type(5)",
+            "text": "MAIL",
+            "fontPx": 15.6,
+            "time": 8.75,
+            "seconds": 5.125
+          },
+          {
+            "selector": "#s2-card-1 > div:nth-of-type(2) > p:nth-of-type(1)",
+            "text": "Fast Next.js interfaces tuned for SEO, GEO, and Core Web Vitals.",
+            "fontPx": 19.51,
+            "time": 7.25,
+            "seconds": 6.625
+          },
+          {
+            "selector": "#s2-card-2 > div:nth-of-type(2) > p:nth-of-type(1)",
+            "text": "Forms to Google Sheets, instant auto-replies, and zero-bloat scripts.",
+            "fontPx": 19.51,
+            "time": 8.75,
+            "seconds": 5.125
+          },
+          {
+            "selector": "#s2-card-3 > div:nth-of-type(2) > p:nth-of-type(1)",
+            "text": "Self-hosted Linux servers, DNS auth, and real-time uptime alerts.",
+            "fontPx": 19.51,
+            "time": 10.25,
+            "seconds": 3.625
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 5 text elements stay under it for 0.5 s or more, the smallest \"Your Idea\" at 20 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Your Idea",
+        "selector": "div.s3-bp-canvas > svg:nth-of-type(1) > text:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-3-custom.html",
+        "bbox": {
+          "x": 928.35,
+          "y": 571.71,
+          "width": 90.39,
+          "height": 23.78
+        },
+        "time": 14.5,
+        "times": [
+          14.5,
+          14.5,
+          14.5,
+          14.5,
+          14.5
+        ],
+        "fontPx": 19.82,
+        "floorPx": 28,
+        "seconds": 7.375,
+        "elements": [
+          {
+            "selector": "div.s3-bp-canvas > svg:nth-of-type(1) > text:nth-of-type(1)",
+            "text": "Your Idea",
+            "fontPx": 19.82,
+            "time": 14.5,
+            "seconds": 7.375
+          },
+          {
+            "selector": "div.s3-bp-canvas > svg:nth-of-type(1) > text:nth-of-type(2)",
+            "text": "Scope Check",
+            "fontPx": 19.82,
+            "time": 14.5,
+            "seconds": 7.375
+          },
+          {
+            "selector": "div.s3-bp-canvas > svg:nth-of-type(1) > text:nth-of-type(3)",
+            "text": "Ready to Build",
+            "fontPx": 19.82,
+            "time": 14.5,
+            "seconds": 7.375
+          },
+          {
+            "selector": "div.s3-bp-label",
+            "text": "IDEA_BLUEPRINT.SPEC",
+            "fontPx": 20,
+            "time": 14.5,
+            "seconds": 7.375
+          },
+          {
+            "selector": "#s3-status-text",
+            "text": "Feasible?",
+            "fontPx": 24,
+            "time": 14.5,
+            "seconds": 7.375
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"shahoriar.bd/services\" renders at 24 px for 6.38 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "shahoriar.bd/services",
+        "selector": "div.s4-pill-url",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-4-cta.html",
+        "bbox": {
+          "x": 1015.55,
+          "y": 656.19,
+          "width": 302.4,
+          "height": 31
+        },
+        "time": 23.625,
+        "times": [
+          23.625
+        ],
+        "fontPx": 24,
+        "floorPx": 28,
+        "seconds": 6.375,
+        "elements": [
+          {
+            "selector": "div.s4-pill-url",
+            "text": "shahoriar.bd/services",
+            "fontPx": 24,
+            "time": 23.625,
+            "seconds": 6.375
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 240
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 1,
+    "findings": [
+      {
+        "code": "audio_none",
+        "severity": "info",
+        "message": "The film has no sound: no clip in it plays audio.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      }
+    ]
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

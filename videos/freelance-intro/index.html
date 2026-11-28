@@ -1,0 +1,215 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"ground","type":"color","label":"Studio Background","default":"#f7f9fc"},
+    {"id":"ink","type":"color","label":"Primary Ink","default":"#131826"},
+    {"id":"accent","type":"color","label":"Accent Blue","default":"#2563eb"},
+    {"id":"success","type":"color","label":"Viable Green","default":"#10b981"},
+    {"id":"hookText","type":"string","label":"Opening Hook","default":"Hi there, I am here to work with you to build your dreams."},
+    {"id":"showcaseText","type":"string","label":"Solutions Text","default":"Be it a web app, workflow automation, or a smart system..."},
+    {"id":"customText","type":"string","label":"Custom Text","default":"...or something completely custom..."},
+    {"id":"ctaText","type":"string","label":"CTA Headline","default":"...just ask me and see if it is viable!"},
+    {"id":"ctaSub","type":"string","label":"CTA Prompt","default":"Share your idea and let’s get started"},
+    {"id":"ctaUrl","type":"string","label":"Website URL","default":"shahoriar.bd/services"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Freelance Explainer Intro</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground, #f7f9fc);
+        font-family: "Inter", sans-serif;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+      .scene-host {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="30"
+      data-fps="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div
+        id="scene-1-hook"
+        class="clip scene-host"
+        data-composition-id="scene-1-hook"
+        data-composition-src="compositions/scene-1-hook.html"
+        data-start="0"
+        data-duration="6"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 1"
+      ></div>
+
+      <div
+        id="scene-2-showcase"
+        class="clip scene-host"
+        data-composition-id="scene-2-showcase"
+        data-composition-src="compositions/scene-2-showcase.html"
+        data-start="6"
+        data-duration="8"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 2"
+      ></div>
+
+      <div
+        id="scene-3-custom"
+        class="clip scene-host"
+        data-composition-id="scene-3-custom"
+        data-composition-src="compositions/scene-3-custom.html"
+        data-start="14"
+        data-duration="8"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 3"
+      ></div>
+
+      <div
+        id="scene-4-cta"
+        class="clip scene-host"
+        data-composition-id="scene-4-cta"
+        data-composition-src="compositions/scene-4-cta.html"
+        data-start="22"
+        data-duration="8"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 4"
+      ></div>
+
+      <!-- Light studio background music (0.14 sits gently under voiceover) -->
+      <audio
+        id="bgm-studio"
+        class="clip"
+        src="assets/audio/bgm.mp3"
+        data-start="0"
+        data-duration="30"
+        data-track-index="2"
+        data-volume="0.14"
+        data-fade-in="0.8"
+        data-fade-out="2.0"
+      ></audio>
+
+      <!-- Voiceover narration (Kokoro am_michael) timed to each scene -->
+      <audio
+        id="voice-1"
+        class="clip"
+        src="assets/audio/voice-1.wav"
+        data-start="1.4"
+        data-duration="3.3"
+        data-track-index="3"
+        data-volume="1"
+      ></audio>
+      <audio
+        id="voice-2"
+        class="clip"
+        src="assets/audio/voice-2.wav"
+        data-start="6.6"
+        data-duration="3.9"
+        data-track-index="3"
+        data-volume="1"
+      ></audio>
+      <audio
+        id="voice-3"
+        class="clip"
+        src="assets/audio/voice-3.wav"
+        data-start="14.6"
+        data-duration="2.1"
+        data-track-index="3"
+        data-volume="1"
+      ></audio>
+      <audio
+        id="voice-4"
+        class="clip"
+        src="assets/audio/voice-4.wav"
+        data-start="22.8"
+        data-duration="5.0"
+        data-track-index="3"
+        data-volume="1"
+      ></audio>
+
+      <!-- Subtle UI accent clicks synced to card entrances and feasibility toggle -->
+      <audio
+        id="sfx-card-1"
+        class="clip"
+        src="assets/audio/click-soft.mp3"
+        data-start="7.15"
+        data-duration="0.4"
+        data-track-index="4"
+        data-volume="0.45"
+      ></audio>
+      <audio
+        id="sfx-card-2"
+        class="clip"
+        src="assets/audio/click-soft.mp3"
+        data-start="8.65"
+        data-duration="0.4"
+        data-track-index="4"
+        data-volume="0.45"
+      ></audio>
+      <audio
+        id="sfx-card-3"
+        class="clip"
+        src="assets/audio/click-soft.mp3"
+        data-start="10.15"
+        data-duration="0.4"
+        data-track-index="4"
+        data-volume="0.45"
+      ></audio>
+      <audio
+        id="sfx-toggle"
+        class="clip"
+        src="assets/audio/click-soft.mp3"
+        data-start="18.2"
+        data-duration="0.4"
+        data-track-index="4"
+        data-volume="0.6"
+      ></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.to({}, { duration: 30 }, 0);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

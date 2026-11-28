@@ -1,4 +1,5 @@
 import { getContentfulEntries } from '@/lib/contentfulClient';
+import { SERVICES } from '@/lib/services';
 
 export const baseUrl = 'https://shahoriar.bd';
 
@@ -27,6 +28,7 @@ export default async function sitemap() {
     '/ai': 1,
     '/life': 1,
     '/skills': 0.8,
+    '/services': 0.85,
     '/education': 0.7,
     '/projects': 0.7,
     '/projects/tapfeed': 0.8,
@@ -45,6 +47,8 @@ export default async function sitemap() {
     '/ai',
     '/education',
     '/skills',
+    '/services',
+    ...SERVICES.map((service) => `/services/${service.slug}`),
     '/projects',
     '/projects/tapfeed',
     '/projects/locreminder',
@@ -61,7 +65,7 @@ export default async function sitemap() {
     .map((route) => ({
       url: `${baseUrl}${route}`,
       lastModified: new Date().toISOString().split('T')[0],
-      priority: priorityMap[route] ?? 0.5,
+      priority: priorityMap[route] ?? (route.startsWith('/services/') ? 0.8 : 0.5),
     }));
 
   try {

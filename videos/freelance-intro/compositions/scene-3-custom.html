@@ -1,0 +1,356 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--ground, #f7f9fc);
+      font-family: "Inter", sans-serif;
+    }
+
+    .s3-camera {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    .s3-grid {
+      position: absolute;
+      inset: -140px;
+      background-image:
+        linear-gradient(to right, rgba(37, 99, 235, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(37, 99, 235, 0.08) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .s3-wrap {
+      position: absolute;
+      inset: 0;
+      padding: 112px 192px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .s3-title {
+      font-family: "Outfit", sans-serif;
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--ink, #131826);
+      text-align: center;
+    }
+
+    .s3-center-row {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 64px;
+      margin-top: 24px;
+    }
+
+    .s3-char-box {
+      width: 340px;
+      height: 480px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .s3-blueprint-panel {
+      position: relative;
+      width: 780px;
+      background: #ffffff;
+      border: 2px solid #dbe4f0;
+      border-radius: 32px;
+      padding: 36px;
+      box-shadow: 0 24px 56px rgba(19, 24, 38, 0.07);
+    }
+
+    .s3-bp-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .s3-bp-label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: #2563eb;
+      background: #e8f0fe;
+      padding: 8px 18px;
+      border-radius: 999px;
+    }
+
+    .s3-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .s3-toggle-status {
+      position: relative;
+      font-family: "Outfit", sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #4b5568;
+      min-width: 136px;
+      height: 36px;
+      text-align: right;
+    }
+
+    .s3-toggle-status span {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .s3-toggle-track {
+      position: relative;
+      width: 112px;
+      height: 58px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      border: 2px solid #cbd5e1;
+      padding: 5px;
+    }
+
+    .s3-toggle-knob {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Outfit", sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #131826;
+      box-shadow: 0 4px 12px rgba(19, 24, 38, 0.14);
+    }
+
+    .s3-bp-canvas {
+      position: relative;
+      height: 290px;
+      border-radius: 22px;
+      background: #f1f5fb;
+      border: 2px dashed #93c5fd;
+      padding: 28px;
+      overflow: hidden;
+    }
+
+    .s3-magnifier {
+      position: absolute;
+      right: 54px;
+      bottom: 22px;
+      width: 156px;
+      height: 156px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="scene-3-custom" data-width="1920" data-height="1080">
+    <div id="s3-camera" class="s3-camera">
+      <div class="s3-grid" data-layout-ignore></div>
+
+      <div class="s3-wrap">
+        <h2 id="s3-title" class="s3-title" data-var-text="customText">
+          ...or something completely custom...
+        </h2>
+
+        <div class="s3-center-row">
+          <div class="s3-char-box" data-layout-allow-overflow>
+            <svg
+              id="s3-char"
+              width="320"
+              height="450"
+              viewBox="0 0 320 450"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-label="Stick figure thinking and inspecting idea blueprint"
+            >
+              <ellipse cx="150" cy="422" rx="60" ry="11" fill="rgba(19, 24, 38, 0.12)" />
+              <g id="s3-char-body">
+                <line x1="150" y1="286" x2="124" y2="412" stroke="#131826" stroke-width="14" stroke-linecap="round" />
+                <line x1="150" y1="286" x2="178" y2="412" stroke="#131826" stroke-width="14" stroke-linecap="round" />
+                <line x1="150" y1="160" x2="150" y2="288" stroke="#131826" stroke-width="15" stroke-linecap="round" />
+
+                <!-- Left arm -->
+                <path d="M150 190 L108 248 L128 282" stroke="#131826" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" />
+
+                <!-- Right arm: scratches chin first, then extends toward blueprint -->
+                <g id="s3-arm-think">
+                  <path d="M150 190 L206 184 L178 148" stroke="#2563eb" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+
+                <g id="s3-head">
+                  <circle cx="150" cy="106" r="48" fill="#ffffff" stroke="#131826" stroke-width="14" />
+                  <circle cx="140" cy="100" r="5.5" fill="#131826" />
+                  <circle cx="166" cy="100" r="5.5" fill="#131826" />
+                  <path id="s3-mouth" d="M142 122 C150 120 158 122 164 120" stroke="#2563eb" stroke-width="5.5" stroke-linecap="round" />
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <div id="s3-blueprint" class="s3-blueprint-panel">
+            <div class="s3-bp-header">
+              <div class="s3-bp-label">IDEA_BLUEPRINT.SPEC</div>
+
+              <div class="s3-toggle-wrap">
+                <div class="s3-toggle-status">
+                  <span id="s3-status-q">Feasible?</span>
+                  <span id="s3-status-yes" style="opacity: 0; color: #047857;">Viable!</span>
+                </div>
+                <div id="s3-toggle-track" class="s3-toggle-track">
+                  <div id="s3-toggle-knob" class="s3-toggle-knob">
+                    <span id="s3-knob-q">?</span>
+                    <span id="s3-knob-check" style="position: absolute; opacity: 0; color: #10b981;">✓</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="s3-bp-canvas">
+              <svg width="100%" height="100%" viewBox="0 0 650 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Schematic blueprint nodes -->
+                <rect x="24" y="34" width="160" height="72" rx="16" fill="#ffffff" stroke="#2563eb" stroke-width="3" />
+                <text x="104" y="77" text-anchor="middle" fill="#131826" font-family="Inter, sans-serif" font-size="20" font-weight="600">Your Idea</text>
+
+                <path id="s3-wire-1" d="M184 70 L256 70" stroke="#2563eb" stroke-width="4" stroke-dasharray="8 8" stroke-linecap="round" />
+
+                <rect x="256" y="34" width="164" height="72" rx="16" fill="#ffffff" stroke="#2563eb" stroke-width="3" />
+                <text x="338" y="77" text-anchor="middle" fill="#131826" font-family="Inter, sans-serif" font-size="20" font-weight="600">Scope Check</text>
+
+                <path id="s3-wire-2" d="M338 106 L338 152 L456 152" stroke="#10b981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+
+                <rect id="s3-viable-box" x="456" y="116" width="170" height="72" rx="16" fill="#ecfdf5" stroke="#10b981" stroke-width="3" />
+                <text x="541" y="159" text-anchor="middle" fill="#047857" font-family="Inter, sans-serif" font-size="20" font-weight="700">Ready to Build</text>
+              </svg>
+
+              <!-- Magnifying glass inspecting the blueprint -->
+              <svg
+                id="s3-magnifier"
+                class="s3-magnifier"
+                viewBox="0 0 160 160"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="68" cy="68" r="46" fill="rgba(37, 99, 235, 0.12)" stroke="#2563eb" stroke-width="10" />
+                <path d="M46 54 C52 44 62 40 74 42" stroke="#ffffff" stroke-width="6" stroke-linecap="round" />
+                <line x1="102" y1="102" x2="144" y2="144" stroke="#131826" stroke-width="14" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Smooth push-in camera movement across the scene
+      tl.fromTo(
+        "#s3-camera",
+        { opacity: 0, scale: 0.98 },
+        { opacity: 1, scale: 1.0, duration: 0.5, ease: "power2.out" },
+        0
+      );
+      tl.to("#s3-camera", { scale: 1.06, duration: 6.8, ease: "power1.inOut" }, 0.5);
+
+      // Title and blueprint card enter
+      tl.fromTo(
+        "#s3-title",
+        { y: 32, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
+        0.2
+      );
+      tl.fromTo(
+        "#s3-char",
+        { x: -70, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.75, ease: "power3.out" },
+        0.25
+      );
+      tl.fromTo(
+        "#s3-blueprint",
+        { x: 70, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+        0.35
+      );
+
+      // Character scratches chin thoughtfully (1.0s -> 2.8s)
+      tl.fromTo(
+        "#s3-head",
+        { rotation: 0, svgOrigin: "150 156" },
+        { rotation: -8, svgOrigin: "150 156", duration: 0.5, ease: "power2.out" },
+        0.95
+      );
+      tl.fromTo(
+        "#s3-arm-think",
+        { rotation: 0, svgOrigin: "150 190" },
+        { rotation: -6, svgOrigin: "150 190", duration: 0.35, ease: "sine.inOut" },
+        1.1
+      )
+        .to("#s3-arm-think", { rotation: 4, svgOrigin: "150 190", duration: 0.35, ease: "sine.inOut" }, 1.45)
+        .to("#s3-arm-think", { rotation: -5, svgOrigin: "150 190", duration: 0.35, ease: "sine.inOut" }, 1.8)
+        .to("#s3-arm-think", { rotation: 0, svgOrigin: "150 190", duration: 0.35, ease: "power2.out" }, 2.15);
+
+      // Magnifying glass glides in and inspects the blueprint nodes (2.2s -> 4.3s)
+      tl.fromTo(
+        "#s3-magnifier",
+        { x: -340, y: -120, scale: 0.65, opacity: 0 },
+        { x: -240, y: -70, scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.4)" },
+        2.1
+      )
+        .to("#s3-magnifier", { x: -40, y: -30, duration: 1.1, ease: "power2.inOut" }, 3.0)
+        .to("#s3-magnifier", { x: -165, y: 18, scale: 0.92, duration: 0.8, ease: "power2.out" }, 4.2);
+
+      // Feasibility toggle switches from "?" to green checkmark (4.1s -> 4.9s)
+      tl.to(
+        "#s3-toggle-track",
+        { backgroundColor: "#10b981", borderColor: "#059669", duration: 0.45, ease: "power2.out" },
+        4.15
+      );
+      tl.fromTo(
+        "#s3-toggle-knob",
+        { x: 0 },
+        { x: 54, duration: 0.5, ease: "back.out(1.6)" },
+        4.15
+      );
+      tl.fromTo("#s3-knob-q", { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.4, duration: 0.2 }, 4.2);
+      tl.fromTo(
+        "#s3-knob-check",
+        { opacity: 0, scale: 0.4 },
+        { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" },
+        4.35
+      );
+      tl.fromTo("#s3-status-q", { opacity: 1, y: 0 }, { opacity: 0, y: -10, duration: 0.2 }, 4.2);
+      tl.fromTo("#s3-status-yes", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 4.35);
+
+      // Highlight the Ready to Build node & brighten character head tilt
+      tl.fromTo(
+        "#s3-viable-box",
+        { scale: 0.94, svgOrigin: "541 152" },
+        { scale: 1.04, svgOrigin: "541 152", duration: 0.4, ease: "back.out(1.8)" },
+        4.4
+      ).to("#s3-viable-box", { scale: 1, svgOrigin: "541 152", duration: 0.35, ease: "power2.out" }, 4.8);
+
+      tl.to("#s3-head", { rotation: 6, svgOrigin: "150 156", duration: 0.45, ease: "power2.out" }, 4.4);
+
+      // Clean exit transition
+      tl.to("#s3-camera", { opacity: 0, duration: 0.45, ease: "power2.in" }, 7.5);
+
+      window.__timelines["scene-3-custom"] = tl;
+      tl.seek(0);
+    })();
+  </script>
+</template>
